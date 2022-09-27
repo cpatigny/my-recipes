@@ -54,6 +54,9 @@ const App = () => {
       .catch(error => console.error(error));
   };
 
+  let nbRecipesToShow = 0;
+  if (recipesToShow) nbRecipesToShow = Object.keys(recipesToShow).length;
+
   if (user === 'loading' || userData === 'loading' || recipes === 'loading') return <Loading />;
 
   return (
@@ -64,7 +67,12 @@ const App = () => {
       </div>
 
       <div className='wrap'>
-        <h2 className='h1'>Liste des recettes</h2>
+        <h2 className='h1'>
+          { search === '' 
+            ? `Liste des recettes (${ Object.keys(recipes).length })`
+            : `${nbRecipesToShow} résultat(s)`
+          }
+        </h2>
         { user && <Link className='btn btn-outline-primary' to='/add-recipe'>+ Add recipe</Link> }
       </div>
 
