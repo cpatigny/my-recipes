@@ -71,6 +71,84 @@
     border-radius: $main-border-radius;
   }
 
+  .ingredients {
+    ul {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    & > p:not(:first-of-type) {
+      margin-top: 25px;
+    }
+
+    .checkbox-container {
+      display: block;
+      margin-bottom: 20px;
+      cursor: pointer;
+
+      input {
+        opacity: 0;
+        position: absolute;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        
+        // even though the input isn't visible when we click the label it'll :checked the input
+        &:checked + .checkmark:after {
+          opacity: 1;
+        }
+
+        &:checked + .checkmark:before {
+          border-color: rgba(0, 0, 0, 0);
+        }
+
+        &:focus + .checkmark:before {
+          outline: 2px solid #014ecb;
+          outline-offset: 3px;
+        }
+      }
+
+      // &:hover .checkmark:before {
+      //   background-color: #eee;
+      // }
+
+      .checkmark {
+        display: block;
+        box-sizing: border-box;
+        position: relative;
+        padding-left: 36px;
+  
+        &:before {
+          content: '';
+          position: absolute;
+          top: 5px;
+          left: 0;
+          border: 2px solid rgba(0, 0, 0, 0.65);
+          height: 18px;
+          width: 18px;
+          border-radius: 3px;
+          box-sizing: border-box;
+        }
+    
+        &:after {
+          content: '';
+          display: inline-block;
+          position: absolute;
+          height: 16px;
+          top: 4px;
+          left: 5px;
+          opacity: 0;
+          background-color: rgba(0,0,0,0);
+          border-right: solid 2px $main-color;
+          border-bottom: solid 2px $main-color;
+          transform: rotate(45deg);
+          width: 8px;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
+
   .ingredients, .recipe-content {
     li, p, a, div {
       font-size: 1.2rem;

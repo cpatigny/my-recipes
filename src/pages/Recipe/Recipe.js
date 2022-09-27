@@ -11,6 +11,22 @@ import ReactMarkdown from 'react-markdown';
 
 import './Recipe.scss';
 
+const components = { 
+  h1: 'h3',
+  h2: 'h4',
+  h3: 'h5',
+  li: ({ ordered, ...props }) => {
+    return (
+      <li>
+        <label className='checkbox-container'>
+          <input type="checkbox" />
+          <span className='checkmark' { ...props } />
+        </label>
+      </li>
+    );
+  },
+};
+
 const Recipe = () => {
 
   let { user } = useContext(UserContext);
@@ -40,7 +56,7 @@ const Recipe = () => {
 
       <div className='ingredients'>
         <h2>Ingrédients</h2>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: 'h3', h2: 'h4', h3: 'h5' }}>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
           { recipe.ingredients }
         </ReactMarkdown>
       </div>
