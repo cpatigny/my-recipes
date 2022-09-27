@@ -27,7 +27,10 @@ const App = () => {
   useEffect(() => {
 
     if (recipes === 'loading' || recipes === null) return;
-    if (!search) setRecipesToShow(recipes);
+    if (!search) {
+      setRecipesToShow(recipes);
+      return;
+    }
 
     let matchingRecipes = {};
 
