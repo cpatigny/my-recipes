@@ -1,6 +1,6 @@
 import { off } from '@firebase/database';
 import React, { createContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { findMatchingRecipeWithSlug } from '../services/findMatchingRecipeWithSlug';
 import Manager from '../services/firebase/Manager';
 
@@ -14,7 +14,7 @@ const RecipesProvider = ({ children }) => {
   const [recipes, setRecipes] = useState('loading');
   const [recipe, setRecipe] = useState('loading');
 
-  let history = useHistory();
+  let navigate = useNavigate();
   let { slug } = useParams();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const RecipesProvider = ({ children }) => {
     });
 
     return () => off(recipeManager.ref);
-  }, [history]);
+  }, [navigate]);
 
   useEffect(() => {
     if (recipes === 'loading' || !slug) return;
@@ -34,10 +34,10 @@ const RecipesProvider = ({ children }) => {
     let matchingRecipe = findMatchingRecipeWithSlug(slug, recipes);
 
     // no match : redirect to home page
-    if (!matchingRecipe) history.replace('/');
+    if (!matchingRecipe) navigate('/', { replace: true });
 
     setRecipe(matchingRecipe);
-  }, [history, recipes, slug]);
+  }, [navigate, recipes, slug]);
 
   return (
     <RecipesContext.Provider value={{ recipes, recipe }}>

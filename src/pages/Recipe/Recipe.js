@@ -3,8 +3,8 @@ import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
 import remarkGfm from 'remark-gfm';
 import logo from '../../assets/img/logo.svg';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
+import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
 import ReactMarkdown from 'react-markdown';

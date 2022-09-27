@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../providers/UserProvider';
 
 import './Login.scss';
@@ -13,7 +13,7 @@ const Login = () => {
     password: ''
   });
   
-  let history = useHistory();
+  let navigate = useNavigate();
   let { user } = useContext(UserContext);
 
   const handleChange = e => {
@@ -26,14 +26,15 @@ const Login = () => {
     const { email, password } = loginFormData;
 
     signIn(email, password, () => {
-      history.replace('/');
+      navigate('/', { replace: true });
     }, error => {
       console.log(`Error ${error.code} : ${error.message}`);
       alert('Email ou mot de passe incorrect');
     });
   };
 
-  if (typeof user === 'object') return <Redirect to='/' />;
+  //if user is already login
+  if (typeof user === 'object') return <Navigate to='/' replace />;
 
   return (
     <div className='container login'>

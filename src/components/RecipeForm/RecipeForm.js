@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getStorage, ref, uploadBytes, deleteObject } from 'firebase/storage';
 import Manager from '../../services/firebase/Manager';
 import { slugify } from '../../services/slugify';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { off } from 'firebase/database';
 
 import './RecipeForm.scss';
@@ -44,7 +44,7 @@ const RecipeForm = ({ recipe }) => {
     }
   }, [recipe]);
   
-  let history = useHistory();
+  let navigate = useNavigate();
   let fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -126,14 +126,14 @@ const RecipeForm = ({ recipe }) => {
 
       recipeManager
         .update(recipeFormData)
-        .then(() => history.replace(`/recette/${recipeFormData.slug}`));
+        .then(() => navigate(`/recette/${recipeFormData.slug}`, { replace: true }));
     } else {
       // create
       let recipeManager = new Manager('recipes');
 
       recipeManager
         .add(recipeFormData)
-        .then(() => history.replace(`/recette/${recipeFormData.slug}`));
+        .then(() => navigate(`/recette/${recipeFormData.slug}`, { replace: true}));
     }
   };
 

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import App from './pages/home/App';
 import Login from './pages/login/Login';
 import UserProvider from './providers/UserProvider';
@@ -19,37 +19,32 @@ ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
       <Router>
-        <Switch>
-          <Route exact path='/'>
+        <Routes>
+          <Route exact path='/' element={
             <RecipesProvider>
               <App />
             </RecipesProvider>
-          </Route>
-          <Route path={['/admin', '/login']}>
-            <Login />
-          </Route>
-          <Route path='/add-recipe'>
-            <AddRecipe />
-          </Route>
-          <Route path='/edit/:slug'>
+          } />
+          <Route path='/admin' element={<Login />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/add-recipe' element={<AddRecipe />} />
+          <Route path='/edit/:slug' element={
             <RecipesProvider>
               <EditRecipe />
             </RecipesProvider>
-          </Route>
-          <Route path='/recette/:slug'>
+          } />
+          <Route path='/recette/:slug' element={
             <RecipesProvider>
               <Recipe />
             </RecipesProvider>
-          </Route>
-          <Route path='/categories'>
+          } />
+          <Route path='/categories' element={
             <RecipesProvider>
               <Categories />
             </RecipesProvider>
-          </Route>
-          <Route>
-            <Redirect to='/' />
-          </Route>
-        </Switch>
+          } />
+          <Route path='*' element={<Navigate to='/' replace />} />
+        </Routes>
       </Router>
     </UserProvider>
   </React.StrictMode>,
