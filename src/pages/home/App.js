@@ -29,6 +29,7 @@ const App = () => {
     if (recipes === 'loading' || recipes === null) return;
     if (!search) {
       setRecipesToShow(recipes);
+      setNoSearchResult(false);
       return;
     }
 
