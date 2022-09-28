@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../providers/UserProvider';
 
 import RecipeForm from '../../components/RecipeForm/RecipeForm';
 
 const AddRecipe = () => {
+
+  let { user } = useContext(UserContext);
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) navigate('/', { replace: true });
+  }, [user, navigate]);
+
   return (
     <div className='add-recipe container'>
       <h1>Ajouter une recette</h1>
