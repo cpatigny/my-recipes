@@ -29,6 +29,24 @@
       font-size: 1.1rem;
       padding: 8px 12px;
     }
+
+    h2 {
+      margin-bottom: 15px;
+    }
+  }
+
+  .options {
+    margin-bottom: 45px;
+
+    select {
+      cursor: pointer;
+      font-size: $text-size;
+      padding: 0;
+      border-radius: 6px;
+      background-color: transparent;
+      border: none;
+      // border: 1px solid $main-text-color;
+    }
   }
 
   .recipes {
