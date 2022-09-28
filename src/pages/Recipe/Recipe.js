@@ -2,12 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
 import remarkGfm from 'remark-gfm';
-import logo from '../../assets/img/logo.svg';
 
-import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
 import ReactMarkdown from 'react-markdown';
+import Logo from '../../components/Logo/Logo';
 
 import './Recipe.scss';
 
@@ -40,10 +39,7 @@ const Recipe = () => {
 
   return (
     <div className={`show-recipe container ${recipe.imageName ? '' : 'no-image'}`}>
-
-      <Link to='/' className='top'>
-        <p><img src={logo} alt='logo' className='logo' />My recipes</p>
-      </Link>
+      <Logo />
 
       <div className='recipe-header'>
         <h1>{ recipe.title }</h1>

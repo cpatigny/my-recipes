@@ -1,0 +1,35 @@
+@import '../../variables';
+
+.top {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  p {
+    color: $main-color;
+    font-size: 2.3rem;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin: 24px 0;
+
+    .logo {
+      margin-right: 6px;
+      width: 45px;
+    }
+  }
+}
+
+@media all and (max-width: 700px) {
+  .show-recipe .top p {
+    font-size: 2rem;
+    margin: 15px 0;
+  }
+}
+
+@media all and (max-width: 450px) {
+  .show-recipe .top p {
+    font-size: 1.8rem;
+    margin: 15px 0;
+  }
+}

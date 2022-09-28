@@ -3,6 +3,7 @@ import Manager from '../../services/firebase/Manager';
 
 import Loading from '../../components/Loading/Loading';
 import Category from './Category';
+import Logo from '../../components/Logo/Logo';
 
 import './Categories.scss';
 
@@ -37,6 +38,8 @@ const Categories = () => {
 
   return (
     <div className='categories container'>
+      <Logo />
+
       <h1>Catégories</h1>
       
       <div className='category-list'>
