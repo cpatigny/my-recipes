@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
 import remarkGfm from 'remark-gfm';
@@ -31,6 +31,10 @@ const Recipe = () => {
 
   let { user } = useContext(UserContext);
   let { recipes, recipe } = useContext(RecipesContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [recipe]); // we need to put [recipe] otherwise the scroll will only apply when page is <Loading />
 
   if (recipes === 'loading' || recipe === 'loading' || !recipe) return <Loading />;
 
