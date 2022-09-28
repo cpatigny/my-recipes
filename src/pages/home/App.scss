@@ -24,28 +24,44 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 40px 0 15px;
 
     .btn {
       font-size: 1.1rem;
       padding: 8px 12px;
+      white-space: nowrap;
     }
 
     h2 {
-      margin-bottom: 15px;
+      margin: 0;
     }
   }
 
   .options {
     margin-bottom: 45px;
 
-    select {
-      cursor: pointer;
-      font-size: $text-size;
-      padding: 0;
-      border-radius: 6px;
-      background-color: transparent;
-      border: none;
-      // border: 1px solid $main-text-color;
+    .custom-select {
+      position: relative;
+      display: inline-block;
+      
+      select {
+        cursor: pointer;
+        font-size: $text-size;
+        padding: 0;
+        border-radius: 6px;
+        background-color: transparent;
+        border: none;
+        padding: 0 15px 0 2px;
+        -moz-appearance:none; /* Firefox */
+        -webkit-appearance:none; /* Safari and Chrome */
+        appearance:none;
+      }
+
+      .custom-arrow {
+        position: absolute;
+        right: 0;
+        pointer-events: none;
+      }
     }
   }
 

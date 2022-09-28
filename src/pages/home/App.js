@@ -95,7 +95,7 @@ const App = () => {
       <div className='wrap'>
         <h2 className='h1'>
           { search === '' 
-            ? `Liste des recettes (${ Object.keys(recipes).length })`
+            ? `Mes recettes (${ Object.keys(recipes).length })`
             : `${nbRecipesToShow} résultat(s)`
           }
         </h2>
@@ -104,10 +104,13 @@ const App = () => {
 
       { !noSearchResult &&
         <div className='options'>
-          <select name='order-by' value={orderBy} onChange={handleOrderByChange}>
-            <option value='desc'>Du plus récent au plus ancien</option>
-            <option value='asc'>Du plus ancien au plus récent</option>
-          </select>
+          <div className='custom-select'>
+            <select name='order-by' value={orderBy} onChange={handleOrderByChange}>
+              <option value='desc'>Les plus récentes d'abord</option>
+              <option value='asc'>Les plus anciennes d'abord</option>
+            </select>
+            <span className='custom-arrow material-icons-round'>expand_more</span>
+          </div>
         </div>
       }
 
