@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { getStorage, ref, uploadBytes, deleteObject } from 'firebase/storage';
-import Manager from '../../services/firebase/Manager';
-import { slugify } from '../../services/slugify';
+import Manager from '../../utils/firebase/Manager';
+import { slugify } from '../../utils/slugify';
 import { useNavigate } from 'react-router';
 import { off } from 'firebase/database';
 

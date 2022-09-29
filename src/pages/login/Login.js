@@ -4,7 +4,7 @@ import { UserContext } from '../../providers/UserProvider';
 
 import './Login.scss';
 
-import signIn from '../../services/firebase/signIn';
+import signIn from '../../utils/firebase/signIn';
 
 const Login = () => {
 

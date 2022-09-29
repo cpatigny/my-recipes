@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../providers/UserProvider';
 import { getAuth, signOut } from 'firebase/auth';
 import { RecipesContext } from '../../providers/RecipesProvider';
-import { strContains } from '../../services/strContains';
+import { strContains } from '../../utils/strContains';
 
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';

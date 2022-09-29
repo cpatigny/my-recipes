@@ -1,6 +1,6 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
-import Manager from '../services/firebase/Manager';
+import Manager from '../utils/firebase/Manager';
 
 export const UserContext = createContext({
   user: 'loading',

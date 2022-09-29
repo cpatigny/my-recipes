@@ -1,8 +1,8 @@
 import { off } from '@firebase/database';
 import React, { createContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { findMatchingRecipeWithSlug } from '../services/findMatchingRecipeWithSlug';
-import Manager from '../services/firebase/Manager';
+import { findMatchingRecipeWithSlug } from '../utils/findMatchingRecipeWithSlug';
+import Manager from '../utils/firebase/Manager';
 
 export const RecipesContext = createContext({
   recipes: 'loading',

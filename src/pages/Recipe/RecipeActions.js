@@ -1,7 +1,7 @@
 import { deleteObject, getStorage, ref } from '@firebase/storage';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Manager from '../../services/firebase/Manager';
+import Manager from '../../utils/firebase/Manager';
 
 const RecipeActions = ({ recipe }) => {
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Manager from '../../services/firebase/Manager';
+import Manager from '../../utils/firebase/Manager';
 
 import Loading from '../../components/Loading/Loading';
 import Category from './Category';

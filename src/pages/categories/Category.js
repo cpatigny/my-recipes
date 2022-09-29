@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { RecipesContext } from '../../providers/RecipesProvider';
-import Manager from '../../services/firebase/Manager';
+import Manager from '../../utils/firebase/Manager';
 
 const Category = ({ category }) => {
 
