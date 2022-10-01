@@ -3,23 +3,43 @@ import { RecipesContext } from '../../providers/RecipesProvider';
 import Manager from '../../utils/firebase/Manager';
 
 const Category = ({ category }) => {
-
   const [showEditForm, setShowEditForm] = useState(false);
   const [categoryName, setCategoryName] = useState(category.name);
 
-  let { recipes } = useContext(RecipesContext);
+  const { recipes } = useContext(RecipesContext);
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    let categoryManager = new Manager(`categories/${category.id}`);
+    const categoryManager = new Manager(`categories/${category.id}`);
     categoryManager.set(categoryName, () => setShowEditForm(false));
   };
 
-  const confirmDelete = onConfirm => {
+  const deleteCategory = () => {
+    // remove the category from all recipes that have it
+    const recipesToUpdate = {};
+
+    Object
+      .keys(recipes)
+      .filter(key => recipes[key].category === category.id)
+      .forEach(key => {
+        const recipe = recipes[key];
+        recipe.category = 'none';
+        recipesToUpdate[key] = recipe;
+      });
+
+    const recipesManager = new Manager('recipes');
+    recipesManager.update(recipesToUpdate);
+
+    // delete the category
+    const categoryManager = new Manager(`categories/${category.id}`);
+    categoryManager.delete(() => alert('La catégorie a bien été supprimée.'));
+  };
+
+  const confirmDelete = () => {
     let text;
     let quit = false;
-    let wordToEnter = 'oui';
+    const wordToEnter = 'oui';
 
     do {
       text = prompt(`
@@ -34,41 +54,22 @@ const Category = ({ category }) => {
     } while (!quit && text !== wordToEnter);
   };
 
-  const deleteCategory = () => {
-    // remove the category from all recipes that have it
-    let recipesToUpdate = {};
+  if (showEditForm) {
+    return (
+      <form className='category-edit-form' onSubmit={handleSubmit}>
+        <input type='text' value={categoryName} onChange={e => setCategoryName(e.target.value)} />
 
-    Object
-      .keys(recipes)
-      .filter(key => recipes[key].category === category.id)
-      .forEach(key => {
-        let recipe = recipes[key];
-        recipe.category = 'none';
-        recipesToUpdate[key] = recipe;
-      });
-
-    let recipesManager = new Manager('recipes');
-    recipesManager.update(recipesToUpdate);
-  
-    // delete the category
-    let categoryManager = new Manager(`categories/${category.id}`);
-    categoryManager.delete(() => alert('La catégorie a bien été supprimée.'));
-  };
-
-  if (showEditForm) return (
-    <form className='category-edit-form' onSubmit={handleSubmit}>
-      <input type='text' value={categoryName} onChange={e => setCategoryName(e.target.value)} />
-
-      <div className='actions'>
-        <button type='submit'>
-          <span className='material-icons-round'>check</span>
-        </button>
-        <button className='close-category-form' type='button' onClick={() => setShowEditForm(false)}>
-          <span className='material-icons-round'>close</span>
-        </button>
-      </div>
-    </form>
-  );
+        <div className='actions'>
+          <button type='submit'>
+            <span className='material-icons-round'>check</span>
+          </button>
+          <button className='close-category-form' type='button' onClick={() => setShowEditForm(false)}>
+            <span className='material-icons-round'>close</span>
+          </button>
+        </div>
+      </form>
+    );
+  }
 
   return (
     <div className='category'>
@@ -84,6 +85,6 @@ const Category = ({ category }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Category;

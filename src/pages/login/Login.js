@@ -7,14 +7,13 @@ import './Login.scss';
 import signIn from '../../utils/firebase/signIn';
 
 const Login = () => {
-
   const [loginFormData, setLoginFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
-  
-  let navigate = useNavigate();
-  let { user } = useContext(UserContext);
+
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -28,13 +27,13 @@ const Login = () => {
     signIn(email, password, () => {
       navigate('/', { replace: true });
     }, error => {
-      console.log(`Error ${error.code} : ${error.message}`);
+      console.error(`Error ${error.code} : ${error.message}`);
       alert('Email ou mot de passe incorrect');
     });
   };
 
-  //if user is already login
-  if (typeof user === 'object') return <Navigate to='/' replace />;
+  // if user is already login, we check if null because null is type object
+  if (typeof user === 'object' && user !== null) return <Navigate to='/' replace />;
 
   return (
     <div className='container login'>

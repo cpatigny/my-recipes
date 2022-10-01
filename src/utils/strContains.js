@@ -1,7 +1,9 @@
-import { removeAccents } from './removeAccents';
+import removeAccents from './removeAccents';
 
-export const strContains = (str, strToContain) => {
-  str = removeAccents(str).toUpperCase();
-  strToContain = removeAccents(strToContain).toUpperCase();
-  return str.includes(strToContain);
+const strContains = (str, strToContain) => {
+  const strWithoutAccentsUppercase = removeAccents(str).toUpperCase();
+  const strToContainWithoutAccentsUppercase = removeAccents(strToContain).toUpperCase();
+  return strWithoutAccentsUppercase.includes(strToContainWithoutAccentsUppercase);
 };
+
+export default strContains;

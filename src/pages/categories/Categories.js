@@ -8,23 +8,22 @@ import Logo from '../../components/Logo/Logo';
 import './Categories.scss';
 
 const Categories = () => {
-
   const [categories, setCategories] = useState('loading');
   const [categoryName, setCategoryName] = useState('');
 
   useEffect(() => {
-    let categoryManager = new Manager('categories');
+    const categoryManager = new Manager('categories');
 
     categoryManager.getAll(snapshot => {
-      let data = snapshot.val();
+      const data = snapshot.val();
       setCategories(data);
     });
   }, []);
 
   const handleSubmit = e => {
     e.preventDefault();
-    
-    let categoryManager = new Manager('categories');
+
+    const categoryManager = new Manager('categories');
 
     categoryManager
       .add(categoryName)
@@ -34,14 +33,14 @@ const Categories = () => {
       });
   };
 
-  if (categories === 'loading') return <Loading />
+  if (categories === 'loading') return <Loading />;
 
   return (
     <div className='categories container'>
       <Logo />
 
       <h1>Catégories</h1>
-      
+
       <div className='category-list'>
         {Object.keys(categories).map(key => (
           <Category key={key} category={{ name: categories[key], id: key }} />

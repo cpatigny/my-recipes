@@ -5,22 +5,19 @@ import Manager from '../utils/firebase/Manager';
 export const UserContext = createContext({
   user: 'loading',
   userData: 'loading',
-  setUser: () => {}
+  setUser: () => {},
 });
 
 const UserProvider = ({ children }) => {
-
   const [user, setUser] = useState('loading');
   const [userData, setUserData] = useState('loading');
 
   useEffect(() => {
     const auth = getAuth();
 
-    let unsubscribe = onAuthStateChanged(auth, user => {
-      setUser(user ? user : false);
+    return onAuthStateChanged(auth, signedInUser => {
+      setUser(signedInUser); // null if no user signed in
     });
-
-    return unsubscribe;
   }, []);
 
   useEffect(() => {
@@ -33,10 +30,10 @@ const UserProvider = ({ children }) => {
     // cancel if the user is loading
     if (user === 'loading' || userData !== 'loading') return;
 
-    let userManager = new Manager(`users/${user.uid}`);
-    userManager.getAllOnce(snapshot => setUserData(snapshot.val()), error => console.log(error));
+    const userManager = new Manager(`users/${user.uid}`);
+    userManager.getAllOnce(snapshot => setUserData(snapshot.val()), error => console.error(error));
   }, [user, userData]);
-  
+
   return (
     <UserContext.Provider value={{ user, userData, setUser }}>
       { children }

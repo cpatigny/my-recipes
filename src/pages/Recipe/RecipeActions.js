@@ -1,14 +1,26 @@
-import { deleteObject, getStorage, ref } from '@firebase/storage';
+import { deleteObject, getStorage, ref } from 'firebase/storage';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Manager from '../../utils/firebase/Manager';
 
 const RecipeActions = ({ recipe }) => {
+  const deleteRecipe = () => {
+    // if the recipe has an image we delete it
+    if (recipe.imageName) {
+      const storage = getStorage();
+      const imageRef = ref(storage, `recipe-images/${recipe.imageName}`);
 
-  const confirmDelete = onConfirm => {
+      deleteObject(imageRef).catch(error => console.error(error));
+    }
+
+    const recipeManager = new Manager(`recipes/${recipe.id}`);
+    recipeManager.delete(() => alert('La recette a bien été supprimée.'));
+  };
+
+  const confirmDelete = () => {
     let text;
     let quit = false;
-    let wordToEnter = 'oui';
+    const wordToEnter = 'oui';
 
     do {
       text = prompt(`
@@ -23,28 +35,15 @@ const RecipeActions = ({ recipe }) => {
     } while (!quit && text !== wordToEnter);
   };
 
-  const deleteRecipe = () => {
-    // if the recipe has an image we delete it
-    if (recipe.imageName) {
-      const storage = getStorage();
-      const imageRef = ref(storage, `recipe-images/${recipe.imageName}`);
-
-      deleteObject(imageRef).catch(error => console.error(error));
-    }
-
-    let recipeManager = new Manager(`recipes/${recipe.id}`);
-    recipeManager.delete(() => alert('La recette a bien été supprimée.'));
-  };
-
   return (
     <div className='recipe-actions'>
       <Link
         to={`/edit/${recipe.slug}`}
         id='edit-recipe'
       >
-          <span className="material-icons-round">edit</span>
+        <span className='material-icons-round'>edit</span>
       </Link>
-      <button id='delete-recipe' onClick={confirmDelete}><span className="material-icons-round">delete</span></button>
+      <button id='delete-recipe' onClick={confirmDelete}><span className='material-icons-round'>delete</span></button>
     </div>
   );
 };

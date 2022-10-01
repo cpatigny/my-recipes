@@ -10,30 +10,27 @@ import Logo from '../../components/Logo/Logo';
 
 import './Recipe.scss';
 
-const components = { 
+const components = {
   h1: 'h3',
   h2: 'h4',
   h3: 'h5',
-  li: ({ ordered, ...props }) => {
-    return (
-      <li>
-        <label className='checkbox-container'>
-          <input type="checkbox" />
-          <span className='checkmark' { ...props } />
-        </label>
-      </li>
-    );
-  },
+  li: ({ ordered, ...props }) => (
+    <li>
+      <label className='checkbox-container'>
+        <input type='checkbox' />
+        <span className='checkmark' { ...props } />
+      </label>
+    </li>
+  ),
 };
 
 const Recipe = () => {
-
-  let { user } = useContext(UserContext);
-  let { recipes, recipe } = useContext(RecipesContext);
+  const { user } = useContext(UserContext);
+  const { recipes, recipe } = useContext(RecipesContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [recipe]); // we need to put [recipe] otherwise the scroll will only apply when page is <Loading />
+  }, [recipe]); // we need to put [recipe] otherwise the scroll will only apply when page is Loading
 
   if (recipes === 'loading' || recipe === 'loading' || !recipe) return <Loading />;
 
@@ -45,8 +42,8 @@ const Recipe = () => {
         <h1>{ recipe.title }</h1>
         { user && <RecipeActions recipe={recipe} /> }
       </div>
-      
-      { recipe.imageName && 
+
+      { recipe.imageName &&
         <div className='recipe-image'>
           <img
             src={`https://firebasestorage.googleapis.com/v0/b/my-recipes-5f5d6.appspot.com/o/recipe-images%2F${recipe.imageName}?alt=media`}

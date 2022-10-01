@@ -5,9 +5,8 @@ import { UserContext } from '../../providers/UserProvider';
 import RecipeForm from '../../components/RecipeForm/RecipeForm';
 
 const AddRecipe = () => {
-
-  let { user } = useContext(UserContext);
-  let navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) navigate('/', { replace: true });

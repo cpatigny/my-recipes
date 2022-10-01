@@ -1,22 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { getStorage, ref, uploadBytes, deleteObject } from 'firebase/storage';
+import {
+  getStorage, ref, uploadBytes, deleteObject,
+} from 'firebase/storage';
 import Manager from '../../utils/firebase/Manager';
-import { slugify } from '../../utils/slugify';
-import { useNavigate } from 'react-router';
+import slugify from '../../utils/slugify';
+import { useNavigate } from 'react-router-dom';
 import { off } from 'firebase/database';
 
 import './RecipeForm.scss';
 
 const RecipeForm = ({ recipe }) => {
-
   const DEFAULT_DATA = {
     title: '',
     slug: '',
     imageName: false,
     category: 'none',
     ingredients: '',
-    content: ''
+    content: '',
   };
 
   const [categories, setCategories] = useState('loading');
@@ -28,30 +29,30 @@ const RecipeForm = ({ recipe }) => {
     // recipe is loading or we're not in edit mode
     if (!recipe || recipe === 'loading') return;
 
-    setRecipeFormData({ 
+    setRecipeFormData({
       title: recipe.title,
       slug: recipe.slug,
       imageName: recipe.imageName,
       category: recipe.category,
       ingredients: recipe.ingredients,
-      content: recipe.content
+      content: recipe.content,
     });
 
     setOldImageName(recipe.imageName);
-    
+
     if (recipe.imageName) {
       setPreviewImageSrc(`https://firebasestorage.googleapis.com/v0/b/my-recipes-5f5d6.appspot.com/o/recipe-images%2F${recipe.imageName}?alt=media`);
     }
   }, [recipe]);
-  
-  let navigate = useNavigate();
-  let fileInputRef = useRef(null);
+
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
-    let categoryManager = new Manager('categories');
+    const categoryManager = new Manager('categories');
 
     categoryManager.getAll(snapshot => {
-      let data = snapshot.val();
+      const data = snapshot.val();
       setCategories(data);
     });
 
@@ -64,11 +65,11 @@ const RecipeForm = ({ recipe }) => {
   };
 
   const handleTitleChange = e => {
-    let value = e.target.value;
-    setRecipeFormData({ 
+    const { value } = e.target;
+    setRecipeFormData({
       ...recipeFormData,
       title: value,
-      slug: slugify(value)
+      slug: slugify(value),
     });
   };
 
@@ -80,11 +81,10 @@ const RecipeForm = ({ recipe }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    let file = fileInputRef.current.files[0];
+    const file = fileInputRef.current.files[0];
 
     // if an image has been uploaded
     if (file) {
-
       // if file size is more than 1mo
       if (file.size > 1024000) {
         alert(`L'image ne doit pas dépasser 1mo`);
@@ -107,33 +107,30 @@ const RecipeForm = ({ recipe }) => {
 
       uploadBytes(recipeImageRef, file)
         .then(snapshot => {
-          setRecipeFormData({ ...recipeFormData, imageName: snapshot.metadata.name })
+          setRecipeFormData({ ...recipeFormData, imageName: snapshot.metadata.name });
         })
-        .catch(error => {
-          console.error(error);
-          return;
-        });
+        .catch(error => console.error(error));
     }
 
     if (recipeFormData.slug !== slugify(recipeFormData.slug)) {
       alert('Slug invalide');
       return;
     }
-    
+
     if (recipe) {
       // update
-      let recipeManager = new Manager(`recipes/${recipe.id}`);
+      const recipeManager = new Manager(`recipes/${recipe.id}`);
 
       recipeManager
         .update(recipeFormData)
         .then(() => navigate(`/recette/${recipeFormData.slug}`, { replace: true }));
     } else {
       // create
-      let recipeManager = new Manager('recipes');
+      const recipeManager = new Manager('recipes');
 
       recipeManager
         .add(recipeFormData)
-        .then(() => navigate(`/recette/${recipeFormData.slug}`, { replace: true}));
+        .then(() => navigate(`/recette/${recipeFormData.slug}`, { replace: true }));
     }
   };
 
@@ -162,9 +159,9 @@ const RecipeForm = ({ recipe }) => {
           <input type='file' name='image' id='image' ref={fileInputRef} onChange={handleImageChange} />
         </div>
 
-        { previewImageSrc && 
+        { previewImageSrc &&
           <div className='image-preview'>
-            <img 
+            <img
               src={previewImageSrc}
               alt={recipeFormData.imageName} />
           </div>

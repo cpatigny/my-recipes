@@ -1,0 +1,47 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:import/recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "airbnb-base",
+        "plugin:jsx-a11y/strict",
+        "plugin:sonarjs/recommended"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "import",
+        "react-hooks",
+        "jsx-a11y",
+        "sonarjs"
+    ],
+    "rules": {
+        "indent": ["error", 2],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+        "semi": ["error", "always"],
+        "func-style": ["error", "expression"],
+        "arrow-parens": ["error", "as-needed"],
+        "jsx-quotes": ["error", "prefer-single"],
+        "operator-linebreak": ["error", "before", { "overrides": { "&&": "ignore" } }],
+        "no-console": ["warn", { "allow": ["warn", "error"] }],
+        "import/order": "off",
+        "react/prop-types": "off",
+        "no-alert": "off"
+    }
+}

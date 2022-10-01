@@ -1,18 +1,17 @@
 import React from 'react';
 
 const SearchBar = ({ search, setSearch }) => {
-
   const handleChange = e => {
-    let wordToSearch = e.target.value;
+    const wordToSearch = e.target.value;
     setSearch(wordToSearch);
   };
 
   const reset = () => setSearch('');
 
-  let clearBtn = (
-    <button 
-      className='clear-search' 
-      aria-label='effacer la recherche' 
+  const clearBtn = (
+    <button
+      className='clear-search'
+      aria-label='effacer la recherche'
       onClick={reset}
     >
       <span className='material-icons-round'>clear</span>
@@ -34,6 +33,6 @@ const SearchBar = ({ search, setSearch }) => {
       { search ? clearBtn : <span id='search-icon' className='material-icons-round'>search</span> }
     </div>
   );
-}
+};
 
 export default SearchBar;
