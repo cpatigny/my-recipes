@@ -1,58 +1,27 @@
-import React, { useContext, useState } from 'react';
-import { RecipesContext } from '../../providers/RecipesProvider';
-import Manager from '../../utils/firebase/Manager';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCategory, updateCategory } from '../../features/category/categorySlice';
+import confirm from '../../utils/confirm';
 
 const Category = ({ category }) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [categoryName, setCategoryName] = useState(category.name);
 
-  const { recipes } = useContext(RecipesContext);
+  const dispatch = useDispatch();
+
+  const { recipes } = useSelector(state => state.recipe);
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    const categoryManager = new Manager(`categories/${category.id}`);
-    categoryManager.set(categoryName, () => setShowEditForm(false));
+    dispatch(updateCategory({ category, categoryName })).then(() => {
+      setShowEditForm(false);
+    });
   };
 
-  const deleteCategory = () => {
-    // remove the category from all recipes that have it
-    const recipesToUpdate = {};
-
-    Object
-      .keys(recipes)
-      .filter(key => recipes[key].category === category.id)
-      .forEach(key => {
-        const recipe = recipes[key];
-        recipe.category = 'none';
-        recipesToUpdate[key] = recipe;
-      });
-
-    const recipesManager = new Manager('recipes');
-    recipesManager.update(recipesToUpdate);
-
-    // delete the category
-    const categoryManager = new Manager(`categories/${category.id}`);
-    categoryManager.delete(() => alert('La catégorie a bien été supprimée.'));
-  };
-
-  const confirmDelete = () => {
-    let text;
-    let quit = false;
-    const wordToEnter = 'oui';
-
-    do {
-      text = prompt(`
-        Êtes-vous sûr de vouloir supprimer la catégorie "${category.name}" ?
-        (cette action est irréversible !)
-        Écrivez "${wordToEnter}" pour confirmer :
-      `);
-
-      if (text === null) quit = true; // user cliked "cancel" button
-
-      if (text === wordToEnter) deleteCategory();
-    } while (!quit && text !== wordToEnter);
-  };
+  const wordToEnter = 'oui';
+  const confirmText = `Êtes-vous sûr de vouloir supprimer la catégorie "${category.name}" ? (cette action est irréversible !) Écrivez "${wordToEnter}" pour confirmer :`;
+  const onConfirm = () => dispatch(deleteCategory({ recipes, category })).then(() => alert('La catégorie a bien été supprimée.'));
 
   if (showEditForm) {
     return (
@@ -79,7 +48,7 @@ const Category = ({ category }) => {
         <button className='edit-category' onClick={() => setShowEditForm(true)}>
           <span className='material-icons-round'>edit</span>
         </button>
-        <button className='delete-category' onClick={confirmDelete}>
+        <button className='delete-category' onClick={() => confirm(confirmText, wordToEnter, onConfirm)}>
           <span className='material-icons-round'>delete_outline</span>
         </button>
       </div>

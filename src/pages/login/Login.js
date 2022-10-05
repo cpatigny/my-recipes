@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { UserContext } from '../../providers/UserProvider';
+import { useSelector } from 'react-redux';
 
 import './Login.scss';
 
@@ -13,7 +13,7 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const { user } = useSelector(state => state.user);
 
   const handleChange = e => {
     const { name, value } = e.target;

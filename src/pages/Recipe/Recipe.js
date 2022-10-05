@@ -1,12 +1,14 @@
-import React, { useContext, useEffect } from 'react';
-import { UserContext } from '../../providers/UserProvider';
-import { RecipesContext } from '../../providers/RecipesProvider';
+import React, { useEffect, useState } from 'react';
 import remarkGfm from 'remark-gfm';
+import { useNavigate, useParams } from 'react-router-dom';
+import findMatchingRecipeWithSlug from '../../utils/findMatchingRecipeWithSlug';
+import { useSelector } from 'react-redux';
 
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
 import ReactMarkdown from 'react-markdown';
 import Logo from '../../components/Logo/Logo';
+import RecipeImage from './RecipeImage';
 
 import './Recipe.scss';
 
@@ -25,14 +27,30 @@ const components = {
 };
 
 const Recipe = () => {
-  const { user } = useContext(UserContext);
-  const { recipes, recipe } = useContext(RecipesContext);
+  const [recipe, setRecipe] = useState(null);
+
+  const { user } = useSelector(state => state.user);
+  const { recipes } = useSelector(state => state.recipe);
+
+  const navigate = useNavigate();
+  const { slug } = useParams();
+
+  useEffect(() => {
+    if (recipes && slug) {
+      const matchingRecipe = findMatchingRecipeWithSlug(slug, recipes);
+
+      // no match : redirect to home page
+      if (!matchingRecipe) navigate('/', { replace: true });
+
+      setRecipe(matchingRecipe);
+    }
+  }, [navigate, recipes, slug]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [recipe]); // we need to put [recipe] otherwise the scroll will only apply when page is Loading
 
-  if (recipes === 'loading' || recipe === 'loading' || !recipe) return <Loading />;
+  if (!recipe) return <Loading />;
 
   return (
     <div className={`show-recipe container ${recipe.imageName ? '' : 'no-image'}`}>
@@ -43,13 +61,7 @@ const Recipe = () => {
         { user && <RecipeActions recipe={recipe} /> }
       </div>
 
-      { recipe.imageName &&
-        <div className='recipe-image'>
-          <img
-            src={`https://firebasestorage.googleapis.com/v0/b/my-recipes-5f5d6.appspot.com/o/recipe-images%2F${recipe.imageName}?alt=media`}
-            alt={recipe.title} />
-        </div>
-      }
+      <RecipeImage recipe={recipe} />
 
       <div className='ingredients'>
         <h2>Ingrédients</h2>

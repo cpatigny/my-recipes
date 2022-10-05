@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-import {
-  getStorage, ref, uploadBytes, deleteObject,
-} from 'firebase/storage';
-import Manager from '../../utils/firebase/Manager';
+import { useSelector, useDispatch } from 'react-redux';
 import slugify from '../../utils/slugify';
 import { useNavigate } from 'react-router-dom';
-import { off } from 'firebase/database';
+import uploadImageAndDeleteOldOne from '../../utils/storage/uploadImageAndDeleteOldOne';
+import { createRecipe, updateRecipe } from '../../features/recipe/recipeSlice';
 
 import './RecipeForm.scss';
 
@@ -20,14 +17,17 @@ const RecipeForm = ({ recipe }) => {
     content: '',
   };
 
-  const [categories, setCategories] = useState('loading');
   const [recipeFormData, setRecipeFormData] = useState(DEFAULT_DATA);
   const [previewImageSrc, setPreviewImageSrc] = useState(false);
   const [oldImageName, setOldImageName] = useState(false);
 
+  const { categories } = useSelector(state => state.category);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     // recipe is loading or we're not in edit mode
-    if (!recipe || recipe === 'loading') return;
+    if (!recipe) return;
 
     setRecipeFormData({
       title: recipe.title,
@@ -47,17 +47,6 @@ const RecipeForm = ({ recipe }) => {
 
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
-
-  useEffect(() => {
-    const categoryManager = new Manager('categories');
-
-    categoryManager.getAll(snapshot => {
-      const data = snapshot.val();
-      setCategories(data);
-    });
-
-    return () => off(categoryManager.ref);
-  }, []);
 
   const handleChange = e => {
     const { value, name } = e.target;
@@ -85,31 +74,11 @@ const RecipeForm = ({ recipe }) => {
 
     // if an image has been uploaded
     if (file) {
-      // if file size is more than 1mo
-      if (file.size > 1024000) {
-        alert(`L'image ne doit pas dépasser 1mo`);
-        return;
-      }
-
-      const storage = getStorage();
-      const recipeImagesFolderName = 'recipe-images';
-
-      // if an image has already been uploaded
-      if (oldImageName) {
-        const oldRecipeImageRef = ref(storage, `${recipeImagesFolderName}/${oldImageName}`);
-
-        deleteObject(oldRecipeImageRef)
-          .then(() => setRecipeFormData({ ...recipeFormData, imageName: false }))
-          .catch(error => console.error(error));
-      }
-
-      const recipeImageRef = ref(storage, `${recipeImagesFolderName}/${file.name}`);
-
-      uploadBytes(recipeImageRef, file)
-        .then(snapshot => {
-          setRecipeFormData({ ...recipeFormData, imageName: snapshot.metadata.name });
-        })
-        .catch(error => console.error(error));
+      const onImageDelete = () => setRecipeFormData({ ...recipeFormData, imageName: false });
+      const onImageUpload = snapshot => {
+        setRecipeFormData({ ...recipeFormData, imageName: snapshot.metadata.name });
+      };
+      uploadImageAndDeleteOldOne(file, oldImageName, onImageDelete, onImageUpload);
     }
 
     if (recipeFormData.slug !== slugify(recipeFormData.slug)) {
@@ -117,20 +86,12 @@ const RecipeForm = ({ recipe }) => {
       return;
     }
 
+    const redirect = () => navigate(`/recette/${recipeFormData.slug}`);
+
     if (recipe) {
-      // update
-      const recipeManager = new Manager(`recipes/${recipe.id}`);
-
-      recipeManager
-        .update(recipeFormData)
-        .then(() => navigate(`/recette/${recipeFormData.slug}`, { replace: true }));
+      dispatch(updateRecipe({ recipe, recipeFormData })).then(redirect);
     } else {
-      // create
-      const recipeManager = new Manager('recipes');
-
-      recipeManager
-        .add(recipeFormData)
-        .then(() => navigate(`/recette/${recipeFormData.slug}`, { replace: true }));
+      dispatch(createRecipe(recipeFormData)).then(redirect);
     }
   };
 

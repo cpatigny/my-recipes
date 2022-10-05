@@ -1,39 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import Manager from '../../utils/firebase/Manager';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { createCategory } from '../../features/category/categorySlice';
 
-import Loading from '../../components/Loading/Loading';
 import Category from './Category';
 import Logo from '../../components/Logo/Logo';
 
 import './Categories.scss';
 
 const Categories = () => {
-  const [categories, setCategories] = useState('loading');
   const [categoryName, setCategoryName] = useState('');
 
-  useEffect(() => {
-    const categoryManager = new Manager('categories');
+  const { categories } = useSelector(state => state.category);
 
-    categoryManager.getAll(snapshot => {
-      const data = snapshot.val();
-      setCategories(data);
-    });
-  }, []);
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    const categoryManager = new Manager('categories');
-
-    categoryManager
-      .add(categoryName)
-      .then(() => {
-        alert(`La catégorie "${categoryName}" a bien été crée.`);
-        setCategoryName('');
-      });
+    dispatch(createCategory(categoryName)).then(() => {
+      alert(`La catégorie "${categoryName}" a bien été crée.`);
+      setCategoryName('');
+    });
   };
-
-  if (categories === 'loading') return <Loading />;
 
   return (
     <div className='categories container'>

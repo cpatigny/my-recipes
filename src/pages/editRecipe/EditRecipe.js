@@ -1,14 +1,29 @@
-import React, { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { RecipesContext } from '../../providers/RecipesProvider';
-import { UserContext } from '../../providers/UserProvider';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import findMatchingRecipeWithSlug from '../../utils/findMatchingRecipeWithSlug';
 
 import RecipeForm from '../../components/RecipeForm/RecipeForm';
 
 const EditRecipe = () => {
-  const { recipe } = useContext(RecipesContext);
-  const { user } = useContext(UserContext);
+  const [recipe, setRecipe] = useState(null);
+
+  const { user } = useSelector(state => state.user);
+  const { recipes } = useSelector(state => state.recipe);
+
   const navigate = useNavigate();
+  const { slug } = useParams();
+
+  useEffect(() => {
+    if (recipes && slug) {
+      const matchingRecipe = findMatchingRecipeWithSlug(slug, recipes);
+
+      // no match : redirect to home page
+      if (!matchingRecipe) navigate('/', { replace: true });
+
+      setRecipe(matchingRecipe);
+    }
+  }, [navigate, recipes, slug]);
 
   useEffect(() => {
     if (!user) navigate('/', { replace: true });

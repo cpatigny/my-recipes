@@ -2,18 +2,10 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import store from './app/store';
 
-import {
-  BrowserRouter as Router, Navigate, Route, Routes,
-} from 'react-router-dom';
-import App from './pages/home/App';
-import Login from './pages/login/Login';
-import UserProvider from './providers/UserProvider';
-import AddRecipe from './pages/addRecipe/AddRecipe';
-import Recipe from './pages/Recipe/Recipe';
-import RecipesProvider from './providers/RecipesProvider';
-import EditRecipe from './pages/editRecipe/EditRecipe';
-import Categories from './pages/categories/Categories';
+import { Provider } from 'react-redux';
+import App from './App';
 
 import './index.scss';
 
@@ -21,36 +13,9 @@ const root = createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-    <UserProvider>
-      <Router>
-        <Routes>
-          <Route exact path='/' element={
-            <RecipesProvider>
-              <App />
-            </RecipesProvider>
-          } />
-          <Route path='/admin' element={<Login />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/add-recipe' element={<AddRecipe />} />
-          <Route path='/edit/:slug' element={
-            <RecipesProvider>
-              <EditRecipe />
-            </RecipesProvider>
-          } />
-          <Route path='/recette/:slug' element={
-            <RecipesProvider>
-              <Recipe />
-            </RecipesProvider>
-          } />
-          <Route path='/categories' element={
-            <RecipesProvider>
-              <Categories />
-            </RecipesProvider>
-          } />
-          <Route path='*' element={<Navigate to='/' replace />} />
-        </Routes>
-      </Router>
-    </UserProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
 );
 

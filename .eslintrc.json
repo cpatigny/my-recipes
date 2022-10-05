@@ -39,6 +39,10 @@
         "arrow-parens": ["error", "as-needed"],
         "jsx-quotes": ["error", "prefer-single"],
         "operator-linebreak": ["error", "before", { "overrides": { "&&": "ignore" } }],
+        "no-param-reassign": ["error", {
+            "props": true,
+            "ignorePropertyModificationsFor": ["state"]
+          }],
         "no-console": ["warn", { "allow": ["warn", "error"] }],
         "import/order": "off",
         "react/prop-types": "off",

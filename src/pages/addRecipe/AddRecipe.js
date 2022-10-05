@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../providers/UserProvider';
+import { useSelector } from 'react-redux';
 
 import RecipeForm from '../../components/RecipeForm/RecipeForm';
 
 const AddRecipe = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useSelector(state => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
