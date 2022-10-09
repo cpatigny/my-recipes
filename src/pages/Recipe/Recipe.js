@@ -3,6 +3,7 @@ import remarkGfm from 'remark-gfm';
 import { useNavigate, useParams } from 'react-router-dom';
 import findMatchingRecipeWithSlug from '../../utils/findMatchingRecipeWithSlug';
 import { useSelector } from 'react-redux';
+import formatDate from '../../utils/formatDate';
 
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
@@ -60,6 +61,12 @@ const Recipe = () => {
         <h1>{ recipe.title }</h1>
         { user && <RecipeActions recipe={recipe} /> }
       </div>
+
+      { recipe.createdAt &&
+        <div className='recipe-date'>
+          <span>Ajouté le <b>{ formatDate(recipe.createdAt) }</b></span>
+        </div>
+      }
 
       <RecipeImage recipe={recipe} />
 

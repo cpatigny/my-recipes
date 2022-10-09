@@ -25,11 +25,11 @@
         border: none;
         padding: 7px;
         border-radius: 50%;
-  
+
         span {
           font-size: 24px;
         }
-  
+
         &#edit-recipe {
           $edit-recipe-color: rgb(52, 152, 219);
           color: rgb(52, 152, 219);
@@ -37,13 +37,17 @@
           margin-right: 10px;
           background-color: rgba($edit-recipe-color, 0.15);
         }
-  
+
         &#delete-recipe {
           color: $danger-color;
           background-color: rgba($danger-color, 0.15);
         }
       }
     }
+  }
+
+  .recipe-date {
+    margin-bottom: 10px;
   }
 
   .recipe-image img {
@@ -72,7 +76,7 @@
         cursor: pointer;
         height: 0;
         width: 0;
-        
+
         // even though the input isn't visible when we click the label it'll :checked the input
         &:checked + .checkmark:after {
           opacity: 1;
@@ -97,7 +101,7 @@
         box-sizing: border-box;
         position: relative;
         padding-left: 36px;
-  
+
         &:before {
           content: '';
           position: absolute;
@@ -109,7 +113,7 @@
           border-radius: 3px;
           box-sizing: border-box;
         }
-    
+
         &:after {
           content: '';
           display: inline-block;
@@ -186,7 +190,7 @@
       h3 {
         font-size: 1.36rem;
       }
-  
+
       h4 {
         font-size: 1.05rem;
       }

@@ -15,6 +15,7 @@ const RecipeForm = ({ recipe }) => {
     category: 'none',
     ingredients: '',
     content: '',
+    createdAt: false,
   };
 
   const [recipeFormData, setRecipeFormData] = useState(DEFAULT_DATA);
@@ -36,6 +37,7 @@ const RecipeForm = ({ recipe }) => {
       category: recipe.category,
       ingredients: recipe.ingredients,
       content: recipe.content,
+      createdAt: recipe.createdAt ? recipe.createdAt : false,
     });
 
     setOldImageName(recipe.imageName);
@@ -91,6 +93,7 @@ const RecipeForm = ({ recipe }) => {
     if (recipe) {
       dispatch(updateRecipe({ recipe, recipeFormData })).then(redirect);
     } else {
+      recipeFormData.createdAt = Date.now();
       dispatch(createRecipe(recipeFormData)).then(redirect);
     }
   };
