@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  getDatabase, push, ref, remove, set, update,
+  getDatabase, push, ref, remove, set, update, onValue,
 } from 'firebase/database';
 import '../../utils/firebase/firebase';
 
@@ -78,5 +78,15 @@ const categorySlice = createSlice({
   },
 });
 
-export default categorySlice.reducer;
 export const { fetchCategoriesSuccess, fetchCategoriesFailure } = categorySlice.actions;
+
+export const categoriesListener = () => dispatch => {
+  const db = getDatabase();
+  const categoriesRef = ref(db, 'categories');
+
+  return onValue(categoriesRef, snapshot => {
+    dispatch(fetchCategoriesSuccess(snapshot.val()));
+  }, error => dispatch(fetchCategoriesFailure(error.message)));
+};
+
+export default categorySlice.reducer;

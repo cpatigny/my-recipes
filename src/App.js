@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import './utils/firebase/firebase';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSignInUserSuccess, noSignInUser, fetchUserData } from './features/user/userSlice';
-import { fetchRecipesFailure, fetchRecipesSuccess } from './features/recipe/recipeSlice';
-import { fetchCategoriesFailure, fetchCategoriesSuccess } from './features/category/categorySlice';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { userObserver } from './features/user/userSlice';
+import { categoriesListener } from './features/category/categorySlice';
+import { recipesListener } from './features/recipe/recipeSlice';
 
 import {
   BrowserRouter as Router, Navigate, Route, Routes,
@@ -30,41 +28,9 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // fetch user
-    const auth = getAuth();
-
-    return onAuthStateChanged(auth, signedInUser => {
-      // We serialized the object because redux shouldn't store non-serializable value
-      const serializedUser = JSON.parse(JSON.stringify(signedInUser));
-
-      dispatch(fetchSignInUserSuccess(serializedUser)); // null if no user signed in
-
-      if (signedInUser) {
-        dispatch(fetchUserData());
-      } else {
-        dispatch(noSignInUser());
-      }
-    });
-  }, [dispatch]);
-
-  useEffect(() => {
-    // fetch recipes
-    const db = getDatabase();
-    const recipesRef = ref(db, 'recipes');
-
-    return onValue(recipesRef, snapshot => {
-      dispatch(fetchRecipesSuccess(snapshot.val()));
-    }, error => dispatch(fetchRecipesFailure(error.message)));
-  }, [dispatch]);
-
-  useEffect(() => {
-    // fetch categories
-    const db = getDatabase();
-    const categoriesRef = ref(db, 'categories');
-
-    return onValue(categoriesRef, snapshot => {
-      dispatch(fetchCategoriesSuccess(snapshot.val()));
-    }, error => dispatch(fetchCategoriesFailure(error.message)));
+    dispatch(userObserver());
+    dispatch(recipesListener());
+    dispatch(categoriesListener());
   }, [dispatch]);
 
   const loadings = [userLoading, userDataLoading, recipesLoading, categoriesLoading];

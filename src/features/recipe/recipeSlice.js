@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import '../../utils/firebase/firebase';
 import {
-  getDatabase, ref, remove, update, push,
+  getDatabase, ref, remove, update, push, onValue,
 } from 'firebase/database';
 import { deleteObject, getStorage, ref as storageRef } from 'firebase/storage';
 
@@ -70,5 +70,15 @@ const recipeSlice = createSlice({
   },
 });
 
-export default recipeSlice.reducer;
 export const { fetchRecipesSuccess, fetchRecipesFailure } = recipeSlice.actions;
+
+export const recipesListener = () => dispatch => {
+  const db = getDatabase();
+  const recipesRef = ref(db, 'recipes');
+
+  return onValue(recipesRef, snapshot => {
+    dispatch(fetchRecipesSuccess(snapshot.val()));
+  }, error => dispatch(fetchRecipesFailure(error.message)));
+};
+
+export default recipeSlice.reducer;

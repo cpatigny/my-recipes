@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import '../../utils/firebase/firebase';
 import { getDatabase, ref, get } from 'firebase/database';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const initialState = {
   userLoading: true,
@@ -50,5 +51,23 @@ const userSlice = createSlice({
   },
 });
 
-export default userSlice.reducer;
 export const { fetchSignInUserSuccess, noSignInUser, signOut } = userSlice.actions;
+
+export const userObserver = () => dispatch => {
+  const auth = getAuth();
+
+  return onAuthStateChanged(auth, signedInUser => {
+    // We serialized the object because redux shouldn't store non-serializable value
+    const serializedUser = JSON.parse(JSON.stringify(signedInUser));
+
+    dispatch(fetchSignInUserSuccess(serializedUser)); // null if no user signed in
+
+    if (signedInUser) {
+      dispatch(fetchUserData());
+    } else {
+      dispatch(noSignInUser());
+    }
+  });
+};
+
+export default userSlice.reducer;
