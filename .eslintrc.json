@@ -6,6 +6,11 @@
     "settings": {
         "react": {
             "version": "detect"
+        },
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
         }
     },
     "extends": [
@@ -15,10 +20,12 @@
         "plugin:react-hooks/recommended",
         "airbnb-base",
         "plugin:jsx-a11y/strict",
-        "plugin:sonarjs/recommended"
+        "plugin:sonarjs/recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     "overrides": [
     ],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
@@ -28,10 +35,11 @@
         "import",
         "react-hooks",
         "jsx-a11y",
-        "sonarjs"
+        "sonarjs",
+        "@typescript-eslint"
     ],
     "rules": {
-        "indent": ["error", 2],
+        "indent": ["error", 2, { "SwitchCase": 1 }],
         "linebreak-style": ["error", "unix"],
         "quotes": ["error", "single", { "allowTemplateLiterals": true }],
         "semi": ["error", "always"],
@@ -41,11 +49,24 @@
         "operator-linebreak": ["error", "before", { "overrides": { "&&": "ignore" } }],
         "no-param-reassign": ["error", {
             "props": true,
-            "ignorePropertyModificationsFor": ["state"]
-          }],
+            "ignorePropertyModificationsFor": ["state"] // for redux toolkit
+        }],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "never",
+              "jsx": "never",
+              "ts": "never",
+              "tsx": "never"
+            }
+        ],
         "no-console": ["warn", { "allow": ["warn", "error"] }],
+        "prefer-destructuring": "off",
         "import/order": "off",
         "react/prop-types": "off",
-        "no-alert": "off"
+        "no-alert": "off",
+        "react/jsx-uses-react": "off", // no longer needed with react 17
+	    "react/react-in-jsx-scope": "off" // no longer needed with react 17
     }
 }
