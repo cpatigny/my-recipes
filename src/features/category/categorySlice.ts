@@ -1,10 +1,29 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import {
   getDatabase, push, ref, remove, set, update, onValue,
 } from 'firebase/database';
 import '../../utils/firebase/firebase';
+import { Categories, CategoryWithId } from '../../types/category';
+import { Recipes } from '../../types/recipe';
+import { AppThunk } from '../../app/store';
 
-const initialState = {
+interface DeleteCategoryParams {
+  recipes: Recipes;
+  category: CategoryWithId;
+}
+
+interface UpdateCategoryParams {
+  category: CategoryWithId;
+  categoryName: string;
+}
+
+interface InitialState {
+  loading: boolean;
+  categories: Categories | null;
+  error: string;
+}
+
+const initialState: InitialState = {
   loading: true,
   categories: null,
   error: '',
@@ -19,17 +38,18 @@ export const createCategory = createAsyncThunk('category/createCategory', catego
   push(categoriesRef, categoryName);
 });
 
-export const deleteCategory = createAsyncThunk('category/deleteCategory', async ({ recipes, category }) => {
+export const deleteCategory = createAsyncThunk('category/deleteCategory', async ({ recipes, category }: DeleteCategoryParams) => {
   const db = getDatabase();
 
   // remove the category from all recipes that have it
-  const recipesToUpdate = {};
+  const recipesToUpdate: Recipes = {};
 
   Object
     .keys(recipes)
-    .filter(key => recipes[key].category === category.id)
+    .filter(key => recipes[key]?.category === category.id)
     .forEach(key => {
-      const recipe = { ...recipes[key] };
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const recipe = { ...recipes[key]! }; // recipes[key] always exists since we made it to forEach
       recipe.category = 'none';
       recipesToUpdate[key] = recipe;
     });
@@ -42,7 +62,7 @@ export const deleteCategory = createAsyncThunk('category/deleteCategory', async 
   return remove(categoryRef);
 });
 
-export const updateCategory = createAsyncThunk('category/updateCategory', ({ category, categoryName }) => {
+export const updateCategory = createAsyncThunk('category/updateCategory', ({ category, categoryName }: UpdateCategoryParams) => {
   const db = getDatabase();
   const categoryRef = ref(db, `categories/${category.id}`);
   return set(categoryRef, categoryName);
@@ -52,7 +72,7 @@ const categorySlice = createSlice({
   name: 'category',
   initialState,
   reducers: {
-    fetchCategoriesSuccess: (state, action) => {
+    fetchCategoriesSuccess: (state, action: PayloadAction<Categories>) => {
       state.loading = false;
       state.categories = action.payload;
       state.error = '';
@@ -80,7 +100,7 @@ const categorySlice = createSlice({
 
 export const { fetchCategoriesSuccess, fetchCategoriesFailure } = categorySlice.actions;
 
-export const categoriesListener = () => dispatch => {
+export const categoriesListener = (): AppThunk => dispatch => {
   const db = getDatabase();
   const categoriesRef = ref(db, 'categories');
 

@@ -1,9 +1,19 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import '../../utils/firebase/firebase';
 import { getDatabase, ref, get } from 'firebase/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { User, UserData } from '../../types/user';
+import { AppThunk, RootState } from '../../app/store';
 
-const initialState = {
+interface InitialState {
+  userLoading: boolean;
+  userDataLoading: boolean;
+  user: User | null;
+  userData: UserData | null;
+  userDataError: string;
+}
+
+const initialState: InitialState = {
   userLoading: true,
   userDataLoading: true,
   user: null,
@@ -11,10 +21,16 @@ const initialState = {
   userDataError: '',
 };
 
-export const fetchUserData = createAsyncThunk('user/fetchUserData', async (arg, { getState }) => {
-  const state = getState();
+export const selectUserUid = (state: RootState) => {
+  const { user } = state.user;
+  if (user) return user.uid;
+  return null;
+};
+
+export const fetchUserData = createAsyncThunk<UserData, undefined, { state: RootState }>('user/fetchUserData', async (arg, { getState }) => {
   const db = getDatabase();
-  const userRef = ref(db, `users/${state.user.user.uid}`);
+  const uid = selectUserUid(getState());
+  const userRef = ref(db, `users/${uid}`);
   const snapshot = await get(userRef);
   return snapshot.val();
 });
@@ -23,7 +39,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    fetchSignInUserSuccess: (state, action) => {
+    fetchSignInUserSuccess: (state, action: PayloadAction<User>) => {
       state.userLoading = false;
       state.user = action.payload;
     },
@@ -37,7 +53,7 @@ const userSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(fetchUserData.fulfilled, (state, action) => {
+    builder.addCase(fetchUserData.fulfilled, (state, action: PayloadAction<UserData>) => {
       state.userDataLoading = false;
       state.userData = action.payload;
       state.userDataError = '';
@@ -46,14 +62,14 @@ const userSlice = createSlice({
     builder.addCase(fetchUserData.rejected, (state, action) => {
       state.userDataLoading = false;
       state.userData = null;
-      state.userDataError = action.error.message;
+      state.userDataError = action.error.message || 'An error occurred';
     });
   },
 });
 
 export const { fetchSignInUserSuccess, noSignInUser, signOut } = userSlice.actions;
 
-export const userObserver = () => dispatch => {
+export const userObserver = (): AppThunk => dispatch => {
   const auth = getAuth();
 
   return onAuthStateChanged(auth, signedInUser => {

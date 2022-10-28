@@ -1,17 +1,30 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import '../../utils/firebase/firebase';
 import {
   getDatabase, ref, remove, update, push, onValue,
 } from 'firebase/database';
 import { deleteObject, getStorage, ref as storageRef } from 'firebase/storage';
+import { Recipes, RecipeFormData, RecipeWithId } from '../../types/recipe';
+import { AppThunk } from '../../app/store';
 
-const initialState = {
+interface UpdateRecipeParams {
+  recipe: RecipeWithId;
+  recipeFormData: RecipeFormData;
+}
+
+interface InitialState {
+  loading: boolean;
+  recipes: Recipes | null;
+  error: string;
+}
+
+const initialState: InitialState = {
   loading: true,
   recipes: null,
   error: '',
 };
 
-export const deleteRecipe = createAsyncThunk('recipe/deleteRecipe', recipe => {
+export const deleteRecipe = createAsyncThunk('recipe/deleteRecipe', (recipe: RecipeWithId) => {
   // if the recipe has an image we delete it
   if (recipe.imageName) {
     const storage = getStorage();
@@ -25,13 +38,13 @@ export const deleteRecipe = createAsyncThunk('recipe/deleteRecipe', recipe => {
   return remove(recipeRef);
 });
 
-export const updateRecipe = createAsyncThunk('recipe/updateRecipe', ({ recipe, recipeFormData }) => {
+export const updateRecipe = createAsyncThunk('recipe/updateRecipe', ({ recipe, recipeFormData }: UpdateRecipeParams) => {
   const db = getDatabase();
   const recipeRef = ref(db, `recipes/${recipe.id}`);
   return update(recipeRef, recipeFormData);
 });
 
-export const createRecipe = createAsyncThunk('recipe/createRecipe', recipeFormData => {
+export const createRecipe = createAsyncThunk('recipe/createRecipe', (recipeFormData: RecipeFormData) => {
   const db = getDatabase();
   const recipesRef = ref(db, 'recipes');
 
@@ -44,7 +57,7 @@ const recipeSlice = createSlice({
   name: 'recipe',
   initialState,
   reducers: {
-    fetchRecipesSuccess: (state, action) => {
+    fetchRecipesSuccess: (state, action: PayloadAction<Recipes>) => {
       state.loading = false;
       state.recipes = action.payload;
       state.error = '';
@@ -72,7 +85,7 @@ const recipeSlice = createSlice({
 
 export const { fetchRecipesSuccess, fetchRecipesFailure } = recipeSlice.actions;
 
-export const recipesListener = () => dispatch => {
+export const recipesListener = (): AppThunk => dispatch => {
   const db = getDatabase();
   const recipesRef = ref(db, 'recipes');
 
