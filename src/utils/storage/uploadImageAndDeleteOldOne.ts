@@ -1,5 +1,5 @@
 import {
-  getStorage, ref, uploadBytes, deleteObject,
+  getStorage, ref, uploadBytes, deleteObject, UploadResult,
 } from 'firebase/storage';
 
 /**
@@ -9,7 +9,12 @@ import {
  * @param {function} onDelete callback when deleting the existing image
  * @param {function} onUpload callback when uploading the image
  */
-const uploadImageAndDeleteOldOne = (file, oldImageName, onDelete, onUpload) => {
+const uploadImageAndDeleteOldOne = (
+  file: File,
+  oldImageName: string,
+  onDelete: () => void,
+  onUpload: (snapshot: UploadResult) => void,
+): void => {
   // if file size is more than 1mo
   if (file.size > 1024000) {
     alert(`L'image ne doit pas dépasser 1mo`);

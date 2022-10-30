@@ -1,7 +1,7 @@
-const formatDate = timestamp => {
+const formatDate = (timestamp: number): string => {
   const date = new Date(timestamp);
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
+  let day = date.getDate().toString();
+  let month = (date.getMonth() + 1).toString();
   const year = date.getFullYear();
 
   if (day.toString().length < 2) day = `0${day}`;

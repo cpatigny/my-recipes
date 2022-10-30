@@ -3,7 +3,7 @@
  * @param {string} wordToEnter word that must be write to confirmText
  * @param {function} onConfirm function that will be executed on confirm
  */
-const confirm = (confirmText, wordToEnter, onConfirm) => {
+const confirm = (confirmText: string, wordToEnter: string, onConfirm: () => void): void => {
   let text;
   let quit = false;
 

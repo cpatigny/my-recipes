@@ -2,8 +2,7 @@
  * slugify a string and return it.
  * @param {string} str the string to slugify
  */
-const slugify = str => {
-  if (typeof str !== 'string') throw new Error('str parameter must be of type string');
+const slugify = (str: string): string => {
   if (str === '') return '';
 
   let slugifyStr = str.replace(/^\s+|\s+$/g, ''); // trim
