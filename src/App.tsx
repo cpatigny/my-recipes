@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import './utils/firebase/firebase';
-import { useDispatch, useSelector } from 'react-redux';
 import { userObserver } from './features/user/userSlice';
 import { categoriesListener } from './features/category/categorySlice';
 import { recipesListener } from './features/recipe/recipeSlice';
+import { useAppDispatch, useAppSelector } from './app/hooks';
 
 import {
   BrowserRouter as Router, Navigate, Route, Routes,
@@ -18,14 +18,14 @@ import Loading from './components/Loading/Loading';
 import Error from './components/Error/Error';
 
 const App = () => {
-  const { userLoading, userDataLoading, userDataError } = useSelector(state => state.user);
-  const { loading: recipesLoading, error: recipesError } = useSelector(state => state.recipe);
+  const { userLoading, userDataLoading, userDataError } = useAppSelector(state => state.user);
+  const { loading: recipesLoading, error: recipesError } = useAppSelector(state => state.recipe);
   const {
     loading: categoriesLoading,
     error: categoriesError,
-  } = useSelector(state => state.category);
+  } = useAppSelector(state => state.category);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(userObserver());
@@ -39,13 +39,13 @@ const App = () => {
   if (loadings.includes(true)) return <Loading />;
   if (errors.join('').length > 0) {
     console.error(errors);
-    return <Error errors={errors} />;
+    return <Error />;
   }
 
   return (
     <Router>
       <Routes>
-        <Route exact path='/' element={<Home />} />
+        <Route path='/' element={<Home />} />
         <Route path='/admin' element={<Login />} />
         <Route path='/login' element={<Login />} />
         <Route path='/add-recipe' element={<AddRecipe />} />

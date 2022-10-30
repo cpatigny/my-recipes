@@ -1,8 +1,13 @@
 import React from 'react';
 
-const SearchBar = ({ search, setSearch }) => {
-  const handleChange = e => {
-    const wordToSearch = e.target.value;
+interface SearchBarProps {
+  search: string;
+  setSearch: (str: string) => void;
+}
+
+const SearchBar = ({ search, setSearch }: SearchBarProps) => {
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const wordToSearch = e.currentTarget.value;
     setSearch(wordToSearch);
   };
 

@@ -1,6 +1,11 @@
 import React from 'react';
 
-const Options = ({ orderBy, handleOrderByChange }) => (
+interface OptionsProps {
+  orderBy: 'desc' | 'asc';
+  handleOrderByChange: (e: React.FormEvent<HTMLSelectElement>) => void;
+}
+
+const Options = ({ orderBy, handleOrderByChange }: OptionsProps) => (
   <div className='options'>
     <div className='custom-select'>
       <select name='order-by' value={orderBy} onChange={handleOrderByChange}>

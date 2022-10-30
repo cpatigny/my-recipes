@@ -1,7 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const RecipeCard = ({ title, imageName, slug }) => {
+interface RecipeCardProps {
+  title: string;
+  imageName: string | false;
+  slug: string;
+}
+
+const RecipeCard = ({ title, imageName, slug }: RecipeCardProps) => {
   const navigate = useNavigate();
 
   const backgroundImageGradient = 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.7))';
@@ -11,7 +17,7 @@ const RecipeCard = ({ title, imageName, slug }) => {
 
   const openRecipe = () => navigate(`/recette/${slug}`);
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') openRecipe();
   };
 
@@ -22,7 +28,7 @@ const RecipeCard = ({ title, imageName, slug }) => {
       className={`recipe ${imageName ? '' : 'no-image'}`}
       style={{ backgroundImage }}
       role='link'
-      tabIndex='0'
+      tabIndex={0}
     >
       <h3 className='recipe-title'>{ title }</h3>
     </div>
