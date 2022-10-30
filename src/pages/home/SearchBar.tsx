@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface SearchBarProps {
   search: string;
   setSearch: (str: string) => void;

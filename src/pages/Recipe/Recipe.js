@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import remarkGfm from 'remark-gfm';
 import { useNavigate, useParams } from 'react-router-dom';
 import findMatchingRecipeWithSlug from '../../utils/findMatchingRecipeWithSlug';
@@ -17,6 +17,8 @@ const components = {
   h1: 'h3',
   h2: 'h4',
   h3: 'h5',
+  // we need to put ordered to avoid passing it in ...props because it throws an error
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   li: ({ ordered, ...props }) => (
     <li>
       <label className='checkbox-container'>

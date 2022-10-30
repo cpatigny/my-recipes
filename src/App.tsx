@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import './utils/firebase/firebase';
 import { userObserver } from './features/user/userSlice';
 import { categoriesListener } from './features/category/categorySlice';

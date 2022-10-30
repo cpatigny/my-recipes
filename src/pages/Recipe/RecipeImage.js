@@ -1,5 +1,3 @@
-import React from 'react';
-
 const RecipeImage = ({ recipe }) => {
   if (!recipe.imageName) return null;
 

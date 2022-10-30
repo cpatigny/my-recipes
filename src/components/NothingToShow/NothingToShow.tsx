@@ -1,5 +1,3 @@
-import React from 'react';
-
 import './NothingToShow.scss';
 
 interface NothingToShowProps {

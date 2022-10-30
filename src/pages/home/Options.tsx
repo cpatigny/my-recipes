@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface OptionsProps {
   orderBy: 'desc' | 'asc';
   handleOrderByChange: (e: React.FormEvent<HTMLSelectElement>) => void;

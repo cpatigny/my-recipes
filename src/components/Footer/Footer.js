@@ -1,4 +1,3 @@
-import React from 'react';
 import { getAuth, signOut } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { signOut as userSignOut } from '../../features/user/userSlice';

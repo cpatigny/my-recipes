@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import searchMatchingRecipes from '../../utils/searchMatchingRecipes';
 import reverseObject from '../../utils/reverseRecipes';
 import { useAppSelector } from '../../app/hooks';

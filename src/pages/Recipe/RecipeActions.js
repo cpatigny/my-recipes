@@ -1,4 +1,3 @@
-import React from 'react';
 import confirm from '../../utils/confirm';
 import { useDispatch } from 'react-redux';
 import { deleteRecipe } from '../../features/recipe/recipeSlice';

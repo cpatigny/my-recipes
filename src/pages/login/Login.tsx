@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../app/hooks';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
