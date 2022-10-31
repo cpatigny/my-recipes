@@ -2,24 +2,29 @@ import { useEffect, useState } from 'react';
 import remarkGfm from 'remark-gfm';
 import { useNavigate, useParams } from 'react-router-dom';
 import findMatchingRecipeWithSlug from '../../utils/findMatchingRecipeWithSlug';
-import { useSelector } from 'react-redux';
 import formatDate from '../../utils/formatDate';
+import { useAppSelector } from '../../app/hooks';
+import { RecipeWithId } from '../../types/recipe';
 
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { Components } from 'react-markdown';
 import Logo from '../../components/Logo/Logo';
 import RecipeImage from './RecipeImage';
 
 import './Recipe.scss';
 
-const components = {
+interface ComponentTypes {
+  ordered: unknown;
+}
+
+const components: Components = {
   h1: 'h3',
   h2: 'h4',
   h3: 'h5',
   // we need to put ordered to avoid passing it in ...props because it throws an error
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  li: ({ ordered, ...props }) => (
+  li: ({ ordered, ...props }: ComponentTypes) => (
     <li>
       <label className='checkbox-container'>
         <input type='checkbox' />
@@ -30,10 +35,10 @@ const components = {
 };
 
 const Recipe = () => {
-  const [recipe, setRecipe] = useState(null);
+  const [recipe, setRecipe] = useState<RecipeWithId | null>(null);
 
-  const { user } = useSelector(state => state.user);
-  const { recipes } = useSelector(state => state.recipe);
+  const { user } = useAppSelector(state => state.user);
+  const { recipes } = useAppSelector(state => state.recipe);
 
   const navigate = useNavigate();
   const { slug } = useParams();

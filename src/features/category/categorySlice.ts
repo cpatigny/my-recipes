@@ -29,7 +29,7 @@ const initialState: InitialState = {
   error: '',
 };
 
-export const createCategory = createAsyncThunk('category/createCategory', categoryName => {
+export const createCategory = createAsyncThunk('category/createCategory', (categoryName: string) => {
   const db = getDatabase();
   const categoriesRef = ref(db, 'categories');
 

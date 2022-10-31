@@ -1,17 +1,22 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { deleteCategory, updateCategory } from '../../features/category/categorySlice';
+import { CategoryWithId } from '../../types/category';
 import confirm from '../../utils/confirm';
 
-const Category = ({ category }) => {
+interface CategoryProps {
+  category: CategoryWithId;
+}
+
+const Category = ({ category }: CategoryProps) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [categoryName, setCategoryName] = useState(category.name);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { recipes } = useSelector(state => state.recipe);
+  const { recipes } = useAppSelector(state => state.recipe);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     dispatch(updateCategory({ category, categoryName })).then(() => {
@@ -21,7 +26,11 @@ const Category = ({ category }) => {
 
   const wordToEnter = 'oui';
   const confirmText = `Êtes-vous sûr de vouloir supprimer la catégorie "${category.name}" ? (cette action est irréversible !) Écrivez "${wordToEnter}" pour confirmer :`;
-  const onConfirm = () => dispatch(deleteCategory({ recipes, category })).then(() => alert('La catégorie a bien été supprimée.'));
+  const onConfirm = () => {
+    if (recipes) {
+      dispatch(deleteCategory({ recipes, category })).then(() => alert('La catégorie a bien été supprimée.'));
+    }
+  };
 
   if (showEditForm) {
     return (

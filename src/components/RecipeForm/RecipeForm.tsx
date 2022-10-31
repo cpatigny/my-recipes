@@ -1,14 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import slugify from '../../utils/slugify';
 import { useNavigate } from 'react-router-dom';
 import uploadImageAndDeleteOldOne from '../../utils/storage/uploadImageAndDeleteOldOne';
 import { createRecipe, updateRecipe } from '../../features/recipe/recipeSlice';
+import { RecipeFormData, RecipeWithId } from '../../types/recipe';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { UploadResult } from 'firebase/storage';
 
 import './RecipeForm.scss';
 
-const RecipeForm = ({ recipe }) => {
-  const DEFAULT_DATA = {
+interface RecipeFormProps {
+  recipe?: RecipeWithId | null;
+}
+
+const RecipeForm = ({ recipe }: RecipeFormProps) => {
+  const DEFAULT_DATA: RecipeFormData = {
     title: '',
     slug: '',
     imageName: false,
@@ -18,13 +24,13 @@ const RecipeForm = ({ recipe }) => {
     createdAt: false,
   };
 
-  const [recipeFormData, setRecipeFormData] = useState(DEFAULT_DATA);
-  const [previewImageSrc, setPreviewImageSrc] = useState(false);
-  const [oldImageName, setOldImageName] = useState(false);
+  const [recipeFormData, setRecipeFormData] = useState<RecipeFormData>(DEFAULT_DATA);
+  const [previewImageSrc, setPreviewImageSrc] = useState<string | null>(null);
+  const [oldImageName, setOldImageName] = useState<string | false>(false);
 
-  const { categories } = useSelector(state => state.category);
+  const { categories } = useAppSelector(state => state.category);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     // recipe is loading or we're not in edit mode
@@ -48,15 +54,17 @@ const RecipeForm = ({ recipe }) => {
   }, [recipe]);
 
   const navigate = useNavigate();
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = e => {
-    const { value, name } = e.target;
+  type FormElements = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+
+  const handleChange = (e: React.FormEvent<FormElements>) => {
+    const { value, name } = e.currentTarget;
     setRecipeFormData({ ...recipeFormData, [name]: value });
   };
 
-  const handleTitleChange = e => {
-    const { value } = e.target;
+  const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
     setRecipeFormData({
       ...recipeFormData,
       title: value,
@@ -64,20 +72,25 @@ const RecipeForm = ({ recipe }) => {
     });
   };
 
-  const handleImageChange = e => {
-    setPreviewImageSrc(URL.createObjectURL(e.target.files[0]));
-    setRecipeFormData({ ...recipeFormData, imageName: e.target.files[0].name });
+  const handleImageChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { files } = e.currentTarget;
+
+    if (files && files[0]) {
+      setPreviewImageSrc(URL.createObjectURL(files[0]));
+      setRecipeFormData({ ...recipeFormData, imageName: files[0].name });
+    }
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const file = fileInputRef.current.files[0];
+    const files = fileInputRef.current?.files;
 
     // if an image has been uploaded
-    if (file) {
+    if (files && files[0]) {
+      const file = files[0];
       const onImageDelete = () => setRecipeFormData({ ...recipeFormData, imageName: false });
-      const onImageUpload = snapshot => {
+      const onImageUpload = (snapshot: UploadResult) => {
         setRecipeFormData({ ...recipeFormData, imageName: snapshot.metadata.name });
       };
       uploadImageAndDeleteOldOne(file, oldImageName, onImageDelete, onImageUpload);
@@ -123,7 +136,7 @@ const RecipeForm = ({ recipe }) => {
           <input type='file' name='image' id='image' ref={fileInputRef} onChange={handleImageChange} />
         </div>
 
-        { previewImageSrc &&
+        { previewImageSrc && recipeFormData.imageName &&
           <div className='image-preview'>
             <img
               src={previewImageSrc}
@@ -135,7 +148,7 @@ const RecipeForm = ({ recipe }) => {
           <label htmlFor='category'>Choisissez une catégorie</label>
           <select name='category' id='category' required value={recipeFormData.category} onChange={handleChange}>
             <option value='none'>Aucune</option>
-            {Object.keys(categories).map(key => (
+            {categories && Object.keys(categories).map(key => (
               <option key={key} value={key}>{ categories[key] }</option>
             ))}
           </select>

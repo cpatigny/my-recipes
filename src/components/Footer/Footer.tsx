@@ -1,10 +1,15 @@
 import { getAuth, signOut } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { signOut as userSignOut } from '../../features/user/userSlice';
+import { User } from '../../types/user';
 
 import { Link } from 'react-router-dom';
 
-const Footer = ({ user }) => {
+interface FooterProps {
+  user: User | null;
+}
+
+const Footer = ({ user }: FooterProps) => {
   const dispatch = useDispatch();
 
   const handleSignOut = () => {

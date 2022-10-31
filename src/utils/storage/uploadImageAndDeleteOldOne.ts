@@ -11,7 +11,7 @@ import {
  */
 const uploadImageAndDeleteOldOne = (
   file: File,
-  oldImageName: string,
+  oldImageName: string | false,
   onDelete: () => void,
   onUpload: (snapshot: UploadResult) => void,
 ): void => {

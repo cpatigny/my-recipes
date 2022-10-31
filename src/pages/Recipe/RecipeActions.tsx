@@ -1,15 +1,30 @@
 import confirm from '../../utils/confirm';
-import { useDispatch } from 'react-redux';
 import { deleteRecipe } from '../../features/recipe/recipeSlice';
 import { useNavigate, Link } from 'react-router-dom';
+import { RecipeWithId } from '../../types/recipe';
+import { useAppDispatch } from '../../app/hooks';
 
-const RecipeActions = ({ recipe }) => {
-  const dispatch = useDispatch();
+interface RecipeActionsProps {
+  recipe: RecipeWithId;
+}
+
+const RecipeActions = ({ recipe }: RecipeActionsProps) => {
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
   const wordToEnter = 'oui';
   const confirmText = `Êtes-vous sûr de vouloir supprimer la recette "${recipe.title}" ? (cette action est irréversible !) Écrivez "${wordToEnter}" pour confirmer :`;
+
+  const onClickHandler = () => {
+    confirm(confirmText, wordToEnter, () => {
+      // we can use .then because deleteRecipe() return a Promise
+      dispatch(deleteRecipe(recipe)).then(() => {
+        navigate('/', { replace: true });
+        alert('La recette a bien été supprimée.');
+      });
+    });
+  };
 
   return (
     <div className='recipe-actions'>
@@ -19,13 +34,7 @@ const RecipeActions = ({ recipe }) => {
       >
         <span className='material-icons-round'>edit</span>
       </Link>
-      <button id='delete-recipe' onClick={() => confirm(confirmText, wordToEnter, () => {
-        // we can use .then because deleteRecipe() return a Promise
-        dispatch(deleteRecipe(recipe)).then(() => {
-          navigate('/', { replace: true });
-          alert('La recette a bien été supprimée.');
-        });
-      })}>
+      <button id='delete-recipe' onClick={onClickHandler}>
         <span className='material-icons-round'>delete</span>
       </button>
     </div>

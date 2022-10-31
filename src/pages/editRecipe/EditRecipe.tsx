@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import findMatchingRecipeWithSlug from '../../utils/findMatchingRecipeWithSlug';
+import { useAppSelector } from '../../app/hooks';
+import { RecipeWithId } from '../../types/recipe';
 
 import RecipeForm from '../../components/RecipeForm/RecipeForm';
 
 const EditRecipe = () => {
-  const [recipe, setRecipe] = useState(null);
+  const [recipe, setRecipe] = useState<RecipeWithId | null>(null);
 
-  const { user } = useSelector(state => state.user);
-  const { recipes } = useSelector(state => state.recipe);
+  const { user } = useAppSelector(state => state.user);
+  const { recipes } = useAppSelector(state => state.recipe);
 
   const navigate = useNavigate();
   const { slug } = useParams();

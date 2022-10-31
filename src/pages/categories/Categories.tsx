@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { createCategory } from '../../features/category/categorySlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 import Category from './Category';
 import Logo from '../../components/Logo/Logo';
@@ -10,11 +10,11 @@ import './Categories.scss';
 const Categories = () => {
   const [categoryName, setCategoryName] = useState('');
 
-  const { categories } = useSelector(state => state.category);
+  const { categories } = useAppSelector(state => state.category);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(createCategory(categoryName)).then(() => {
       alert(`La catégorie "${categoryName}" a bien été crée.`);
@@ -29,9 +29,11 @@ const Categories = () => {
       <h1>Catégories</h1>
 
       <div className='category-list'>
-        {Object.keys(categories).map(key => (
-          <Category key={key} category={{ name: categories[key], id: key }} />
-        ))}
+        {categories && Object.keys(categories).map(key => {
+          const name = categories[key];
+          if (!name) return null;
+          return <Category key={key} category={{ name, id: key }} />;
+        })}
       </div>
 
       <div className='separator'></div>

@@ -1,4 +1,10 @@
-const RecipeImage = ({ recipe }) => {
+import { RecipeWithId } from '../../types/recipe';
+
+interface RecipeImageProps {
+  recipe: RecipeWithId;
+}
+
+const RecipeImage = ({ recipe }: RecipeImageProps) => {
   if (!recipe.imageName) return null;
 
   return (
