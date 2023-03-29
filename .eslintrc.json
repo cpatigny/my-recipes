@@ -42,7 +42,6 @@
     ],
     "rules": {
         "indent": ["error", 2, { "SwitchCase": 1 }],
-        "linebreak-style": ["error", "windows"],
         "quotes": ["error", "single", { "allowTemplateLiterals": true }],
         "semi": ["error", "always"],
         "func-style": ["error", "expression"],
@@ -53,13 +52,14 @@
             "error",
             "ignorePackages",
             {
-              "js": "never",
-              "jsx": "never",
-              "ts": "never",
-              "tsx": "never"
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
             }
         ],
         "unused-imports/no-unused-imports": "error",
+        "linebreak-style": "off",
         "prefer-destructuring": "off",
         "import/order": "off",
         "react/prop-types": "off",
