@@ -15,24 +15,27 @@ import RecipeImage from './RecipeImage';
 
 import './Recipe.scss';
 
-interface ComponentTypes {
-  ordered: unknown;
+interface CustomListItemProps {
+  ordered: boolean;
 }
+
+// we need to extract "ordered" to avoid passing it in ...props
+// because it throws an error because ordered should be non-boolean but it receives boolean
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const CustomListItem = ({ ordered, ...props }: CustomListItemProps) => (
+  <li>
+    <label className='checkbox-container'>
+      <input type='checkbox' />
+      <span className='checkmark' { ...props } />
+    </label>
+  </li>
+);
 
 const components: Components = {
   h1: 'h3',
   h2: 'h4',
   h3: 'h5',
-  // we need to put ordered to avoid passing it in ...props because it throws an error
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  li: ({ ordered, ...props }: ComponentTypes) => (
-    <li>
-      <label className='checkbox-container'>
-        <input type='checkbox' />
-        <span className='checkmark' { ...props } />
-      </label>
-    </li>
-  ),
+  li: ({ ...props }) => <CustomListItem { ...props } />,
 };
 
 const Recipe = () => {
