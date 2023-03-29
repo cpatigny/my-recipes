@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import slugify from '../../utils/slugify';
 import { useNavigate } from 'react-router-dom';
 import uploadImageAndDeleteOldOne from '../../utils/storage/uploadImageAndDeleteOldOne';
-import { createRecipe, updateRecipe } from '../../features/recipe/recipeSlice';
 import { RecipeFormData, RecipeWithId } from '../../types/recipe';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { UploadResult } from 'firebase/storage';
+import { CategoriesContext } from '../../providers/CategoriesProvider';
+import { updateRecipe, createRecipe } from '../../utils/firebase/recipeMethods';
 
 import './RecipeForm.scss';
 
@@ -28,9 +30,7 @@ const RecipeForm = ({ recipe }: RecipeFormProps) => {
   const [previewImageSrc, setPreviewImageSrc] = useState<string | null>(null);
   const [oldImageName, setOldImageName] = useState<string | false>(false);
 
-  const { categories } = useAppSelector(state => state.category);
-
-  const dispatch = useAppDispatch();
+  const { categories } = useContext(CategoriesContext);
 
   useEffect(() => {
     // recipe is loading or we're not in edit mode
@@ -104,10 +104,10 @@ const RecipeForm = ({ recipe }: RecipeFormProps) => {
     const redirect = () => navigate(`/recette/${recipeFormData.slug}`);
 
     if (recipe) {
-      dispatch(updateRecipe({ recipe, recipeFormData })).then(redirect);
+      updateRecipe({ recipe, recipeFormData }).then(redirect);
     } else {
       recipeFormData.createdAt = Date.now();
-      dispatch(createRecipe(recipeFormData)).then(redirect);
+      createRecipe(recipeFormData).then(redirect);
     }
   };
 

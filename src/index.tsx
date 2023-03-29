@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import store from './app/store';
 
-import { Provider } from 'react-redux';
+import UserProvider from './providers/UserProvider';
+import RecipesProvider from './providers/RecipesProvider';
+import CategoriesProvider from './providers/CategoriesProvider';
 import App from './App';
 
 import './index.scss';
@@ -15,9 +16,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <UserProvider>
+      <RecipesProvider>
+        <CategoriesProvider>
+          <App />
+        </CategoriesProvider>
+      </RecipesProvider>
+    </UserProvider>
   </React.StrictMode>,
 );
 

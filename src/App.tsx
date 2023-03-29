@@ -1,9 +1,5 @@
-import { useEffect } from 'react';
+import { useContext } from 'react';
 import './utils/firebase/firebase';
-import { userObserver } from './features/user/userSlice';
-import { categoriesListener } from './features/category/categorySlice';
-import { recipesListener } from './features/recipe/recipeSlice';
-import { useAppDispatch, useAppSelector } from './app/hooks';
 
 import {
   BrowserRouter as Router, Navigate, Route, Routes,
@@ -15,32 +11,18 @@ import EditRecipe from './pages/editRecipe/EditRecipe';
 import Categories from './pages/categories/Categories';
 import Home from './pages/home/Home';
 import Loading from './components/Loading/Loading';
-import Error from './components/Error/Error';
+import { UserContext } from './providers/UserProvider';
+import { RecipesContext } from './providers/RecipesProvider';
+import { CategoriesContext } from './providers/CategoriesProvider';
 
 const App = () => {
-  const { userLoading, userDataLoading, userDataError } = useAppSelector(state => state.user);
-  const { loading: recipesLoading, error: recipesError } = useAppSelector(state => state.recipe);
-  const {
-    loading: categoriesLoading,
-    error: categoriesError,
-  } = useAppSelector(state => state.category);
+  const { userLoading } = useContext(UserContext);
+  const { recipesLoading } = useContext(RecipesContext);
+  const { categoriesLoading } = useContext(CategoriesContext);
 
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(userObserver());
-    dispatch(recipesListener());
-    dispatch(categoriesListener());
-  }, [dispatch]);
-
-  const loadings = [userLoading, userDataLoading, recipesLoading, categoriesLoading];
-  const errors = [userDataError, recipesError, categoriesError];
+  const loadings = [userLoading, recipesLoading, categoriesLoading];
 
   if (loadings.includes(true)) return <Loading />;
-  if (errors.join('').length > 0) {
-    console.error(errors);
-    return <Error />;
-  }
 
   return (
     <Router>

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { createCategory } from '../../features/category/categorySlice';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useContext, useState } from 'react';
+import { CategoriesContext } from '../../providers/CategoriesProvider';
+import { createCategory } from '../../utils/firebase/categoryMethods';
 
 import Category from './Category';
 import Logo from '../../components/Logo/Logo';
@@ -10,16 +10,13 @@ import './Categories.scss';
 const Categories = () => {
   const [categoryName, setCategoryName] = useState('');
 
-  const { categories } = useAppSelector(state => state.category);
+  const { categories } = useContext(CategoriesContext);
 
-  const dispatch = useAppDispatch();
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(createCategory(categoryName)).then(() => {
-      alert(`La catégorie "${categoryName}" a bien été crée.`);
-      setCategoryName('');
-    });
+    await createCategory(categoryName);
+    alert(`La catégorie "${categoryName}" a bien été crée.`);
+    setCategoryName('');
   };
 
   return (

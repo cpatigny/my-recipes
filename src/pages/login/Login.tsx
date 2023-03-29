@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../app/hooks';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { UserContext } from '../../providers/UserProvider';
+import { signIn } from '../../utils/firebase/authMethods';
 
 import './Login.scss';
 
@@ -12,26 +12,23 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
-  const { user } = useAppSelector(state => state.user);
+  const { user } = useContext(UserContext);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setLoginFormData({ ...loginFormData, [name]: value });
   };
 
-  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { email, password } = loginFormData;
-    const auth = getAuth();
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        navigate('/', { replace: true });
-      })
-      .catch(error => {
-        console.error(`Error ${error.code} : ${error.message}`);
-        alert('Email ou mot de passe incorrect');
-      });
+    try {
+      await signIn(email, password);
+      navigate('/', { replace: true });
+    } catch (error) {
+      alert('Email ou mot de passe incorrect');
+    }
   };
 
   // if user is already login, we check if null because null is type object

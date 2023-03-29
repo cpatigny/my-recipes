@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../app/hooks';
+import { UserContext } from '../../providers/UserProvider';
 
 import RecipeForm from '../../components/RecipeForm/RecipeForm';
 
 const AddRecipe = () => {
-  const { user } = useAppSelector(state => state.user);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {

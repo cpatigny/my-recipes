@@ -1,4 +1,5 @@
 {
+    "root": true,
     "env": {
         "browser": true,
         "es2021": true
@@ -41,17 +42,13 @@
     ],
     "rules": {
         "indent": ["error", 2, { "SwitchCase": 1 }],
-        "linebreak-style": ["error", "unix"],
+        "linebreak-style": ["error", "windows"],
         "quotes": ["error", "single", { "allowTemplateLiterals": true }],
         "semi": ["error", "always"],
         "func-style": ["error", "expression"],
         "arrow-parens": ["error", "as-needed"],
         "jsx-quotes": ["error", "prefer-single"],
         "operator-linebreak": ["error", "before", { "overrides": { "&&": "ignore" } }],
-        "no-param-reassign": ["error", {
-            "props": true,
-            "ignorePropertyModificationsFor": ["state"] // for redux toolkit
-        }],
         "import/extensions": [
             "error",
             "ignorePackages",
@@ -63,7 +60,6 @@
             }
         ],
         "unused-imports/no-unused-imports": "error",
-        "no-console": ["warn", { "allow": ["warn", "error"] }],
         "prefer-destructuring": "off",
         "import/order": "off",
         "react/prop-types": "off",

@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import remarkGfm from 'remark-gfm';
 import { useNavigate, useParams } from 'react-router-dom';
 import findMatchingRecipeWithSlug from '../../utils/findMatchingRecipeWithSlug';
 import formatDate from '../../utils/formatDate';
-import { useAppSelector } from '../../app/hooks';
 import { RecipeWithId } from '../../types/recipe';
+import { UserContext } from '../../providers/UserProvider';
+import { RecipesContext } from '../../providers/RecipesProvider';
 
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
@@ -37,8 +38,8 @@ const components: Components = {
 const Recipe = () => {
   const [recipe, setRecipe] = useState<RecipeWithId | null>(null);
 
-  const { user } = useAppSelector(state => state.user);
-  const { recipes } = useAppSelector(state => state.recipe);
+  const { user } = useContext(UserContext);
+  const { recipes } = useContext(RecipesContext);
 
   const navigate = useNavigate();
   const { slug } = useParams();

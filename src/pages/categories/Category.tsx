@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { deleteCategory, updateCategory } from '../../features/category/categorySlice';
+import { useContext, useState } from 'react';
+import { RecipesContext } from '../../providers/RecipesProvider';
 import { CategoryWithId } from '../../types/category';
 import confirm from '../../utils/confirm';
+import { updateCategory, deleteCategory } from '../../utils/firebase/categoryMethods';
 
 interface CategoryProps {
   category: CategoryWithId;
@@ -12,23 +12,21 @@ const Category = ({ category }: CategoryProps) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [categoryName, setCategoryName] = useState(category.name);
 
-  const dispatch = useAppDispatch();
+  const { recipes } = useContext(RecipesContext);
 
-  const { recipes } = useAppSelector(state => state.recipe);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(updateCategory({ category, categoryName })).then(() => {
-      setShowEditForm(false);
-    });
+    await updateCategory({ category, categoryName });
+    setShowEditForm(false);
   };
 
   const wordToEnter = 'oui';
   const confirmText = `Êtes-vous sûr de vouloir supprimer la catégorie "${category.name}" ? (cette action est irréversible !) Écrivez "${wordToEnter}" pour confirmer :`;
-  const onConfirm = () => {
+  const onConfirm = async () => {
     if (recipes) {
-      dispatch(deleteCategory({ recipes, category })).then(() => alert('La catégorie a bien été supprimée.'));
+      await deleteCategory({ recipes, category });
+      alert('La catégorie a bien été supprimée.');
     }
   };
 

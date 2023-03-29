@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import searchMatchingRecipes from '../../utils/searchMatchingRecipes';
 import reverseObject from '../../utils/reverseRecipes';
-import { useAppSelector } from '../../app/hooks';
 import { Recipes } from '../../types/recipe';
 
 import { Link } from 'react-router-dom';
@@ -10,6 +9,8 @@ import SearchBar from './SearchBar';
 import NothingToShow from '../../components/NothingToShow/NothingToShow';
 import Options from './Options';
 import Footer from '../../components/Footer/Footer';
+import { UserContext } from '../../providers/UserProvider';
+import { RecipesContext } from '../../providers/RecipesProvider';
 
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import logo from '../../assets/img/logo.svg';
@@ -24,8 +25,8 @@ const Home = () => {
   const [noSearchResult, setNoSearchResult] = useState(false);
   const [orderBy, setOrderBy] = useState<'desc' | 'asc'>(oderByDefaultValue);
 
-  const { user } = useAppSelector(state => state.user);
-  const { recipes } = useAppSelector(state => state.recipe);
+  const { user } = useContext(UserContext);
+  const { recipes } = useContext(RecipesContext);
 
   useEffect(() => {
     if (!recipes) return;
