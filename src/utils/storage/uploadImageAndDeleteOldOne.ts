@@ -29,15 +29,13 @@ const uploadImageAndDeleteOldOne = (
     const oldRecipeImageRef = ref(storage, `${recipeImagesFolderName}/${oldImageName}`);
 
     deleteObject(oldRecipeImageRef)
-      .then(onDelete)
-      .catch(error => console.error(error));
+      .then(onDelete);
   }
 
   const recipeImageRef = ref(storage, `${recipeImagesFolderName}/${file.name}`);
 
   uploadBytes(recipeImageRef, file)
-    .then(snapshot => onUpload(snapshot))
-    .catch(error => console.error(error));
+    .then(snapshot => onUpload(snapshot));
 };
 
 export default uploadImageAndDeleteOldOne;
