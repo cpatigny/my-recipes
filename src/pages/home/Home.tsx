@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
 import SearchBar from './SearchBar';
 import NothingToShow from '../../components/NothingToShow/NothingToShow';
-import Options from './Options';
 import Footer from '../../components/Footer/Footer';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
@@ -18,12 +17,9 @@ import logo from '../../assets/img/logo.svg';
 import './Home.scss';
 
 const Home = () => {
-  const oderByDefaultValue = localStorage.getItem('orderBy') === 'desc' ? 'desc' : 'asc';
-
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
   const [search, setSearch] = useState('');
   const [noSearchResult, setNoSearchResult] = useState(false);
-  const [orderBy, setOrderBy] = useState<'desc' | 'asc'>(oderByDefaultValue);
 
   const { user } = useContext(UserContext);
   const { recipes } = useContext(RecipesContext);
@@ -39,19 +35,13 @@ const Home = () => {
       noResult = matchingRecipes === null;
     }
 
-    if (orderBy === 'desc' && matchingRecipes) {
+    if (matchingRecipes) {
       matchingRecipes = reverseObject(matchingRecipes);
     }
 
     setNoSearchResult(noResult);
     setRecipesToShow(matchingRecipes);
-  }, [recipes, search, orderBy]);
-
-  const handleOrderByChange = (e: React.FormEvent<HTMLSelectElement>) => {
-    const { value } = e.currentTarget;
-    setOrderBy(value === 'desc' ? 'desc' : 'asc');
-    localStorage.setItem('orderBy', value);
-  };
+  }, [recipes, search]);
 
   let nbRecipesToShow = 0;
   if (recipesToShow) nbRecipesToShow = Object.keys(recipesToShow).length;
@@ -75,8 +65,6 @@ const Home = () => {
         </h2>
         { user && <Link className='btn btn-outline-primary' to='/add-recipe'>+ Add recipe</Link> }
       </div>
-
-      { !noSearchResult && <Options orderBy={orderBy} handleOrderByChange={handleOrderByChange} /> }
 
       { noSearchResult &&
         <NothingToShow
