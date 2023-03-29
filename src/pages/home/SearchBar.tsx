@@ -11,16 +11,6 @@ const SearchBar = ({ search, setSearch }: SearchBarProps) => {
 
   const reset = () => setSearch('');
 
-  const clearBtn = (
-    <button
-      className='clear-search'
-      aria-label='effacer la recherche'
-      onClick={reset}
-    >
-      <span className='material-icons-round'>clear</span>
-    </button>
-  );
-
   return (
     <div className='search-bar'>
       <input
@@ -33,7 +23,17 @@ const SearchBar = ({ search, setSearch }: SearchBarProps) => {
         onChange={handleChange}
       />
 
-      { search ? clearBtn : <span id='search-icon' className='material-icons-round'>search</span> }
+      <span id='search-icon' className='material-icons-round'>search</span>
+
+      { search &&
+        <button
+          className='clear-search'
+          aria-label='effacer la recherche'
+          onClick={reset}
+        >
+          <span className='material-icons-round'>clear</span>
+        </button>
+      }
     </div>
   );
 };

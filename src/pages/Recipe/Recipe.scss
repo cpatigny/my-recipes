@@ -201,12 +201,16 @@
 @media all and (max-width: 450px) {
   .show-recipe {
     h1 {
-      font-size: 2rem;
+      font-size: 1.7rem;
     }
 
     .top p {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       margin: 15px 0;
+
+      img {
+        width: 35px;
+      }
     }
   }
 }

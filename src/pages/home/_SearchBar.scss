@@ -7,7 +7,7 @@
 .search-bar input {
   display: block;
   width: 100%;
-  padding: 12px 50px 12px 20px;
+  padding: 12px 20px 12px 50px;
   border-radius: 50px;
   font-size: 1rem;
   color: $main-text-color;
@@ -41,7 +41,7 @@
 }
 
 .search-bar #search-icon {
-  right: 15px;
+  left: 15px;
   display: flex;
   pointer-events: none;
 }
@@ -65,6 +65,6 @@
   }
 
   .search-bar input {
-    padding: 10px 50px 10px 20px;
+    padding: 10px 20px 10px 50px;
   }
 }

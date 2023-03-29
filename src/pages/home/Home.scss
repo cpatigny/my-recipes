@@ -209,21 +209,30 @@
 }
 
 @media all and (max-width: 450px) {
+  .app {
+    .top h1 {
+      font-size: 1.5rem;
 
-  .app h2 {
-    font-size: 2.3rem;
-  }
+      .logo {
+        width: 35px;
+      }
+    }
 
-  .app .recipes .recipe {
-    height: 250px;
-  }
+    h2 {
+      font-size: 2.3rem;
+    }
 
-  .app footer {
-    margin-bottom: 10px;
-    padding: 15px 15px;
+    .recipes .recipe {
+      height: 250px;
+    }
 
-    p {
-      margin: 0;
+    footer {
+      margin-bottom: 10px;
+      padding: 15px 15px;
+
+      p {
+        margin: 0;
+      }
     }
   }
 }
