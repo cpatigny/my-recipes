@@ -20,7 +20,7 @@ export const createCategory = (categoryName: string) => {
 
   // We don't return because push returns the ref of the newly created category
   // and it is a non serializable object so it generates an error
-  push(categoriesRef, categoryName);
+  return push(categoriesRef, categoryName);
 };
 
 export const deleteCategory = async ({ recipes, category }: DeleteCategoryParams) => {

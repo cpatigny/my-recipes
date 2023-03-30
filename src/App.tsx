@@ -8,7 +8,7 @@ import Login from './pages/login/Login';
 import AddRecipe from './pages/addRecipe/AddRecipe';
 import Recipe from './pages/Recipe/Recipe';
 import EditRecipe from './pages/editRecipe/EditRecipe';
-import Categories from './pages/categories/Categories';
+import AdminCategories from './pages/adminCategories/AdminCategories';
 import Home from './pages/home/Home';
 import Loading from './components/Loading/Loading';
 import { UserContext } from './providers/UserProvider';
@@ -33,7 +33,7 @@ const App = () => {
         <Route path='/add-recipe' element={<AddRecipe />} />
         <Route path='/edit/:slug' element={<EditRecipe />} />
         <Route path='/recette/:slug' element={<Recipe />} />
-        <Route path='/categories' element={<Categories />} />
+        <Route path='/categories' element={<AdminCategories />} />
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </Router>

@@ -2,12 +2,12 @@ import { useContext, useState } from 'react';
 import { CategoriesContext } from '../../providers/CategoriesProvider';
 import { createCategory } from '../../utils/firebase/categoryMethods';
 
-import Category from './Category';
+import Category from './AdminCategory';
 import Logo from '../../components/Logo/Logo';
 
 import './Categories.scss';
 
-const Categories = () => {
+const AdminCategories = () => {
   const [categoryName, setCategoryName] = useState('');
 
   const { categories } = useContext(CategoriesContext);
@@ -56,4 +56,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default AdminCategories;

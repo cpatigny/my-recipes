@@ -8,7 +8,7 @@ interface CategoryProps {
   category: CategoryWithId;
 }
 
-const Category = ({ category }: CategoryProps) => {
+const AdminCategory = ({ category }: CategoryProps) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [categoryName, setCategoryName] = useState(category.name);
 
@@ -63,4 +63,4 @@ const Category = ({ category }: CategoryProps) => {
   );
 };
 
-export default Category;
+export default AdminCategory;
