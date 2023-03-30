@@ -60,7 +60,7 @@ const Home = () => {
         <h2 className='h1'>
           { search === ''
             ? `Mes recettes (${nbRecipes})`
-            : `${nbRecipesToShow} résultat(s)`
+            : `${nbRecipesToShow} ${nbRecipesToShow > 1 ? 'résultats' : 'résultat'}`
           }
         </h2>
         { user && <Link className='btn btn-outline-primary' to='/add-recipe'>+ Add recipe</Link> }
