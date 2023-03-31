@@ -82,39 +82,6 @@
     }
   }
 
-  .options {
-    margin-bottom: 45px;
-
-    .custom-select {
-      position: relative;
-      display: inline-block;
-
-      select {
-        color: $main-text-color;
-        cursor: pointer;
-        font-size: $text-size;
-        padding: 0;
-        border-radius: 6px;
-        background-color: transparent;
-        border: none;
-        padding: 0 20px 0 2px;
-        -moz-appearance:none; /* Firefox */
-        -webkit-appearance:none; /* Safari and Chrome */
-        appearance:none;
-      }
-
-      .custom-arrow {
-        position: absolute;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        pointer-events: none;
-        display: flex;
-        align-items: center;
-      }
-    }
-  }
-
   .recipes {
     display: flex;
     flex-wrap: wrap;
