@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { RecipesContext } from '../../providers/RecipesProvider';
 import { CategoryWithId } from '../../types/category';
 import confirm from '../../utils/confirm';
-import countRecipesByCategory from '../../utils/countRecipesByCategory';
+import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
 import { updateCategory, deleteCategory } from '../../utils/firebase/categoryMethods';
 
 interface CategoryProps {

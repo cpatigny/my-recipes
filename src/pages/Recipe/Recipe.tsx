@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import remarkGfm from 'remark-gfm';
 import { useNavigate, useParams } from 'react-router-dom';
-import findMatchingRecipeWithSlug from '../../utils/findMatchingRecipeWithSlug';
+import findMatchingRecipeWithSlug from '../../utils/recipes/findMatchingRecipeWithSlug';
 import formatDate from '../../utils/formatDate';
 import { RecipeWithId } from '../../types/recipe';
 import { UserContext } from '../../providers/UserProvider';

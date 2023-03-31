@@ -1,5 +1,5 @@
-import { Categories, CategoryWithId } from '../types/category';
-import { Recipes } from '../types/recipe';
+import { Categories, CategoryWithId } from '../../types/category';
+import { Recipes } from '../../types/recipe';
 import countRecipesByCategory from './countRecipesByCategory';
 
 const getCategoriesOrderByRecipeCount = (categories: Categories, recipes: Recipes) => {

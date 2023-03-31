@@ -1,4 +1,4 @@
-import { Recipes } from '../types/recipe';
+import { Recipes } from '../../types/recipe';
 
 /**
  * Reverse the order of the recipes

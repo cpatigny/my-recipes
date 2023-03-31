@@ -1,4 +1,4 @@
-import { Recipes } from '../types/recipe';
+import { Recipes } from '../../types/recipe';
 
 const countRecipesByCategory = (recipes: Recipes, categoryId: string) => {
   let count = 0;

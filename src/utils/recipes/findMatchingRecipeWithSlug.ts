@@ -1,4 +1,4 @@
-import { RecipeWithId, Recipes } from '../types/recipe';
+import { RecipeWithId, Recipes } from '../../types/recipe';
 
 const findMatchingRecipeWithSlug = (slug: string, recipes: Recipes): RecipeWithId | null => {
   if (!recipes) return null;

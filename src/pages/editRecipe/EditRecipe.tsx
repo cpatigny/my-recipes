@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import findMatchingRecipeWithSlug from '../../utils/findMatchingRecipeWithSlug';
+import findMatchingRecipeWithSlug from '../../utils/recipes/findMatchingRecipeWithSlug';
 import { RecipeWithId } from '../../types/recipe';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';

@@ -1,4 +1,4 @@
-import { Recipes } from '../types/recipe';
+import { Recipes } from '../../types/recipe';
 
 const getRecipesByCategory = (recipes: Recipes, categoryId: string): Recipes | null => {
   const recipesWithCategory: Recipes = {};

@@ -1,7 +1,7 @@
 import {
   useContext, useEffect, useRef, useState,
 } from 'react';
-import slugify from '../../utils/slugify';
+import slugify from '../../utils/string/slugify';
 import { useNavigate } from 'react-router-dom';
 import uploadImageAndDeleteOldOne from '../../utils/storage/uploadImageAndDeleteOldOne';
 import { RecipeFormData, RecipeWithId } from '../../types/recipe';

@@ -1,5 +1,5 @@
-import { Recipes } from '../types/recipe';
-import strContains from './strContains';
+import { Recipes } from '../../types/recipe';
+import strContains from '../string/strContains';
 
 const searchMatchingRecipes = (search: string, recipes: Recipes): Recipes | null => {
   const matchingRecipes: Recipes = {};

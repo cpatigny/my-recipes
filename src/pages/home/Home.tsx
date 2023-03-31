@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import searchMatchingRecipes from '../../utils/searchMatchingRecipes';
-import reverseObject from '../../utils/reverseRecipes';
+import searchMatchingRecipes from '../../utils/recipes/searchMatchingRecipes';
+import reverseObject from '../../utils/recipes/reverseRecipes';
 import { Recipes } from '../../types/recipe';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
 import { CategoriesContext } from '../../providers/CategoriesProvider';
-import getRecipesByCategory from '../../utils/getRecipesByCategory';
+import getRecipesByCategory from '../../utils/recipes/getRecipesByCategory';
 
 import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';

@@ -1,8 +1,8 @@
 import { Categories as CategoriesType } from '../../types/category';
 import { Recipes } from '../../types/recipe';
 import { DEFAULT_CATEGORY_ID } from './Home';
-import countRecipesByCategory from '../../utils/countRecipesByCategory';
-import getCategoriesOrderByRecipeCount from '../../utils/getCategoriesOrderByRecipeCount';
+import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
+import getCategoriesOrderByRecipeCount from '../../utils/categories/getCategoriesOrderByRecipeCount';
 
 import Category from './Category';
 
