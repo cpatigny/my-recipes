@@ -2,6 +2,7 @@ import { Categories as CategoriesType } from '../../types/category';
 import { Recipes } from '../../types/recipe';
 import { DEFAULT_CATEGORY_ID } from './Home';
 import countRecipesByCategory from '../../utils/countRecipesByCategory';
+import getCategoriesOrderByRecipeCount from '../../utils/getCategoriesOrderByRecipeCount';
 
 import Category from './Category';
 
@@ -28,6 +29,7 @@ const Categories = ({
 
   if (!categories || !recipes) return null;
 
+  const categoriesOrderByRecipeCount = getCategoriesOrderByRecipeCount(categories, recipes);
   const defaultCategoryIsSelected = selectedCategoryId === DEFAULT_CATEGORY_ID;
 
   return (
@@ -37,16 +39,15 @@ const Categories = ({
 
         <Category id={DEFAULT_CATEGORY_ID} name='Tout' selected={defaultCategoryIsSelected} selectCategory={selectCategory} />
 
-        { Object.keys(categories).map(categoryKey => {
-          const name = categories[categoryKey];
-          if (!name) return null;
-          if (countRecipesByCategory(recipes, categoryKey) === 0) return null;
+        { categoriesOrderByRecipeCount.map(category => {
+          const { id, name } = category;
+          if (countRecipesByCategory(recipes, id) === 0) return null;
           return (
             <Category
-              key={categoryKey}
-              id={categoryKey}
+              key={id}
+              id={id}
               name={name}
-              selected={selectedCategoryId === categoryKey}
+              selected={selectedCategoryId === id}
               selectCategory={selectCategory}
             />
           );
