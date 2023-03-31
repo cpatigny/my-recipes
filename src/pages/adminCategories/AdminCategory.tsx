@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { RecipesContext } from '../../providers/RecipesProvider';
 import { CategoryWithId } from '../../types/category';
 import confirm from '../../utils/confirm';
+import countRecipesByCategory from '../../utils/countRecipesByCategory';
 import { updateCategory, deleteCategory } from '../../utils/firebase/categoryMethods';
 
 interface CategoryProps {
@@ -11,8 +12,15 @@ interface CategoryProps {
 const AdminCategory = ({ category }: CategoryProps) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [categoryName, setCategoryName] = useState(category.name);
+  const [nbRecipesWithCategory, setNbRecipesWithCategory] = useState(0);
 
   const { recipes } = useContext(RecipesContext);
+
+  useEffect(() => {
+    if (recipes) {
+      setNbRecipesWithCategory(countRecipesByCategory(recipes, category.id));
+    }
+  }, [recipes, category.id]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,7 +57,7 @@ const AdminCategory = ({ category }: CategoryProps) => {
 
   return (
     <div className='admin-category'>
-      <p>{ category.name }</p>
+      <p>({ nbRecipesWithCategory }) { category.name }</p>
 
       <div className='actions'>
         <button className='edit-category' onClick={() => setShowEditForm(true)}>
