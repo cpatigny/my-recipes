@@ -14,7 +14,7 @@ const RecipeCard = ({ title, imageName, slug }: RecipeCardProps) => {
       to={`/recette/${slug}`}
       className={`recipe ${imageName ? '' : 'no-image'}`}
     >
-      { imageUrl && <img className='recipe-image' src={imageUrl} alt={title} /> }
+      { imageUrl && <img className='recipe-image' src={imageUrl} alt={title} loading='lazy' /> }
       <div className='gradient' />
       <p className='recipe-title'>{ title }</p>
     </Link>
