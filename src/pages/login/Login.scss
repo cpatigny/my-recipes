@@ -35,7 +35,7 @@
       color: var(--main-text-color);
       margin-bottom: 18px;
       border: none;
-      -webkit-appearance: none; /* so that box-shadow works on input */
+      -webkit-appearance: none; /* so that box-shadow works on input on ios */
       box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     }
 
