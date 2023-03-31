@@ -28,7 +28,7 @@
   }
 }
 
-@media all and (max-width: 700px) {
+@media (max-width: 700px) {
   .edit-recipe, .add-recipe {
     h1 {
       font-size: 2.7rem;
@@ -38,7 +38,7 @@
   }
 }
 
-@media all and (max-width: 500px) {
+@media (max-width: 500px) {
   .edit-recipe, .add-recipe {
     .image-preview {
       width: 100%;

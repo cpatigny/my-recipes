@@ -229,7 +229,7 @@
   }
 }
 
-@media all and (max-width: 700px) {
+@media (max-width: 700px) {
   .app {
     .top h1 {
       font-size: 2rem;
@@ -245,7 +245,7 @@
   }
 }
 
-@media all and (max-width: 600px) {
+@media (max-width: 600px) {
 
   .app h2 {
     margin-top: 24px;
@@ -285,13 +285,13 @@
   }
 }
 
-@media all and (max-width: 500px) {
+@media (max-width: 500px) {
   .app .recipes .recipe .recipe-title {
     font-size: 1.5rem;
   }
 }
 
-@media all and (max-width: 450px) {
+@media (max-width: 450px) {
   .app {
     .top h1 {
       font-size: 1.5rem;

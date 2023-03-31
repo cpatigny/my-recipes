@@ -156,13 +156,13 @@
   }
 }
 
-@media all and (max-width: 900px) {
+@media (max-width: 900px) {
   .show-recipe h1 {
     font-size: 2.7rem;
   }
 }
 
-@media all and (max-width: 700px) {
+@media (max-width: 700px) {
   .show-recipe {
     .top p {
       font-size: 2rem;
@@ -175,7 +175,7 @@
   }
 }
 
-@media all and (max-width: 650px) {
+@media (max-width: 650px) {
   .show-recipe {
     h1 {
       font-size: 2.2rem;
@@ -198,7 +198,7 @@
   }
 }
 
-@media all and (max-width: 450px) {
+@media (max-width: 450px) {
   .show-recipe {
     h1 {
       font-size: 1.7rem;
