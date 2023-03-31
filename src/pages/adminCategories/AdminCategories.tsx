@@ -5,7 +5,7 @@ import { createCategory } from '../../utils/firebase/categoryMethods';
 import Category from './AdminCategory';
 import Logo from '../../components/Logo/Logo';
 
-import './Categories.scss';
+import './AdminCategories.scss';
 
 const AdminCategories = () => {
   const [categoryName, setCategoryName] = useState('');
@@ -20,7 +20,7 @@ const AdminCategories = () => {
   };
 
   return (
-    <div className='categories container'>
+    <div className='admin-categories container'>
       <Logo />
 
       <h1>Catégories</h1>

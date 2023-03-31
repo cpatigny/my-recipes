@@ -2,27 +2,34 @@ import { useContext, useEffect, useState } from 'react';
 import searchMatchingRecipes from '../../utils/searchMatchingRecipes';
 import reverseObject from '../../utils/reverseRecipes';
 import { Recipes } from '../../types/recipe';
+import { UserContext } from '../../providers/UserProvider';
+import { RecipesContext } from '../../providers/RecipesProvider';
+import { CategoriesContext } from '../../providers/CategoriesProvider';
+import getRecipesByCategory from '../../utils/getRecipesByCategory';
 
 import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
 import SearchBar from './SearchBar';
 import NothingToShow from '../../components/NothingToShow/NothingToShow';
 import Footer from '../../components/Footer/Footer';
-import { UserContext } from '../../providers/UserProvider';
-import { RecipesContext } from '../../providers/RecipesProvider';
+import Categories from './Categories';
 
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import logo from '../../assets/img/logo.svg';
 
 import './Home.scss';
 
+export const DEFAULT_CATEGORY_ID = '0';
+
 const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
   const [search, setSearch] = useState('');
   const [noSearchResult, setNoSearchResult] = useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(DEFAULT_CATEGORY_ID);
 
   const { user } = useContext(UserContext);
   const { recipes } = useContext(RecipesContext);
+  const { categories } = useContext(CategoriesContext);
 
   useEffect(() => {
     if (!recipes) return;
@@ -39,9 +46,17 @@ const Home = () => {
       matchingRecipes = reverseObject(matchingRecipes);
     }
 
+    const defaultCategoryIsSelected = selectedCategoryId === DEFAULT_CATEGORY_ID;
+
+    if (matchingRecipes && !search && !defaultCategoryIsSelected) {
+      matchingRecipes = getRecipesByCategory(matchingRecipes, selectedCategoryId);
+    }
+
     setNoSearchResult(noResult);
     setRecipesToShow(matchingRecipes);
-  }, [recipes, search]);
+  }, [recipes, search, selectedCategoryId]);
+
+  const selectCategory = (id: string) => setSelectedCategoryId(id);
 
   let nbRecipesToShow = 0;
   if (recipesToShow) nbRecipesToShow = Object.keys(recipesToShow).length;
@@ -65,6 +80,13 @@ const Home = () => {
         </h2>
         { user && <Link className='btn btn-outline-primary' to='/add-recipe'>+ Add recipe</Link> }
       </div>
+
+      <Categories
+        categories={categories}
+        selectedCategoryId={selectedCategoryId}
+        selectCategory={selectCategory}
+        recipes={recipes}
+      />
 
       { noSearchResult &&
         <NothingToShow

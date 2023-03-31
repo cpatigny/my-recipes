@@ -59,12 +59,14 @@
             }
         ],
         "unused-imports/no-unused-imports": "error",
+        "object-curly-newline": "off",
         "linebreak-style": "off",
         "prefer-destructuring": "off",
         "import/order": "off",
         "react/prop-types": "off",
         "no-alert": "off",
         "react/jsx-uses-react": "off", // no longer needed with react 17
-	    "react/react-in-jsx-scope": "off" // no longer needed with react 17
+	    "react/react-in-jsx-scope": "off", // no longer needed with react 17
+        "no-plusplus": "off"
     }
 }

@@ -48,7 +48,7 @@ const AdminCategory = ({ category }: CategoryProps) => {
   }
 
   return (
-    <div className='category'>
+    <div className='admin-category'>
       <p>{ category.name }</p>
 
       <div className='actions'>
