@@ -7,15 +7,16 @@ interface RecipeCardProps {
 }
 
 const RecipeCard = ({ title, imageName, slug }: RecipeCardProps) => {
+  const gradient = 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.7))';
   const imageUrl = imageName && `https://firebasestorage.googleapis.com/v0/b/my-recipes-5f5d6.appspot.com/o/recipe-images%2F${imageName}?alt=media`;
+  const backgroundImage = imageName ? `${gradient}, url(${imageUrl})` : gradient;
 
   return (
     <Link
       to={`/recette/${slug}`}
       className={`recipe ${imageName ? '' : 'no-image'}`}
+      style={{ backgroundImage }}
     >
-      { imageUrl && <img className='recipe-image' src={imageUrl} alt={title} loading='lazy' /> }
-      <div className='gradient' />
       <p className='recipe-title'>{ title }</p>
     </Link>
   );
