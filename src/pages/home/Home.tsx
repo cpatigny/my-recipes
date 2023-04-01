@@ -6,6 +6,7 @@ import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
 import { CategoriesContext } from '../../providers/CategoriesProvider';
 import getRecipesByCategory from '../../utils/recipes/getRecipesByCategory';
+import useScrollRestoration from '../../hooks/useScrollRestoration';
 
 import { Link } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
@@ -30,6 +31,12 @@ const Home = () => {
   const { user } = useContext(UserContext);
   const { recipes } = useContext(RecipesContext);
   const { categories } = useContext(CategoriesContext);
+
+  const restoreScroll = useScrollRestoration();
+
+  useEffect(() => {
+    restoreScroll();
+  }, [recipesToShow, restoreScroll]);
 
   useEffect(() => {
     if (!recipes) return;

@@ -50,9 +50,21 @@
     margin-bottom: 10px;
   }
 
-  .recipe-image img {
+  .recipe-image {
+    position: relative;
     width: 100%;
-    border-radius: $main-border-radius;
+    padding-bottom: 100%; /* padding is based on the width */
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: $main-border-radius;
+      object-fit: cover;
+      object-position: center;
+    }
   }
 
   .ingredients {
