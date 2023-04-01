@@ -1,9 +1,7 @@
 import { useContext } from 'react';
 import './utils/firebase/firebase';
 
-import {
-  BrowserRouter as Router, Navigate, Route, Routes,
-} from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import Login from './pages/login/Login';
 import AddRecipe from './pages/addRecipe/AddRecipe';
 import Recipe from './pages/Recipe/Recipe';
@@ -15,6 +13,41 @@ import { UserContext } from './providers/UserProvider';
 import { RecipesContext } from './providers/RecipesProvider';
 import { CategoriesContext } from './providers/CategoriesProvider';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+  },
+  {
+    path: 'admin',
+    element: <Login />,
+  },
+  {
+    path: 'login',
+    element: <Login />,
+  },
+  {
+    path: 'add-recipe',
+    element: <AddRecipe />,
+  },
+  {
+    path: 'edit/:slug',
+    element: <EditRecipe />,
+  },
+  {
+    path: 'recette/:slug',
+    element: <Recipe />,
+  },
+  {
+    path: 'categories',
+    element: <AdminCategories />,
+  },
+  {
+    path: '*',
+    element: <Navigate to='/' replace />,
+  },
+]);
+
 const App = () => {
   const { userLoading } = useContext(UserContext);
   const { recipesLoading } = useContext(RecipesContext);
@@ -25,18 +58,7 @@ const App = () => {
   if (loadings.includes(true)) return <Loading />;
 
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/admin' element={<Login />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/add-recipe' element={<AddRecipe />} />
-        <Route path='/edit/:slug' element={<EditRecipe />} />
-        <Route path='/recette/:slug' element={<Recipe />} />
-        <Route path='/categories' element={<AdminCategories />} />
-        <Route path='*' element={<Navigate to='/' replace />} />
-      </Routes>
-    </Router>
+    <RouterProvider router={router} />
   );
 };
 
