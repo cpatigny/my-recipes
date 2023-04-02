@@ -9,7 +9,6 @@
     border-radius: 10px;
     margin-bottom: 12px;
     padding: 8px 5px 8px 12px;
-    cursor: pointer;
     background-color: #fff;
     border: 1px solid #e9e9e9;
 
@@ -43,6 +42,42 @@
 
         &.delete-category {
           color: $danger-color;
+        }
+      }
+    }
+  }
+
+  .category-edit-form {
+    display: flex;
+    align-items: center;
+
+    .actions {
+      display: flex;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10px;
+        border-radius: 50%;
+        border: none;
+        padding: 5px;
+        background-color: transparent;
+
+        &[type="submit"] {
+          color: $valid-color;
+
+          &:hover {
+            background-color: rgba($valid-color, 0.1);
+          }
+        }
+
+        &.close-category-form {
+          color: $danger-color;
+
+          &:hover {
+            background-color: rgba($danger-color, 0.1);
+          }
         }
       }
     }
