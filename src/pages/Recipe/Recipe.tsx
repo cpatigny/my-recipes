@@ -47,7 +47,7 @@ const Recipe = () => {
 
   const navigate = useNavigate();
   const { slug } = useParams();
-  const restoreScroll = useScrollRestoration();
+  const { restoreScroll } = useScrollRestoration();
 
   useEffect(() => {
     if (recipes && slug) {
@@ -62,10 +62,8 @@ const Recipe = () => {
 
   // we need to put [recipe] otherwise the scroll will only apply when page is Loading
   useEffect(() => {
-    // we put 150ms to be sure ReactMarkdown has had time to load
-    // setTimeout(() => restoreScroll(), 150);
     restoreScroll();
-  }, [recipe, restoreScroll]);
+  }, [restoreScroll]);
 
   if (!recipe) return <Loading />;
 

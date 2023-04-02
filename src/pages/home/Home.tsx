@@ -32,11 +32,11 @@ const Home = () => {
   const { recipes } = useContext(RecipesContext);
   const { categories } = useContext(CategoriesContext);
 
-  const restoreScroll = useScrollRestoration();
+  const { restoreScroll } = useScrollRestoration();
 
   useEffect(() => {
     restoreScroll();
-  }, [recipesToShow, restoreScroll]);
+  }, [restoreScroll]);
 
   useEffect(() => {
     if (!recipes) return;
