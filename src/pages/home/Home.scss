@@ -103,6 +103,7 @@
       text-decoration: none;
       background-color: #f5f5f5;
       overflow: hidden;
+      isolation: isolate; /* to fix ios bug where border-radius stops working during image scale animation */
 
       &.no-image:before {
         content: '\e3f4';
