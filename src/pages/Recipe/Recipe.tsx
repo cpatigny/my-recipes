@@ -11,8 +11,8 @@ import useScrollRestoration from '../../hooks/useScrollRestoration';
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
 import ReactMarkdown, { Components } from 'react-markdown';
-import Logo from '../../components/Logo/Logo';
 import RecipeImage from './RecipeImage';
+import GoBack from '../../components/GoBack/GoBack';
 
 import './Recipe.scss';
 
@@ -60,7 +60,6 @@ const Recipe = () => {
     }
   }, [navigate, recipes, slug]);
 
-  // we need to put [recipe] otherwise the scroll will only apply when page is Loading
   useEffect(() => {
     restoreScroll();
   }, [restoreScroll]);
@@ -69,18 +68,20 @@ const Recipe = () => {
 
   return (
     <div className={`show-recipe container ${recipe.imageName ? '' : 'no-image'}`}>
-      <Logo />
-
       <div className='recipe-header'>
+        <GoBack />
         <h1>{ recipe.title }</h1>
-        { user && <RecipeActions recipe={recipe} /> }
       </div>
 
-      { recipe.createdAt &&
-        <div className='recipe-date'>
-          <span>Ajouté le <b>{ formatDate(recipe.createdAt) }</b></span>
-        </div>
-      }
+      <div className='wrapper'>
+        { recipe.createdAt &&
+          <div className='recipe-date'>
+            <span>Ajouté le <b>{ formatDate(recipe.createdAt) }</b></span>
+          </div>
+        }
+
+        { user && <RecipeActions recipe={recipe} /> }
+      </div>
 
       <RecipeImage recipe={recipe} />
 
