@@ -1,11 +1,11 @@
 import { RecipeWithId, Recipes } from '../../types/recipe';
 
-const findMatchingRecipeWithSlug = (slug: string, recipes: Recipes): RecipeWithId | null => {
+const getRecipeBySlug = (slug: string, recipes: Recipes): RecipeWithId | null => {
   if (!recipes) return null;
 
   const recipeKey = Object
     .keys(recipes)
-    .filter(key => recipes[key]?.slug === slug)[0];
+    .find(key => recipes[key]?.slug === slug);
 
   // no match, the list doesn't exist
   if (!recipeKey) return null;
@@ -21,4 +21,4 @@ const findMatchingRecipeWithSlug = (slug: string, recipes: Recipes): RecipeWithI
   };
 };
 
-export default findMatchingRecipeWithSlug;
+export default getRecipeBySlug;

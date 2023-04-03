@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import remarkGfm from 'remark-gfm';
 import { useNavigate, useParams } from 'react-router-dom';
-import findMatchingRecipeWithSlug from '../../utils/recipes/findMatchingRecipeWithSlug';
+import getRecipeBySlug from '../../utils/recipes/getRecipeBySlug';
 import formatDate from '../../utils/formatDate';
 import { RecipeWithId } from '../../types/recipe';
 import { UserContext } from '../../providers/UserProvider';
@@ -54,7 +54,7 @@ const Recipe = () => {
 
   useEffect(() => {
     if (recipes && slug) {
-      const matchingRecipe = findMatchingRecipeWithSlug(slug, recipes);
+      const matchingRecipe = getRecipeBySlug(slug, recipes);
 
       // no match : redirect to home page
       if (!matchingRecipe) navigate('/', { replace: true });

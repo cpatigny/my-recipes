@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import findMatchingRecipeWithSlug from '../../utils/recipes/findMatchingRecipeWithSlug';
+import getRecipeBySlug from '../../utils/recipes/getRecipeBySlug';
 import { RecipeWithId } from '../../types/recipe';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
@@ -18,7 +18,7 @@ const EditRecipe = () => {
 
   useEffect(() => {
     if (recipes && slug) {
-      const matchingRecipe = findMatchingRecipeWithSlug(slug, recipes);
+      const matchingRecipe = getRecipeBySlug(slug, recipes);
 
       // no match : redirect to home page
       if (!matchingRecipe) navigate('/', { replace: true });
