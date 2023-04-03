@@ -8,6 +8,8 @@ import { CategoriesContext } from '../../providers/CategoriesProvider';
 import getRecipesByCategory from '../../utils/recipes/getRecipesByCategory';
 import useScrollRestoration from '../../hooks/useScrollRestoration';
 import { CategoryWithId } from '../../types/category';
+import getCategoryBySlug from '../../utils/categories/getCategoryBySlug';
+import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
 
 import { Link, useParams } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
@@ -20,7 +22,6 @@ import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import logo from '../../assets/img/logo.svg';
 
 import './Home.scss';
-import getCategoryBySlug from '../../utils/categories/getCategoryBySlug';
 
 export const DEFAULT_CATEGORY = {
   id: '0',
@@ -78,11 +79,23 @@ const Home = () => {
     setRecipesToShow(matchingRecipes);
   }, [recipes, search, selectedCategory]);
 
-  let nbRecipesToShow = 0;
-  if (recipesToShow) nbRecipesToShow = Object.keys(recipesToShow).length;
+  const getTitle = () => {
+    if (searchMode) {
+      let nbRecipesToShow = 0;
+      if (recipesToShow) nbRecipesToShow = Object.keys(recipesToShow).length;
+      return `${nbRecipesToShow} ${nbRecipesToShow > 1 ? 'résultats' : 'résultat'}`;
+    }
 
-  let nbRecipes = 0;
-  if (recipes) nbRecipes = Object.keys(recipes).length;
+    if (selectedCategory) {
+      let count = 0;
+      count = recipes ? countRecipesByCategory(recipes, selectedCategory.id) : 0;
+      return `${selectedCategory.name} (${count})`;
+    }
+
+    let nbRecipes = 0;
+    if (recipes) nbRecipes = Object.keys(recipes).length;
+    return `Mes recettes (${nbRecipes})`;
+  };
 
   return (
     <div className='app container'>
@@ -93,10 +106,7 @@ const Home = () => {
 
       <div className='wrap'>
         <h2 className='h1'>
-          { search === ''
-            ? `Mes recettes (${nbRecipes})`
-            : `${nbRecipesToShow} ${nbRecipesToShow > 1 ? 'résultats' : 'résultat'}`
-          }
+          { getTitle() }
         </h2>
         { user && <Link className='btn btn-outline-primary' to='/add-recipe'>+ Add recipe</Link> }
       </div>
