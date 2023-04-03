@@ -12,15 +12,8 @@ export interface Recipes {
   [key: string]: Recipe;
 }
 
-export interface RecipeWithId {
+export interface RecipeWithId extends Recipe {
   id: string;
-  category: string;
-  content: string;
-  createdAt?: number;
-  imageName: string | false;
-  ingredients: string;
-  slug: string;
-  title: string;
 }
 
 export interface RecipeFormData {
