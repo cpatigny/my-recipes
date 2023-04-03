@@ -1,10 +1,10 @@
-import { CategoryWithId } from '../../types/category';
+import { Category as CategoryType } from '../../types/category';
 
 import { Link } from 'react-router-dom';
 
 interface CategoryProps {
-  category: CategoryWithId;
-  selected: boolean;
+  category: CategoryType;
+  selected?: boolean;
 }
 
 const Category = ({ category, selected }: CategoryProps) => (

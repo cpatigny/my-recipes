@@ -7,12 +7,14 @@ import { RecipeWithId } from '../../types/recipe';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
 import useScrollRestoration from '../../hooks/useScrollRestoration';
+import { CategoriesContext } from '../../providers/CategoriesProvider';
 
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
 import ReactMarkdown, { Components } from 'react-markdown';
 import RecipeImage from './RecipeImage';
 import GoBack from '../../components/GoBack/GoBack';
+import Category from '../home/Category';
 
 import './Recipe.scss';
 
@@ -44,6 +46,7 @@ const Recipe = () => {
 
   const { user } = useContext(UserContext);
   const { recipes } = useContext(RecipesContext);
+  const { categories } = useContext(CategoriesContext);
 
   const navigate = useNavigate();
   const { slug } = useParams();
@@ -64,7 +67,9 @@ const Recipe = () => {
     restoreScroll();
   }, [restoreScroll]);
 
-  if (!recipe) return <Loading />;
+  if (!recipe || !categories) return <Loading />;
+
+  const recipeCategory = categories[recipe.category];
 
   return (
     <div className={`show-recipe container ${recipe.imageName ? '' : 'no-image'}`}>
@@ -84,6 +89,14 @@ const Recipe = () => {
       </div>
 
       <RecipeImage recipe={recipe} />
+
+      { recipeCategory && (
+        <>
+          catégorie :
+          {' '}
+          <Category category={recipeCategory} />
+        </>
+      )}
 
       <div className='ingredients'>
         <h2>Ingrédients</h2>
