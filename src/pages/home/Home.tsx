@@ -39,7 +39,8 @@ const Home = () => {
 
   const { slug } = useParams();
 
-  const { restoreScroll } = useScrollRestoration();
+  const searchMode = search !== '';
+  const { restoreScroll } = useScrollRestoration(!searchMode);
 
   useEffect(() => {
     restoreScroll();

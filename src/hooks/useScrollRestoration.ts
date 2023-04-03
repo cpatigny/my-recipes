@@ -6,7 +6,7 @@ const SCROLL_STORAGE_KEY = 'scroll-positions';
 /**
  * Save scroll position and restore scroll
  */
-const useScrollRestoration = () => {
+const useScrollRestoration = (shouldSaveScrollPos = true) => {
   const [scrollHasBeenRestored, setScrollHasBeenRestored] = useState(false);
 
   const { key } = useLocation();
@@ -18,6 +18,8 @@ const useScrollRestoration = () => {
 
   useEffect(() => {
     const saveScrollPosition = () => {
+      if (!shouldSaveScrollPos) return;
+
       // forbid setItem as long as scroll hasn't been restored
       if (!scrollHasBeenRestored) return;
 
@@ -31,7 +33,7 @@ const useScrollRestoration = () => {
     return () => {
       window.removeEventListener('scroll', saveScrollPosition);
     };
-  }, [scrollHasBeenRestored, key]);
+  }, [scrollHasBeenRestored, key, shouldSaveScrollPos]);
 
   const restoreScroll = () => {
     const scrollValue = getScrollPositions()[key] || 0;
