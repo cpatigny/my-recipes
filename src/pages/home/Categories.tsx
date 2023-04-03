@@ -1,21 +1,19 @@
-import { Categories as CategoriesType } from '../../types/category';
+import { Categories as CategoriesType, CategoryWithId } from '../../types/category';
 import { Recipes } from '../../types/recipe';
-import { DEFAULT_CATEGORY_ID } from './Home';
+import { DEFAULT_CATEGORY } from './Home';
 import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
 import getCategoriesOrderByRecipeCount from '../../utils/categories/getCategoriesOrderByRecipeCount';
 
 import Category from './Category';
+import { Link } from 'react-router-dom';
 
 interface CategoriesProps {
   categories: CategoriesType | null;
-  selectedCategoryId: string;
-  selectCategory: (id: string) => void;
+  selectedCategory: CategoryWithId | null;
   recipes: Recipes | null;
 }
 
-const Categories = ({
-  categories, selectedCategoryId, selectCategory, recipes,
-}: CategoriesProps) => {
+const Categories = ({ categories, selectedCategory, recipes }: CategoriesProps) => {
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     const { scrollLeft, scrollWidth, clientWidth } = e.currentTarget;
     const maxScroll = Math.floor(scrollLeft) === scrollWidth - clientWidth;
@@ -30,25 +28,24 @@ const Categories = ({
   if (!categories || !recipes) return null;
 
   const categoriesOrderByRecipeCount = getCategoriesOrderByRecipeCount(categories, recipes);
-  const defaultCategoryIsSelected = selectedCategoryId === DEFAULT_CATEGORY_ID;
+  const noCategroySelected = selectedCategory === null;
 
   return (
     <div className='categories'>
       <div className='wrapper' onScroll={handleScroll}>
         <div className='gradient'></div>
 
-        <Category id={DEFAULT_CATEGORY_ID} name='Tout' selected={defaultCategoryIsSelected} selectCategory={selectCategory} />
+        <Link to='/' className={`category ${noCategroySelected ? 'selected' : ''}`}>
+          { DEFAULT_CATEGORY.name }
+        </Link>
 
         { categoriesOrderByRecipeCount.map(category => {
-          const { id, name } = category;
-          if (countRecipesByCategory(recipes, id) === 0) return null;
+          if (countRecipesByCategory(recipes, category.id) === 0) return null;
           return (
             <Category
-              key={id}
-              id={id}
-              name={name}
-              selected={selectedCategoryId === id}
-              selectCategory={selectCategory}
+              key={category.id}
+              category={category}
+              selected={selectedCategory?.id === category.id}
             />
           );
         })}

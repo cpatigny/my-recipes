@@ -1,8 +1,12 @@
-export interface Categories {
-  [key: string]: string;
+export interface Category {
+  name: string;
+  slug: string;
 }
 
-export interface CategoryWithId {
+export interface Categories {
+  [key: string]: Category;
+}
+
+export interface CategoryWithId extends Category {
   id: string;
-  name: string;
 }

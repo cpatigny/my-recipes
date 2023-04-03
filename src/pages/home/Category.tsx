@@ -1,14 +1,16 @@
+import { CategoryWithId } from '../../types/category';
+
+import { Link } from 'react-router-dom';
+
 interface CategoryProps {
-  id: string;
-  name: string;
+  category: CategoryWithId;
   selected: boolean;
-  selectCategory: (id: string) => void;
 }
 
-const Category = ({ id, name, selected, selectCategory }: CategoryProps) => (
-  <button className={`category ${selected ? 'selected' : ''}`} onClick={() => selectCategory(id)}>
-    { name }
-  </button>
+const Category = ({ category, selected }: CategoryProps) => (
+  <Link to={`/category/${category.slug}`} className={`category ${selected ? 'selected' : ''}`}>
+    { category.name }
+  </Link>
 );
 
 export default Category;

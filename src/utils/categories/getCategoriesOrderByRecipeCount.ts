@@ -11,7 +11,7 @@ const getCategoriesOrderByRecipeCount = (categories: Categories, recipes: Recipe
       return b - a;
     })
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    .map(key => ({ id: key, name: categories[key]! }));
+    .map(key => ({ id: key, ...categories[key]! }));
 
   return categoriesOrderByRecipeCount;
 };

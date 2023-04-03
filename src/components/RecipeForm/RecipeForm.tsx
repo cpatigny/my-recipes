@@ -148,9 +148,12 @@ const RecipeForm = ({ recipe }: RecipeFormProps) => {
           <label htmlFor='category'>Choisissez une catégorie</label>
           <select name='category' id='category' required value={recipeFormData.category} onChange={handleChange}>
             <option value='none'>Aucune</option>
-            {categories && Object.keys(categories).map(key => (
-              <option key={key} value={key}>{ categories[key] }</option>
-            ))}
+            {categories && Object.keys(categories).map(key => {
+              const category = categories[key];
+              return category ? (
+                <option key={key} value={key}>{category.name}</option>
+              ) : null;
+            })}
           </select>
         </div>
 

@@ -7,8 +7,9 @@ import { RecipesContext } from '../../providers/RecipesProvider';
 import { CategoriesContext } from '../../providers/CategoriesProvider';
 import getRecipesByCategory from '../../utils/recipes/getRecipesByCategory';
 import useScrollRestoration from '../../hooks/useScrollRestoration';
+import { CategoryWithId } from '../../types/category';
 
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
 import SearchBar from './SearchBar';
 import NothingToShow from '../../components/NothingToShow/NothingToShow';
@@ -19,24 +20,37 @@ import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import logo from '../../assets/img/logo.svg';
 
 import './Home.scss';
+import getCategoryBySlug from '../../utils/categories/getCategoryBySlug';
 
-export const DEFAULT_CATEGORY_ID = '0';
+export const DEFAULT_CATEGORY = {
+  id: '0',
+  name: 'Tout',
+};
 
 const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
   const [search, setSearch] = useState('');
   const [noSearchResult, setNoSearchResult] = useState(false);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(DEFAULT_CATEGORY_ID);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryWithId | null>(null);
 
   const { user } = useContext(UserContext);
   const { recipes } = useContext(RecipesContext);
   const { categories } = useContext(CategoriesContext);
+
+  const { slug } = useParams();
 
   const { restoreScroll } = useScrollRestoration();
 
   useEffect(() => {
     restoreScroll();
   }, [restoreScroll]);
+
+  useEffect(() => {
+    if (categories) {
+      const matchingCategory = slug ? getCategoryBySlug(categories, slug) : null;
+      setSelectedCategory(matchingCategory);
+    }
+  }, [slug, categories]);
 
   useEffect(() => {
     if (!recipes) return;
@@ -53,17 +67,15 @@ const Home = () => {
       matchingRecipes = reverseObject(matchingRecipes);
     }
 
-    const defaultCategoryIsSelected = selectedCategoryId === DEFAULT_CATEGORY_ID;
+    const defaultCategoryIsSelected = selectedCategory === null;
 
     if (matchingRecipes && !search && !defaultCategoryIsSelected) {
-      matchingRecipes = getRecipesByCategory(matchingRecipes, selectedCategoryId);
+      matchingRecipes = getRecipesByCategory(matchingRecipes, selectedCategory.id);
     }
 
     setNoSearchResult(noResult);
     setRecipesToShow(matchingRecipes);
-  }, [recipes, search, selectedCategoryId]);
-
-  const selectCategory = (id: string) => setSelectedCategoryId(id);
+  }, [recipes, search, selectedCategory]);
 
   let nbRecipesToShow = 0;
   if (recipesToShow) nbRecipesToShow = Object.keys(recipesToShow).length;
@@ -90,8 +102,7 @@ const Home = () => {
 
       <Categories
         categories={categories}
-        selectedCategoryId={selectedCategoryId}
-        selectCategory={selectCategory}
+        selectedCategory={selectedCategory}
         recipes={recipes}
       />
 

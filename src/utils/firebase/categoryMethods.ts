@@ -2,25 +2,17 @@ import {
   getDatabase, push, update, remove, set, ref,
 } from 'firebase/database';
 import { Recipes } from '../../types/recipe';
-import { CategoryWithId } from '../../types/category';
+import { Category, CategoryWithId } from '../../types/category';
 
 interface DeleteCategoryParams {
   recipes: Recipes;
   category: CategoryWithId;
 }
 
-interface UpdateCategoryParams {
-  category: CategoryWithId;
-  categoryName: string;
-}
-
-export const createCategory = (categoryName: string) => {
+export const createCategory = (category: Category) => {
   const db = getDatabase();
   const categoriesRef = ref(db, 'categories');
-
-  // We don't return because push returns the ref of the newly created category
-  // and it is a non serializable object so it generates an error
-  return push(categoriesRef, categoryName);
+  return push(categoriesRef, category);
 };
 
 export const deleteCategory = async ({ recipes, category }: DeleteCategoryParams) => {
@@ -47,8 +39,9 @@ export const deleteCategory = async ({ recipes, category }: DeleteCategoryParams
   return remove(categoryRef);
 };
 
-export const updateCategory = ({ category, categoryName }: UpdateCategoryParams) => {
+export const updateCategory = (category: CategoryWithId) => {
   const db = getDatabase();
   const categoryRef = ref(db, `categories/${category.id}`);
-  return set(categoryRef, categoryName);
+  const { name, slug } = category;
+  return set(categoryRef, { name, slug });
 };
