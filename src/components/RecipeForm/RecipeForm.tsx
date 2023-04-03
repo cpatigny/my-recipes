@@ -58,12 +58,12 @@ const RecipeForm = ({ recipe }: RecipeFormProps) => {
 
   type FormElements = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
-  const handleChange = (e: React.FormEvent<FormElements>) => {
+  const handleChange = (e: React.ChangeEvent<FormElements>) => {
     const { value, name } = e.currentTarget;
     setRecipeFormData({ ...recipeFormData, [name]: value });
   };
 
-  const handleTitleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setRecipeFormData({
       ...recipeFormData,
@@ -72,7 +72,7 @@ const RecipeForm = ({ recipe }: RecipeFormProps) => {
     });
   };
 
-  const handleImageChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
 
     if (files && files[0]) {

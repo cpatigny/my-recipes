@@ -14,7 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setLoginFormData({ ...loginFormData, [name]: value });
   };

@@ -4,7 +4,7 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ search, setSearch }: SearchBarProps) => {
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const wordToSearch = e.currentTarget.value;
     setSearch(wordToSearch);
   };
