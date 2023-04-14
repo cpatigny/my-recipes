@@ -14,6 +14,7 @@ const RecipeCard = ({ title, imageName, slug }: RecipeCardProps) => {
   return (
     <Link
       to={`/recette/${slug}`}
+      state={{ fromHome: true }}
       className={`recipe ${imageName ? '' : 'no-image'}`}
     >
       <div className='bg-image' style={{ backgroundImage }} />
