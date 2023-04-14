@@ -1,0 +1,14 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.6);
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 10;
+  backdrop-filter: blur( 3px );
+  -webkit-backdrop-filter: blur( 3px );
+}

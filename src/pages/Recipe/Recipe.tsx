@@ -3,11 +3,13 @@ import remarkGfm from 'remark-gfm';
 import { useNavigate, useParams } from 'react-router-dom';
 import getRecipeBySlug from '../../utils/recipes/getRecipeBySlug';
 import formatDate from '../../utils/formatDate';
-import { RecipeWithId } from '../../types/recipe';
+import { GroupWithIngredients, IngredientWithId, RecipeWithId } from '../../types/recipe';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
 import useScrollRestoration from '../../hooks/useScrollRestoration';
 import { CategoriesContext } from '../../providers/CategoriesProvider';
+import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
+import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
 
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
@@ -15,6 +17,8 @@ import ReactMarkdown, { Components } from 'react-markdown';
 import RecipeImage from './RecipeImage';
 import GoBack from '../../components/GoBack/GoBack';
 import Category from '../home/Category';
+import IngredientList from './IngredientList';
+import GroupList from './GroupList';
 
 import './Recipe.scss';
 
@@ -70,6 +74,18 @@ const Recipe = () => {
   if (!recipe || !categories) return <Loading />;
 
   const recipeCategory = categories[recipe.category];
+  const { ingredients, groups } = recipe;
+
+  let ingredientsWithoutGroup: IngredientWithId[] | null = null;
+  let groupsWithIngredients: GroupWithIngredients[] | null = null;
+
+  if (typeof ingredients === 'object') {
+    ingredientsWithoutGroup = getIngredientsWithoutGroup(ingredients);
+  }
+
+  if (typeof ingredients === 'object' && typeof groups === 'object') {
+    groupsWithIngredients = getGroupsWithTheirIngredients(groups, ingredients);
+  }
 
   return (
     <div className={`show-recipe container ${recipe.imageName ? '' : 'no-image'}`}>
@@ -100,9 +116,17 @@ const Recipe = () => {
 
       <div className='ingredients'>
         <h2>Ingrédients</h2>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
-          { recipe.ingredients }
-        </ReactMarkdown>
+        {typeof ingredients === 'string' && (
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
+            { ingredients }
+          </ReactMarkdown>
+        )}
+        {ingredientsWithoutGroup && (
+          <IngredientList ingredients={ingredientsWithoutGroup} />
+        )}
+        {groupsWithIngredients && (
+          <GroupList groups={groupsWithIngredients} />
+        )}
       </div>
 
       <div className='recipe-content'>

@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../providers/UserProvider';
 
-import RecipeForm from '../../components/RecipeForm/RecipeForm';
+import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
 
 const AddRecipe = () => {
   const { user } = useContext(UserContext);
@@ -15,8 +15,7 @@ const AddRecipe = () => {
   return (
     <div className='add-recipe container'>
       <h1>Ajouter une recette</h1>
-
-      <RecipeForm />
+      <RecipeMultiStepForm />
     </div>
   );
 };

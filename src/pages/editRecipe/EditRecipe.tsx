@@ -5,7 +5,7 @@ import { RecipeWithId } from '../../types/recipe';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
 
-import RecipeForm from '../../components/RecipeForm/RecipeForm';
+import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
 
 const EditRecipe = () => {
   const [recipe, setRecipe] = useState<RecipeWithId | null>(null);
@@ -34,8 +34,7 @@ const EditRecipe = () => {
   return (
     <div className='edit-recipe container'>
       <h1>Modifier la recette</h1>
-
-      <RecipeForm recipe={recipe} />
+      <RecipeMultiStepForm recipe={recipe} />
     </div>
   );
 };

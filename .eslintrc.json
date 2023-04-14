@@ -67,6 +67,7 @@
         "no-alert": "off",
         "react/jsx-uses-react": "off", // no longer needed with react 17
 	    "react/react-in-jsx-scope": "off", // no longer needed with react 17
-        "no-plusplus": "off"
+        "no-plusplus": "off",
+        "function-paren-newline": "off"
     }
 }

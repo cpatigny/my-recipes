@@ -1,0 +1,58 @@
+@import '../../variables';
+
+.underline-input-container {
+  position: relative;
+
+  $transition-duration: 200ms;
+
+  input:not([type='file']) {
+    padding: 6px 0;
+    border: none;
+    border-bottom: 1px solid #dadce0;
+    outline: none;
+    transition-duration: $transition-duration;
+    color: #44505B;
+    border-radius: 0;
+    background-color: transparent;
+
+    &:focus {
+      border-color: $main-color;
+
+      & + span {
+        color: $main-color;
+      }
+    }
+
+    &:focus + span,
+    &:not(:placeholder-shown) + span {
+      transform: scale(0.8) translateY(-100%);
+      top: 0;
+    }
+  }
+
+  span {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6D6D6D;
+    pointer-events: none;
+    transform-origin: left;
+    transition-duration: $transition-duration;
+    font-size: 1rem;
+  }
+
+  &.error {
+    input:not([type='file']) {
+      border-color: $danger-color;
+
+      &:focus + span {
+        color: $danger-color;
+      }
+    }
+
+    span {
+      color: $danger-color;
+    }
+  }
+}

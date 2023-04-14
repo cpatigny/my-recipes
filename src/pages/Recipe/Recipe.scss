@@ -135,7 +135,6 @@
 
       .checkmark {
         display: block;
-        box-sizing: border-box;
         position: relative;
         padding-left: 36px;
 
@@ -148,7 +147,6 @@
           height: 18px;
           width: 18px;
           border-radius: 3px;
-          box-sizing: border-box;
         }
 
         &:after {
@@ -164,7 +162,6 @@
           border-bottom: solid 2px $main-color;
           transform: rotate(45deg);
           width: 8px;
-          box-sizing: border-box;
         }
       }
     }

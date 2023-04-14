@@ -4,11 +4,6 @@ import {
 import { getStorage, deleteObject, ref as storageRef } from 'firebase/storage';
 import { RecipeWithId, RecipeFormData } from '../../types/recipe';
 
-interface UpdateRecipeParams {
-  recipe: RecipeWithId;
-  recipeFormData: RecipeFormData;
-}
-
 export const deleteRecipe = async (recipe: RecipeWithId) => {
   // if the recipe has an image we delete it
   if (recipe.imageName) {
@@ -23,7 +18,7 @@ export const deleteRecipe = async (recipe: RecipeWithId) => {
   return remove(recipeRef);
 };
 
-export const updateRecipe = ({ recipe, recipeFormData }: UpdateRecipeParams) => {
+export const updateRecipe = (recipe: RecipeWithId, recipeFormData: RecipeFormData) => {
   const db = getDatabase();
   const recipeRef = ref(db, `recipes/${recipe.id}`);
   return update(recipeRef, recipeFormData);

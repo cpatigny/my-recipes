@@ -4,7 +4,6 @@
   bottom: 0;
   left: 0;
   right: 0;
-  box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
   z-index: 10;
@@ -18,7 +17,6 @@
     background-color: var(--second-bg-color);
     max-width: 380px;
     width: 100%;
-    box-sizing: border-box;
     padding: 18px 25px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     background-color: #fefefe;
