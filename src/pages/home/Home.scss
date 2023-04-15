@@ -6,12 +6,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 1.5rem 0 0;
+    gap: 1.35rem 0;
 
     h1 {
       color: $main-color;
       font-size: 2.3rem;
       display: flex;
       align-items: center;
+      margin: 0;
 
       .logo {
         margin-right: 6px;
@@ -27,7 +30,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 8px 15px;
-    margin: 40px 0 15px;
+    margin: 4rem 0 0.95rem;
 
     .btn {
       font-size: 1.1rem;

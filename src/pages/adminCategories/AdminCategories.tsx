@@ -3,8 +3,8 @@ import { CategoriesContext } from '../../providers/CategoriesProvider';
 import { createCategory } from '../../utils/firebase/categoryMethods';
 import slugify from '../../utils/string/slugify';
 
-import Logo from '../../components/Logo/Logo';
 import AdminCategoryList from './AdminCategoryList';
+import Menu from '../../components/Menu/Menu';
 
 import './AdminCategories.scss';
 
@@ -30,7 +30,7 @@ const AdminCategories = () => {
 
   return (
     <div className='admin-categories container'>
-      <Logo />
+      <Menu />
 
       <h1>Catégories</h1>
 

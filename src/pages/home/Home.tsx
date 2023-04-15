@@ -17,6 +17,7 @@ import SearchBar from './SearchBar';
 import NothingToShow from '../../components/NothingToShow/NothingToShow';
 import Footer from '../../components/Footer/Footer';
 import Categories from './Categories';
+import Menu from '../../components/Menu/Menu';
 
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import logo from '../../assets/img/logo.svg';
@@ -99,6 +100,8 @@ const Home = () => {
 
   return (
     <div className='app container'>
+      {user && <Menu />}
+
       <div className='top'>
         <h1><img src={logo} alt='logo' className='logo' />My recipes</h1>
         <SearchBar search={search} setSearch={setSearch} />
