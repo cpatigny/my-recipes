@@ -1,11 +1,11 @@
-import { GroupWithId, GroupWithIngredients, IngredientWithId } from '../../types/recipe';
+import { GroupWithId, GroupWithIngredients, RecipeIngredientWithId } from '../../types/recipe';
 
 import IngredientListItem from './IngredientListItem';
 
 interface GroupListItemProps {
   group: GroupWithIngredients;
   deleteIngredient: (key: string) => void;
-  showEditIngredientForm: (ingredient: IngredientWithId) => void;
+  showEditIngredientForm: (ingredient: RecipeIngredientWithId) => void;
   showEditGroupForm: (group: GroupWithId) => void;
   deleteGroup: (group: GroupWithIngredients) => void;
 }

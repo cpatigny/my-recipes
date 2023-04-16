@@ -161,6 +161,10 @@ form textarea::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
 
+.admin-container {
+  padding-bottom: 2rem;
+}
+
 @media (max-width: 500px) {
   .container {
     padding: 5px 35px;

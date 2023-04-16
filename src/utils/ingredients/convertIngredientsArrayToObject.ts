@@ -1,7 +1,7 @@
-import { IngredientWithId, Ingredients } from '../../types/recipe';
+import { RecipeIngredientWithId, RecipeIngredients } from '../../types/recipe';
 
-const convertIngredientsArrayToObject = (ingredients: IngredientWithId[]) => {
-  const ingredientsObject: Ingredients = {};
+const convertIngredientsArrayToObject = (ingredients: RecipeIngredientWithId[]) => {
+  const ingredientsObject: RecipeIngredients = {};
 
   ingredients.forEach(i => {
     const { id, ...ingredient } = i;

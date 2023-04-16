@@ -1,4 +1,4 @@
-import { Groups, Ingredients, RecipeFormData } from '../../types/recipe';
+import { Groups, RecipeIngredients, RecipeFormData } from '../../types/recipe';
 import ModeSwitcher from './ModeSwitcher';
 import { FormElements, MARKDOWN_MODE, Modes, NORMAL_MODE } from './RecipeMultiStepForm';
 
@@ -6,7 +6,7 @@ import ServingsMode from './ServingsMode';
 
 interface IngredientsFormProps {
   groups?: Groups;
-  ingredients: string | Ingredients;
+  ingredients: string | RecipeIngredients;
   nbServings?: string;
   servingsUnit?: string;
   recipeId: string;

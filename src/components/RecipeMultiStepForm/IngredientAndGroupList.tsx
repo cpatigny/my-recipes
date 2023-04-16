@@ -1,4 +1,4 @@
-import { GroupWithId, GroupWithIngredients, Groups, IngredientWithId, Ingredients } from '../../types/recipe';
+import { GroupWithId, GroupWithIngredients, Groups, RecipeIngredientWithId, RecipeIngredients } from '../../types/recipe';
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 
@@ -7,9 +7,9 @@ import IngredientListItem from './IngredientListItem';
 
 interface IngredientAndGroupListProps {
   groups?: Groups;
-  ingredients: string | Ingredients;
+  ingredients: string | RecipeIngredients;
   deleteIngredient: (key: string) => void;
-  showEditIngredientForm: (ingredient: IngredientWithId) => void;
+  showEditIngredientForm: (ingredient: RecipeIngredientWithId) => void;
   showEditGroupForm: (group: GroupWithId) => void;
   deleteGroup: (group: GroupWithIngredients) => void;
 }
@@ -19,7 +19,7 @@ const IngredientAndGroupList = ({
 }: IngredientAndGroupListProps) => {
   const noIngredients = typeof ingredients === 'string' || Object.keys(ingredients).length === 0;
 
-  let ingredientsWithoutGroup: IngredientWithId[] | null = null;
+  let ingredientsWithoutGroup: RecipeIngredientWithId[] | null = null;
   let groupsWithIngredients: GroupWithIngredients[] | null = null;
 
   if (typeof ingredients === 'object') {

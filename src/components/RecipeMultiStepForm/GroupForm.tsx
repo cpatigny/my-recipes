@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GroupWithId, Ingredients, RecipeFormData } from '../../types/recipe';
+import { GroupWithId, RecipeIngredients, RecipeFormData } from '../../types/recipe';
 import { FormErrors } from './RecipeMultiStepForm';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 import generateGroupKey from '../../utils/firebase/generateGroupKey';
@@ -14,7 +14,7 @@ import IngredientCheckbox from './IngredientCheckbox';
 
 interface GroupFormProps {
   group?: GroupWithId;
-  ingredients: Ingredients;
+  ingredients: RecipeIngredients;
   recipeId: string;
   setFormData: React.Dispatch<React.SetStateAction<RecipeFormData>>
   closeModal: () => void;
@@ -58,7 +58,7 @@ const GroupForm = ({ group, ingredients, recipeId, setFormData, closeModal }: Gr
     return errors;
   };
 
-  const updateIngredientsFormData = (updatedIngredients: Ingredients) => {
+  const updateIngredientsFormData = (updatedIngredients: RecipeIngredients) => {
     setFormData(prevFormData => {
       const formDataCopy = { ...prevFormData };
       if (typeof formDataCopy.ingredients === 'string') return prevFormData;

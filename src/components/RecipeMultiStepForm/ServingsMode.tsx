@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { FormElements } from './RecipeMultiStepForm';
-import { GroupWithId, GroupWithIngredients, Groups, IngredientWithId, Ingredients, RecipeFormData } from '../../types/recipe';
+import {
+  GroupWithId,
+  GroupWithIngredients,
+  Groups,
+  RecipeIngredientWithId,
+  RecipeIngredients,
+  RecipeFormData,
+} from '../../types/recipe';
 import removeGroupId from '../../utils/ingredients/removeGroupId';
 
 import IngredientAndGroupList from './IngredientAndGroupList';
@@ -15,7 +22,7 @@ interface ServingsModeProps {
   nbServings?: string;
   servingsUnit?: string;
   groups?: Groups;
-  ingredients: string | Ingredients;
+  ingredients: string | RecipeIngredients;
   recipeId: string;
   setFormData: React.Dispatch<React.SetStateAction<RecipeFormData>>;
   handleChange: (e: React.ChangeEvent<FormElements>) => void;
@@ -24,11 +31,11 @@ interface ServingsModeProps {
 const ServingsMode = ({
   nbServings, servingsUnit, groups, ingredients, setFormData, recipeId, handleChange,
 }: ServingsModeProps) => {
-  const [ingredientToEdit, setIngredientToEdit] = useState<IngredientWithId | null>(null);
+  const [ingredientToEdit, setIngredientToEdit] = useState<RecipeIngredientWithId | null>(null);
   const [groupToEdit, setGroupToEdit] = useState<GroupWithId | null>(null);
   const [showGroupForm, setShowGroupForm] = useState(false);
 
-  const showEditIngredientForm = (ingredient: IngredientWithId) => {
+  const showEditIngredientForm = (ingredient: RecipeIngredientWithId) => {
     setIngredientToEdit(ingredient);
   };
 

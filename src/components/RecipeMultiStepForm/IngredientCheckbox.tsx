@@ -1,7 +1,7 @@
-import { IngredientWithId } from '../../types/recipe';
+import { RecipeIngredientWithId } from '../../types/recipe';
 
 interface IngredientCheckboxProps {
-  ingredient: IngredientWithId;
+  ingredient: RecipeIngredientWithId;
   checked: boolean;
   handleCheck: (e: React.FormEvent<HTMLInputElement>) => void;
   handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;

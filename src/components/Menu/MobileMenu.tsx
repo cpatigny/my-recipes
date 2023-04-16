@@ -1,14 +1,16 @@
 import { useTransition, animated } from '@react-spring/web';
 import { logOut } from '../../utils/firebase/authMethods';
+import { Link } from './Menu';
 
 import { NavLink } from 'react-router-dom';
 
 interface MobileMenuProps {
   isShow: boolean;
   close: () => void;
+  links: Link[];
 }
 
-const MobileMenu = ({ isShow, close }: MobileMenuProps) => {
+const MobileMenu = ({ isShow, close, links }: MobileMenuProps) => {
   const menuTransitions = useTransition(isShow, {
     from: { transform: 'translateX(100%)' },
     enter: { transform: 'translateX(0%)' },
@@ -25,14 +27,12 @@ const MobileMenu = ({ isShow, close }: MobileMenuProps) => {
         </button>
       </div>
       <nav>
-        <NavLink to='/' end>
-          <span className='material-icons-round'>home</span>
-          Accueil
-        </NavLink>
-        <NavLink to='/categories' end>
-          <span className='material-icons-round'>category</span>
-          Catégories
-        </NavLink>
+        {links.map(link => (
+          <NavLink key={link.id} to={link.path} end>
+            <span className='material-icons-round'>{ link.iconName }</span>
+            { link.name }
+          </NavLink>
+        ))}
       </nav>
       <button className='sign-out' onClick={() => logOut()}>
         <span className='material-icons-round'>logout</span>

@@ -1,10 +1,10 @@
-import { IngredientWithId } from '../../types/recipe';
+import { RecipeIngredientWithId } from '../../types/recipe';
 
 import IngredientList from './IngredientList';
 
 interface GroupProps {
   name: string;
-  ingredients: IngredientWithId[];
+  ingredients: RecipeIngredientWithId[];
 }
 
 const Group = ({ name, ingredients }: GroupProps) => (

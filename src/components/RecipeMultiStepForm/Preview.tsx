@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { GroupWithIngredients, IngredientWithId, RecipeFormData } from '../../types/recipe';
+import { GroupWithIngredients, RecipeIngredientWithId, RecipeFormData } from '../../types/recipe';
 import remarkGfm from 'remark-gfm';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
@@ -19,7 +19,7 @@ const Preview = ({ formData, previewImageSrc }: PreviewProps) => {
 
   const noIngredients = typeof ingredients === 'object' && Object.keys(ingredients).length === 0;
 
-  let ingredientsWithoutGroup: IngredientWithId[] | null = null;
+  let ingredientsWithoutGroup: RecipeIngredientWithId[] | null = null;
   let groupsWithIngredients: GroupWithIngredients[] | null = null;
 
   if (typeof ingredients === 'object') {

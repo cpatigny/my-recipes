@@ -1,7 +1,7 @@
-import { Ingredients } from '../../types/recipe';
+import { RecipeIngredients } from '../../types/recipe';
 
-const removeGroupId = (ingredients: Ingredients) => {
-  const updatedIngredients: Ingredients = {};
+const removeGroupId = (ingredients: RecipeIngredients) => {
+  const updatedIngredients: RecipeIngredients = {};
 
   Object
     .keys(ingredients)

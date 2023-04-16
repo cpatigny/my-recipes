@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { IngredientFormData, IngredientWithId, Ingredients, RecipeFormData } from '../../types/recipe';
+import {
+  RecipeIngredientFormData,
+  RecipeIngredientWithId,
+  RecipeIngredients,
+  RecipeFormData,
+} from '../../types/recipe';
 import { FormElements, FormErrors } from './RecipeMultiStepForm';
 import generateIngredientKey from '../../utils/firebase/generateIngredientKey';
 import getNewItemPosition from '../../utils/getNewItemPosition';
@@ -7,10 +12,10 @@ import getNewItemPosition from '../../utils/getNewItemPosition';
 import UnderlineInput from '../UnderlineInput/UnderlineInput';
 
 interface IngredientFormProps {
-  ingredients: string | Ingredients;
+  ingredients: string | RecipeIngredients;
   recipeId: string;
   setFormData: React.Dispatch<React.SetStateAction<RecipeFormData>>
-  ingredient?: IngredientWithId;
+  ingredient?: RecipeIngredientWithId;
   closeModal?: () => void;
 }
 
@@ -23,7 +28,10 @@ const IngredientForm = ({
     name: '',
   };
 
-  const [ingredientData, setIngredientData] = useState<IngredientFormData>(DEFAULT_INGREDIENT_DATA);
+  const [
+    ingredientData,
+    setIngredientData,
+  ] = useState<RecipeIngredientFormData>(DEFAULT_INGREDIENT_DATA);
   const [ingredientErrors, setIngredientErrors] = useState<FormErrors>({});
 
   const hasErrors = Object.keys(ingredientErrors).length > 0;
@@ -48,7 +56,7 @@ const IngredientForm = ({
     });
   };
 
-  const validateIngredient = (ingredientToValidate: IngredientFormData) => {
+  const validateIngredient = (ingredientToValidate: RecipeIngredientFormData) => {
     const errors: FormErrors = {};
 
     if (!ingredientToValidate.name) {

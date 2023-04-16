@@ -1,7 +1,7 @@
-import { Ingredients } from '../../types/recipe';
+import { RecipeIngredients } from '../../types/recipe';
 
 interface AddGroupProps {
-  ingredients: string | Ingredients;
+  ingredients: string | RecipeIngredients;
   showGroupForm: () => void;
 }
 

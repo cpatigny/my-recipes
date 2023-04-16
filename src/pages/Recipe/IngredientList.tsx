@@ -1,9 +1,9 @@
-import { IngredientWithId } from '../../types/recipe';
+import { RecipeIngredientWithId } from '../../types/recipe';
 
 import Ingredient from './Ingredient';
 
 interface IngredientListProps {
-  ingredients: IngredientWithId[];
+  ingredients: RecipeIngredientWithId[];
 }
 
 const IngredientList = ({ ingredients }: IngredientListProps) => (

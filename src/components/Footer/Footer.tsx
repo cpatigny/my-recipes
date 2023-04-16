@@ -15,7 +15,6 @@ const Footer = ({ user }: FooterProps) => (
         ? <button className='sign-out' onClick={() => logOut()}>Déconnexion</button>
         : <Link to='/admin'>Admin</Link>
       }
-      { user && <Link to='/categories'>Catégories</Link> }
     </div>
   </footer>
 );

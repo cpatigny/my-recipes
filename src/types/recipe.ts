@@ -1,4 +1,4 @@
-export interface Ingredient {
+export interface RecipeIngredient {
   position: number;
   quantity: number | '';
   unit: string;
@@ -6,15 +6,15 @@ export interface Ingredient {
   groupId: string | false;
 }
 
-export interface IngredientWithId extends Ingredient {
+export interface RecipeIngredientWithId extends RecipeIngredient {
   id: string;
 }
 
-export interface Ingredients {
-  [key: string]: Ingredient;
+export interface RecipeIngredients {
+  [key: string]: RecipeIngredient;
 }
 
-export interface IngredientFormData {
+export interface RecipeIngredientFormData {
   quantity: string;
   unit: string;
   name: string;
@@ -37,7 +37,7 @@ export interface GroupWithIngredients {
   id: string;
   position: number;
   name: string;
-  ingredients: IngredientWithId[];
+  ingredients: RecipeIngredientWithId[];
 }
 
 export interface Recipe {
@@ -47,7 +47,7 @@ export interface Recipe {
   category: string;
   nbServings?: string;
   servingsUnit?: string;
-  ingredients: string | Ingredients;
+  ingredients: string | RecipeIngredients;
   groups?: Groups;
   content: string;
   createdAt?: number;

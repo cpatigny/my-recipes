@@ -3,7 +3,7 @@ import remarkGfm from 'remark-gfm';
 import { useNavigate, useParams } from 'react-router-dom';
 import getRecipeBySlug from '../../utils/recipes/getRecipeBySlug';
 import formatDate from '../../utils/formatDate';
-import { GroupWithIngredients, IngredientWithId, RecipeWithId } from '../../types/recipe';
+import { GroupWithIngredients, RecipeIngredientWithId, RecipeWithId } from '../../types/recipe';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
 import useScrollRestoration from '../../hooks/useScrollRestoration';
@@ -76,7 +76,7 @@ const Recipe = () => {
   const recipeCategory = categories[recipe.category];
   const { ingredients, groups } = recipe;
 
-  let ingredientsWithoutGroup: IngredientWithId[] | null = null;
+  let ingredientsWithoutGroup: RecipeIngredientWithId[] | null = null;
   let groupsWithIngredients: GroupWithIngredients[] | null = null;
 
   if (typeof ingredients === 'object') {

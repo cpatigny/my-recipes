@@ -1,4 +1,4 @@
-import { GroupWithId, Ingredients } from '../../types/recipe';
+import { GroupWithId, RecipeIngredients } from '../../types/recipe';
 import getIngredientsByGroup from './getIngredientsByGroup';
 
 /**
@@ -8,9 +8,9 @@ import getIngredientsByGroup from './getIngredientsByGroup';
  * @returns the list of ingredients that got removed from a group
  */
 const getExcludedIngredients = (
-  group: GroupWithId, selectedIngredientsId: string[], ingredients: Ingredients,
+  group: GroupWithId, selectedIngredientsId: string[], ingredients: RecipeIngredients,
 ) => {
-  const excludedIngredients: Ingredients = {};
+  const excludedIngredients: RecipeIngredients = {};
   const groupIngredients = getIngredientsByGroup(group.id, ingredients);
 
   groupIngredients

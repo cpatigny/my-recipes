@@ -126,6 +126,7 @@
     color: $main-text-color;
     padding: $top-bottom-padding 0;
     font-size: 1.1rem;
+    margin-bottom: 0.3rem;
 
     span {
       margin-right: 0.8rem;
@@ -133,7 +134,8 @@
 
     &.active {
       background-color: rgba(0, 0, 0, 0.05);
-      margin: 0 -#{$left-right-padding};
+      margin-left: -#{$left-right-padding};
+      margin-right: -#{$left-right-padding};
       padding: $top-bottom-padding $left-right-padding;
     }
   }

@@ -1,7 +1,7 @@
-import { IngredientWithId, Ingredients } from '../../types/recipe';
+import { RecipeIngredientWithId, RecipeIngredients } from '../../types/recipe';
 
-const getIngredientsByGroup = (groupId: string, ingredients: Ingredients) => {
-  const matchingIngredients: IngredientWithId[] = [];
+const getIngredientsByGroup = (groupId: string, ingredients: RecipeIngredients) => {
+  const matchingIngredients: RecipeIngredientWithId[] = [];
 
   Object
     .keys(ingredients)

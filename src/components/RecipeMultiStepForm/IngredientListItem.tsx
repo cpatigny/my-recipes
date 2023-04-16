@@ -1,10 +1,10 @@
-import { Ingredient, IngredientWithId } from '../../types/recipe';
+import { RecipeIngredient, RecipeIngredientWithId } from '../../types/recipe';
 
 interface IngredientListItemProps {
   id: string;
-  ingredient: Ingredient;
+  ingredient: RecipeIngredient;
   deleteIngredient: (key: string) => void;
-  showEditIngredientForm: (ingredient: IngredientWithId) => void;
+  showEditIngredientForm: (ingredient: RecipeIngredientWithId) => void;
 }
 
 const IngredientListItem = ({

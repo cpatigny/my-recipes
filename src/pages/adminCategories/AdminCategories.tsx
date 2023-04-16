@@ -4,7 +4,7 @@ import { createCategory } from '../../utils/firebase/categoryMethods';
 import slugify from '../../utils/string/slugify';
 
 import AdminCategoryList from './AdminCategoryList';
-import Menu from '../../components/Menu/Menu';
+import AdminContainer from '../../components/AdminContainer/AdminContainer';
 
 import './AdminCategories.scss';
 
@@ -29,9 +29,7 @@ const AdminCategories = () => {
   };
 
   return (
-    <div className='admin-categories container'>
-      <Menu />
-
+    <AdminContainer className='admin-categories'>
       <h1>Catégories</h1>
 
       <AdminCategoryList categories={categories} />
@@ -65,7 +63,7 @@ const AdminCategories = () => {
           <button>Ajouter</button>
         </form>
       </div>
-    </div>
+    </AdminContainer>
   );
 };
 

@@ -76,6 +76,7 @@
           margin-right: 12px;
           background-color: $main-color;
           color: #fff;
+          border: none;
 
           &:hover {
             background-color: scale-color($color: $main-color, $lightness: -15%);
