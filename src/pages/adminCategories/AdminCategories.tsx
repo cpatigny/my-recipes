@@ -34,8 +34,6 @@ const AdminCategories = () => {
 
       <AdminCategoryList categories={categories} />
 
-      <div className='separator'></div>
-
       <div className='category-form'>
         <h2>Ajouter une catégorie</h2>
 

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import UserProvider from './providers/UserProvider';
 import RecipesProvider from './providers/RecipesProvider';
 import CategoriesProvider from './providers/CategoriesProvider';
+import IngredientsProvider from './providers/IngredientsProvider';
 import App from './App';
 
 import './index.scss';
@@ -19,7 +20,9 @@ root.render(
     <UserProvider>
       <RecipesProvider>
         <CategoriesProvider>
-          <App />
+          <IngredientsProvider>
+            <App />
+          </IngredientsProvider>
         </CategoriesProvider>
       </RecipesProvider>
     </UserProvider>

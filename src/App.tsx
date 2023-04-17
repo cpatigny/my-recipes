@@ -3,6 +3,7 @@ import './utils/firebase/firebase';
 import { UserContext } from './providers/UserProvider';
 import { RecipesContext } from './providers/RecipesProvider';
 import { CategoriesContext } from './providers/CategoriesProvider';
+import { useIngredients } from './providers/IngredientsProvider';
 
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import Login from './pages/login/Login';
@@ -61,8 +62,9 @@ const App = () => {
   const { userLoading } = useContext(UserContext);
   const { recipesLoading } = useContext(RecipesContext);
   const { categoriesLoading } = useContext(CategoriesContext);
+  const { ingredientsLoading } = useIngredients();
 
-  const loadings = [userLoading, recipesLoading, categoriesLoading];
+  const loadings = [userLoading, recipesLoading, categoriesLoading, ingredientsLoading];
 
   if (loadings.includes(true)) return <Loading />;
 

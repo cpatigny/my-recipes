@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import { createIngredient } from '../../utils/firebase/ingredientMethods';
+import { useIngredients } from '../../providers/IngredientsProvider';
 
 import AdminContainer from '../../components/AdminContainer/AdminContainer';
+import Ingredients from './Ingredients';
+
+import './AdminIngredients.scss';
 
 const AdminIngredients = () => {
   const [singular, setSingular] = useState('');
   const [plural, setPlural] = useState('');
+
+  const { ingredients } = useIngredients();
 
   const reset = () => {
     setSingular('');
@@ -22,6 +28,10 @@ const AdminIngredients = () => {
   return (
     <AdminContainer className='admin-ingredients'>
       <h1>Ingrédients</h1>
+
+      {ingredients && (
+        <Ingredients ingredients={ingredients} />
+      )}
 
       <div className='ingredient-form'>
         <h2>Créer un ingrédient</h2>
