@@ -1,64 +1,39 @@
 import { useState } from 'react';
-import { createIngredient } from '../../utils/firebase/ingredientMethods';
 import { useIngredients } from '../../providers/IngredientsProvider';
+import { IngredientWithId } from '../../types/ingredient';
 
 import AdminContainer from '../../components/AdminContainer/AdminContainer';
 import Ingredients from './Ingredients';
+import Modal from '../../components/Modal/Modal';
 
 import './AdminIngredients.scss';
+import IngredientForm from './IngredientForm';
 
 const AdminIngredients = () => {
-  const [singular, setSingular] = useState('');
-  const [plural, setPlural] = useState('');
+  const [ingredientToEdit, setIngredientToEdit] = useState<IngredientWithId | null>(null);
 
   const { ingredients } = useIngredients();
 
-  const reset = () => {
-    setSingular('');
-    setPlural('');
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    createIngredient({ singular, plural });
-    reset();
-  };
+  const closeEditForm = () => setIngredientToEdit(null);
 
   return (
     <AdminContainer className='admin-ingredients'>
       <h1>Ingrédients</h1>
 
       {ingredients && (
-        <Ingredients ingredients={ingredients} />
+        <Ingredients ingredients={ingredients} setIngredientToEdit={setIngredientToEdit} />
       )}
 
       <div className='ingredient-form'>
         <h2>Créer un ingrédient</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='singular'>Ingrédient (au <b>singulier</b>)</label>
-            <input
-              id='singular'
-              type='text'
-              required
-              value={singular}
-              onChange={e => setSingular(e.currentTarget.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor='plural'>Ingrédient (au <b>pluriel</b>)</label>
-            <input
-              id='plural'
-              type='text'
-              required
-              value={plural}
-              onChange={e => setPlural(e.currentTarget.value)}
-            />
-          </div>
-          <button>Créer un ingrédient</button>
-        </form>
+        <IngredientForm />
       </div>
+
+      <Modal isShow={!!ingredientToEdit} close={closeEditForm} title='Modifier ingrédient'>
+        {ingredientToEdit && (
+          <IngredientForm ingredientToEdit={ingredientToEdit} close={closeEditForm} />
+        )}
+      </Modal>
     </AdminContainer>
   );
 };

@@ -163,6 +163,32 @@ form textarea::placeholder {
 
 .admin-container {
   padding-bottom: 2rem;
+
+  .actions.delete-edit {
+    flex-shrink: 0;
+    display: flex;
+    margin-left: 1rem;
+
+    button.edit, button.delete {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      border: none;
+
+      span {
+        font-size: 1.4rem;
+      }
+    }
+
+    button.edit {
+      color: #3498DB;
+    }
+
+    button.delete {
+      color: $danger-color;
+    }
+  }
 }
 
 @media (max-width: 500px) {

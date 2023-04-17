@@ -81,11 +81,11 @@ const AdminCategory = ({ category }: AdminCategoryProps) => {
     <div className='admin-category'>
       <p>({ nbRecipesWithCategory }) { category.name }</p>
 
-      <div className='actions'>
-        <button className='edit-category' onClick={() => setShowEditForm(true)}>
+      <div className='actions delete-edit'>
+        <button className='edit' onClick={() => setShowEditForm(true)}>
           <span className='material-icons-round'>edit</span>
         </button>
-        <button className='delete-category' onClick={() => confirm(confirmText, wordToEnter, onConfirm)}>
+        <button className='delete' onClick={() => confirm(confirmText, wordToEnter, onConfirm)}>
           <span className='material-icons-round'>delete_outline</span>
         </button>
       </div>
