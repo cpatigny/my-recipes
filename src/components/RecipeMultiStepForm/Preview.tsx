@@ -4,6 +4,8 @@ import remarkGfm from 'remark-gfm';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
 import { CategoriesContext } from '../../providers/CategoriesProvider';
+import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
+import getIngredientSingular from '../../utils/ingredientsDetails/getIngredientSingular';
 
 import ReactMarkdown from 'react-markdown';
 
@@ -16,6 +18,7 @@ const Preview = ({ formData, previewImageSrc }: PreviewProps) => {
   const { ingredients, groups } = formData;
 
   const { categories } = useContext(CategoriesContext);
+  const { ingredientsDetails } = useIngredientsDetails();
 
   const noIngredients = typeof ingredients === 'object' && Object.keys(ingredients).length === 0;
 
@@ -57,7 +60,8 @@ const Preview = ({ formData, previewImageSrc }: PreviewProps) => {
         <ul>
           {ingredientsWithoutGroup && ingredientsWithoutGroup.map(ingredient => (
             <li key={ingredient.id}>
-              { ingredient.quantity } { ingredient.unit } { ingredient.name }
+              { ingredient.quantity } { ingredient.unit }
+              <b>{ getIngredientSingular(ingredient, ingredientsDetails) }</b>
             </li>
           ))}
         </ul>
@@ -67,7 +71,8 @@ const Preview = ({ formData, previewImageSrc }: PreviewProps) => {
             <ul>
               {group.ingredients && group.ingredients.map(ingredient => (
                 <li key={ingredient.id}>
-                  { ingredient.quantity } { ingredient.unit } { ingredient.name }
+                  { ingredient.quantity } { ingredient.unit }
+                  <b>{ getIngredientSingular(ingredient, ingredientsDetails) }</b>
                 </li>
               ))}
             </ul>

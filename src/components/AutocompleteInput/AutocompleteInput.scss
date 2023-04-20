@@ -1,0 +1,59 @@
+@import '../../variables';
+
+.autocomplete-container {
+  flex-grow: 1;
+
+  $brs: 0.5rem;
+
+  .autocomplete-list-container {
+    position: relative;
+  }
+
+  .autocomplete-list {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-radius: $brs;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    overflow-y: auto;
+    max-height: 14rem;
+    max-height: 6rem;
+
+    .no-match {
+      padding: 0.5rem 0.8rem;
+      color: $tertiary-text-color;
+    }
+  }
+
+  .autocomplete-list-item {
+    list-style-type: none;
+
+    &:hover, &.active {
+      background-color: rgba($main-color, 0.9);
+
+      button {
+        color: #fff;
+      }
+    }
+
+    &:first-child {
+      border-top-left-radius: $brs;
+      border-top-right-radius: $brs;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: $brs;
+      border-bottom-right-radius: $brs;
+    }
+  }
+
+  .autocomplete-list .autocomplete-list-item .autocomplete-list-item-name {
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    padding: 0.3rem 0.8rem;
+  }
+}

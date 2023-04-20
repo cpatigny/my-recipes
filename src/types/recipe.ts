@@ -2,7 +2,7 @@ export interface RecipeIngredient {
   position: number;
   quantity: number | '';
   unit: string;
-  name: string;
+  detailsId: string;
   groupId: string | false;
 }
 
@@ -17,7 +17,7 @@ export interface RecipeIngredients {
 export interface RecipeIngredientFormData {
   quantity: string;
   unit: string;
-  name: string;
+  detailsId: string;
 }
 
 export interface Group {

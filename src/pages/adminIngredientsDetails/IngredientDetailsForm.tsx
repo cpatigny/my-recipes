@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { createIngredient, updateIngredient } from '../../utils/firebase/ingredientMethods';
-import { IngredientWithId } from '../../types/ingredient';
+import { createIngredientDetails, updateIngredientDetails } from '../../utils/firebase/ingredientDetailsMethods';
+import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 
 interface IngredientFormProps {
-  ingredientToEdit?: IngredientWithId;
+  ingredientToEdit?: IngredientDetailsWithId;
   close?: () => void;
 }
 
-const IngredientForm = ({ ingredientToEdit, close }: IngredientFormProps) => {
+const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFormProps) => {
   const [singular, setSingular] = useState('');
   const [plural, setPlural] = useState('');
 
@@ -27,12 +27,12 @@ const IngredientForm = ({ ingredientToEdit, close }: IngredientFormProps) => {
     e.preventDefault();
 
     if (ingredientToEdit) {
-      await updateIngredient({ id: ingredientToEdit.id, singular, plural });
+      await updateIngredientDetails({ id: ingredientToEdit.id, singular, plural });
       if (close) close();
       return;
     }
 
-    await createIngredient({ singular, plural });
+    await createIngredientDetails({ singular, plural });
     reset();
   };
 
@@ -63,4 +63,4 @@ const IngredientForm = ({ ingredientToEdit, close }: IngredientFormProps) => {
   );
 };
 
-export default IngredientForm;
+export default IngredientDetailsForm;

@@ -161,6 +161,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
+        align-items: flex-start;
       }
 
       .quantity {
@@ -256,6 +257,10 @@
 
         &:first-child {
           margin-top: 0.5rem;
+        }
+
+        & .edit {
+          margin-left: 0.5rem;
         }
       }
     }

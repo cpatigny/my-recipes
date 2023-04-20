@@ -1,11 +1,16 @@
-import { IngredientWithId, Ingredients as IngredientsType } from '../../types/ingredient';
+import {
+  IngredientDetailsWithId, IngredientsDetails as IngredientsDetailsType,
+} from '../../types/ingredientDetails';
 
-interface IngredientsProps {
-  ingredients: IngredientsType;
-  setIngredientToEdit: React.Dispatch<React.SetStateAction<IngredientWithId | null>>;
+interface IngredientsDetailsProps {
+  ingredients: IngredientsDetailsType;
+  setIngredientToEdit: React.Dispatch<React.SetStateAction<IngredientDetailsWithId | null>>;
+  handleDelete: (ingredientDetails: IngredientDetailsWithId) => void;
 }
 
-const Ingredients = ({ ingredients, setIngredientToEdit }: IngredientsProps) => (
+const IngredientsDetails = ({
+  ingredients, setIngredientToEdit, handleDelete,
+}: IngredientsDetailsProps) => (
   <ul>
     {Object.keys(ingredients).map(key => {
       const ingredient = ingredients[key];
@@ -20,9 +25,9 @@ const Ingredients = ({ ingredients, setIngredientToEdit }: IngredientsProps) => 
             <button className='edit' onClick={() => setIngredientToEdit({ id: key, ...ingredient })}>
               <span className='material-icons-round'>edit</span>
             </button>
-            {/* <button className='delete' onClick={}>
+            <button className='delete' onClick={() => handleDelete({ id: key, ...ingredient })}>
               <span className='material-icons-round'>delete_outline</span>
-            </button> */}
+            </button>
           </div>
         </li>
       );
@@ -30,4 +35,4 @@ const Ingredients = ({ ingredients, setIngredientToEdit }: IngredientsProps) => 
   </ul>
 );
 
-export default Ingredients;
+export default IngredientsDetails;

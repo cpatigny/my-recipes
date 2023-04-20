@@ -1,3 +1,4 @@
+import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
 import { RecipeIngredientWithId } from '../../types/recipe';
 
 interface IngredientCheckboxProps {
@@ -9,18 +10,23 @@ interface IngredientCheckboxProps {
 
 const IngredientCheckbox = ({
   ingredient, checked, handleCheck, handleKeyDown,
-}: IngredientCheckboxProps) => (
-  <label>
-    <input
-      type='checkbox'
-      checked={checked}
-      name={ingredient.name}
-      value={ingredient.id}
-      onChange={handleCheck}
-      onKeyDown={handleKeyDown}
-    />
-    { ingredient.name }
-  </label>
-);
+}: IngredientCheckboxProps) => {
+  const { ingredientsDetails } = useIngredientsDetails();
+  const details = ingredientsDetails && ingredientsDetails[ingredient.detailsId];
+
+  return (
+    <label>
+      <input
+        type='checkbox'
+        checked={checked}
+        name={details ? details.singular : ''}
+        value={ingredient.id}
+        onChange={handleCheck}
+        onKeyDown={handleKeyDown}
+      />
+      { details ? details.singular : '' }
+    </label>
+  );
+};
 
 export default IngredientCheckbox;

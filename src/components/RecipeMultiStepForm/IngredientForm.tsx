@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useEffect, useState } from 'react';
 import {
   RecipeIngredientFormData,
@@ -8,8 +9,12 @@ import {
 import { FormElements, FormErrors } from './RecipeMultiStepForm';
 import generateIngredientKey from '../../utils/firebase/generateIngredientKey';
 import getNewItemPosition from '../../utils/getNewItemPosition';
+import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
+import getMatchingIngredientsDetails from '../../utils/ingredientsDetails/getMatchingIngredientsDetails';
+import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 
 import UnderlineInput from '../UnderlineInput/UnderlineInput';
+import AutocompleteInput from '../AutocompleteInput/AutocompleteInput';
 
 interface IngredientFormProps {
   ingredients: string | RecipeIngredients;
@@ -25,7 +30,7 @@ const IngredientForm = ({
   const DEFAULT_INGREDIENT_DATA = {
     quantity: '',
     unit: '',
-    name: '',
+    detailsId: '',
   };
 
   const [
@@ -33,19 +38,30 @@ const IngredientForm = ({
     setIngredientData,
   ] = useState<RecipeIngredientFormData>(DEFAULT_INGREDIENT_DATA);
   const [ingredientErrors, setIngredientErrors] = useState<FormErrors>({});
+  const [ingredientName, setIngredientName] = useState('');
+  const [
+    matchingIngredientsDetails, setMatchingIngredientsDetails,
+  ] = useState<IngredientDetailsWithId[] | null>(null);
+
+  const { ingredientsDetails } = useIngredientsDetails();
 
   const hasErrors = Object.keys(ingredientErrors).length > 0;
   const editMode = typeof ingredient === 'object';
 
   useEffect(() => {
-    if (!ingredient) return;
+    if (!ingredient || !ingredientsDetails) return;
 
     setIngredientData({
       quantity: ingredient.quantity ? ingredient.quantity.toString() : '',
       unit: ingredient.unit ?? '',
-      name: ingredient.name,
+      detailsId: ingredient.detailsId,
     });
-  }, [ingredient]);
+
+    const ingredientDetails = ingredientsDetails[ingredient.detailsId];
+    if (ingredientDetails) {
+      setIngredientName(ingredientDetails.singular);
+    }
+  }, [ingredient, ingredientsDetails]);
 
   const handleIngredientChange = (e: React.ChangeEvent<FormElements>) => {
     const { name, value } = e.currentTarget;
@@ -56,11 +72,17 @@ const IngredientForm = ({
     });
   };
 
+  const resetForm = () => {
+    setIngredientData(DEFAULT_INGREDIENT_DATA);
+    setIngredientName('');
+    setIngredientErrors({});
+  };
+
   const validateIngredient = (ingredientToValidate: RecipeIngredientFormData) => {
     const errors: FormErrors = {};
 
-    if (!ingredientToValidate.name) {
-      errors.name = `Veuillez entrer le nom de l'ingrédient`;
+    if (!ingredientToValidate.detailsId) {
+      errors.name = `Veuillez sélectionner le nom de l'ingrédient`;
     }
 
     if (ingredientToValidate.unit && !ingredientToValidate.quantity) {
@@ -94,8 +116,7 @@ const IngredientForm = ({
       return newFormData;
     });
 
-    setIngredientData(DEFAULT_INGREDIENT_DATA);
-    setIngredientErrors({});
+    resetForm();
   };
 
   const editIngredient = () => {
@@ -133,6 +154,7 @@ const IngredientForm = ({
       throw new Error('closeModal function must be passed when editing an ingredient');
     }
 
+    resetForm();
     closeModal();
   };
 
@@ -152,9 +174,21 @@ const IngredientForm = ({
     }
   };
 
+  const handleIngredientNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const name = e.currentTarget.value;
+    setIngredientName(name);
+    const matchingIng = getMatchingIngredientsDetails(name, ingredientsDetails);
+    setMatchingIngredientsDetails(matchingIng);
+  };
+
+  const selectIngredient = (ingredientDetails: IngredientDetailsWithId) => {
+    setIngredientData({ ...ingredientData, detailsId: ingredientDetails.id });
+    setIngredientName(ingredientDetails.singular);
+  };
+
   return (
     <div className={editMode ? 'edit-ingredient' : 'add-ingredient'}>
-      { !editMode && (
+      {!editMode && (
         <p className='label'><b>Ajout d&apos;ingrédients :</b></p>
       )}
       <div className='ingredient-form'>
@@ -177,15 +211,18 @@ const IngredientForm = ({
           onChange={handleIngredientChange}
           onKeyDown={handleKeyDown}
         />
-        <UnderlineInput
-          labelText='Ingrédient'
-          name='name'
-          type='text'
-          value={ingredientData.name}
-          onChange={handleIngredientChange}
+
+        <AutocompleteInput<IngredientDetailsWithId>
+          matchingObjects={matchingIngredientsDetails}
+          propertyToShow='singular'
+          selectItem={selectIngredient}
+          setMatchingObjects={setMatchingIngredientsDetails}
+          onEnterKeydown={submitIngredient}
+          value={ingredientName}
           error={!!ingredientErrors.name}
-          onKeyDown={handleKeyDown}
+          onChange={handleIngredientNameChange}
         />
+
       </div>
       { hasErrors && (
         <ul className='form-errors'>
