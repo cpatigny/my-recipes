@@ -10,6 +10,7 @@ import useScrollRestoration from '../../hooks/useScrollRestoration';
 import { CategoryWithId } from '../../types/category';
 import getCategoryBySlug from '../../utils/categories/getCategoryBySlug';
 import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
+import { ROUTES } from '../../utils/routes';
 
 import { Link, useParams } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
@@ -111,7 +112,7 @@ const Home = () => {
         <h2 className='h1'>
           { getTitle() }
         </h2>
-        { user && <Link className='btn btn-outline-primary' to='/add-recipe'>+ Ajouter</Link> }
+        { user && <Link className='btn btn-outline-primary' to={ROUTES.ADD_RECIPE}>+ Ajouter</Link> }
       </div>
 
       <Categories

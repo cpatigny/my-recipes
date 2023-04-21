@@ -4,6 +4,7 @@ import getRecipeBySlug from '../../utils/recipes/getRecipeBySlug';
 import { RecipeWithId } from '../../types/recipe';
 import { UserContext } from '../../providers/UserProvider';
 import { RecipesContext } from '../../providers/RecipesProvider';
+import { ROUTES } from '../../utils/routes';
 
 import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
 
@@ -21,14 +22,14 @@ const EditRecipe = () => {
       const matchingRecipe = getRecipeBySlug(slug, recipes);
 
       // no match : redirect to home page
-      if (!matchingRecipe) navigate('/', { replace: true });
+      if (!matchingRecipe) navigate(ROUTES.HOME, { replace: true });
 
       setRecipe(matchingRecipe);
     }
   }, [navigate, recipes, slug]);
 
   useEffect(() => {
-    if (!user) navigate('/', { replace: true });
+    if (!user) navigate(ROUTES.HOME, { replace: true });
   }, [user, navigate]);
 
   return (

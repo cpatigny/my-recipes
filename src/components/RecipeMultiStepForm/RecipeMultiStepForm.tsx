@@ -14,6 +14,7 @@ import Preview from './Preview';
 
 import './RecipeForm.scss';
 import generateRecipeKey from '../../utils/firebase/generateRecipeKey';
+import { getRecipePath } from '../../utils/routes';
 
 interface RecipeFormProps {
   recipe?: RecipeWithId | null;
@@ -134,7 +135,7 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
       uploadImageAndDeleteOldOne(imageFile, oldImageName, onImageDelete, onImageUpload);
     }
 
-    const redirect = () => navigate(`/recette/${formData.slug}`);
+    const redirect = () => navigate(getRecipePath(formData.slug));
 
     if (recipe) {
       updateRecipe(recipe, formData).then(redirect);

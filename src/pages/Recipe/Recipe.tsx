@@ -10,6 +10,7 @@ import useScrollRestoration from '../../hooks/useScrollRestoration';
 import { CategoriesContext } from '../../providers/CategoriesProvider';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
+import { ROUTES } from '../../utils/routes';
 
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
@@ -61,7 +62,7 @@ const Recipe = () => {
       const matchingRecipe = getRecipeBySlug(slug, recipes);
 
       // no match : redirect to home page
-      if (!matchingRecipe) navigate('/', { replace: true });
+      if (!matchingRecipe) navigate(ROUTES.HOME, { replace: true });
 
       setRecipe(matchingRecipe);
     }

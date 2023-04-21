@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../utils/routes';
 
 import './GoBack.scss';
 
@@ -13,7 +14,7 @@ const GoBack = () => {
       return;
     }
 
-    navigate('/');
+    navigate(ROUTES.HOME);
   };
 
   return (

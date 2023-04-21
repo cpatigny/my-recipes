@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../providers/UserProvider';
 import { signIn } from '../../utils/firebase/authMethods';
+import { ROUTES } from '../../utils/routes';
 
 import './Login.scss';
 
@@ -25,14 +26,16 @@ const Login = () => {
 
     try {
       await signIn(email, password);
-      navigate('/', { replace: true });
+      navigate(ROUTES.HOME, { replace: true });
     } catch (error) {
       alert('Email ou mot de passe incorrect');
     }
   };
 
   // if user is already login, we check if null because null is type object
-  if (typeof user === 'object' && user !== null) return <Navigate to='/' replace />;
+  if (typeof user === 'object' && user !== null) {
+    return <Navigate to={ROUTES.HOME} replace />;
+  }
 
   return (
     <div className='container login'>

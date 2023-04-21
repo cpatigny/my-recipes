@@ -2,6 +2,7 @@ import confirm from '../../utils/confirm';
 import { useNavigate, Link } from 'react-router-dom';
 import { RecipeWithId } from '../../types/recipe';
 import { deleteRecipe } from '../../utils/firebase/recipeMethods';
+import { ROUTES, getEditRecipePath } from '../../utils/routes';
 
 interface RecipeActionsProps {
   recipe: RecipeWithId;
@@ -16,7 +17,7 @@ const RecipeActions = ({ recipe }: RecipeActionsProps) => {
   const onClickHandler = () => {
     confirm(confirmText, wordToEnter, async () => {
       await deleteRecipe(recipe);
-      navigate('/', { replace: true });
+      navigate(ROUTES.HOME, { replace: true });
       alert('La recette a bien été supprimée.');
     });
   };
@@ -24,7 +25,7 @@ const RecipeActions = ({ recipe }: RecipeActionsProps) => {
   return (
     <div className='recipe-actions'>
       <Link
-        to={`/edit/${recipe.slug}`}
+        to={getEditRecipePath(recipe.slug)}
         id='edit-recipe'
       >
         <span className='material-icons-round'>edit</span>

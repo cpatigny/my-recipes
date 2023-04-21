@@ -1,4 +1,5 @@
 import { Category as CategoryType } from '../../types/category';
+import { getCategoryPath } from '../../utils/routes';
 
 import { Link } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ interface CategoryProps {
 }
 
 const Category = ({ category, selected }: CategoryProps) => (
-  <Link to={`/category/${category.slug}`} className={`category ${selected ? 'selected' : ''}`}>
+  <Link to={getCategoryPath(category.slug)} className={`category ${selected ? 'selected' : ''}`}>
     { category.name }
   </Link>
 );

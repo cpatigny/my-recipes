@@ -1,5 +1,6 @@
 import { User } from 'firebase/auth';
 import { logOut } from '../../utils/firebase/authMethods';
+import { ROUTES } from '../../utils/routes';
 
 import { Link } from 'react-router-dom';
 
@@ -13,7 +14,7 @@ const Footer = ({ user }: FooterProps) => (
     <div className='admin'>
       { user
         ? <button className='sign-out' onClick={() => logOut()}>Déconnexion</button>
-        : <Link to='/admin'>Admin</Link>
+        : <Link to={ROUTES.ADMIN}>Admin</Link>
       }
     </div>
   </footer>

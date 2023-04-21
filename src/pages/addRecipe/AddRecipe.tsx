@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../providers/UserProvider';
+import { ROUTES } from '../../utils/routes';
 
 import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
 
@@ -9,7 +10,7 @@ const AddRecipe = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) navigate('/', { replace: true });
+    if (!user) navigate(ROUTES.HOME, { replace: true });
   }, [user, navigate]);
 
   return (

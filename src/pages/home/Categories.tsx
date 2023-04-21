@@ -3,6 +3,7 @@ import { Recipes } from '../../types/recipe';
 import { DEFAULT_CATEGORY } from './Home';
 import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
 import getCategoriesOrderByRecipeCount from '../../utils/categories/getCategoriesOrderByRecipeCount';
+import { ROUTES } from '../../utils/routes';
 
 import Category from './Category';
 import { Link } from 'react-router-dom';
@@ -35,7 +36,7 @@ const Categories = ({ categories, selectedCategory, recipes }: CategoriesProps) 
       <div className='wrapper' onScroll={handleScroll}>
         <div className='gradient'></div>
 
-        <Link to='/' className={`category ${noCategroySelected ? 'selected' : ''}`}>
+        <Link to={ROUTES.HOME} className={`category ${noCategroySelected ? 'selected' : ''}`}>
           { DEFAULT_CATEGORY.name }
         </Link>
 

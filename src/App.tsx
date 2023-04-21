@@ -4,6 +4,7 @@ import { UserContext } from './providers/UserProvider';
 import { RecipesContext } from './providers/RecipesProvider';
 import { CategoriesContext } from './providers/CategoriesProvider';
 import { useIngredientsDetails } from './providers/IngredientsDetailsProvider';
+import { ROUTES_WITH_PARAMS } from './utils/routes';
 
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import Login from './pages/login/Login';
@@ -17,44 +18,44 @@ import AdminIngredientsDetails from './pages/adminIngredientsDetails/AdminIngred
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: ROUTES_WITH_PARAMS.HOME,
     element: <Home />,
   },
   {
-    path: 'category/:slug',
+    path: ROUTES_WITH_PARAMS.CATEGORY,
     element: <Home />,
   },
   {
-    path: 'admin',
+    path: ROUTES_WITH_PARAMS.ADMIN,
     element: <Login />,
   },
   {
-    path: 'login',
+    path: ROUTES_WITH_PARAMS.LOGIN,
     element: <Login />,
   },
   {
-    path: 'add-recipe',
+    path: ROUTES_WITH_PARAMS.ADD_RECIPE,
     element: <AddRecipe />,
   },
   {
-    path: 'edit/:slug',
+    path: ROUTES_WITH_PARAMS.EDIT_RECIPE,
     element: <EditRecipe />,
   },
   {
-    path: 'recette/:slug',
+    path: ROUTES_WITH_PARAMS.RECIPE,
     element: <Recipe />,
   },
   {
-    path: 'categories',
+    path: ROUTES_WITH_PARAMS.CATEGORIES,
     element: <AdminCategories />,
   },
   {
-    path: 'ingredients',
+    path: ROUTES_WITH_PARAMS.INGREDIENTS,
     element: <AdminIngredientsDetails />,
   },
   {
     path: '*',
-    element: <Navigate to='/' replace />,
+    element: <Navigate to={ROUTES_WITH_PARAMS.HOME} replace />,
   },
 ]);
 

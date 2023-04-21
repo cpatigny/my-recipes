@@ -1,3 +1,5 @@
+import { getRecipePath } from '../../utils/routes';
+
 import { Link } from 'react-router-dom';
 
 interface RecipeCardProps {
@@ -13,7 +15,7 @@ const RecipeCard = ({ title, imageName, slug }: RecipeCardProps) => {
 
   return (
     <Link
-      to={`/recette/${slug}`}
+      to={getRecipePath(slug)}
       state={{ fromHome: true }}
       className={`recipe ${imageName ? '' : 'no-image'}`}
     >

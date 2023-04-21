@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { logOut } from '../../utils/firebase/authMethods';
+import { ROUTES } from '../../utils/routes';
 
 import { NavLink } from 'react-router-dom';
 import MobileMenu from './MobileMenu';
@@ -18,9 +19,9 @@ const Menu = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const links: Link[] = [
-    { id: 0, path: '/', name: 'Accueil', iconName: 'home' },
-    { id: 1, path: '/categories', name: 'Catégories', iconName: 'category' },
-    { id: 2, path: '/ingredients', name: 'Ingrédients', iconName: 'restaurant_menu' },
+    { id: 0, path: ROUTES.HOME, name: 'Accueil', iconName: 'home' },
+    { id: 1, path: ROUTES.CATEGORIES, name: 'Catégories', iconName: 'category' },
+    { id: 2, path: ROUTES.INGREDIENTS, name: 'Ingrédients', iconName: 'restaurant_menu' },
   ];
 
   return (
