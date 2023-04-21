@@ -62,7 +62,7 @@ const Recipe = () => {
       const matchingRecipe = getRecipeBySlug(slug, recipes);
 
       // no match : redirect to home page
-      if (!matchingRecipe) navigate(ROUTES.HOME, { replace: true });
+      if (!matchingRecipe) navigate(ROUTES.NOT_FOUND, { replace: true });
 
       setRecipe(matchingRecipe);
     }
