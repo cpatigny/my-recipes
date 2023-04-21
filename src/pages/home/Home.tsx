@@ -111,7 +111,7 @@ const Home = () => {
         <h2 className='h1'>
           { getTitle() }
         </h2>
-        { user && <Link className='btn btn-outline-primary' to='/add-recipe'>+ Add recipe</Link> }
+        { user && <Link className='btn btn-outline-primary' to='/add-recipe'>+ Ajouter</Link> }
       </div>
 
       <Categories
