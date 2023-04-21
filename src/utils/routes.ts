@@ -8,6 +8,7 @@ export const ROUTES = {
   LOGIN: '/login',
   CATEGORIES: '/categories',
   INGREDIENTS: '/ingredients',
+  NOT_FOUND: '/404',
 } as const;
 
 export const ROUTES_WITH_PARAMS = {
