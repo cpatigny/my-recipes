@@ -38,7 +38,7 @@ export const useIngredientsDetails = () => {
   const context = useContext(IngredientsDetailsContext);
 
   if (!context) {
-    throw new Error('useIngredients must be used within a IngredientsProvider');
+    throw new Error('useIngredientsDetails must be used within a IngredientsDetailsProvider');
   }
 
   return context;

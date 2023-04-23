@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { deleteIngredientDetails } from '../../utils/firebase/ingredientDetailsMethods';
-import { RecipesContext } from '../../providers/RecipesProvider';
+import { useRecipes } from '../../providers/RecipesProvider';
 
 import AdminContainer from '../../components/AdminContainer/AdminContainer';
 import IngredientsDetails from './IngredientsDetails';
@@ -14,7 +14,7 @@ import './AdminIngredientsDetails.scss';
 const AdminIngredientsDetails = () => {
   const [ingredientToEdit, setIngredientToEdit] = useState<IngredientDetailsWithId | null>(null);
 
-  const { recipes } = useContext(RecipesContext);
+  const { recipes } = useRecipes();
   const { ingredientsDetails } = useIngredientsDetails();
 
   const closeEditForm = () => setIngredientToEdit(null);

@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
-import { RecipesContext } from '../../providers/RecipesProvider';
+import { useEffect, useState } from 'react';
+import { useRecipes } from '../../providers/RecipesProvider';
 import { CategoryWithId } from '../../types/category';
 import confirm from '../../utils/confirm';
 import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
@@ -16,7 +16,7 @@ const AdminCategory = ({ category }: AdminCategoryProps) => {
   const [slug, setSlug] = useState(category.slug);
   const [nbRecipesWithCategory, setNbRecipesWithCategory] = useState(0);
 
-  const { recipes } = useContext(RecipesContext);
+  const { recipes } = useRecipes();
 
   useEffect(() => {
     if (recipes) {

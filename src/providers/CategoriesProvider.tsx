@@ -1,5 +1,5 @@
+import { createContext, useContext, useEffect, useState } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import { createContext, useEffect, useState } from 'react';
 import { Categories } from '../types/category';
 
 interface CategoriesContextValues {
@@ -32,6 +32,16 @@ const CategoriesProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </CategoriesContext.Provider>
   );
+};
+
+export const useCategories = () => {
+  const context = useContext(CategoriesContext);
+
+  if (!context) {
+    throw new Error('useCategories must be used within a CategoriesProvider');
+  }
+
+  return context;
 };
 
 export default CategoriesProvider;

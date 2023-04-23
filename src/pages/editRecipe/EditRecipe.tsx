@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import getRecipeBySlug from '../../utils/recipes/getRecipeBySlug';
 import { RecipeWithId } from '../../types/recipe';
-import { UserContext } from '../../providers/UserProvider';
-import { RecipesContext } from '../../providers/RecipesProvider';
+import { useUser } from '../../providers/UserProvider';
+import { useRecipes } from '../../providers/RecipesProvider';
 import { ROUTES } from '../../utils/routes';
 
 import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
@@ -11,8 +11,8 @@ import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMult
 const EditRecipe = () => {
   const [recipe, setRecipe] = useState<RecipeWithId | null>(null);
 
-  const { user } = useContext(UserContext);
-  const { recipes } = useContext(RecipesContext);
+  const { user } = useUser();
+  const { recipes } = useRecipes();
 
   const navigate = useNavigate();
   const { slug } = useParams();

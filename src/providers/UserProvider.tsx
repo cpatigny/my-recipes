@@ -1,6 +1,6 @@
+import { createContext, useContext, useEffect, useState } from 'react';
 import { User, getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getDatabase, ref, get } from 'firebase/database';
-import { createContext, useEffect, useState } from 'react';
 import { UserData } from '../types/user';
 
 interface UserContextValues {
@@ -47,6 +47,16 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </UserContext.Provider>
   );
+};
+
+export const useUser = () => {
+  const context = useContext(UserContext);
+
+  if (!context) {
+    throw new Error('useUser must be used within a UserProvider');
+  }
+
+  return context;
 };
 
 export default UserProvider;

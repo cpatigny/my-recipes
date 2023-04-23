@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import remarkGfm from 'remark-gfm';
 import { useNavigate, useParams } from 'react-router-dom';
 import getRecipeBySlug from '../../utils/recipes/getRecipeBySlug';
 import formatDate from '../../utils/formatDate';
 import { GroupWithIngredients, RecipeIngredientWithId, RecipeWithId } from '../../types/recipe';
-import { UserContext } from '../../providers/UserProvider';
-import { RecipesContext } from '../../providers/RecipesProvider';
+import { useUser } from '../../providers/UserProvider';
+import { useRecipes } from '../../providers/RecipesProvider';
 import useScrollRestoration from '../../hooks/useScrollRestoration';
-import { CategoriesContext } from '../../providers/CategoriesProvider';
+import { useCategories } from '../../providers/CategoriesProvider';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
 import { ROUTES } from '../../utils/routes';
@@ -49,9 +49,9 @@ const components: Components = {
 const Recipe = () => {
   const [recipe, setRecipe] = useState<RecipeWithId | null>(null);
 
-  const { user } = useContext(UserContext);
-  const { recipes } = useContext(RecipesContext);
-  const { categories } = useContext(CategoriesContext);
+  const { user } = useUser();
+  const { recipes } = useRecipes();
+  const { categories } = useCategories();
 
   const navigate = useNavigate();
   const { slug } = useParams();

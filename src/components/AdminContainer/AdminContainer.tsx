@@ -1,6 +1,5 @@
-import { useContext } from 'react';
-import { UserContext } from '../../providers/UserProvider';
 import { ROUTES } from '../../utils/routes';
+import { useUser } from '../../providers/UserProvider';
 
 import { Navigate } from 'react-router-dom';
 import Menu from '../Menu/Menu';
@@ -11,7 +10,7 @@ interface AdminContainerProps {
 }
 
 const AdminContainer = ({ className, children }: AdminContainerProps) => {
-  const { user, userLoading } = useContext(UserContext);
+  const { user, userLoading } = useUser();
 
   if (!user && !userLoading) return <Navigate to={ROUTES.HOME} />;
 

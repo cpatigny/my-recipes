@@ -1,5 +1,5 @@
+import { createContext, useContext, useEffect, useState } from 'react';
 import { getDatabase, ref, onValue } from 'firebase/database';
-import { createContext, useEffect, useState } from 'react';
 import { Recipes } from '../types/recipe';
 
 interface RecipesContextValues {
@@ -32,6 +32,16 @@ const RecipesProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </RecipesContext.Provider>
   );
+};
+
+export const useRecipes = () => {
+  const context = useContext(RecipesContext);
+
+  if (!context) {
+    throw new Error('useRecipes must be used within a RecipesProvider');
+  }
+
+  return context;
 };
 
 export default RecipesProvider;

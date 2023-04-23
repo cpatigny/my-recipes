@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import searchMatchingRecipes from '../../utils/recipes/searchMatchingRecipes';
 import reverseObject from '../../utils/recipes/reverseRecipes';
 import { Recipes } from '../../types/recipe';
-import { UserContext } from '../../providers/UserProvider';
-import { RecipesContext } from '../../providers/RecipesProvider';
-import { CategoriesContext } from '../../providers/CategoriesProvider';
+import { useUser } from '../../providers/UserProvider';
+import { useRecipes } from '../../providers/RecipesProvider';
+import { useCategories } from '../../providers/CategoriesProvider';
 import getRecipesByCategory from '../../utils/recipes/getRecipesByCategory';
 import useScrollRestoration from '../../hooks/useScrollRestoration';
 import { CategoryWithId } from '../../types/category';
@@ -36,9 +36,9 @@ const Home = () => {
   const [noSearchResult, setNoSearchResult] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<CategoryWithId | null>(null);
 
-  const { user } = useContext(UserContext);
-  const { recipes } = useContext(RecipesContext);
-  const { categories } = useContext(CategoriesContext);
+  const { user } = useUser();
+  const { recipes } = useRecipes();
+  const { categories } = useCategories();
 
   const { slug } = useParams();
 

@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { CategoriesContext } from '../../providers/CategoriesProvider';
+import { useState } from 'react';
+import { useCategories } from '../../providers/CategoriesProvider';
 import { createCategory } from '../../utils/firebase/categoryMethods';
 import slugify from '../../utils/string/slugify';
 
@@ -12,7 +12,7 @@ const AdminCategories = () => {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
 
-  const { categories } = useContext(CategoriesContext);
+  const { categories } = useCategories();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;

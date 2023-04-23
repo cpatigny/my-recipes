@@ -1,10 +1,9 @@
-import { useContext } from 'react';
 import { GroupWithIngredients, RecipeIngredientWithId, RecipeFormData } from '../../types/recipe';
 import remarkGfm from 'remark-gfm';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
-import { CategoriesContext } from '../../providers/CategoriesProvider';
 import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
+import { useCategories } from '../../providers/CategoriesProvider';
 import getIngredientSingular from '../../utils/ingredientsDetails/getIngredientSingular';
 
 import ReactMarkdown from 'react-markdown';
@@ -17,7 +16,7 @@ interface PreviewProps {
 const Preview = ({ formData, previewImageSrc }: PreviewProps) => {
   const { ingredients, groups } = formData;
 
-  const { categories } = useContext(CategoriesContext);
+  const { categories } = useCategories();
   const { ingredientsDetails } = useIngredientsDetails();
 
   const noIngredients = typeof ingredients === 'object' && Object.keys(ingredients).length === 0;

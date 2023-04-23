@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import { CategoriesContext } from '../../providers/CategoriesProvider';
+import { useCategories } from '../../providers/CategoriesProvider';
 import { FormElements } from './RecipeMultiStepForm';
 
 interface InformationFormProps {
@@ -14,7 +13,7 @@ interface InformationFormProps {
 const InformationForm = ({
   title, slug, category, imageName, previewImageSrc, handleChange,
 }: InformationFormProps) => {
-  const { categories } = useContext(CategoriesContext);
+  const { categories } = useCategories();
 
   return (
     <div className='form-container informations-form'>

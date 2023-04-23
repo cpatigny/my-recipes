@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { UserContext } from '../../providers/UserProvider';
+import { useUser } from '../../providers/UserProvider';
 import { signIn } from '../../utils/firebase/authMethods';
 import { ROUTES } from '../../utils/routes';
 
@@ -13,7 +13,7 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
