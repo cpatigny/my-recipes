@@ -8,6 +8,7 @@ export const ROUTES = {
   LOGIN: '/login',
   CATEGORIES: '/categories',
   INGREDIENTS: '/ingredients',
+  UNITS: '/units',
   NOT_FOUND: '/404',
 } as const;
 

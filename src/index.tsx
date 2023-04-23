@@ -18,6 +18,7 @@ import AdminIngredientsDetails from './pages/adminIngredientsDetails/AdminIngred
 import EditRecipe from './pages/editRecipe/EditRecipe';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
+import AdminUnits from './pages/adminUnits/AdminUnits';
 
 import './index.scss';
 
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
       {
         path: ROUTES_WITH_PARAMS.INGREDIENTS,
         element: <AdminIngredientsDetails />,
+      },
+      {
+        path: ROUTES_WITH_PARAMS.UNITS,
+        element: <AdminUnits />,
       },
       {
         path: '*',

@@ -22,6 +22,7 @@ const Menu = () => {
     { id: 0, path: ROUTES.HOME, name: 'Accueil', iconName: 'home' },
     { id: 1, path: ROUTES.CATEGORIES, name: 'Catégories', iconName: 'category' },
     { id: 2, path: ROUTES.INGREDIENTS, name: 'Ingrédients', iconName: 'restaurant_menu' },
+    { id: 3, path: ROUTES.UNITS, name: 'Unités', iconName: 'straighten' },
   ];
 
   return (
