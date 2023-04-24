@@ -7,10 +7,7 @@ interface RecipesContextValues {
   recipesLoading: boolean;
 }
 
-export const RecipesContext = createContext<RecipesContextValues>({
-  recipes: null,
-  recipesLoading: true,
-});
+const RecipesContext = createContext<RecipesContextValues | null>(null);
 
 const RecipesProvider = ({ children }: { children: React.ReactNode }) => {
   const [recipes, setRecipes] = useState<Recipes | null>(null);

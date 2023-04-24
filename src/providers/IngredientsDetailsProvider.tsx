@@ -7,10 +7,7 @@ interface IngredientsDetailsContextValues {
   ingredientsDetailsLoading: boolean;
 }
 
-const IngredientsDetailsContext = createContext<IngredientsDetailsContextValues>({
-  ingredientsDetails: null,
-  ingredientsDetailsLoading: true,
-});
+const IngredientsDetailsContext = createContext<IngredientsDetailsContextValues | null>(null);
 
 const IngredientsDetailsProvider = ({ children }: { children: React.ReactNode }) => {
   const [ingredientsDetails, setIngredients] = useState(null);

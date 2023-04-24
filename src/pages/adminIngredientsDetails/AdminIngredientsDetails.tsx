@@ -9,8 +9,6 @@ import IngredientsDetails from './IngredientsDetails';
 import Modal from '../../components/Modal/Modal';
 import IngredientDetailsForm from './IngredientDetailsForm';
 
-import './AdminIngredientsDetails.scss';
-
 const AdminIngredientsDetails = () => {
   const [ingredientToEdit, setIngredientToEdit] = useState<IngredientDetailsWithId | null>(null);
 

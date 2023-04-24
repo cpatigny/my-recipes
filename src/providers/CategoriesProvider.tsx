@@ -7,10 +7,7 @@ interface CategoriesContextValues {
   categoriesLoading: boolean;
 }
 
-export const CategoriesContext = createContext<CategoriesContextValues>({
-  categories: null,
-  categoriesLoading: true,
-});
+const CategoriesContext = createContext<CategoriesContextValues | null>(null);
 
 const CategoriesProvider = ({ children }: { children: React.ReactNode }) => {
   const [categories, setCategories] = useState<Categories | null>(null);

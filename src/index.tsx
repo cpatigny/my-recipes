@@ -21,6 +21,7 @@ import Login from './pages/login/Login';
 import AdminUnits from './pages/adminUnits/AdminUnits';
 
 import './index.scss';
+import UnitsProvider from './providers/UnitsProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -31,7 +32,9 @@ const AppWithProviders = () => (
     <RecipesProvider>
       <CategoriesProvider>
         <IngredientsDetailsProvider>
-          <App />
+          <UnitsProvider>
+            <App />
+          </UnitsProvider>
         </IngredientsDetailsProvider>
       </CategoriesProvider>
     </RecipesProvider>

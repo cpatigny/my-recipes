@@ -11,7 +11,7 @@ interface IngredientsDetailsProps {
 const IngredientsDetails = ({
   ingredients, setIngredientToEdit, handleDelete,
 }: IngredientsDetailsProps) => (
-  <ul>
+  <ul className='admin-list'>
     {Object.keys(ingredients).map(key => {
       const ingredient = ingredients[key];
       if (!ingredient) return null;

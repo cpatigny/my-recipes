@@ -9,11 +9,7 @@ interface UserContextValues {
   userLoading: boolean;
 }
 
-export const UserContext = createContext<UserContextValues>({
-  user: null,
-  userData: null,
-  userLoading: true,
-});
+const UserContext = createContext<UserContextValues | null>(null);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
