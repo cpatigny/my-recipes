@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { createUnit } from '../../utils/firebase/unitMethods';
+import { useEffect, useState } from 'react';
+import { createUnit, updateUnit } from '../../utils/firebase/unitMethods';
+import { UnitWithId } from '../../types/unit';
 
 interface UnitFormData {
   singular: string;
@@ -7,7 +8,12 @@ interface UnitFormData {
   symbol: string;
 }
 
-const UnitForm = () => {
+interface UnitFormProps {
+  unitToEdit?: UnitWithId | null;
+  close?: () => void;
+}
+
+const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
   const DEFAULT_DATA: UnitFormData = {
     singular: '',
     plural: '',
@@ -15,6 +21,12 @@ const UnitForm = () => {
   };
 
   const [unitFormData, setUnitFormData] = useState(DEFAULT_DATA);
+
+  useEffect(() => {
+    if (!unitToEdit) return;
+
+    setUnitFormData({ ...unitToEdit, symbol: unitToEdit.symbol ?? '' });
+  }, [unitToEdit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -29,6 +41,13 @@ const UnitForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (unitToEdit) {
+      updateUnit({ id: unitToEdit.id, ...unitFormData });
+      if (close) close();
+      return;
+    }
+
     await createUnit(unitFormData);
     reset();
   };
@@ -67,7 +86,9 @@ const UnitForm = () => {
           onChange={handleChange}
         />
       </div>
-      <button>Ajouter une unité</button>
+      <button>
+        { unitToEdit ? `Modifier l'unité` : 'Ajouter une unité' }
+      </button>
     </form>
   );
 };

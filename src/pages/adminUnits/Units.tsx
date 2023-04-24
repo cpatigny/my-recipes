@@ -1,10 +1,11 @@
-import { Units as UnitsType } from '../../types/unit';
+import { Units as IUnits, UnitWithId } from '../../types/unit';
 
 interface UnitsProps {
-  units: UnitsType;
+  units: IUnits;
+  setUnitToEdit: React.Dispatch<React.SetStateAction<UnitWithId | null>>;
 }
 
-const Units = ({ units }: UnitsProps) => (
+const Units = ({ units, setUnitToEdit }: UnitsProps) => (
   <ul className='admin-list'>
     {Object.keys(units).map(key => {
       const unit = units[key];
@@ -14,7 +15,14 @@ const Units = ({ units }: UnitsProps) => (
           <div className='unit-details'>
             <p>singulier : <b>{ unit.singular }</b></p>
             <p>pluriel : <b>{ unit.plural }</b></p>
-            <p>symbole : <b>{ unit.symbol }</b></p>
+            {unit.symbol && (
+              <p>symbole : <b>{ unit.symbol }</b></p>
+            )}
+          </div>
+          <div className='actions delete-edit'>
+            <button className='edit' onClick={() => setUnitToEdit({ id: key, ...unit })}>
+              <span className='material-icons-round'>edit</span>
+            </button>
           </div>
         </li>
       );
