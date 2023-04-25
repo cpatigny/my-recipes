@@ -43,12 +43,19 @@ const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
     e.preventDefault();
 
     if (unitToEdit) {
-      updateUnit({ id: unitToEdit.id, ...unitFormData });
+      updateUnit({
+        ...unitFormData,
+        id: unitToEdit.id,
+        symbol: unitFormData.symbol ? unitFormData.symbol : null,
+      });
       if (close) close();
       return;
     }
 
-    await createUnit(unitFormData);
+    await createUnit({
+      ...unitFormData,
+      symbol: unitFormData.symbol ? unitFormData.symbol : null,
+    });
     reset();
   };
 

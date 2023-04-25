@@ -1,7 +1,7 @@
 export interface Unit {
   singular: string;
   plural: string;
-  symbol?: string;
+  symbol?: string | null;
 }
 
 export interface UnitWithId extends Unit {
