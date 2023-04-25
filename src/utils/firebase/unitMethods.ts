@@ -1,8 +1,8 @@
 import { getDatabase, ref, push, set, remove, update } from 'firebase/database';
 import { Unit, UnitWithId } from '../../types/unit';
 import { Recipes } from '../../types/recipe';
-import recipeUsesUnit from '../recipes/recipeUsesUnit';
-import removeUnitFromRecipe from '../recipes/removeUnitFromRecipe';
+import removeValuefromRecipeIngredients from '../recipes/removeValuefromRecipeIngredients';
+import recipeUses from '../recipes/recipeUses';
 
 export const createUnit = (unit: Unit) => {
   const db = getDatabase();
@@ -25,8 +25,8 @@ export const deleteUnit = async (unitId: string, recipes: Recipes) => {
     .forEach(key => {
       const recipe = recipes[key];
       if (!recipe) return;
-      if (recipeUsesUnit(unitId, recipe)) {
-        const updatedRecipe = removeUnitFromRecipe(recipe, unitId);
+      if (recipeUses(recipe, unitId, 'unitId')) {
+        const updatedRecipe = removeValuefromRecipeIngredients(recipe, 'unitId', unitId);
         recipesToUpdate[key] = updatedRecipe;
       }
     });

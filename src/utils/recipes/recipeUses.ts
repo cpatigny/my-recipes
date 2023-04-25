@@ -1,6 +1,6 @@
-import { Recipe } from '../../types/recipe';
+import { Recipe, RecipeIngredient } from '../../types/recipe';
 
-const recipeUsesIngredientDetails = (ingredientDetailsId: string, recipe: Recipe) => {
+const recipeUses = (recipe: Recipe, id: string, property: keyof RecipeIngredient) => {
   const ingredients = recipe.ingredients;
 
   if (typeof ingredients === 'string') {
@@ -12,8 +12,8 @@ const recipeUsesIngredientDetails = (ingredientDetailsId: string, recipe: Recipe
     .some(key => {
       const ingredient = ingredients[key];
       if (!ingredient) return false;
-      return ingredient.detailsId === ingredientDetailsId;
+      return ingredient[property] === id;
     });
 };
 
-export default recipeUsesIngredientDetails;
+export default recipeUses;

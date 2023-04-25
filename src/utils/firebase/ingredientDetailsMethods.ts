@@ -3,8 +3,8 @@ import {
 } from 'firebase/database';
 import { IngredientDetails, IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { Recipes } from '../../types/recipe';
-import recipeUsesIngredientDetails from '../recipes/recipeUsesIngredientDetails';
-import removeIngredientDetailsFromRecipe from '../recipes/removeIngredientDetailsFromRecipe';
+import removeValuefromRecipeIngredients from '../recipes/removeValuefromRecipeIngredients';
+import recipeUses from '../recipes/recipeUses';
 
 export const createIngredientDetails = (ingredientDetails: IngredientDetails) => {
   const db = getDatabase();
@@ -26,20 +26,13 @@ export const deleteIngredientDetails = async (ingredientDetailsId: string, recip
 
   Object
     .keys(recipes)
-    .filter(key => {
-      const recipe = recipes[key];
-      if (!recipe || typeof recipe === 'string') {
-        return false;
-      }
-
-      return recipeUsesIngredientDetails(ingredientDetailsId, recipe);
-    })
     .forEach(key => {
       const recipe = recipes[key];
       if (!recipe) return;
-
-      const updatedRecipe = removeIngredientDetailsFromRecipe(recipe, ingredientDetailsId);
-      recipesToUpdate[key] = updatedRecipe;
+      if (recipeUses(recipe, ingredientDetailsId, 'detailsId')) {
+        const updatedRecipe = removeValuefromRecipeIngredients(recipe, 'detailsId', ingredientDetailsId);
+        recipesToUpdate[key] = updatedRecipe;
+      }
     });
 
   const recipesRef = ref(db, 'recipes');

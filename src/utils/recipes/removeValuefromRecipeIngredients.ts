@@ -1,6 +1,8 @@
-import { Recipe } from '../../types/recipe';
+import { Recipe, RecipeIngredient } from '../../types/recipe';
 
-const removeIngredientDetailsFromRecipe = (recipe: Recipe, ingredientDetailsId: string) => {
+const removeValuefromRecipeIngredients = (
+  recipe: Recipe, property: keyof RecipeIngredient, id: string,
+) => {
   if (typeof recipe.ingredients === 'string') {
     return recipe;
   }
@@ -14,7 +16,7 @@ const removeIngredientDetailsFromRecipe = (recipe: Recipe, ingredientDetailsId: 
       const ingredient = updatedIngredients[key];
       if (!ingredient) return;
 
-      if (ingredient.detailsId === ingredientDetailsId) {
+      if (ingredient[property] === id) {
         delete updatedIngredients[key];
       }
     });
@@ -24,4 +26,4 @@ const removeIngredientDetailsFromRecipe = (recipe: Recipe, ingredientDetailsId: 
   return updatedRecipe;
 };
 
-export default removeIngredientDetailsFromRecipe;
+export default removeValuefromRecipeIngredients;

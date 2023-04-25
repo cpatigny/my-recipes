@@ -25,16 +25,16 @@ export const deleteCategory = async ({ recipes, category }: DeleteCategoryParams
     .keys(recipes)
     .filter(key => recipes[key]?.category === category.id)
     .forEach(key => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const recipe = { ...recipes[key]! }; // recipes[key] always exists since we made it to forEach
-      recipe.category = 'none';
-      recipesToUpdate[key] = recipe;
+      const recipe = recipes[key];
+      if (!recipe) return;
+      const updatedRecipe = { ...recipe };
+      updatedRecipe.category = 'none';
+      recipesToUpdate[key] = updatedRecipe;
     });
 
   const recipesRef = ref(db, 'recipes');
   await update(recipesRef, recipesToUpdate);
 
-  // delete the category
   const categoryRef = ref(db, `categories/${category.id}`);
   return remove(categoryRef);
 };

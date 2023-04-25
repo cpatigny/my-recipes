@@ -12,17 +12,14 @@ const getMatchingIngredientsDetails = (
 
   Object
     .keys(ingredientsDetails)
-    .filter(key => {
-      const ingredientDetails = ingredientsDetails[key];
-      if (!ingredientDetails) return false;
-      const singularContainsSearch = strContains(ingredientDetails.singular, search);
-      const pluralContainsSearch = strContains(ingredientDetails.plural, search);
-      return singularContainsSearch || pluralContainsSearch;
-    })
     .forEach(key => {
       const ingredientDetails = ingredientsDetails[key];
       if (!ingredientDetails) return;
-      matchingIngredientsDetails.push({ id: key, ...ingredientDetails });
+      const singularContainsSearch = strContains(ingredientDetails.singular, search);
+      const pluralContainsSearch = strContains(ingredientDetails.plural, search);
+      if (singularContainsSearch || pluralContainsSearch) {
+        matchingIngredientsDetails.push({ id: key, ...ingredientDetails });
+      }
     });
 
   return matchingIngredientsDetails;

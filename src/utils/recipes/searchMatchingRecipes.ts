@@ -6,14 +6,12 @@ const searchMatchingRecipes = (search: string, recipes: Recipes): Recipes | null
 
   Object
     .keys(recipes)
-    .filter(key => {
-      const recipe = recipes[key];
-      if (!recipe) return false;
-      return strContains(recipe.title, search);
-    })
     .forEach(key => {
       const recipe = recipes[key];
-      if (recipe) matchingRecipes[key] = recipe;
+      if (!recipe) return;
+      if (strContains(recipe.title, search)) {
+        matchingRecipes[key] = recipe;
+      }
     });
 
   const noMatch = Object.keys(matchingRecipes).length === 0;
