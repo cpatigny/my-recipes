@@ -1,6 +1,8 @@
 import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
+import { useUnits } from '../../providers/UnitsProvider';
 import { RecipeIngredient, RecipeIngredientWithId } from '../../types/recipe';
 import getIngredientSingular from '../../utils/ingredientsDetails/getIngredientSingular';
+import getUnitDetails from '../../utils/units/getUnitDetails';
 
 interface IngredientListItemProps {
   id: string;
@@ -13,11 +15,17 @@ const IngredientListItem = ({
   id, ingredient, deleteIngredient, showEditIngredientForm,
 }: IngredientListItemProps) => {
   const { ingredientsDetails } = useIngredientsDetails();
+  const { units } = useUnits();
+
+  const unit = getUnitDetails(units, ingredient.unitId);
 
   return (
     <li className='ingredient-list-item'>
-      <span>{ ingredient.quantity } { ingredient.unit }</span>
-      { getIngredientSingular(ingredient, ingredientsDetails) }
+      <span>
+        { ingredient.quantity }{' '}
+        { unit.symbol ?? unit.singular }{' '}
+        { getIngredientSingular(ingredient, ingredientsDetails) }
+      </span>
       <button className='edit edit-ingredient' type='button' onClick={() => showEditIngredientForm({ ...ingredient, id })}>
         <span className='material-icons-round'>edit</span>
       </button>

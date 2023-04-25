@@ -6,12 +6,13 @@ import './AutocompleteInput.scss';
 interface AutocompleteProps<T extends RequiredProps> {
   matchingObjects: T[];
   propertyToShow: keyof T;
+  secondaryPropertyToShow?: keyof T;
   noMatchingMsg: string;
   selectItem: (obj: T) => void;
 }
 
 const Autocomplete = <T extends RequiredProps>({
-  matchingObjects, propertyToShow, noMatchingMsg, selectItem,
+  matchingObjects, propertyToShow, secondaryPropertyToShow, noMatchingMsg, selectItem,
 }: AutocompleteProps<T>) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [keyPressed, setKeyPressed] = useState<'ArrowDown' | 'ArrowUp' | null>(null);
@@ -110,10 +111,11 @@ const Autocomplete = <T extends RequiredProps>({
           <li className='no-match'>{ noMatchingMsg }</li>
         )}
         {matchingObjects.map((obj, index) => {
-          const text = obj[propertyToShow];
+          const secondaryText = secondaryPropertyToShow && obj[secondaryPropertyToShow] ? ` (${obj[secondaryPropertyToShow]})` : '';
+          const text = `${obj[propertyToShow]}${secondaryText}`;
           if (typeof text !== 'string') {
             const textType = typeof text;
-            throw new Error(`object[propertyToShow] must be of type string but got ${textType} instead`);
+            throw new Error(`object[propertyToShow] and object[secondaryPropertyToShow] must be of type string but got ${textType} instead`);
           }
           const isActive = selectedIndex === index;
           return (

@@ -11,10 +11,13 @@ interface AutocompleteInputProps<T extends RequiredProps>
   extends React.InputHTMLAttributes<HTMLInputElement> {
     matchingObjects: T[] | null;
     propertyToShow: keyof T;
+    secondaryPropertyToShow?: keyof T;
     selectItem: (obj: T) => void;
     setMatchingObjects: React.Dispatch<React.SetStateAction<T[] | null>>;
     onEnterKeydown: () => void;
-    error: boolean;
+    error?: boolean;
+    labelText: string;
+    name: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: string;
 }
@@ -22,12 +25,15 @@ interface AutocompleteInputProps<T extends RequiredProps>
 const AutocompleteInput = <T extends RequiredProps>({
   matchingObjects,
   propertyToShow,
+  secondaryPropertyToShow,
   selectItem,
   setMatchingObjects,
   onEnterKeydown,
   error,
   value,
   onChange,
+  labelText,
+  name,
   ...inputProps
 }: AutocompleteInputProps<T>) => {
   const [autocompleteIsShow, setAutocompleteIsShow] = useState(false);
@@ -81,10 +87,10 @@ const AutocompleteInput = <T extends RequiredProps>({
   return (
     <div className='autocomplete-container' ref={autocompleteContainerRef}>
       <UnderlineInput
-        labelText='Ingrédient'
+        labelText={labelText}
         error={error}
-        name='name'
         type='text'
+        name={name}
         value={value}
         onKeyDown={handleKeyDown}
         onFocus={handleFocus}
@@ -98,6 +104,7 @@ const AutocompleteInput = <T extends RequiredProps>({
         <Autocomplete<T>
           matchingObjects={matchingObjects}
           propertyToShow={propertyToShow}
+          secondaryPropertyToShow={secondaryPropertyToShow}
           noMatchingMsg='Aucun ingrédient trouvé'
           selectItem={selectItemAndCloseAutocomplete}
         />

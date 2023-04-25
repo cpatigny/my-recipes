@@ -2,28 +2,28 @@ import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvide
 import { useUnits } from '../../providers/UnitsProvider';
 import { RecipeIngredientWithId } from '../../types/recipe';
 
-import Ingredient from './Ingredient';
+import PreviewIngredientItem from './PreviewIngredientItem';
 
-interface IngredientListProps {
-  ingredients: RecipeIngredientWithId[];
+interface PreviewIngredientListProps {
+  ingredients: RecipeIngredientWithId[] | null;
 }
 
-const IngredientList = ({ ingredients }: IngredientListProps) => {
+const PreviewIngredientList = ({ ingredients }: PreviewIngredientListProps) => {
   const { ingredientsDetails } = useIngredientsDetails();
   const { units } = useUnits();
 
   return (
     <ul>
-      {ingredients.map(ingredient => (
-        <Ingredient
+      {ingredients && ingredients.map(ingredient => (
+        <PreviewIngredientItem
           key={ingredient.id}
+          ingredient={ingredient}
           ingredientsDetails={ingredientsDetails}
           units={units}
-          {...ingredient}
         />
       ))}
     </ul>
   );
 };
 
-export default IngredientList;
+export default PreviewIngredientList;

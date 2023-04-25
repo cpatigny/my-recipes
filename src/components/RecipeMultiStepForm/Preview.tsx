@@ -2,11 +2,10 @@ import { GroupWithIngredients, RecipeIngredientWithId, RecipeFormData } from '..
 import remarkGfm from 'remark-gfm';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
-import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
 import { useCategories } from '../../providers/CategoriesProvider';
-import getIngredientSingular from '../../utils/ingredientsDetails/getIngredientSingular';
 
 import ReactMarkdown from 'react-markdown';
+import PreviewIngredientList from './PreviewIngredientList';
 
 interface PreviewProps {
   formData: RecipeFormData;
@@ -17,7 +16,6 @@ const Preview = ({ formData, previewImageSrc }: PreviewProps) => {
   const { ingredients, groups } = formData;
 
   const { categories } = useCategories();
-  const { ingredientsDetails } = useIngredientsDetails();
 
   const noIngredients = typeof ingredients === 'object' && Object.keys(ingredients).length === 0;
 
@@ -56,25 +54,13 @@ const Preview = ({ formData, previewImageSrc }: PreviewProps) => {
         { noIngredients && (
           <p className='secondary'>Vous n&apos;avez ajouté aucun ingrédient</p>
         )}
-        <ul>
-          {ingredientsWithoutGroup && ingredientsWithoutGroup.map(ingredient => (
-            <li key={ingredient.id}>
-              { ingredient.quantity } { ingredient.unit }
-              <b>{ getIngredientSingular(ingredient, ingredientsDetails) }</b>
-            </li>
-          ))}
-        </ul>
+
+        <PreviewIngredientList ingredients={ingredientsWithoutGroup} />
+
         {groupsWithIngredients && groupsWithIngredients.map(group => (
           <div key={group.id} className='group-preview'>
             <p>{ group.name } :</p>
-            <ul>
-              {group.ingredients && group.ingredients.map(ingredient => (
-                <li key={ingredient.id}>
-                  { ingredient.quantity } { ingredient.unit }
-                  <b>{ getIngredientSingular(ingredient, ingredientsDetails) }</b>
-                </li>
-              ))}
-            </ul>
+            <PreviewIngredientList ingredients={group.ingredients} />
           </div>
         ))}
 
