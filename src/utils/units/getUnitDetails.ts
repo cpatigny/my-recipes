@@ -1,6 +1,7 @@
+import { RecipeIngredient } from '../../types/recipe';
 import { Units } from '../../types/unit';
 
-const getUnitDetails = (units: Units | null, unitId?: string) => {
+const getUnitDetails = (units: Units | null, unitId?: RecipeIngredient['unitId']) => {
   const defaultUnit = {
     singular: '',
     plural: '',

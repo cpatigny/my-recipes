@@ -58,7 +58,7 @@ const IngredientForm = ({
 
     setIngredientData({
       quantity: ingredient.quantity ? ingredient.quantity.toString() : '',
-      unitId: ingredient.unitId ?? '',
+      unitId: ingredient.unitId ?? false,
       detailsId: ingredient.detailsId,
     });
 
@@ -124,6 +124,7 @@ const IngredientForm = ({
         quantity: ingredientData.quantity ? Number(ingredientData.quantity) : '',
         position: getNewItemPosition(prevIngredients),
         groupId: false,
+        unitId: ingredientData.unitId ? ingredientData.unitId : false,
       };
       return newFormData;
     });
@@ -155,6 +156,7 @@ const IngredientForm = ({
 
       newFormData.ingredients[ingredient.id] = {
         ...ingredientData,
+        unitId: ingredientData.unitId ? ingredientData.unitId : false,
         position: ingredientToEdit.position,
         quantity: ingredientData.quantity ? Number(ingredientData.quantity) : '',
         groupId: ingredientToEdit.groupId,

@@ -23,7 +23,7 @@ const IngredientListItem = ({
     <li className='ingredient-list-item'>
       <span>
         { ingredient.quantity }{' '}
-        { unit.symbol ?? unit.singular }{' '}
+        { unit.symbol ? unit.symbol : unit.singular }{' '}
         { getIngredientSingular(ingredient, ingredientsDetails) }
       </span>
       <button className='edit edit-ingredient' type='button' onClick={() => showEditIngredientForm({ ...ingredient, id })}>

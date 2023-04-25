@@ -1,4 +1,5 @@
 import { IngredientsDetails } from '../../types/ingredientDetails';
+import { RecipeIngredient } from '../../types/recipe';
 import { Units } from '../../types/unit';
 import getUnitDetails from '../../utils/units/getUnitDetails';
 
@@ -6,7 +7,7 @@ interface IngredientProps {
   ingredientsDetails: IngredientsDetails | null;
   units: Units | null;
   quantity: number | '';
-  unitId?: string;
+  unitId?: RecipeIngredient['unitId'];
   detailsId: string;
 }
 

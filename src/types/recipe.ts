@@ -1,7 +1,7 @@
 export interface RecipeIngredient {
   position: number;
   quantity: number | '';
-  unitId?: string;
+  unitId?: string | false;
   detailsId: string;
   groupId: string | false;
 }
@@ -16,7 +16,7 @@ export interface RecipeIngredients {
 
 export interface RecipeIngredientFormData {
   quantity: string;
-  unitId: string;
+  unitId: string | false;
   detailsId: string;
 }
 
