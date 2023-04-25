@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useUnits } from '../../providers/UnitsProvider';
 import { UnitWithId } from '../../types/unit';
+import { deleteUnit } from '../../utils/firebase/unitMethods';
+import { useRecipes } from '../../providers/RecipesProvider';
 
 import AdminContainer from '../../components/AdminContainer/AdminContainer';
 import UnitForm from './UnitForm';
@@ -11,15 +13,24 @@ const AdminUnits = () => {
   const [unitToEdit, setUnitToEdit] = useState<UnitWithId | null>(null);
 
   const { units } = useUnits();
+  const { recipes } = useRecipes();
 
   const closeEditForm = () => setUnitToEdit(null);
+
+  const handleDelete = (unit: UnitWithId) => {
+    if (!window.confirm(`Supprimer "${unit.singular}" ?`)) {
+      return;
+    }
+
+    if (recipes) deleteUnit(unit.id, recipes);
+  };
 
   return (
     <AdminContainer className='admin-units'>
       <h1>Unités</h1>
 
       {units && (
-        <Units units={units} setUnitToEdit={setUnitToEdit} />
+        <Units units={units} setUnitToEdit={setUnitToEdit} handleDelete={handleDelete} />
       )}
 
       <h2>Créer une unité</h2>
