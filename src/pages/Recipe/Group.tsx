@@ -9,7 +9,7 @@ interface GroupProps {
 
 const Group = ({ name, ingredients }: GroupProps) => (
   <>
-    <p>{ name } :</p>
+    <p className='group-name'>{ name } :</p>
     <ul>
       <IngredientList ingredients={ingredients} />
     </ul>

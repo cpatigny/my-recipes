@@ -1,29 +1,25 @@
+import IngredientText from '../../components/IngredientText/IngredientText';
 import { IngredientsDetails } from '../../types/ingredientDetails';
-import { RecipeIngredient } from '../../types/recipe';
+import { RecipeIngredientWithId } from '../../types/recipe';
 import { Units } from '../../types/unit';
-import getUnitDetails from '../../utils/units/getUnitDetails';
 
 interface IngredientProps {
+  ingredient: RecipeIngredientWithId;
   ingredientsDetails: IngredientsDetails | null;
   units: Units | null;
-  quantity: number | '';
-  unitId?: RecipeIngredient['unitId'];
-  detailsId: string;
 }
 
-const Ingredient = ({
-  ingredientsDetails, units, quantity, unitId, detailsId,
-}: IngredientProps) => {
-  const details = ingredientsDetails && ingredientsDetails[detailsId];
-  const unit = getUnitDetails(units, unitId);
-
+const Ingredient = ({ ingredient, ingredientsDetails, units }: IngredientProps) => {
   return (
     <li>
       <label className='checkbox-container'>
         <input type='checkbox' />
-        <span className='checkmark'>
-          <b>{ quantity } { unit.symbol ?? unit.singular }</b> { details ? details.singular : '' }
-        </span>
+        <IngredientText
+          className='checkmark'
+          ingredient={ingredient}
+          ingredientsDetails={ingredientsDetails}
+          units={units}
+        />
       </label>
     </li>
   );

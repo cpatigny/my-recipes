@@ -17,9 +17,9 @@ const IngredientList = ({ ingredients }: IngredientListProps) => {
       {ingredients.map(ingredient => (
         <Ingredient
           key={ingredient.id}
+          ingredient={ingredient}
           ingredientsDetails={ingredientsDetails}
           units={units}
-          {...ingredient}
         />
       ))}
     </ul>

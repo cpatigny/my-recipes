@@ -1,32 +1,35 @@
-import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
+import { IngredientsDetails } from '../../types/ingredientDetails';
 import { RecipeIngredientWithId } from '../../types/recipe';
+import { Units } from '../../types/unit';
+import IngredientText from '../IngredientText/IngredientText';
 
 interface IngredientCheckboxProps {
   ingredient: RecipeIngredientWithId;
   checked: boolean;
+  ingredientsDetails: IngredientsDetails | null;
+  units: Units | null;
   handleCheck: (e: React.FormEvent<HTMLInputElement>) => void;
   handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const IngredientCheckbox = ({
-  ingredient, checked, handleCheck, handleKeyDown,
-}: IngredientCheckboxProps) => {
-  const { ingredientsDetails } = useIngredientsDetails();
-  const details = ingredientsDetails && ingredientsDetails[ingredient.detailsId];
-
-  return (
-    <label>
-      <input
-        type='checkbox'
-        checked={checked}
-        name={details ? details.singular : ''}
-        value={ingredient.id}
-        onChange={handleCheck}
-        onKeyDown={handleKeyDown}
-      />
-      { details ? details.singular : '' }
-    </label>
-  );
-};
+  ingredient, checked, ingredientsDetails, units, handleCheck, handleKeyDown,
+}: IngredientCheckboxProps) => (
+  <label>
+    <input
+      type='checkbox'
+      checked={checked}
+      name={ingredient.id}
+      value={ingredient.id}
+      onChange={handleCheck}
+      onKeyDown={handleKeyDown}
+    />
+    <IngredientText
+      ingredient={ingredient}
+      ingredientsDetails={ingredientsDetails}
+      units={units}
+    />
+  </label>
+);
 
 export default IngredientCheckbox;

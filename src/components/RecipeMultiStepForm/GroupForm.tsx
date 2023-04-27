@@ -9,6 +9,8 @@ import addGroupIdToIngredients from '../../utils/ingredients/addGroupIdToIngredi
 import getExcludedIngredients from '../../utils/ingredients/getExcludedIngredients';
 import removeGroupId from '../../utils/ingredients/removeGroupId';
 import { Updater } from 'use-immer';
+import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
+import { useUnits } from '../../providers/UnitsProvider';
 
 import UnderlineInput from '../UnderlineInput/UnderlineInput';
 import IngredientCheckbox from './IngredientCheckbox';
@@ -32,6 +34,9 @@ const GroupForm = ({ group, ingredients, recipeId, setFormData, closeModal }: Gr
     ingredients: [],
   });
   const [groupErrors, setGroupErrors] = useState<FormErrors>({});
+
+  const { ingredientsDetails } = useIngredientsDetails();
+  const { units } = useUnits();
 
   useEffect(() => {
     if (!group) return;
@@ -179,6 +184,8 @@ const GroupForm = ({ group, ingredients, recipeId, setFormData, closeModal }: Gr
             key={ingredient.id}
             ingredient={ingredient}
             checked={groupData.ingredients.includes(ingredient.id)}
+            ingredientsDetails={ingredientsDetails}
+            units={units}
             handleCheck={handleCheck}
             handleKeyDown={handleKeyDown}
           />
