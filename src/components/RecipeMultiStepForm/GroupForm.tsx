@@ -8,6 +8,7 @@ import getIngredientsByGroup from '../../utils/ingredients/getIngredientsByGroup
 import addGroupIdToIngredients from '../../utils/ingredients/addGroupIdToIngredients';
 import getExcludedIngredients from '../../utils/ingredients/getExcludedIngredients';
 import removeGroupId from '../../utils/ingredients/removeGroupId';
+import { Updater } from 'use-immer';
 
 import UnderlineInput from '../UnderlineInput/UnderlineInput';
 import IngredientCheckbox from './IngredientCheckbox';
@@ -16,7 +17,7 @@ interface GroupFormProps {
   group?: GroupWithId;
   ingredients: RecipeIngredients;
   recipeId: string;
-  setFormData: React.Dispatch<React.SetStateAction<RecipeFormData>>
+  setFormData: Updater<RecipeFormData>;
   closeModal: () => void;
 }
 
@@ -59,11 +60,9 @@ const GroupForm = ({ group, ingredients, recipeId, setFormData, closeModal }: Gr
   };
 
   const updateIngredientsFormData = (updatedIngredients: RecipeIngredients) => {
-    setFormData(prevFormData => {
-      const formDataCopy = { ...prevFormData };
-      if (typeof formDataCopy.ingredients === 'string') return prevFormData;
-      formDataCopy.ingredients = { ...formDataCopy.ingredients, ...updatedIngredients };
-      return formDataCopy;
+    setFormData(draft => {
+      if (typeof draft.ingredients === 'string') return;
+      draft.ingredients = { ...draft.ingredients, ...updatedIngredients };
     });
   };
 
@@ -71,14 +70,13 @@ const GroupForm = ({ group, ingredients, recipeId, setFormData, closeModal }: Gr
     const newGroupId = generateGroupKey(recipeId);
 
     // add new group to formData
-    setFormData(prevFormData => {
-      const formDataCopy = { ...prevFormData };
-      const groups = formDataCopy.groups ? { ...formDataCopy.groups } : {};
+    setFormData(draft => {
+      const groups = draft.groups ? { ...draft.groups } : {};
       groups[newGroupId] = {
         name: groupData.name,
         position: getNewItemPosition(groups),
       };
-      return { ...formDataCopy, groups };
+      return { ...draft, groups };
     });
 
     const groupedIngredients = addGroupIdToIngredients(

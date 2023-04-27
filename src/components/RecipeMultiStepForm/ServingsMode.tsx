@@ -9,6 +9,7 @@ import {
   RecipeFormData,
 } from '../../types/recipe';
 import removeGroupId from '../../utils/ingredients/removeGroupId';
+import { Updater } from 'use-immer';
 
 import IngredientAndGroupList from './IngredientAndGroupList';
 import AddGroup from './AddGroup';
@@ -24,7 +25,7 @@ interface ServingsModeProps {
   groups?: Groups;
   ingredients: string | RecipeIngredients;
   recipeId: string;
-  setFormData: React.Dispatch<React.SetStateAction<RecipeFormData>>;
+  setFormData: Updater<RecipeFormData>;
   handleChange: (e: React.ChangeEvent<FormElements>) => void;
 }
 
@@ -49,12 +50,10 @@ const ServingsMode = ({
   };
 
   const deleteIngredient = (key: string) => {
-    setFormData(prevFormData => {
-      const newFormData = { ...prevFormData };
-      if (typeof newFormData.ingredients === 'object') {
-        delete newFormData.ingredients[key];
+    setFormData(draft => {
+      if (typeof draft.ingredients === 'object') {
+        delete draft.ingredients[key];
       }
-      return newFormData;
     });
   };
 
@@ -65,15 +64,13 @@ const ServingsMode = ({
     const groupIngredientsWithoutGroupId = removeGroupId(groupIngredientsObj);
 
     // delete group and update ingredients groupId property
-    setFormData(prevFormData => {
-      const newFormData = { ...prevFormData };
-      if (typeof newFormData.ingredients === 'object') {
-        newFormData.ingredients = { ...newFormData.ingredients, ...groupIngredientsWithoutGroupId };
+    setFormData(draft => {
+      if (typeof draft.ingredients === 'object') {
+        draft.ingredients = { ...draft.ingredients, ...groupIngredientsWithoutGroupId };
       }
-      if (newFormData.groups) {
-        delete newFormData.groups[group.id];
+      if (draft.groups) {
+        delete draft.groups[group.id];
       }
-      return newFormData;
     });
   };
 

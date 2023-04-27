@@ -1,3 +1,4 @@
+import { Updater } from 'use-immer';
 import { Groups, RecipeIngredients, RecipeFormData } from '../../types/recipe';
 import ModeSwitcher from './ModeSwitcher';
 import { FormElements, MARKDOWN_MODE, Modes, NORMAL_MODE } from './RecipeMultiStepForm';
@@ -12,7 +13,7 @@ interface IngredientsFormProps {
   recipeId: string;
   mode: Modes;
   setMode: (mode: Modes) => void;
-  setFormData: React.Dispatch<React.SetStateAction<RecipeFormData>>;
+  setFormData: Updater<RecipeFormData>;
   handleChange: (e: React.ChangeEvent<FormElements>) => void;
 }
 

@@ -58,6 +58,10 @@
                 "tsx": "never"
             }
         ],
+        "no-param-reassign": ["error", {
+            "props": true,
+            "ignorePropertyModificationsFor": ["draft"] // for immer
+        }],
         "unused-imports/no-unused-imports": "error",
         "object-curly-newline": "off",
         "linebreak-style": "off",

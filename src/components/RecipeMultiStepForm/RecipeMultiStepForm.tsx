@@ -6,6 +6,9 @@ import { RecipeFormData, RecipeWithId } from '../../types/recipe';
 import { UploadResult } from 'firebase/storage';
 import { updateRecipe, createRecipe } from '../../utils/firebase/recipeMethods';
 import useMultiStepForm from '../../hooks/useMultiStepForm';
+import generateRecipeKey from '../../utils/firebase/generateRecipeKey';
+import { getRecipePath } from '../../utils/routes';
+import { useImmer } from 'use-immer';
 
 import InformationForm from './InformationForm';
 import IngredientsForm from './IngredientsForm';
@@ -13,8 +16,6 @@ import PreparationForm from './PreparationForm';
 import Preview from './Preview';
 
 import './RecipeForm.scss';
-import generateRecipeKey from '../../utils/firebase/generateRecipeKey';
-import { getRecipePath } from '../../utils/routes';
 
 interface RecipeFormProps {
   recipe?: RecipeWithId | null;
@@ -48,7 +49,7 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
     createdAt: false,
   };
 
-  const [formData, setFormData] = useState<RecipeFormData>(DEFAULT_DATA);
+  const [formData, setFormData] = useImmer<RecipeFormData>(DEFAULT_DATA);
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [previewImageSrc, setPreviewImageSrc] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -66,11 +67,13 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
 
     setRecipeId(id);
 
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      ...recipeWithoutId,
-      createdAt: recipe.createdAt ? recipe.createdAt : false,
-    }));
+    setFormData(draft => {
+      return {
+        ...draft,
+        ...recipeWithoutId,
+        createdAt: recipe.createdAt ? recipe.createdAt : false,
+      };
+    });
 
     setOldImageName(recipe.imageName);
     setMode(typeof recipe.ingredients === 'string' ? MARKDOWN_MODE : NORMAL_MODE);
@@ -78,7 +81,7 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
     if (recipe.imageName) {
       setPreviewImageSrc(`https://firebasestorage.googleapis.com/v0/b/my-recipes-5f5d6.appspot.com/o/recipe-images%2F${recipe.imageName}?alt=media`);
     }
-  }, [recipe]);
+  }, [recipe, setFormData]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
@@ -95,10 +98,9 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
     const { value, name } = e.currentTarget;
 
     if (name === 'title') {
-      setFormData({
-        ...formData,
-        title: value,
-        slug: slugify(value),
+      setFormData(draft => {
+        draft.title = value;
+        draft.slug = slugify(value);
       });
       return;
     }

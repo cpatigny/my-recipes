@@ -14,6 +14,7 @@ import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { UnitWithId } from '../../types/unit';
 import { useUnits } from '../../providers/UnitsProvider';
 import getMatchingUnits from '../../utils/units/getMatchingUnits';
+import { Updater } from 'use-immer';
 
 import UnderlineInput from '../UnderlineInput/UnderlineInput';
 import AutocompleteInput from '../AutocompleteInput/AutocompleteInput';
@@ -21,7 +22,7 @@ import AutocompleteInput from '../AutocompleteInput/AutocompleteInput';
 interface IngredientFormProps {
   ingredients: string | RecipeIngredients;
   recipeId: string;
-  setFormData: React.Dispatch<React.SetStateAction<RecipeFormData>>
+  setFormData: Updater<RecipeFormData>;
   ingredient?: RecipeIngredientWithId;
   closeModal?: () => void;
 }
@@ -116,17 +117,15 @@ const IngredientForm = ({
     const prevIngredients = typeof ingredients === 'object' ? { ...ingredients } : {};
     const newIngredientKey = generateIngredientKey(recipeId);
 
-    setFormData(prevFormData => {
-      const newFormData = { ...prevFormData };
-      newFormData.ingredients = prevIngredients;
-      newFormData.ingredients[newIngredientKey] = {
+    setFormData(draft => {
+      draft.ingredients = prevIngredients;
+      draft.ingredients[newIngredientKey] = {
         ...ingredientData,
         quantity: ingredientData.quantity ? Number(ingredientData.quantity) : '',
         position: getNewItemPosition(prevIngredients),
         groupId: false,
         unitId: ingredientData.unitId ? ingredientData.unitId : false,
       };
-      return newFormData;
     });
 
     resetForm();
@@ -143,25 +142,18 @@ const IngredientForm = ({
       return;
     }
 
-    setFormData(prevFormData => {
-      const newFormData = { ...prevFormData };
-      if (typeof newFormData.ingredients !== 'object') {
-        return prevFormData;
-      }
+    setFormData(draft => {
+      if (typeof draft.ingredients !== 'object') return;
 
-      const ingredientToEdit = newFormData.ingredients[ingredient.id];
-      if (!ingredientToEdit) {
-        return prevFormData;
-      }
+      const ingredientToEdit = draft.ingredients[ingredient.id];
+      if (!ingredientToEdit) return;
 
-      newFormData.ingredients[ingredient.id] = {
+      draft.ingredients[ingredient.id] = {
         ...ingredientData,
+        ...ingredientToEdit,
         unitId: ingredientData.unitId ? ingredientData.unitId : false,
-        position: ingredientToEdit.position,
         quantity: ingredientData.quantity ? Number(ingredientData.quantity) : '',
-        groupId: ingredientToEdit.groupId,
       };
-      return newFormData;
     });
 
     if (!closeModal) {
