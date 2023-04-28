@@ -4,6 +4,8 @@ import { RecipeWithId } from '../../types/recipe';
 import { deleteRecipe } from '../../utils/firebase/recipeMethods';
 import { ROUTES, getEditRecipePath } from '../../utils/routes';
 
+import Icon from '../../components/Icon/Icon';
+
 interface RecipeActionsProps {
   recipe: RecipeWithId;
 }
@@ -29,10 +31,10 @@ const RecipeActions = ({ recipe }: RecipeActionsProps) => {
         state={{ hasClickedLink: true }}
         id='edit-recipe'
       >
-        <span className='material-icons-round'>edit</span>
+        <Icon name='edit' />
       </Link>
       <button id='delete-recipe' onClick={onClickHandler}>
-        <span className='material-icons-round'>delete</span>
+        <Icon name='delete' />
       </button>
     </div>
   );

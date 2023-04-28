@@ -1,5 +1,7 @@
 import { Units as IUnits, UnitWithId } from '../../types/unit';
 
+import Icon from '../../components/Icon/Icon';
+
 interface UnitsProps {
   units: IUnits;
   setUnitToEdit: React.Dispatch<React.SetStateAction<UnitWithId | null>>;
@@ -22,10 +24,10 @@ const Units = ({ units, setUnitToEdit, handleDelete }: UnitsProps) => (
           </div>
           <div className='actions delete-edit'>
             <button className='edit' onClick={() => setUnitToEdit({ id: key, ...unit })}>
-              <span className='material-icons-round'>edit</span>
+              <Icon name='edit' />
             </button>
             <button className='delete' onClick={() => handleDelete({ id: key, ...unit })}>
-              <span className='material-icons-round'>delete_outline</span>
+              <Icon name='delete_outline' />
             </button>
           </div>
         </li>

@@ -5,6 +5,7 @@ import { ROUTES } from '../../utils/routes';
 import { NavLink } from 'react-router-dom';
 import MobileMenu from './MobileMenu';
 import Overlay from '../Overlay/Overlay';
+import Icon from '../Icon/Icon';
 
 import './Menu.scss';
 
@@ -36,7 +37,7 @@ const Menu = () => {
             ))}
           </nav>
           <button className='sign-out' onClick={() => logOut()}>
-            <span className='material-icons-round'>logout</span>
+            <Icon name='logout' />
             Déconnexion
           </button>
           <button className='open-menu' onClick={() => setShowMenu(true)}>

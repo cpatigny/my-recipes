@@ -1,5 +1,7 @@
 import { useTransition, animated } from '@react-spring/web';
 
+import Icon from '../Icon/Icon';
+
 interface ModalContentProps {
   close: () => void;
   isShow: boolean;
@@ -25,7 +27,7 @@ const ModalContent = ({
       <div className='modal-top'>
         <h2 className='modal-title'>{ title }</h2>
         <button onClick={close} className='close-modal' type='button'>
-          <i className='close-icon material-icons-round'>close</i>
+          <Icon name='close' className='close-icon' />
         </button>
       </div>
       { children }

@@ -1,3 +1,5 @@
+import Icon from '../../components/Icon/Icon';
+
 interface SearchBarProps {
   search: string;
   setSearch: (str: string) => void;
@@ -23,7 +25,7 @@ const SearchBar = ({ search, setSearch }: SearchBarProps) => {
         onChange={handleChange}
       />
 
-      <span id='search-icon' className='material-icons-round'>search</span>
+      <Icon name='search' id='search-icon' />
 
       { search &&
         <button
@@ -31,7 +33,7 @@ const SearchBar = ({ search, setSearch }: SearchBarProps) => {
           aria-label='effacer la recherche'
           onClick={reset}
         >
-          <span className='material-icons-round'>clear</span>
+          <Icon name='clear' />
         </button>
       }
     </div>

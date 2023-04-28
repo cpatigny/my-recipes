@@ -2,6 +2,8 @@ import {
   IngredientDetailsWithId, IngredientsDetails as IngredientsDetailsType,
 } from '../../types/ingredientDetails';
 
+import Icon from '../../components/Icon/Icon';
+
 interface IngredientsDetailsProps {
   ingredients: IngredientsDetailsType;
   setIngredientToEdit: React.Dispatch<React.SetStateAction<IngredientDetailsWithId | null>>;
@@ -23,10 +25,10 @@ const IngredientsDetails = ({
           </div>
           <div className='actions delete-edit'>
             <button className='edit' onClick={() => setIngredientToEdit({ id: key, ...ingredient })}>
-              <span className='material-icons-round'>edit</span>
+              <Icon name='edit' />
             </button>
             <button className='delete' onClick={() => handleDelete({ id: key, ...ingredient })}>
-              <span className='material-icons-round'>delete_outline</span>
+              <Icon name='delete_outline' />
             </button>
           </div>
         </li>

@@ -3,6 +3,7 @@ import { logOut } from '../../utils/firebase/authMethods';
 import { Link } from './Menu';
 
 import { NavLink } from 'react-router-dom';
+import Icon from '../Icon/Icon';
 
 interface MobileMenuProps {
   isShow: boolean;
@@ -23,19 +24,19 @@ const MobileMenu = ({ isShow, close, links }: MobileMenuProps) => {
       <div className='menu-top'>
         <p>Menu</p>
         <button className='menu-close' onClick={close}>
-          <span className='material-icons-round'>close</span>
+          <Icon name='close' />
         </button>
       </div>
       <nav>
         {links.map(link => (
           <NavLink key={link.id} to={link.path} end>
-            <span className='material-icons-round'>{ link.iconName }</span>
+            <Icon name={link.iconName} />
             { link.name }
           </NavLink>
         ))}
       </nav>
       <button className='sign-out' onClick={() => logOut()}>
-        <span className='material-icons-round'>logout</span>
+        <Icon name='logout' />
         Déconnexion
       </button>
     </animated.aside>

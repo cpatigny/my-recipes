@@ -1,5 +1,6 @@
 import { GroupWithId, GroupWithIngredients, RecipeIngredientWithId } from '../../types/recipe';
 
+import Icon from '../Icon/Icon';
 import IngredientListItem from './IngredientListItem';
 
 interface GroupListItemProps {
@@ -25,10 +26,10 @@ const GroupListItem = ({
         <p className='group-name'>{ group.name }</p>
         <div className='actions'>
           <button className='edit edit-group' type='button' onClick={() => showEditGroupForm(groupToEdit)}>
-            <span className='material-icons-round'>edit</span>
+            <Icon name='edit' />
           </button>
           <button className='delete delete-group' type='button' onClick={() => deleteGroup(group)}>
-            <span className='material-icons-round'>clear</span>
+            <Icon name='clear' />
           </button>
         </div>
       </div>

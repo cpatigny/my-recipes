@@ -6,6 +6,8 @@ import countRecipesByCategory from '../../utils/categories/countRecipesByCategor
 import { updateCategory, deleteCategory } from '../../utils/firebase/categoryMethods';
 import slugify from '../../utils/string/slugify';
 
+import Icon from '../../components/Icon/Icon';
+
 interface AdminCategoryProps {
   category: CategoryWithId;
 }
@@ -65,11 +67,11 @@ const AdminCategory = ({ category }: AdminCategoryProps) => {
 
         <div className='actions'>
           <button type='submit'>
-            <span className='material-icons-round'>check</span>
+            <Icon name='check' />
             Valider
           </button>
           <button className='close-category-form' type='button' onClick={() => setShowEditForm(false)}>
-            <span className='material-icons-round'>close</span>
+            <Icon name='close' />
             Annuler
           </button>
         </div>
@@ -83,10 +85,10 @@ const AdminCategory = ({ category }: AdminCategoryProps) => {
 
       <div className='actions delete-edit'>
         <button className='edit' onClick={() => setShowEditForm(true)}>
-          <span className='material-icons-round'>edit</span>
+          <Icon name='edit' />
         </button>
         <button className='delete' onClick={() => confirm(confirmText, wordToEnter, onConfirm)}>
-          <span className='material-icons-round'>delete_outline</span>
+          <Icon name='delete_outline' />
         </button>
       </div>
     </div>

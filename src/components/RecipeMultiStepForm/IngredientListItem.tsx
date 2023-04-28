@@ -2,6 +2,7 @@ import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvide
 import { useUnits } from '../../providers/UnitsProvider';
 import { RecipeIngredient, RecipeIngredientWithId } from '../../types/recipe';
 
+import Icon from '../Icon/Icon';
 import IngredientText from '../IngredientText/IngredientText';
 
 interface IngredientListItemProps {
@@ -26,10 +27,10 @@ const IngredientListItem = ({
         amountIsBold={false}
       />
       <button className='edit edit-ingredient' type='button' onClick={() => showEditIngredientForm({ ...ingredient, id })}>
-        <span className='material-icons-round'>edit</span>
+        <Icon name='edit' />
       </button>
       <button className='delete delete-ingredient' type='button' onClick={() => deleteIngredient(id)}>
-        <span className='material-icons-round'>clear</span>
+        <Icon name='clear' />
       </button>
     </li>
   );

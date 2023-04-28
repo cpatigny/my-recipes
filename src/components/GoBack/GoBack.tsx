@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../utils/routes';
 
+import Icon from '../Icon/Icon';
+
 import './GoBack.scss';
 
 const GoBack = () => {
@@ -21,7 +23,7 @@ const GoBack = () => {
 
   return (
     <button className='go-back' onClick={handleClick}>
-      <span className='material-icons-round go-back-icon'>west</span>
+      <Icon name='west' className='go-back-icon' />
     </button>
   );
 };

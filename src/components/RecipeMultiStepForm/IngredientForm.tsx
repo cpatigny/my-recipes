@@ -18,6 +18,7 @@ import { Updater } from 'use-immer';
 
 import UnderlineInput from '../UnderlineInput/UnderlineInput';
 import AutocompleteInput from '../AutocompleteInput/AutocompleteInput';
+import Icon from '../Icon/Icon';
 
 interface IngredientFormProps {
   ingredients: string | RecipeIngredients;
@@ -261,7 +262,7 @@ const IngredientForm = ({
         </ul>
       )}
       <button className='btn-primary d-flex items-center justify-center' type='button' onClick={submitIngredient}>
-        <span className='material-icons-round'>{ editMode ? 'edit' : 'add' }</span>
+        <Icon name={ editMode ? 'edit' : 'add' } />
         { editMode ? 'Modifier ' : 'Ajouter ingrédient' }
       </button>
     </div>
