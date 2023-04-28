@@ -25,7 +25,7 @@ const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
   useEffect(() => {
     if (!unitToEdit) return;
 
-    setUnitFormData({ ...unitToEdit, symbol: unitToEdit.symbol ?? '' });
+    setUnitFormData({ ...unitToEdit, symbol: unitToEdit.symbol ? unitToEdit.symbol : '' });
   }, [unitToEdit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +46,7 @@ const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
       updateUnit({
         ...unitFormData,
         id: unitToEdit.id,
-        symbol: unitFormData.symbol ? unitFormData.symbol : null,
+        symbol: unitFormData.symbol ? unitFormData.symbol : false,
       });
       if (close) close();
       return;
@@ -54,7 +54,7 @@ const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
 
     await createUnit({
       ...unitFormData,
-      symbol: unitFormData.symbol ? unitFormData.symbol : null,
+      symbol: unitFormData.symbol ? unitFormData.symbol : false,
     });
     reset();
   };

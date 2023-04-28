@@ -11,7 +11,7 @@ const getIngredientName = (
   if (!details) return '';
 
   const quantity = ingredient.quantity;
-  if (quantity !== '' && quantity > 1) {
+  if (quantity && quantity > 1) {
     return details.plural;
   }
 

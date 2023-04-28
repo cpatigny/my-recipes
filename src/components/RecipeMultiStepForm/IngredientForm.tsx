@@ -59,7 +59,7 @@ const IngredientForm = ({
 
     setIngredientData({
       quantity: ingredient.quantity ? ingredient.quantity.toString() : '',
-      unitId: ingredient.unitId ?? false,
+      unitId: ingredient.unitId ? ingredient.unitId : '',
       detailsId: ingredient.detailsId,
     });
 
@@ -71,7 +71,7 @@ const IngredientForm = ({
     const unitId = ingredient.unitId;
     const unit = unitId && units[unitId];
     if (unit) {
-      setUnitName(unit.symbol ?? unit.singular);
+      setUnitName(unit.symbol ? unit.symbol : unit.singular);
     }
   }, [ingredient, ingredientsDetails, units]);
 
@@ -121,7 +121,7 @@ const IngredientForm = ({
       draft.ingredients = prevIngredients;
       draft.ingredients[newIngredientKey] = {
         ...ingredientData,
-        quantity: ingredientData.quantity ? Number(ingredientData.quantity) : '',
+        quantity: ingredientData.quantity ? Number(ingredientData.quantity) : false,
         position: getNewItemPosition(prevIngredients),
         groupId: false,
         unitId: ingredientData.unitId ? ingredientData.unitId : false,
@@ -152,7 +152,7 @@ const IngredientForm = ({
         ...ingredientData,
         ...ingredientToEdit,
         unitId: ingredientData.unitId ? ingredientData.unitId : false,
-        quantity: ingredientData.quantity ? Number(ingredientData.quantity) : '',
+        quantity: ingredientData.quantity ? Number(ingredientData.quantity) : false,
       };
     });
 
