@@ -8,8 +8,10 @@ const GoBack = () => {
   const { state } = useLocation();
 
   const handleClick = () => {
-    // if we come from home page by clicking on a recipe link
-    if (state?.fromHome) {
+    // if the user clicked on a link on the website
+    // if he directly type the url to come to this page
+    // the go back arrow will redirect to home page
+    if (state?.hasClickedLink) {
       navigate(-1);
       return;
     }

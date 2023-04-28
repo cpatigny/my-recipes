@@ -26,6 +26,7 @@ const RecipeActions = ({ recipe }: RecipeActionsProps) => {
     <div className='recipe-actions'>
       <Link
         to={getEditRecipePath(recipe.slug)}
+        state={{ hasClickedLink: true }}
         id='edit-recipe'
       >
         <span className='material-icons-round'>edit</span>

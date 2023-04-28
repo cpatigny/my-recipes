@@ -112,7 +112,7 @@ const Home = () => {
         <h2 className='h1'>
           { getTitle() }
         </h2>
-        { user && <Link className='btn btn-outline-primary' to={ROUTES.ADD_RECIPE}>+ Ajouter</Link> }
+        { user && <Link className='btn btn-outline-primary' to={ROUTES.ADD_RECIPE} state={{ hasClickedLink: true }}>+ Ajouter</Link> }
       </div>
 
       <Categories

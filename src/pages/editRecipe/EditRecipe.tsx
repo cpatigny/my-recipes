@@ -7,6 +7,7 @@ import { useRecipes } from '../../providers/RecipesProvider';
 import { ROUTES } from '../../utils/routes';
 
 import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
+import GoBack from '../../components/GoBack/GoBack';
 
 const EditRecipe = () => {
   const [recipe, setRecipe] = useState<RecipeWithId | null>(null);
@@ -34,7 +35,10 @@ const EditRecipe = () => {
 
   return (
     <div className='edit-recipe container'>
-      <h1>Modifier la recette</h1>
+      <div className='title-container'>
+        <GoBack />
+        <h1>Modifier la recette</h1>
+      </div>
       <RecipeMultiStepForm recipe={recipe} />
     </div>
   );

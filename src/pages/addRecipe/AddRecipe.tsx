@@ -4,6 +4,7 @@ import { useUser } from '../../providers/UserProvider';
 import { ROUTES } from '../../utils/routes';
 
 import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
+import GoBack from '../../components/GoBack/GoBack';
 
 const AddRecipe = () => {
   const { user } = useUser();
@@ -15,7 +16,10 @@ const AddRecipe = () => {
 
   return (
     <div className='add-recipe container'>
-      <h1>Ajouter une recette</h1>
+      <div className='title-container'>
+        <GoBack />
+        <h1>Ajouter une recette</h1>
+      </div>
       <RecipeMultiStepForm />
     </div>
   );

@@ -1,6 +1,17 @@
 @import '../../variables';
 
 .edit-recipe, .add-recipe {
+  .title-container {
+    margin-top: 1.6rem;
+    display: flex;
+    align-items: flex-start;
+    align-items: center;
+
+    h1 {
+      margin: 0 0 0 2rem;
+    }
+  }
+
   button.btn-primary {
     background-color: rgba($main-color, 0.9);
     color: #fff;
@@ -366,14 +377,23 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .edit-recipe, .add-recipe {
     .image-preview {
       width: 100%;
     }
 
     h1 {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .edit-recipe, .add-recipe {
+    .title-container h1 {
+      font-size: 1.8rem;
+      margin-left: 1.2rem;
     }
   }
 }
