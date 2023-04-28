@@ -1,37 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import getRecipeBySlug from '../../utils/recipes/getRecipeBySlug';
-import { RecipeWithId } from '../../types/recipe';
+import { Navigate } from 'react-router-dom';
 import { useUser } from '../../providers/UserProvider';
-import { useRecipes } from '../../providers/RecipesProvider';
 import { ROUTES } from '../../utils/routes';
+import useRecipeBySlug from '../../hooks/useRecipeBySlug';
 
 import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
 import GoBack from '../../components/GoBack/GoBack';
 
 const EditRecipe = () => {
-  const [recipe, setRecipe] = useState<RecipeWithId | null>(null);
-
   const { user } = useUser();
-  const { recipes } = useRecipes();
+  const { recipe, noMatch } = useRecipeBySlug();
 
-  const navigate = useNavigate();
-  const { slug } = useParams();
-
-  useEffect(() => {
-    if (recipes && slug) {
-      const matchingRecipe = getRecipeBySlug(slug, recipes);
-
-      // no match : redirect to home page
-      if (!matchingRecipe) navigate(ROUTES.NOT_FOUND, { replace: true });
-
-      setRecipe(matchingRecipe);
-    }
-  }, [navigate, recipes, slug]);
-
-  useEffect(() => {
-    if (!user) navigate(ROUTES.HOME, { replace: true });
-  }, [user, navigate]);
+  if (!user) return <Navigate to={ROUTES.HOME} replace />;
+  if (noMatch) return <Navigate to={ROUTES.NOT_FOUND} replace />;
 
   return (
     <div className='edit-recipe container'>

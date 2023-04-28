@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import remarkGfm from 'remark-gfm';
-import { useNavigate, useParams } from 'react-router-dom';
-import getRecipeBySlug from '../../utils/recipes/getRecipeBySlug';
+import { Navigate } from 'react-router-dom';
 import formatDate from '../../utils/formatDate';
-import { GroupWithIngredients, RecipeIngredientWithId, RecipeWithId } from '../../types/recipe';
+import { GroupWithIngredients, RecipeIngredientWithId } from '../../types/recipe';
 import { useUser } from '../../providers/UserProvider';
-import { useRecipes } from '../../providers/RecipesProvider';
 import useScrollRestoration from '../../hooks/useScrollRestoration';
 import { useCategories } from '../../providers/CategoriesProvider';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
 import { ROUTES } from '../../utils/routes';
+import useRecipeBySlug from '../../hooks/useRecipeBySlug';
 
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
@@ -47,31 +46,17 @@ const components: Components = {
 };
 
 const Recipe = () => {
-  const [recipe, setRecipe] = useState<RecipeWithId | null>(null);
-
   const { user } = useUser();
-  const { recipes } = useRecipes();
   const { categories } = useCategories();
 
-  const navigate = useNavigate();
-  const { slug } = useParams();
   const { restoreScroll } = useScrollRestoration();
-
-  useEffect(() => {
-    if (recipes && slug) {
-      const matchingRecipe = getRecipeBySlug(slug, recipes);
-
-      // no match : redirect to home page
-      if (!matchingRecipe) navigate(ROUTES.NOT_FOUND, { replace: true });
-
-      setRecipe(matchingRecipe);
-    }
-  }, [navigate, recipes, slug]);
+  const { recipe, noMatch } = useRecipeBySlug();
 
   useEffect(() => {
     restoreScroll();
   }, [restoreScroll]);
 
+  if (noMatch) return <Navigate to={ROUTES.NOT_FOUND} replace />;
   if (!recipe || !categories) return <Loading />;
 
   const recipeCategory = categories[recipe.category];
