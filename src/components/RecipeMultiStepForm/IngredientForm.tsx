@@ -22,13 +22,13 @@ import AutocompleteInput from '../AutocompleteInput/AutocompleteInput';
 interface IngredientFormProps {
   ingredients: string | RecipeIngredients;
   recipeId: string;
-  setFormData: Updater<RecipeFormData>;
+  setRecipeFormData: Updater<RecipeFormData>;
   ingredient?: RecipeIngredientWithId;
   closeModal?: () => void;
 }
 
 const IngredientForm = ({
-  ingredients, recipeId, setFormData, ingredient, closeModal,
+  ingredients, recipeId, setRecipeFormData, ingredient, closeModal,
 }: IngredientFormProps) => {
   const DEFAULT_INGREDIENT_DATA = {
     quantity: '',
@@ -117,7 +117,7 @@ const IngredientForm = ({
     const prevIngredients = typeof ingredients === 'object' ? { ...ingredients } : {};
     const newIngredientKey = generateIngredientKey(recipeId);
 
-    setFormData(draft => {
+    setRecipeFormData(draft => {
       draft.ingredients = prevIngredients;
       draft.ingredients[newIngredientKey] = {
         ...ingredientData,
@@ -142,7 +142,7 @@ const IngredientForm = ({
       return;
     }
 
-    setFormData(draft => {
+    setRecipeFormData(draft => {
       if (typeof draft.ingredients !== 'object') return;
 
       const ingredientToEdit = draft.ingredients[ingredient.id];

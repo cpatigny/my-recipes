@@ -19,7 +19,7 @@ interface GroupFormProps {
   group?: GroupWithId;
   ingredients: RecipeIngredients;
   recipeId: string;
-  setFormData: Updater<RecipeFormData>;
+  setRecipeFormData: Updater<RecipeFormData>;
   closeModal: () => void;
 }
 
@@ -28,7 +28,9 @@ export interface GroupFormData {
   ingredients: string[];
 }
 
-const GroupForm = ({ group, ingredients, recipeId, setFormData, closeModal }: GroupFormProps) => {
+const GroupForm = ({
+  group, ingredients, recipeId, setRecipeFormData, closeModal,
+}: GroupFormProps) => {
   const [groupData, setGroupData] = useState<GroupFormData>({
     name: '',
     ingredients: [],
@@ -65,7 +67,7 @@ const GroupForm = ({ group, ingredients, recipeId, setFormData, closeModal }: Gr
   };
 
   const updateIngredientsFormData = (updatedIngredients: RecipeIngredients) => {
-    setFormData(draft => {
+    setRecipeFormData(draft => {
       if (typeof draft.ingredients === 'string') return;
       draft.ingredients = { ...draft.ingredients, ...updatedIngredients };
     });
@@ -74,8 +76,8 @@ const GroupForm = ({ group, ingredients, recipeId, setFormData, closeModal }: Gr
   const addGroup = () => {
     const newGroupId = generateGroupKey(recipeId);
 
-    // add new group to formData
-    setFormData(draft => {
+    // add new group to recipeFormData
+    setRecipeFormData(draft => {
       const groups = draft.groups ? { ...draft.groups } : {};
       groups[newGroupId] = {
         name: groupData.name,
@@ -88,7 +90,7 @@ const GroupForm = ({ group, ingredients, recipeId, setFormData, closeModal }: Gr
       newGroupId, groupData.ingredients, ingredients,
     );
 
-    // update formData with edited ingredients (with goupId)
+    // update recipeFormData with edited ingredients (with goupId)
     updateIngredientsFormData(groupedIngredients);
   };
 

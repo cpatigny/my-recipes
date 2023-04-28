@@ -49,7 +49,7 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
     createdAt: false,
   };
 
-  const [formData, setFormData] = useImmer<RecipeFormData>(DEFAULT_DATA);
+  const [recipeFormData, setRecipeFormData] = useImmer<RecipeFormData>(DEFAULT_DATA);
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [previewImageSrc, setPreviewImageSrc] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -67,7 +67,7 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
 
     setRecipeId(id);
 
-    setFormData(draft => {
+    setRecipeFormData(draft => {
       return {
         ...draft,
         ...recipeWithoutId,
@@ -81,7 +81,7 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
     if (recipe.imageName) {
       setPreviewImageSrc(`https://firebasestorage.googleapis.com/v0/b/my-recipes-5f5d6.appspot.com/o/recipe-images%2F${recipe.imageName}?alt=media`);
     }
-  }, [recipe, setFormData]);
+  }, [recipe, setRecipeFormData]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
@@ -90,7 +90,7 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
     if (file) {
       setImageFile(file);
       setPreviewImageSrc(URL.createObjectURL(file));
-      setFormData({ ...formData, imageName: file.name });
+      setRecipeFormData({ ...recipeFormData, imageName: file.name });
     }
   };
 
@@ -98,7 +98,7 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
     const { value, name } = e.currentTarget;
 
     if (name === 'title') {
-      setFormData(draft => {
+      setRecipeFormData(draft => {
         draft.title = value;
         draft.slug = slugify(value);
       });
@@ -110,13 +110,13 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
       return;
     }
 
-    setFormData({ ...formData, [name]: value });
+    setRecipeFormData({ ...recipeFormData, [name]: value });
   };
 
   const getInformationsErrors = () => {
     const informationsErrors: FormErrors = {};
 
-    if (formData.slug !== slugify(formData.slug)) {
+    if (recipeFormData.slug !== slugify(recipeFormData.slug)) {
       informationsErrors.slug = 'Slug invalide';
       setFormErrors({
         ...formErrors,
@@ -130,37 +130,41 @@ const RecipeMultiStepForm = ({ recipe }: RecipeFormProps) => {
   const submitRecipe = () => {
     // if an image has been uploaded
     if (imageFile) {
-      const onImageDelete = () => setFormData({ ...formData, imageName: false });
+      const onImageDelete = () => setRecipeFormData({ ...recipeFormData, imageName: false });
       const onImageUpload = (snapshot: UploadResult) => {
-        setFormData({ ...formData, imageName: snapshot.metadata.name });
+        setRecipeFormData({ ...recipeFormData, imageName: snapshot.metadata.name });
       };
       uploadImageAndDeleteOldOne(imageFile, oldImageName, onImageDelete, onImageUpload);
     }
 
-    const redirect = () => navigate(getRecipePath(formData.slug));
+    const redirect = () => navigate(getRecipePath(recipeFormData.slug));
 
     if (recipe) {
-      updateRecipe(recipe, formData).then(redirect);
+      updateRecipe(recipe, recipeFormData).then(redirect);
     } else {
-      formData.createdAt = Date.now();
-      createRecipe(formData).then(redirect);
+      recipeFormData.createdAt = Date.now();
+      createRecipe(recipeFormData).then(redirect);
     }
   };
 
   // we disable this rule because we won't use the array in an iterable
   /* eslint-disable react/jsx-key */
   const { currentStepIndex, step, isFirstStep, isLastStep, next, back } = useMultiStepForm([
-    <InformationForm {...formData} handleChange={handleChange} previewImageSrc={previewImageSrc} />,
+    <InformationForm
+      {...recipeFormData}
+      handleChange={handleChange}
+      previewImageSrc={previewImageSrc}
+    />,
     <IngredientsForm
-      {...formData}
+      {...recipeFormData}
       handleChange={handleChange}
       mode={mode}
       setMode={setMode}
-      setFormData={setFormData}
+      setRecipeFormData={setRecipeFormData}
       recipeId={recipeId}
     />,
-    <PreparationForm {...formData} handleChange={handleChange} />,
-    <Preview formData={formData} previewImageSrc={previewImageSrc} />,
+    <PreparationForm {...recipeFormData} handleChange={handleChange} />,
+    <Preview recipeFormData={recipeFormData} previewImageSrc={previewImageSrc} />,
   ]);
   /* eslint-enable react/jsx-key */
 

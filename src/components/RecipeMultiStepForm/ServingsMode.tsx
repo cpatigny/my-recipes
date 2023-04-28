@@ -25,12 +25,12 @@ interface ServingsModeProps {
   groups?: Groups;
   ingredients: string | RecipeIngredients;
   recipeId: string;
-  setFormData: Updater<RecipeFormData>;
+  setRecipeFormData: Updater<RecipeFormData>;
   handleChange: (e: React.ChangeEvent<FormElements>) => void;
 }
 
 const ServingsMode = ({
-  nbServings, servingsUnit, groups, ingredients, setFormData, recipeId, handleChange,
+  nbServings, servingsUnit, groups, ingredients, setRecipeFormData, recipeId, handleChange,
 }: ServingsModeProps) => {
   const [ingredientToEdit, setIngredientToEdit] = useState<RecipeIngredientWithId | null>(null);
   const [groupToEdit, setGroupToEdit] = useState<GroupWithId | null>(null);
@@ -50,7 +50,7 @@ const ServingsMode = ({
   };
 
   const deleteIngredient = (key: string) => {
-    setFormData(draft => {
+    setRecipeFormData(draft => {
       if (typeof draft.ingredients === 'object') {
         delete draft.ingredients[key];
       }
@@ -64,7 +64,7 @@ const ServingsMode = ({
     const groupIngredientsWithoutGroupId = removeGroupId(groupIngredientsObj);
 
     // delete group and update ingredients groupId property
-    setFormData(draft => {
+    setRecipeFormData(draft => {
       if (typeof draft.ingredients === 'object') {
         draft.ingredients = { ...draft.ingredients, ...groupIngredientsWithoutGroupId };
       }
@@ -86,7 +86,7 @@ const ServingsMode = ({
       <IngredientForm
         ingredients={ingredients}
         recipeId={recipeId}
-        setFormData={setFormData}
+        setRecipeFormData={setRecipeFormData}
       />
       <AddGroup ingredients={ingredients} showGroupForm={() => setShowGroupForm(true)} />
       <IngredientAndGroupList
@@ -106,7 +106,7 @@ const ServingsMode = ({
         <IngredientForm
           ingredients={ingredients}
           recipeId={recipeId}
-          setFormData={setFormData}
+          setRecipeFormData={setRecipeFormData}
           ingredient={ingredientToEdit ?? undefined}
           closeModal={() => setIngredientToEdit(null)}
         />
@@ -123,7 +123,7 @@ const ServingsMode = ({
             group={groupToEdit ?? undefined}
             ingredients={ingredients}
             recipeId={recipeId}
-            setFormData={setFormData}
+            setRecipeFormData={setRecipeFormData}
             closeModal={closeGroupForm}
           />
         )}

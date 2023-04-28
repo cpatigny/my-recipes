@@ -8,12 +8,12 @@ import ReactMarkdown from 'react-markdown';
 import PreviewIngredientList from './PreviewIngredientList';
 
 interface PreviewProps {
-  formData: RecipeFormData;
+  recipeFormData: RecipeFormData;
   previewImageSrc: string | null;
 }
 
-const Preview = ({ formData, previewImageSrc }: PreviewProps) => {
-  const { ingredients, groups } = formData;
+const Preview = ({ recipeFormData, previewImageSrc }: PreviewProps) => {
+  const { ingredients, groups } = recipeFormData;
 
   const { categories } = useCategories();
 
@@ -34,17 +34,17 @@ const Preview = ({ formData, previewImageSrc }: PreviewProps) => {
     <div id='submit-recipe' className='form-container preview'>
       <h2>Aperçu</h2>
       <div className='recipe-preview'>
-        <h2 className='title'>{ formData.title }</h2>
-        {previewImageSrc && formData.imageName && (
-          <img src={previewImageSrc} alt={formData.imageName} />
+        <h2 className='title'>{ recipeFormData.title }</h2>
+        {previewImageSrc && recipeFormData.imageName && (
+          <img src={previewImageSrc} alt={recipeFormData.imageName} />
         )}
 
         {categories && (
-          <p>Catégorie : { categories[formData.category]?.name }</p>
+          <p>Catégorie : { categories[recipeFormData.category]?.name }</p>
         )}
 
         <h3>Ingrédients</h3>
-        <p>{ formData.nbServings } { formData.servingsUnit } :</p>
+        <p>{ recipeFormData.nbServings } { recipeFormData.servingsUnit } :</p>
         {typeof ingredients === 'string' && (
           <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: 'h3', h2: 'h4', h3: 'h5' }}>
             { ingredients }
@@ -66,7 +66,7 @@ const Preview = ({ formData, previewImageSrc }: PreviewProps) => {
 
         <h3>Préparation</h3>
         <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: 'h3', h2: 'h3' }}>
-          { formData.content }
+          { recipeFormData.content }
         </ReactMarkdown>
       </div>
     </div>

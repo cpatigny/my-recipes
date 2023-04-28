@@ -13,12 +13,20 @@ interface IngredientsFormProps {
   recipeId: string;
   mode: Modes;
   setMode: (mode: Modes) => void;
-  setFormData: Updater<RecipeFormData>;
+  setRecipeFormData: Updater<RecipeFormData>;
   handleChange: (e: React.ChangeEvent<FormElements>) => void;
 }
 
 const IngredientsForm = ({
-  groups, ingredients, nbServings, servingsUnit, mode, setMode, setFormData, handleChange, recipeId,
+  groups,
+  ingredients,
+  nbServings,
+  servingsUnit,
+  mode,
+  setMode,
+  setRecipeFormData,
+  handleChange,
+  recipeId,
 }: IngredientsFormProps) => (
   <div className='form-container ingredients-form'>
     <h2>Ingrédients</h2>
@@ -29,7 +37,7 @@ const IngredientsForm = ({
         ingredients={ingredients}
         nbServings={nbServings}
         servingsUnit={servingsUnit}
-        setFormData={setFormData}
+        setRecipeFormData={setRecipeFormData}
         recipeId={recipeId}
         handleChange={handleChange}
       />
