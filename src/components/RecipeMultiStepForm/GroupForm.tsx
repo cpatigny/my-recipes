@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GroupWithId, RecipeIngredients, RecipeFormData } from '../../types/recipe';
+import { GroupWithId, RecipeIngredients } from '../../types/recipe';
 import { FormErrors } from './RecipeMultiStepForm';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 import generateGroupKey from '../../utils/firebase/generateGroupKey';
@@ -8,9 +8,9 @@ import getIngredientsByGroup from '../../utils/ingredients/getIngredientsByGroup
 import addGroupIdToIngredients from '../../utils/ingredients/addGroupIdToIngredients';
 import getExcludedIngredients from '../../utils/ingredients/getExcludedIngredients';
 import removeGroupId from '../../utils/ingredients/removeGroupId';
-import { Updater } from 'use-immer';
 import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
 import { useUnits } from '../../providers/UnitsProvider';
+import { useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
 
 import UnderlineInput from '../UnderlineInput/UnderlineInput';
 import IngredientCheckbox from './IngredientCheckbox';
@@ -18,8 +18,6 @@ import IngredientCheckbox from './IngredientCheckbox';
 interface GroupFormProps {
   group?: GroupWithId;
   ingredients: RecipeIngredients;
-  recipeId: string;
-  setRecipeFormData: Updater<RecipeFormData>;
   closeModal: () => void;
 }
 
@@ -28,9 +26,7 @@ export interface GroupFormData {
   ingredients: string[];
 }
 
-const GroupForm = ({
-  group, ingredients, recipeId, setRecipeFormData, closeModal,
-}: GroupFormProps) => {
+const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) => {
   const [groupData, setGroupData] = useState<GroupFormData>({
     name: '',
     ingredients: [],
@@ -39,6 +35,7 @@ const GroupForm = ({
 
   const { ingredientsDetails } = useIngredientsDetails();
   const { units } = useUnits();
+  const { recipeId, setRecipeFormData } = useRecipeMultiStepForm();
 
   useEffect(() => {
     if (!group) return;
@@ -111,7 +108,9 @@ const GroupForm = ({
     updateIngredientsFormData(updatedIngredients);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
     const errors = validateGroup(groupData);
 
     if (Object.keys(errors).length > 0) {
@@ -126,13 +125,6 @@ const GroupForm = ({
     }
 
     closeModal();
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleSubmit();
-    }
   };
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -164,7 +156,7 @@ const GroupForm = ({
   }
 
   return (
-    <div className='group-form'>
+    <form className='group-form' onSubmit={handleSubmit}>
       <UnderlineInput
         labelText='Nom du groupe'
         name='name'
@@ -172,7 +164,6 @@ const GroupForm = ({
         value={groupData.name}
         error={!!groupErrors.name}
         onChange={handleChange}
-        onKeyDown={handleKeyDown}
       />
       <i className='example'>Exemple : Pour la sauce, Pour la marinade...</i>
 
@@ -189,15 +180,14 @@ const GroupForm = ({
             ingredientsDetails={ingredientsDetails}
             units={units}
             handleCheck={handleCheck}
-            handleKeyDown={handleKeyDown}
           />
         ))}
       </div>
 
-      <button className='btn-primary'type='button' onClick={handleSubmit}>
+      <button className='btn-primary'>
         { group ? 'Modifier' : 'Créer' }
       </button>
-    </div>
+    </form>
   );
 };
 

@@ -1,10 +1,31 @@
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 
-const useMultiStepForm = (steps: ReactElement[]) => {
+export interface Step {
+  element: JSX.Element;
+  title: string;
+  formId: string;
+}
+
+export interface useMultiStepFormReturn {
+  step: Step;
+  currentStepIndex: number;
+  isFirstStep: boolean;
+  isLastStep: boolean;
+  next: () => void;
+  back: () => void;
+  goTo: (index: number) => void;
+}
+
+const useMultiStepForm = (steps: Step[]): useMultiStepFormReturn => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const isFirstStep = currentStepIndex === 0;
   const isLastStep = currentStepIndex === steps.length - 1;
+  const step = steps[currentStepIndex];
+
+  if (!step) {
+    throw new Error(`step[${currentStepIndex}] doesn't exist`);
+  }
 
   const next = () => {
     setCurrentStepIndex(i => {
@@ -29,9 +50,8 @@ const useMultiStepForm = (steps: ReactElement[]) => {
   };
 
   return {
-    steps,
+    step,
     currentStepIndex,
-    step: steps[currentStepIndex],
     isFirstStep,
     isLastStep,
     next,

@@ -22,7 +22,8 @@ const IngredientText = ({
   const ingredientName = getIngredientName(ingredient, ingredientsDetails);
   const unit = getUnitDetails(units, ingredient.unitId);
   const unitName = getUnitName(unit, Number(ingredient.quantity));
-  let ingredientAmount = `${ingredient.quantity}`;
+  const quantity = ingredient.quantity ? ingredient.quantity : '';
+  let ingredientAmount = `${quantity}`;
   ingredientAmount += ingredientAmount.length > 0 ? ` ${unitName}` : '';
 
   if (ingredientAmount.length === 0) {

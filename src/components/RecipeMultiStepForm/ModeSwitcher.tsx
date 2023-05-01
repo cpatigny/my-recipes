@@ -1,4 +1,4 @@
-import { MARKDOWN_MODE, Modes, NORMAL_MODE } from './RecipeMultiStepForm';
+import { Modes, NORMAL_MODE, MARKDOWN_MODE } from '../../providers/RecipeMultiStepFormContext';
 
 interface ModeSwitcher {
   mode: Modes;

@@ -14,7 +14,6 @@ interface AutocompleteInputProps<T extends RequiredProps>
     secondaryPropertyToShow?: keyof T;
     selectItem: (obj: T) => void;
     setMatchingObjects: React.Dispatch<React.SetStateAction<T[] | null>>;
-    onEnterKeydown: () => void;
     error?: boolean;
     labelText: string;
     name: string;
@@ -28,7 +27,6 @@ const AutocompleteInput = <T extends RequiredProps>({
   secondaryPropertyToShow,
   selectItem,
   setMatchingObjects,
-  onEnterKeydown,
   error,
   value,
   onChange,
@@ -76,14 +74,6 @@ const AutocompleteInput = <T extends RequiredProps>({
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (autocompleteIsShow) return; // don't submit form when user is selecting an item
-      onEnterKeydown();
-    }
-  };
-
   return (
     <div className='autocomplete-container' ref={autocompleteContainerRef}>
       <UnderlineInput
@@ -92,7 +82,6 @@ const AutocompleteInput = <T extends RequiredProps>({
         type='text'
         name={name}
         value={value}
-        onKeyDown={handleKeyDown}
         onFocus={handleFocus}
         onBlur={hideOnClickOutside}
         onChange={handleChange}

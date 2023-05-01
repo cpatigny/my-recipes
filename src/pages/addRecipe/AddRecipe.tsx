@@ -5,6 +5,7 @@ import { ROUTES } from '../../utils/routes';
 
 import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
 import GoBack from '../../components/GoBack/GoBack';
+import { RecipeMultiStepFormProvider } from '../../providers/RecipeMultiStepFormContext';
 
 const AddRecipe = () => {
   const { user } = useUser();
@@ -20,7 +21,9 @@ const AddRecipe = () => {
         <GoBack />
         <h1>Ajouter une recette</h1>
       </div>
-      <RecipeMultiStepForm />
+      <RecipeMultiStepFormProvider>
+        <RecipeMultiStepForm />
+      </RecipeMultiStepFormProvider>
     </div>
   );
 };

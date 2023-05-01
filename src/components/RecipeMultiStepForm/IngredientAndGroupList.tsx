@@ -1,4 +1,5 @@
-import { GroupWithId, GroupWithIngredients, Groups, RecipeIngredientWithId, RecipeIngredients } from '../../types/recipe';
+import { useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
+import { GroupWithId, GroupWithIngredients, RecipeIngredientWithId } from '../../types/recipe';
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 
@@ -6,8 +7,6 @@ import GroupListItem from './GroupListItem';
 import IngredientListItem from './IngredientListItem';
 
 interface IngredientAndGroupListProps {
-  groups?: Groups;
-  ingredients: string | RecipeIngredients;
   deleteIngredient: (key: string) => void;
   showEditIngredientForm: (ingredient: RecipeIngredientWithId) => void;
   showEditGroupForm: (group: GroupWithId) => void;
@@ -15,8 +14,11 @@ interface IngredientAndGroupListProps {
 }
 
 const IngredientAndGroupList = ({
-  groups, ingredients, deleteIngredient, showEditIngredientForm, showEditGroupForm, deleteGroup,
+  deleteIngredient, showEditIngredientForm, showEditGroupForm, deleteGroup,
 }: IngredientAndGroupListProps) => {
+  const { recipeFormData } = useRecipeMultiStepForm();
+  const { groups, ingredients } = recipeFormData;
+
   const noIngredients = typeof ingredients === 'string' || Object.keys(ingredients).length === 0;
 
   let ingredientsWithoutGroup: RecipeIngredientWithId[] | null = null;

@@ -61,6 +61,7 @@ export interface RecipeWithId extends Recipe {
   id: string;
 }
 
-export interface RecipeFormData extends Omit<Recipe, 'createdAt'> {
+export interface RecipeFormData extends Omit<Recipe, 'createdAt' | 'groups'> {
   createdAt: number | false;
+  groups: Groups | null;
 }

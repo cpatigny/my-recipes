@@ -5,6 +5,7 @@ import useRecipeBySlug from '../../hooks/useRecipeBySlug';
 
 import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
 import GoBack from '../../components/GoBack/GoBack';
+import { RecipeMultiStepFormProvider } from '../../providers/RecipeMultiStepFormContext';
 
 const EditRecipe = () => {
   const { user } = useUser();
@@ -19,7 +20,9 @@ const EditRecipe = () => {
         <GoBack />
         <h1>Modifier la recette</h1>
       </div>
-      <RecipeMultiStepForm recipe={recipe} />
+      <RecipeMultiStepFormProvider recipe={recipe}>
+        <RecipeMultiStepForm />
+      </RecipeMultiStepFormProvider>
     </div>
   );
 };

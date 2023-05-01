@@ -1,22 +1,18 @@
-import { GroupWithIngredients, RecipeIngredientWithId, RecipeFormData } from '../../types/recipe';
+import { GroupWithIngredients, RecipeIngredientWithId } from '../../types/recipe';
 import remarkGfm from 'remark-gfm';
 import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
 import { useCategories } from '../../providers/CategoriesProvider';
+import { useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
 
 import ReactMarkdown from 'react-markdown';
 import PreviewIngredientList from './PreviewIngredientList';
 
-interface PreviewProps {
-  recipeFormData: RecipeFormData;
-  previewImageSrc: string | null;
-}
-
-const Preview = ({ recipeFormData, previewImageSrc }: PreviewProps) => {
-  const { ingredients, groups } = recipeFormData;
-
+const Preview = () => {
+  const { recipeFormData, previewImageSrc } = useRecipeMultiStepForm();
   const { categories } = useCategories();
 
+  const { ingredients, groups } = recipeFormData;
   const noIngredients = typeof ingredients === 'object' && Object.keys(ingredients).length === 0;
 
   let ingredientsWithoutGroup: RecipeIngredientWithId[] | null = null;
@@ -32,7 +28,6 @@ const Preview = ({ recipeFormData, previewImageSrc }: PreviewProps) => {
 
   return (
     <div id='submit-recipe' className='form-container preview'>
-      <h2>Aperçu</h2>
       <div className='recipe-preview'>
         <h2 className='title'>{ recipeFormData.title }</h2>
         {previewImageSrc && recipeFormData.imageName && (

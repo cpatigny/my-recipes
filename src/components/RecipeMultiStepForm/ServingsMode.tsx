@@ -1,15 +1,8 @@
 import { useState } from 'react';
-import { FormElements } from './RecipeMultiStepForm';
-import {
-  GroupWithId,
-  GroupWithIngredients,
-  Groups,
-  RecipeIngredientWithId,
-  RecipeIngredients,
-  RecipeFormData,
-} from '../../types/recipe';
+import { GroupWithId, GroupWithIngredients, RecipeIngredientWithId } from '../../types/recipe';
 import removeGroupId from '../../utils/ingredients/removeGroupId';
-import { Updater } from 'use-immer';
+import convertIngredientsArrayToObject from '../../utils/ingredients/convertIngredientsArrayToObject';
+import { useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
 
 import IngredientAndGroupList from './IngredientAndGroupList';
 import AddGroup from './AddGroup';
@@ -17,24 +10,14 @@ import NbOfServings from './NbOfServings';
 import IngredientForm from './IngredientForm';
 import Modal from '../Modal/Modal';
 import GroupForm from './GroupForm';
-import convertIngredientsArrayToObject from '../../utils/ingredients/convertIngredientsArrayToObject';
 
-interface ServingsModeProps {
-  nbServings?: string;
-  servingsUnit?: string;
-  groups?: Groups;
-  ingredients: string | RecipeIngredients;
-  recipeId: string;
-  setRecipeFormData: Updater<RecipeFormData>;
-  handleChange: (e: React.ChangeEvent<FormElements>) => void;
-}
-
-const ServingsMode = ({
-  nbServings, servingsUnit, groups, ingredients, setRecipeFormData, recipeId, handleChange,
-}: ServingsModeProps) => {
+const ServingsMode = () => {
   const [ingredientToEdit, setIngredientToEdit] = useState<RecipeIngredientWithId | null>(null);
   const [groupToEdit, setGroupToEdit] = useState<GroupWithId | null>(null);
   const [showGroupForm, setShowGroupForm] = useState(false);
+
+  const { recipeFormData, setRecipeFormData, next } = useRecipeMultiStepForm();
+  const { ingredients } = recipeFormData;
 
   const showEditIngredientForm = (ingredient: RecipeIngredientWithId) => {
     setIngredientToEdit(ingredient);
@@ -74,24 +57,25 @@ const ServingsMode = ({
     });
   };
 
+  const handleStepSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (Object.keys(ingredients).length === 0) {
+      alert('Veuillez ajouter au moins 1 ingrédient');
+      return;
+    }
+
+    next();
+  };
+
   const title = groupToEdit ? 'Modifier un groupe' : 'Créer un groupe';
 
   return (
     <div className='servings-mode'>
-      <NbOfServings
-        nbServings={nbServings}
-        servingsUnit={servingsUnit}
-        handleChange={handleChange}
-      />
-      <IngredientForm
-        ingredients={ingredients}
-        recipeId={recipeId}
-        setRecipeFormData={setRecipeFormData}
-      />
+      <NbOfServings handleStepSubmit={handleStepSubmit} />
+      <IngredientForm />
       <AddGroup ingredients={ingredients} showGroupForm={() => setShowGroupForm(true)} />
       <IngredientAndGroupList
-        groups={groups}
-        ingredients={ingredients}
         deleteIngredient={deleteIngredient}
         showEditIngredientForm={showEditIngredientForm}
         showEditGroupForm={showEditGroupForm}
@@ -104,9 +88,6 @@ const ServingsMode = ({
         className='modal-edit-ingredient'
       >
         <IngredientForm
-          ingredients={ingredients}
-          recipeId={recipeId}
-          setRecipeFormData={setRecipeFormData}
           ingredient={ingredientToEdit ?? undefined}
           closeModal={() => setIngredientToEdit(null)}
         />
@@ -122,8 +103,6 @@ const ServingsMode = ({
           <GroupForm
             group={groupToEdit ?? undefined}
             ingredients={ingredients}
-            recipeId={recipeId}
-            setRecipeFormData={setRecipeFormData}
             closeModal={closeGroupForm}
           />
         )}

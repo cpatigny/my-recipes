@@ -1,18 +1,21 @@
-import { FormElements } from './RecipeMultiStepForm';
+import { useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
 
-interface PreparationFormProps {
-  content: string;
-  handleChange: (e: React.ChangeEvent<FormElements>) => void;
-}
+const PreparationForm = () => {
+  const { step, recipeFormData, handleChange, next } = useRecipeMultiStepForm();
 
-const PreparationForm = ({ content, handleChange }: PreparationFormProps) => (
-  <div className='form-container preparation-form'>
-    <h2>Préparation</h2>
-    <div>
-      <label htmlFor='content'>Préparation</label>
-      <textarea name='content' id='content' required value={content} onChange={handleChange} />
-    </div>
-  </div>
-);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    next();
+  };
+
+  return (
+    <form id={step.formId} className='form-container preparation-form' onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor='content'>Préparation</label>
+        <textarea name='content' id='content' required value={recipeFormData.content} onChange={handleChange} />
+      </div>
+    </form>
+  );
+};
 
 export default PreparationForm;

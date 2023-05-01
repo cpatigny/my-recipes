@@ -9,11 +9,10 @@ interface IngredientCheckboxProps {
   ingredientsDetails: IngredientsDetails | null;
   units: Units | null;
   handleCheck: (e: React.FormEvent<HTMLInputElement>) => void;
-  handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const IngredientCheckbox = ({
-  ingredient, checked, ingredientsDetails, units, handleCheck, handleKeyDown,
+  ingredient, checked, ingredientsDetails, units, handleCheck,
 }: IngredientCheckboxProps) => (
   <label>
     <input
@@ -22,7 +21,6 @@ const IngredientCheckbox = ({
       name={ingredient.id}
       value={ingredient.id}
       onChange={handleCheck}
-      onKeyDown={handleKeyDown}
     />
     <IngredientText
       ingredient={ingredient}

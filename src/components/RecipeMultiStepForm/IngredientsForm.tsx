@@ -1,54 +1,33 @@
-import { Updater } from 'use-immer';
-import { Groups, RecipeIngredients, RecipeFormData } from '../../types/recipe';
 import ModeSwitcher from './ModeSwitcher';
-import { FormElements, MARKDOWN_MODE, Modes, NORMAL_MODE } from './RecipeMultiStepForm';
+import { MARKDOWN_MODE, NORMAL_MODE, useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
 
 import ServingsMode from './ServingsMode';
 
-interface IngredientsFormProps {
-  groups?: Groups;
-  ingredients: string | RecipeIngredients;
-  nbServings?: string;
-  servingsUnit?: string;
-  recipeId: string;
-  mode: Modes;
-  setMode: (mode: Modes) => void;
-  setRecipeFormData: Updater<RecipeFormData>;
-  handleChange: (e: React.ChangeEvent<FormElements>) => void;
-}
+const IngredientsForm = () => {
+  const { step, recipeFormData, mode, setMode, handleChange, next } = useRecipeMultiStepForm();
+  const { ingredients } = recipeFormData;
 
-const IngredientsForm = ({
-  groups,
-  ingredients,
-  nbServings,
-  servingsUnit,
-  mode,
-  setMode,
-  setRecipeFormData,
-  handleChange,
-  recipeId,
-}: IngredientsFormProps) => (
-  <div className='form-container ingredients-form'>
-    <h2>Ingrédients</h2>
-    <ModeSwitcher mode={mode} setMode={setMode} />
-    {mode === NORMAL_MODE && (
-      <ServingsMode
-        groups={groups}
-        ingredients={ingredients}
-        nbServings={nbServings}
-        servingsUnit={servingsUnit}
-        setRecipeFormData={setRecipeFormData}
-        recipeId={recipeId}
-        handleChange={handleChange}
-      />
-    )}
-    {mode === MARKDOWN_MODE && typeof ingredients === 'string' && (
-      <div>
-        <label htmlFor='ingredients'>Ingrédients</label>
-        <textarea name='ingredients' id='ingredients' required value={ingredients} onChange={handleChange} />
-      </div>
-    )}
-  </div>
-);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    next();
+  };
+
+  return (
+    <div className='form-container ingredients-form'>
+      <ModeSwitcher mode={mode} setMode={setMode} />
+      {mode === NORMAL_MODE && (
+        <ServingsMode />
+      )}
+      {mode === MARKDOWN_MODE && typeof ingredients === 'string' && (
+        <form id={step.formId} onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor='ingredients'>Ingrédients</label>
+            <textarea name='ingredients' id='ingredients' required value={ingredients} onChange={handleChange} />
+          </div>
+        </form>
+      )}
+    </div>
+  );
+};
 
 export default IngredientsForm;

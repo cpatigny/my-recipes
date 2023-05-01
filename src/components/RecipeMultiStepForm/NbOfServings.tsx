@@ -1,37 +1,38 @@
+import { useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
 import UnderlineInput from '../UnderlineInput/UnderlineInput';
-import { FormElements } from './RecipeMultiStepForm';
 
 interface NbOfServingsProps {
-  nbServings?: string;
-  servingsUnit?: string;
-  handleChange: (e: React.ChangeEvent<FormElements>) => void;
+  handleStepSubmit: (e: React.FormEvent) => void;
 }
 
-const NbOfServings = ({ nbServings, servingsUnit, handleChange }: NbOfServingsProps) => (
-  <div className='servings'>
-    <p className='label'><b>Nombre de portions :</b></p>
-    <div className='d-flex items-center'>
-      <UnderlineInput
-        labelText='XX'
-        name='nbServings'
-        type='number'
-        min='1'
-        step='1'
-        required
-        value={nbServings}
-        onChange={handleChange}
-      />
-      <UnderlineInput
-        labelText='Personnes, tartes, bols...'
-        name='servingsUnit'
-        type='text'
-        required
-        value={servingsUnit}
-        onChange={handleChange}
-      />
+const NbOfServings = ({ handleStepSubmit }: NbOfServingsProps) => {
+  const { step, recipeFormData, handleChange } = useRecipeMultiStepForm();
+  const { nbServings, servingsUnit } = recipeFormData;
+
+  return (
+    <div className='servings'>
+      <p className='label'><b>Nombre de portions :</b></p>
+      <form id={step.formId} className='d-flex items-center' onSubmit={handleStepSubmit}>
+        <UnderlineInput
+          labelText='XX'
+          name='nbServings'
+          type='number'
+          min='1'
+          step='1'
+          required
+          value={nbServings}
+          onChange={handleChange} />
+        <UnderlineInput
+          labelText='Personnes, tartes, bols...'
+          name='servingsUnit'
+          type='text'
+          required
+          value={servingsUnit}
+          onChange={handleChange} />
+      </form>
+      <i className='example'>Exemple : 2 personnes, 1 tarte, 4 bols...</i>
     </div>
-    <i className='example'>Exemple : 2 personnes, 1 tarte, 4 bols...</i>
-  </div>
-);
+  );
+};
 
 export default NbOfServings;

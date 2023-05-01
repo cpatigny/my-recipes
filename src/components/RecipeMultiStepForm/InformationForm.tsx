@@ -1,23 +1,48 @@
+import { useState } from 'react';
 import { useCategories } from '../../providers/CategoriesProvider';
-import { FormElements } from './RecipeMultiStepForm';
+import { useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
+import slugify from '../../utils/string/slugify';
 
-interface InformationFormProps {
-  title: string;
-  slug: string;
-  imageName: string | false;
-  category: string;
-  previewImageSrc: string | null;
-  handleChange: (e: React.ChangeEvent<FormElements>) => void;
+export interface FormErrors {
+  [name: string]: string;
 }
 
-const InformationForm = ({
-  title, slug, category, imageName, previewImageSrc, handleChange,
-}: InformationFormProps) => {
+const InformationForm = () => {
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+
   const { categories } = useCategories();
+  const { step, recipeFormData, previewImageSrc, handleChange, next } = useRecipeMultiStepForm();
+  const { title, slug, category, imageName } = recipeFormData;
+
+  const validateInformation = (slugToValidate: string) => {
+    const errors: FormErrors = {};
+
+    if (slugToValidate !== slugify(slugToValidate)) {
+      errors.slug = 'Slug invalide';
+    }
+
+    return errors;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const errors = validateInformation(recipeFormData.slug);
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors({
+        ...formErrors,
+        ...errors,
+      });
+      return;
+    }
+
+    setFormErrors({});
+    next();
+  };
 
   return (
-    <div className='form-container informations-form'>
-      <h2>Informations</h2>
+    <form id={step.formId} className='form-container informations-form' onSubmit={handleSubmit}>
       <div>
         <label htmlFor='title'>Titre</label>
         <input
@@ -30,9 +55,10 @@ const InformationForm = ({
           onChange={handleChange} />
       </div>
 
-      <div>
+      <div className={formErrors.slug ? 'form-error' : ''}>
         <label htmlFor='slug'>Slug</label>
         <input type='text' name='slug' id='slug' required value={slug} onChange={handleChange} />
+        {formErrors.slug && <span>{ formErrors.slug }</span>}
       </div>
 
       <div>
@@ -60,7 +86,7 @@ const InformationForm = ({
           })}
         </select>
       </div>
-    </div>
+    </form>
   );
 };
 
