@@ -7,12 +7,52 @@ export interface FormErrors {
   [name: string]: string;
 }
 
+export const DEFAULT_CATEGORY = {
+  value: 'none',
+  name: 'Aucune',
+} as const;
+
 const InformationForm = () => {
   const [formErrors, setFormErrors] = useState<FormErrors>({});
 
   const { categories } = useCategories();
-  const { step, recipeFormData, previewImageSrc, handleChange, next } = useRecipeMultiStepForm();
+  const {
+    step,
+    recipeFormData,
+    previewImageSrc,
+    handleChange,
+    next,
+    setImageFile,
+    setPreviewImageSrc,
+    setRecipeFormData,
+  } = useRecipeMultiStepForm();
   const { title, slug, category, imageName } = recipeFormData;
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.currentTarget;
+    const file = files && files[0];
+
+    if (file) {
+      setImageFile(file);
+      setPreviewImageSrc(URL.createObjectURL(file));
+      setRecipeFormData({ ...recipeFormData, imageName: file.name });
+    }
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+
+    setRecipeFormData(draft => {
+      draft.title = value;
+      draft.slug = slugify(value);
+    });
+  };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.currentTarget;
+    const newCategoryId = value === DEFAULT_CATEGORY.value ? false : value;
+    setRecipeFormData({ ...recipeFormData, category: newCategoryId });
+  };
 
   const validateInformation = (slugToValidate: string) => {
     const errors: FormErrors = {};
@@ -52,7 +92,7 @@ const InformationForm = () => {
           required
           placeholder='Ma super recette'
           value={title}
-          onChange={handleChange} />
+          onChange={handleTitleChange} />
       </div>
 
       <div className={formErrors.slug ? 'form-error' : ''}>
@@ -63,7 +103,7 @@ const InformationForm = () => {
 
       <div>
         <label htmlFor='image'>Sélectionner une image pour la recette</label>
-        <input type='file' name='image' id='image' onChange={handleChange} />
+        <input type='file' name='image' id='image' onChange={handleImageChange} />
       </div>
 
       { previewImageSrc && imageName &&
@@ -76,8 +116,8 @@ const InformationForm = () => {
 
       <div>
         <label htmlFor='category'>Choisissez une catégorie</label>
-        <select name='category' id='category' required value={category} onChange={handleChange}>
-          <option value='none'>Aucune</option>
+        <select name='category' id='category' required value={category || DEFAULT_CATEGORY.value} onChange={handleCategoryChange}>
+          <option value={DEFAULT_CATEGORY.value}>{ DEFAULT_CATEGORY.name }</option>
           {categories && Object.keys(categories).map(key => {
             const categoryObj = categories[key];
             return categoryObj ? (

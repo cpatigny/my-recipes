@@ -25,7 +25,7 @@ import logo from '../../assets/img/logo.svg';
 
 import './Home.scss';
 
-export const DEFAULT_CATEGORY = {
+export const ALL_CATEGORIES = {
   id: '0',
   name: 'Tout',
 };

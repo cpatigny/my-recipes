@@ -44,7 +44,7 @@ export interface Recipe {
   title: string;
   slug: string;
   imageName: string | false;
-  category: string;
+  category: string | false;
   nbServings?: string;
   servingsUnit?: string;
   ingredients: string | RecipeIngredients;

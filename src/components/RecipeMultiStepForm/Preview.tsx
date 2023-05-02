@@ -4,6 +4,7 @@ import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWi
 import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
 import { useCategories } from '../../providers/CategoriesProvider';
 import { useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
+import getCategoryName from '../../utils/categories/getCategoryName';
 
 import ReactMarkdown from 'react-markdown';
 import PreviewIngredientList from './PreviewIngredientList';
@@ -12,7 +13,7 @@ const Preview = () => {
   const { recipeFormData, previewImageSrc } = useRecipeMultiStepForm();
   const { categories } = useCategories();
 
-  const { ingredients, groups } = recipeFormData;
+  const { ingredients, groups, category } = recipeFormData;
   const noIngredients = typeof ingredients === 'object' && Object.keys(ingredients).length === 0;
 
   let ingredientsWithoutGroup: RecipeIngredientWithId[] | null = null;
@@ -26,6 +27,8 @@ const Preview = () => {
     groupsWithIngredients = getGroupsWithTheirIngredients(groups, ingredients);
   }
 
+  const categoryName = getCategoryName(category, categories);
+
   return (
     <div id='submit-recipe' className='form-container preview'>
       <div className='recipe-preview'>
@@ -34,9 +37,7 @@ const Preview = () => {
           <img src={previewImageSrc} alt={recipeFormData.imageName} />
         )}
 
-        {categories && (
-          <p>Catégorie : { categories[recipeFormData.category]?.name }</p>
-        )}
+        <p>Catégorie : { categoryName }</p>
 
         <h3>Ingrédients</h3>
         <p>{ recipeFormData.nbServings } { recipeFormData.servingsUnit } :</p>

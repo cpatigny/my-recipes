@@ -28,7 +28,7 @@ export const deleteCategory = async ({ recipes, category }: DeleteCategoryParams
       const recipe = recipes[key];
       if (!recipe) return;
       const updatedRecipe = { ...recipe };
-      updatedRecipe.category = 'none';
+      updatedRecipe.category = false;
       recipesToUpdate[key] = updatedRecipe;
     });
 

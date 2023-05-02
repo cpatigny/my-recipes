@@ -1,6 +1,6 @@
 import { Categories as CategoriesType, CategoryWithId } from '../../types/category';
 import { Recipes } from '../../types/recipe';
-import { DEFAULT_CATEGORY } from './Home';
+import { ALL_CATEGORIES } from './Home';
 import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
 import getCategoriesOrderByRecipeCount from '../../utils/categories/getCategoriesOrderByRecipeCount';
 import { ROUTES } from '../../utils/routes';
@@ -37,7 +37,7 @@ const Categories = ({ categories, selectedCategory, recipes }: CategoriesProps) 
         <div className='gradient'></div>
 
         <Link to={ROUTES.HOME} className={`category ${noCategroySelected ? 'selected' : ''}`}>
-          { DEFAULT_CATEGORY.name }
+          { ALL_CATEGORIES.name }
         </Link>
 
         { categoriesOrderByRecipeCount.map(category => {

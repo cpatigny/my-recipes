@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import useMultiStepForm, { Step, useMultiStepFormReturn } from '../hooks/useMultiStepForm';
 import { Updater, useImmer } from 'use-immer';
 import { RecipeFormData, RecipeWithId } from '../types/recipe';
-import slugify from '../utils/string/slugify';
 import generateRecipeKey from '../utils/firebase/generateRecipeKey';
 
 import InformationForm from '../components/RecipeMultiStepForm/InformationForm';
@@ -44,7 +43,7 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
     title: '',
     slug: '',
     imageName: false,
-    category: 'none',
+    category: false,
     nbServings: '',
     servingsUnit: '',
     groups: null,
@@ -108,33 +107,8 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
     }
   }, [recipe, setMode, setPreviewImageSrc, setRecipeFormData]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.currentTarget;
-    const file = files && files[0];
-
-    if (file) {
-      setImageFile(file);
-      setPreviewImageSrc(URL.createObjectURL(file));
-      setRecipeFormData({ ...recipeFormData, imageName: file.name });
-    }
-  };
-
   const handleChange = (e: React.ChangeEvent<FormElements>) => {
     const { value, name } = e.currentTarget;
-
-    if (name === 'title') {
-      setRecipeFormData(draft => {
-        draft.title = value;
-        draft.slug = slugify(value);
-      });
-      return;
-    }
-
-    if (name === 'image') {
-      handleImageChange(e as React.ChangeEvent<HTMLInputElement>);
-      return;
-    }
-
     setRecipeFormData({ ...recipeFormData, [name]: value });
   };
 
