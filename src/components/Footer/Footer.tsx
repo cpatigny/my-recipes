@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth';
-import { logOut } from '../../utils/firebase/authMethods';
-import { ROUTES } from '../../utils/routes';
+import { logOut } from '../../helpers/auth.helpers';
+import { ROUTES } from '../../routes';
 
 import { Link } from 'react-router-dom';
 

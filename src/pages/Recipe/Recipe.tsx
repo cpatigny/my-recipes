@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import remarkGfm from 'remark-gfm';
 import { Navigate } from 'react-router-dom';
-import formatDate from '../../utils/formatDate';
 import { GroupWithIngredients, RecipeIngredientWithId } from '../../types/recipe';
-import { useUser } from '../../providers/UserProvider';
+import { useUser } from '../../contexts/UserContext';
 import useScrollRestoration from '../../hooks/useScrollRestoration';
-import { useCategories } from '../../providers/CategoriesProvider';
-import getIngredientsWithoutGroup from '../../utils/ingredients/getIngredientsWithoutGroup';
-import getGroupsWithTheirIngredients from '../../utils/groups/getGroupsWithTheirIngredients';
-import { ROUTES } from '../../utils/routes';
+import { useCategories } from '../../contexts/CategoriesContext';
+import { ROUTES } from '../../routes';
 import useRecipeBySlug from '../../hooks/useRecipeBySlug';
+import { getGroupsWithTheirIngredients } from '../../helpers/group.helpers';
+import { getIngredientsWithoutGroup } from '../../helpers/ingredient.helpers';
+import { formatDate } from '../../utils';
 
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';

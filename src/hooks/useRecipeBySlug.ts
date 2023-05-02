@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useRecipes } from '../providers/RecipesProvider';
+import { useRecipes } from '../contexts/RecipesContext';
 import { useState, useEffect } from 'react';
 import { RecipeWithId } from '../types/recipe';
-import getRecipeBySlug from '../utils/recipes/getRecipeBySlug';
+import { getRecipeBySlug } from '../helpers/recipe.helpers';
 
 const useRecipeBySlug = () => {
   const [recipe, setRecipe] = useState<RecipeWithId | null>(null);

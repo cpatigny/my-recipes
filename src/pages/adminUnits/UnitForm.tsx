@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { createUnit, updateUnit } from '../../utils/firebase/unitMethods';
 import { UnitWithId } from '../../types/unit';
+import { updateUnit, createUnit } from '../../helpers/units.helpers';
 
 interface UnitFormData {
   singular: string;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { logOut } from '../../utils/firebase/authMethods';
-import { ROUTES } from '../../utils/routes';
+import { logOut } from '../../helpers/auth.helpers';
+import { ROUTES } from '../../routes';
 
 import { NavLink } from 'react-router-dom';
 import MobileMenu from './MobileMenu';

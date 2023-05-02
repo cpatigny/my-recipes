@@ -1,5 +1,5 @@
-import { ROUTES } from '../../utils/routes';
-import { useUser } from '../../providers/UserProvider';
+import { ROUTES } from '../../routes';
+import { useUser } from '../../contexts/UserContext';
 
 import { Navigate } from 'react-router-dom';
 import Menu from '../Menu/Menu';

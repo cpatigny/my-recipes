@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
+import { useIngredientsDetails } from '../../contexts/IngredientsDetailsContext';
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
-import { deleteIngredientDetails } from '../../utils/firebase/ingredientDetailsMethods';
-import { useRecipes } from '../../providers/RecipesProvider';
+import { useRecipes } from '../../contexts/RecipesContext';
+import { deleteIngredientDetails } from '../../helpers/ingredientDetails.helpers';
 
 import AdminContainer from '../../components/AdminContainer/AdminContainer';
 import IngredientsDetails from './IngredientsDetails';

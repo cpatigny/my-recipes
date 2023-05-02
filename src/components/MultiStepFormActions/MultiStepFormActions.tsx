@@ -1,4 +1,4 @@
-import { useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
+import { useRecipeMultiStepForm } from '../../contexts/RecipeMultiStepFormContext';
 
 interface MultiStepFormActionsProps {
   submitForm: () => void;

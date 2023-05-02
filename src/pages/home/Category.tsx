@@ -1,5 +1,5 @@
 import { Category as CategoryType } from '../../types/category';
-import { getCategoryPath } from '../../utils/routes';
+import { getCategoryPath } from '../../routes';
 
 import { Link } from 'react-router-dom';
 

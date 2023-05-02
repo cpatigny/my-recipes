@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useCategories } from '../../providers/CategoriesProvider';
-import { createCategory } from '../../utils/firebase/categoryMethods';
-import slugify from '../../utils/string/slugify';
+import { useCategories } from '../../contexts/CategoriesContext';
+import { createCategory } from '../../helpers/category.helpers';
+import { slugify } from '../../utils';
 
 import AdminCategoryList from './AdminCategoryList';
 import AdminContainer from '../../components/AdminContainer/AdminContainer';

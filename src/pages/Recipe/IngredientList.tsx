@@ -1,5 +1,5 @@
-import { useIngredientsDetails } from '../../providers/IngredientsDetailsProvider';
-import { useUnits } from '../../providers/UnitsProvider';
+import { useIngredientsDetails } from '../../contexts/IngredientsDetailsContext';
+import { useUnits } from '../../contexts/UnitsContext';
 import { RecipeIngredientWithId } from '../../types/recipe';
 
 import Ingredient from './Ingredient';

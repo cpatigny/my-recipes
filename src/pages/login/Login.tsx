@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { useUser } from '../../providers/UserProvider';
-import { signIn } from '../../utils/firebase/authMethods';
-import { ROUTES } from '../../utils/routes';
+import { useUser } from '../../contexts/UserContext';
+import { ROUTES } from '../../routes';
+import { signIn } from '../../helpers/auth.helpers';
 
 import './Login.scss';
 

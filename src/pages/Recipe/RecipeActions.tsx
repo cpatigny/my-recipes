@@ -1,8 +1,8 @@
-import confirm from '../../utils/confirm';
 import { useNavigate, Link } from 'react-router-dom';
 import { RecipeWithId } from '../../types/recipe';
-import { deleteRecipe } from '../../utils/firebase/recipeMethods';
-import { ROUTES, getEditRecipePath } from '../../utils/routes';
+import { ROUTES, getEditRecipePath } from '../../routes';
+import { deleteRecipe } from '../../helpers/recipe.helpers';
+import { confirm } from '../../utils';
 
 import Icon from '../../components/Icon/Icon';
 

@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useRecipes } from '../../providers/RecipesProvider';
+import { useRecipes } from '../../contexts/RecipesContext';
 import { CategoryWithId } from '../../types/category';
-import confirm from '../../utils/confirm';
-import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
-import { updateCategory, deleteCategory } from '../../utils/firebase/categoryMethods';
-import slugify from '../../utils/string/slugify';
+import { countRecipesByCategory, updateCategory, deleteCategory } from '../../helpers/category.helpers';
+import { confirm, slugify } from '../../utils';
 
 import Icon from '../../components/Icon/Icon';
 

@@ -73,6 +73,7 @@
 	    "react/react-in-jsx-scope": "off", // no longer needed with react 17
         "no-plusplus": "off",
         "function-paren-newline": "off",
-        "arrow-body-style": "off"
+        "arrow-body-style": "off",
+        "import/prefer-default-export": "off"
     }
 }

@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
-import searchMatchingRecipes from '../../utils/recipes/searchMatchingRecipes';
-import reverseObject from '../../utils/recipes/reverseRecipes';
 import { Recipes } from '../../types/recipe';
-import { useUser } from '../../providers/UserProvider';
-import { useRecipes } from '../../providers/RecipesProvider';
-import { useCategories } from '../../providers/CategoriesProvider';
-import getRecipesByCategory from '../../utils/recipes/getRecipesByCategory';
+import { useUser } from '../../contexts/UserContext';
+import { useRecipes } from '../../contexts/RecipesContext';
+import { useCategories } from '../../contexts/CategoriesContext';
 import useScrollRestoration from '../../hooks/useScrollRestoration';
 import { CategoryWithId } from '../../types/category';
-import getCategoryBySlug from '../../utils/categories/getCategoryBySlug';
-import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
-import { ROUTES } from '../../utils/routes';
+import { ROUTES } from '../../routes';
+import { getCategoryBySlug, countRecipesByCategory } from '../../helpers/category.helpers';
+import { searchMatchingRecipes, getRecipesByCategory, reverseRecipes } from '../../helpers/recipe.helpers';
 
 import { Link, useParams } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
@@ -24,11 +21,6 @@ import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import logo from '../../assets/img/logo.svg';
 
 import './Home.scss';
-
-export const ALL_CATEGORIES = {
-  id: '0',
-  name: 'Tout',
-};
 
 const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
@@ -68,7 +60,7 @@ const Home = () => {
     }
 
     if (matchingRecipes) {
-      matchingRecipes = reverseObject(matchingRecipes);
+      matchingRecipes = reverseRecipes(matchingRecipes);
     }
 
     const defaultCategoryIsSelected = selectedCategory === null;

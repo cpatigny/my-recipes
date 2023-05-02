@@ -1,9 +1,7 @@
 import { Categories as CategoriesType, CategoryWithId } from '../../types/category';
 import { Recipes } from '../../types/recipe';
-import { ALL_CATEGORIES } from './Home';
-import countRecipesByCategory from '../../utils/categories/countRecipesByCategory';
-import getCategoriesOrderByRecipeCount from '../../utils/categories/getCategoriesOrderByRecipeCount';
-import { ROUTES } from '../../utils/routes';
+import { ROUTES } from '../../routes';
+import { getCategoriesOrderByRecipeCount, countRecipesByCategory } from '../../helpers/category.helpers';
 
 import Category from './Category';
 import { Link } from 'react-router-dom';
@@ -13,6 +11,11 @@ interface CategoriesProps {
   selectedCategory: CategoryWithId | null;
   recipes: Recipes | null;
 }
+
+const DEFAULT_HOME_CATEGORY = {
+  id: '0',
+  name: 'Tout',
+};
 
 const Categories = ({ categories, selectedCategory, recipes }: CategoriesProps) => {
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
@@ -37,7 +40,7 @@ const Categories = ({ categories, selectedCategory, recipes }: CategoriesProps) 
         <div className='gradient'></div>
 
         <Link to={ROUTES.HOME} className={`category ${noCategroySelected ? 'selected' : ''}`}>
-          { ALL_CATEGORIES.name }
+          { DEFAULT_HOME_CATEGORY.name }
         </Link>
 
         { categoriesOrderByRecipeCount.map(category => {

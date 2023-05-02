@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { createIngredientDetails, updateIngredientDetails } from '../../utils/firebase/ingredientDetailsMethods';
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
+import { updateIngredientDetails, createIngredientDetails } from '../../helpers/ingredientDetails.helpers';
 
 interface IngredientFormProps {
   ingredientToEdit?: IngredientDetailsWithId;

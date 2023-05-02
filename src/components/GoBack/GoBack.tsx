@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../utils/routes';
+import { ROUTES } from '../../routes';
 
 import Icon from '../Icon/Icon';
 

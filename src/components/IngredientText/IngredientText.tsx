@@ -1,9 +1,8 @@
+import { getIngredientName } from '../../helpers/ingredient.helpers';
+import { getUnitDetails, getUnitName } from '../../helpers/units.helpers';
 import { IngredientsDetails } from '../../types/ingredientDetails';
 import { RecipeIngredientWithId, RecipeIngredient } from '../../types/recipe';
 import { Units } from '../../types/unit';
-import getIngredientName from '../../utils/ingredients/getIngredientName';
-import getUnitDetails from '../../utils/units/getUnitDetails';
-import getUnitName from '../../utils/units/getUnitName';
 
 interface IngredientTextProps extends React.InputHTMLAttributes<HTMLSpanElement> {
   ingredient: RecipeIngredientWithId | RecipeIngredient;

@@ -1,9 +1,9 @@
-import './utils/firebase/firebase';
-import { useUser } from './providers/UserProvider';
-import { useRecipes } from './providers/RecipesProvider';
-import { useCategories } from './providers/CategoriesProvider';
-import { useIngredientsDetails } from './providers/IngredientsDetailsProvider';
-import { useUnits } from './providers/UnitsProvider';
+import './firebase';
+import { useUser } from './contexts/UserContext';
+import { useRecipes } from './contexts/RecipesContext';
+import { useCategories } from './contexts/CategoriesContext';
+import { useIngredientsDetails } from './contexts/IngredientsDetailsContext';
+import { useUnits } from './contexts/UnitsContext';
 
 import Loading from './components/Loading/Loading';
 import { Outlet } from 'react-router-dom';

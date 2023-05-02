@@ -1,5 +1,5 @@
 import { useTransition, animated } from '@react-spring/web';
-import { logOut } from '../../utils/firebase/authMethods';
+import { logOut } from '../../helpers/auth.helpers';
 import { Link } from './Menu';
 
 import { NavLink } from 'react-router-dom';

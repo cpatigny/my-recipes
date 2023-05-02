@@ -1,4 +1,4 @@
-import { getRecipePath } from '../../utils/routes';
+import { getRecipePath } from '../../routes';
 
 import { Link } from 'react-router-dom';
 

@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom/client';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { ROUTES_WITH_PARAMS } from './utils/routes';
+import { ROUTES_WITH_PARAMS } from './routes';
 
-import UserProvider from './providers/UserProvider';
-import RecipesProvider from './providers/RecipesProvider';
-import CategoriesProvider from './providers/CategoriesProvider';
-import IngredientsDetailsProvider from './providers/IngredientsDetailsProvider';
+import { CategoriesProvider } from './contexts/CategoriesContext';
+import { IngredientsDetailsProvider } from './contexts/IngredientsDetailsContext';
+import { RecipesProvider } from './contexts/RecipesContext';
+import { UnitsProvider } from './contexts/UnitsContext';
+import { UserProvider } from './contexts/UserContext';
 import App from './App';
 import NotFound from './pages/notFound/NotFound';
 import Recipe from './pages/Recipe/Recipe';
@@ -21,7 +22,6 @@ import Login from './pages/login/Login';
 import AdminUnits from './pages/adminUnits/AdminUnits';
 
 import './index.scss';
-import UnitsProvider from './providers/UnitsProvider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

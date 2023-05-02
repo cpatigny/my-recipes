@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useUnits } from '../../providers/UnitsProvider';
+import { useUnits } from '../../contexts/UnitsContext';
 import { UnitWithId } from '../../types/unit';
-import { deleteUnit } from '../../utils/firebase/unitMethods';
-import { useRecipes } from '../../providers/RecipesProvider';
+import { useRecipes } from '../../contexts/RecipesContext';
+import { deleteUnit } from '../../helpers/units.helpers';
 
 import AdminContainer from '../../components/AdminContainer/AdminContainer';
 import UnitForm from './UnitForm';

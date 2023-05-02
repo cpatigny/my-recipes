@@ -1,14 +1,14 @@
 import { UploadResult } from 'firebase/storage';
-import { useRecipeMultiStepForm } from '../../providers/RecipeMultiStepFormContext';
-import { updateRecipe, createRecipe } from '../../utils/firebase/recipeMethods';
-import { getRecipePath } from '../../utils/routes';
-import uploadImageAndDeleteOldOne from '../../utils/storage/uploadImageAndDeleteOldOne';
+import { useRecipeMultiStepForm } from '../../contexts/RecipeMultiStepFormContext';
+import { getRecipePath } from '../../routes';
 import { useNavigate } from 'react-router-dom';
 import { RecipeFormData } from '../../types/recipe';
+import { uploadImageAndDeleteOldOne } from '../../helpers/firebase.helpers';
+import { updateRecipe, createRecipe } from '../../helpers/recipe.helpers';
 
 import MultiStepFormActions from '../MultiStepFormActions/MultiStepFormActions';
 
-import './RecipeForm.scss';
+import './RecipeMultiStepForm.scss';
 
 export interface FormErrors {
   [name: string]: string;

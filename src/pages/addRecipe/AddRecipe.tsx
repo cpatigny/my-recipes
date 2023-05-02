@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../providers/UserProvider';
-import { ROUTES } from '../../utils/routes';
+import { useUser } from '../../contexts/UserContext';
+import { ROUTES } from '../../routes';
 
 import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
 import GoBack from '../../components/GoBack/GoBack';
-import { RecipeMultiStepFormProvider } from '../../providers/RecipeMultiStepFormContext';
+import { RecipeMultiStepFormProvider } from '../../contexts/RecipeMultiStepFormContext';
 
 const AddRecipe = () => {
   const { user } = useUser();

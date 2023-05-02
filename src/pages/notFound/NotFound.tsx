@@ -1,4 +1,4 @@
-import { ROUTES } from '../../utils/routes';
+import { ROUTES } from '../../routes';
 
 import notFoundSvg from '../../assets/img/undraw-page-not-found.svg';
 
