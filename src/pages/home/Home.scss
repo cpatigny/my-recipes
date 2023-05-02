@@ -73,6 +73,7 @@
         white-space: nowrap;
         font-size: 1rem;
         text-decoration: none;
+        margin-bottom: 2px; /* same as box-shadow */
 
         &:hover:not(.selected) {
           background-color: rgba($main-color, 0.2);
