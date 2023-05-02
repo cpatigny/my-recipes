@@ -13,7 +13,7 @@ const Preview = () => {
   const { recipeFormData, previewImageSrc } = useRecipeMultiStepForm();
   const { categories } = useCategories();
 
-  const { ingredients, groups, category } = recipeFormData;
+  const { ingredients, groups, categoryId } = recipeFormData;
   const noIngredients = typeof ingredients === 'object' && Object.keys(ingredients).length === 0;
 
   let ingredientsWithoutGroup: RecipeIngredientWithId[] | null = null;
@@ -27,7 +27,7 @@ const Preview = () => {
     groupsWithIngredients = getGroupsWithTheirIngredients(groups, ingredients);
   }
 
-  const categoryName = getCategoryName(category, categories);
+  const categoryName = getCategoryName(categoryId, categories);
 
   return (
     <div id='submit-recipe' className='form-container preview'>

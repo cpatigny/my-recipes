@@ -26,7 +26,7 @@ const InformationForm = () => {
     setPreviewImageSrc,
     setRecipeFormData,
   } = useRecipeMultiStepForm();
-  const { title, slug, category, imageName } = recipeFormData;
+  const { title, slug, categoryId, imageName } = recipeFormData;
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
@@ -51,7 +51,7 @@ const InformationForm = () => {
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.currentTarget;
     const newCategoryId = value === DEFAULT_CATEGORY.value ? false : value;
-    setRecipeFormData({ ...recipeFormData, category: newCategoryId });
+    setRecipeFormData({ ...recipeFormData, categoryId: newCategoryId });
   };
 
   const validateInformation = (slugToValidate: string) => {
@@ -116,7 +116,7 @@ const InformationForm = () => {
 
       <div>
         <label htmlFor='category'>Choisissez une catégorie</label>
-        <select name='category' id='category' required value={category || DEFAULT_CATEGORY.value} onChange={handleCategoryChange}>
+        <select name='category' id='category' required value={categoryId || DEFAULT_CATEGORY.value} onChange={handleCategoryChange}>
           <option value={DEFAULT_CATEGORY.value}>{ DEFAULT_CATEGORY.name }</option>
           {categories && Object.keys(categories).map(key => {
             const categoryObj = categories[key];

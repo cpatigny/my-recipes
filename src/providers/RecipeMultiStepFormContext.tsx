@@ -43,7 +43,7 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
     title: '',
     slug: '',
     imageName: false,
-    category: false,
+    categoryId: false,
     nbServings: '',
     servingsUnit: '',
     groups: null,

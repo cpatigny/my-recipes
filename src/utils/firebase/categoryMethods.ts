@@ -23,12 +23,12 @@ export const deleteCategory = async ({ recipes, category }: DeleteCategoryParams
 
   Object
     .keys(recipes)
-    .filter(key => recipes[key]?.category === category.id)
+    .filter(key => recipes[key]?.categoryId === category.id)
     .forEach(key => {
       const recipe = recipes[key];
       if (!recipe) return;
       const updatedRecipe = { ...recipe };
-      updatedRecipe.category = false;
+      updatedRecipe.categoryId = false;
       recipesToUpdate[key] = updatedRecipe;
     });
 

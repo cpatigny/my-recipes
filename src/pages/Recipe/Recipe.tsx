@@ -59,7 +59,7 @@ const Recipe = () => {
   if (noMatch) return <Navigate to={ROUTES.NOT_FOUND} replace />;
   if (!recipe || !categories) return <Loading />;
 
-  const recipeCategory = recipe.category && categories[recipe.category];
+  const recipeCategory = recipe.categoryId && categories[recipe.categoryId];
   const { ingredients, groups } = recipe;
 
   let ingredientsWithoutGroup: RecipeIngredientWithId[] | null = null;

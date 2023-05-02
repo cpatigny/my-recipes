@@ -7,7 +7,7 @@ const countRecipesByCategory = (recipes: Recipes, categoryId: string) => {
     .keys(recipes)
     .forEach(key => {
       const recipe = recipes[key];
-      if (recipe?.category === categoryId) count++;
+      if (recipe?.categoryId === categoryId) count++;
     });
 
   return count;

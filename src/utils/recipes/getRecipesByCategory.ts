@@ -5,7 +5,7 @@ const getRecipesByCategory = (recipes: Recipes, categoryId: string): Recipes | n
 
   Object
     .keys(recipes)
-    .filter(key => recipes[key]?.category === categoryId)
+    .filter(key => recipes[key]?.categoryId === categoryId)
     .forEach(key => {
       const recipe = recipes[key];
       if (recipe) recipesWithCategory[key] = recipe;
