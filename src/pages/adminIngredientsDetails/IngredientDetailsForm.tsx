@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { updateIngredientDetails, createIngredientDetails } from '../../helpers/ingredientDetails.helpers';
 
@@ -10,6 +10,8 @@ interface IngredientFormProps {
 const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFormProps) => {
   const [singular, setSingular] = useState('');
   const [plural, setPlural] = useState('');
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (!ingredientToEdit) return;
@@ -34,6 +36,10 @@ const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFormProps)
 
     await createIngredientDetails({ singular, plural });
     reset();
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   return (
@@ -41,6 +47,7 @@ const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFormProps)
       <div>
         <label htmlFor='singular'>Ingrédient (au <b>singulier</b>)</label>
         <input
+          ref={inputRef}
           id='singular'
           type='text'
           required

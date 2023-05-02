@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { UnitWithId } from '../../types/unit';
 import { updateUnit, createUnit } from '../../helpers/units.helpers';
 
@@ -21,6 +21,8 @@ const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
   };
 
   const [unitFormData, setUnitFormData] = useState(DEFAULT_DATA);
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (!unitToEdit) return;
@@ -57,6 +59,10 @@ const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
       symbol: unitFormData.symbol ? unitFormData.symbol : false,
     });
     reset();
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   return (
@@ -64,6 +70,7 @@ const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
       <div>
         <label htmlFor='singular'>Unité (au <b>singulier</b>)</label>
         <input
+          ref={inputRef}
           id='singular'
           name='singular'
           type='text'

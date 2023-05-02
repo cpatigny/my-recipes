@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getNewItemPosition } from '../../../helpers/helpers';
 import { generateIngredientKey } from '../../../helpers/ingredient.helpers';
 import { getMatchingIngredientsDetails } from '../../../helpers/ingredientDetails.helpers';
@@ -43,6 +43,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
   const { units } = useUnits();
   const { recipeFormData, setRecipeFormData, recipeId } = useRecipeMultiStepForm();
   const { ingredients } = recipeFormData;
+  const quantityInputRef = useRef<HTMLInputElement | null>(null);
 
   const hasErrors = Object.keys(ingredientErrors).length > 0;
   const editMode = typeof ingredient === 'object';
@@ -84,6 +85,12 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
     setIngredientErrors({});
   };
 
+  const resetFocus = () => {
+    if (quantityInputRef.current) {
+      quantityInputRef.current.focus();
+    }
+  };
+
   const validateIngredient = (ingredientToValidate: RecipeIngredientFormData) => {
     const errors: FormErrors = {};
 
@@ -122,6 +129,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
     });
 
     resetForm();
+    resetFocus();
   };
 
   const editIngredient = () => {
@@ -204,6 +212,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
       <form id='ingredient-form' className='ingredient-form' onSubmit={handleSubmit}>
         <div className='ingredient-inputs'>
           <UnderlineInput
+            ref={quantityInputRef}
             labelText='Quantité'
             name='quantity'
             type='number'

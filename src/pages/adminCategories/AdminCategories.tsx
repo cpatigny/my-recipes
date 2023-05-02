@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useCategories } from '../../contexts/CategoriesContext';
 import { createCategory } from '../../helpers/category.helpers';
 import { slugify } from '../../utils';
@@ -13,6 +13,7 @@ const AdminCategories = () => {
   const [slug, setSlug] = useState('');
 
   const { categories } = useCategories();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -26,6 +27,10 @@ const AdminCategories = () => {
     alert(`La catégorie "${name}" a bien été crée.`);
     setName('');
     setSlug('');
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   return (
@@ -41,6 +46,7 @@ const AdminCategories = () => {
           <div>
             <label htmlFor='name'>Nom de la catégorie</label>
             <input
+              ref={inputRef}
               type='text'
               id='name'
               required
