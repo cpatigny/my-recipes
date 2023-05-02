@@ -1,40 +1,17 @@
 import { getDatabase, push, ref } from 'firebase/database';
-import { ref as storageRef, UploadResult, getStorage, deleteObject, uploadBytes } from 'firebase/storage';
+import { ref as storageRef, getStorage, deleteObject, uploadBytes } from 'firebase/storage';
+import { RECIPE_IMAGES_FOLDER_NAME } from '../constants';
 
-/**
- * This function will delete the existing image and will upload the new one
- * @param {Object} file the image file to upload
- * @param {string} oldImageName the existing image name to delete
- * @param {function} onDelete callback when deleting the existing image
- * @param {function} onUpload callback when uploading the image
- */
-export const uploadImageAndDeleteOldOne = (
-  file: File,
-  oldImageName: string | false,
-  onDelete: () => void,
-  onUpload: (snapshot: UploadResult) => void,
-): void => {
-  // if file size is more than 1mo
-  if (file.size > 1024000) {
-    alert(`L'image ne doit pas dépasser 1mo`);
-    return;
-  }
-
+export const deleteRecipeImage = (imageName: string) => {
   const storage = getStorage();
-  const recipeImagesFolderName = 'recipe-images';
+  const imageRef = storageRef(storage, `${RECIPE_IMAGES_FOLDER_NAME}/${imageName}`);
+  return deleteObject(imageRef);
+};
 
-  // if an image has already been uploaded
-  if (oldImageName) {
-    const oldRecipeImageRef = storageRef(storage, `${recipeImagesFolderName}/${oldImageName}`);
-
-    deleteObject(oldRecipeImageRef)
-      .then(onDelete);
-  }
-
-  const recipeImageRef = storageRef(storage, `${recipeImagesFolderName}/${file.name}`);
-
-  uploadBytes(recipeImageRef, file)
-    .then(snapshot => onUpload(snapshot));
+export const uploadRecipeImage = (file: File) => {
+  const storage = getStorage();
+  const imageRef = storageRef(storage, `${RECIPE_IMAGES_FOLDER_NAME}/${file.name}`);
+  return uploadBytes(imageRef, file);
 };
 
 export const generateKey = (path: string) => {

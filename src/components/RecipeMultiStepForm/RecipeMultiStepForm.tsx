@@ -1,9 +1,8 @@
-import { UploadResult } from 'firebase/storage';
 import { useRecipeMultiStepForm } from '../../contexts/RecipeMultiStepFormContext';
 import { getRecipePath } from '../../routes';
 import { useNavigate } from 'react-router-dom';
 import { RecipeFormData } from '../../types/recipe';
-import { uploadImageAndDeleteOldOne } from '../../helpers/firebase.helpers';
+import { deleteRecipeImage, uploadRecipeImage } from '../../helpers/firebase.helpers';
 import { updateRecipe, createRecipe } from '../../helpers/recipe.helpers';
 
 import MultiStepFormActions from '../MultiStepFormActions/MultiStepFormActions';
@@ -20,25 +19,35 @@ const RecipeMultiStepForm = () => {
     step, recipeFormData, setRecipeFormData, imageFile, oldImageName, recipe,
   } = useRecipeMultiStepForm();
 
-  const submitRecipe = () => {
-    // if an image has been uploaded
+  const submitRecipe = async () => {
     if (imageFile) {
-      const onImageDelete = () => setRecipeFormData({ ...recipeFormData, imageName: false });
-      const onImageUpload = (snapshot: UploadResult) => {
-        setRecipeFormData({ ...recipeFormData, imageName: snapshot.metadata.name });
-      };
-      uploadImageAndDeleteOldOne(imageFile, oldImageName, onImageDelete, onImageUpload);
+      // if file size is more than 1mb
+      if (imageFile.size > 1 * 1024 * 1024) {
+        alert(`L'image ne doit pas dépasser 1mo`);
+        return;
+      }
+
+      // if an image has been uploaded and the recipe already has one
+      if (oldImageName) {
+        await deleteRecipeImage(oldImageName);
+        setRecipeFormData({ ...recipeFormData, imageName: false });
+      }
+
+      const snapshot = await uploadRecipeImage(imageFile);
+      setRecipeFormData({ ...recipeFormData, imageName: snapshot.metadata.name });
     }
 
     const redirect = () => navigate(getRecipePath(recipeFormData.slug));
 
     if (recipe) {
-      updateRecipe(recipe, recipeFormData).then(redirect);
+      await updateRecipe(recipe, recipeFormData);
+      redirect();
       return;
     }
 
     const newRecipe: RecipeFormData = { ...recipeFormData, createdAt: Date.now() };
-    createRecipe(newRecipe).then(redirect);
+    await createRecipe(newRecipe);
+    redirect();
   };
 
   return (
