@@ -68,6 +68,11 @@
     background-color: rgba(63, 131, 248, 0.2);
   }
 
+  .form-error {
+    color: $danger-color;
+    font-size: 1rem;
+  }
+
   label[for="image"] {
     margin-top: 25px;
   }

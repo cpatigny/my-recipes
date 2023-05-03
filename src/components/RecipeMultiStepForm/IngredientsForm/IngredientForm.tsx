@@ -245,6 +245,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
             value={ingredientName}
             error={!!ingredientErrors.name}
             onChange={handleIngredientNameChange}
+            required
           />
         </div>
         { hasErrors && (

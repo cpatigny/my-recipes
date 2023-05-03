@@ -58,10 +58,6 @@ const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) => {
       errors.ingredients = 'Choisissez au moins 1 ingrédient';
     }
 
-    if (groupToValidate.name.length === 0) {
-      errors.name = 'Veuillez entrer un nom de groupe';
-    }
-
     return errors;
   };
 
@@ -164,8 +160,8 @@ const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) => {
         name='name'
         type='text'
         value={groupData.name}
-        error={!!groupErrors.name}
         onChange={handleChange}
+        required
       />
       <i className='example'>Exemple : Pour la sauce, Pour la marinade...</i>
 
