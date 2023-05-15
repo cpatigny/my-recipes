@@ -24,18 +24,18 @@ export const getGroupsWithTheirIngredients = (
       const group = groups[key];
       if (!group) return;
 
-      const ingredientsInGroup = getIngredientsByGroup(key, ingredients);
+      const groupIngredients = getIngredientsByGroup(key, ingredients);
 
       const groupWithIngredients: GroupWithIngredients = {
         id: key,
         ...group,
-        ingredients: ingredientsInGroup,
+        ingredients: sortItemsByPosition(groupIngredients),
       };
 
       groupsWithIngredients.push(groupWithIngredients);
     });
 
-  return groupsWithIngredients;
+  return sortItemsByPosition(groupsWithIngredients);
 };
 
 export const generateGroupKey = (recipeId: string) => {

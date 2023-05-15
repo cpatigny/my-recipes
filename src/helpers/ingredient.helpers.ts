@@ -1,6 +1,7 @@
 import { IngredientsDetails } from '../types/ingredientDetails';
 import { GroupWithId, RecipeIngredient, RecipeIngredientWithId, RecipeIngredients } from '../types/recipe';
 import { generateKey } from './firebase.helpers';
+import { sortItemsByPosition } from './helpers';
 
 export const addGroupIdToIngredients = (
   groupId: string, ingredientsId: string[], ingredients: RecipeIngredients,
@@ -110,7 +111,7 @@ export const getIngredientsWithoutGroup = (ingredients: RecipeIngredients) => {
       ingredientsWithoutGroup.push({ ...ingredient, id: key });
     });
 
-  return ingredientsWithoutGroup;
+  return sortItemsByPosition(ingredientsWithoutGroup);
 };
 
 export const removeGroupId = (ingredients: RecipeIngredients) => {
