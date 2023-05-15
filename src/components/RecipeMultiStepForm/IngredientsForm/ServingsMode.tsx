@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { GroupWithId, GroupWithIngredients, RecipeIngredientWithId } from '../../../types/recipe';
+import { GroupWithId, GroupWithIngredients, RecipeIngredientWithId, RecipeIngredients } from '../../../types/recipe';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
-import { convertIngredientsArrayToObject, removeGroupId } from '../../../helpers/ingredient.helpers';
 
 import IngredientAndGroupList from './IngredientAndGroupList';
 import AddGroup from './AddGroup';
@@ -42,13 +41,25 @@ const ServingsMode = () => {
   const deleteGroup = (group: GroupWithIngredients) => {
     if (!window.confirm(`Supprimer le groupe "${group.name}" ?`)) return;
 
-    const groupIngredientsObj = convertIngredientsArrayToObject(group.ingredients);
-    const groupIngredientsWithoutGroupId = removeGroupId(groupIngredientsObj);
+    const groupIngredientsIds = group.ingredients.map(ing => ing.id);
 
-    // delete group and update ingredients groupId property
+    // delete group and delete its ingredients
     setRecipeFormData(draft => {
-      if (typeof draft.ingredients === 'object') {
-        draft.ingredients = { ...draft.ingredients, ...groupIngredientsWithoutGroupId };
+      const allIngredients = draft.ingredients;
+      if (typeof allIngredients === 'object') {
+        // all ingredients but the ones from the group we're deleting
+        const nonGroupIngredients: RecipeIngredients = {};
+
+        Object
+          .keys(allIngredients)
+          .filter(key => !groupIngredientsIds.includes(key))
+          .forEach(key => {
+            const ingredient = allIngredients[key];
+            if (!ingredient) return;
+            nonGroupIngredients[key] = ingredient;
+          });
+
+        draft.ingredients = nonGroupIngredients;
       }
       if (draft.groups) {
         delete draft.groups[group.id];
