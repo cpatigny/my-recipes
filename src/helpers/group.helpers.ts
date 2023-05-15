@@ -70,7 +70,7 @@ export const getGroupItems = (groups: Groups | null, ingredients: RecipeIngredie
   return sortItemsByPosition(groupItems);
 };
 
-export const sortGroups = (groups: Groups | null) => {
+export const sortGroupIdsByPosition = (groups: Groups | null) => {
   if (!groups) {
     return [];
   }

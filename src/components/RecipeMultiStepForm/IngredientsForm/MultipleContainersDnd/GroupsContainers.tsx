@@ -31,7 +31,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { useRecipeMultiStepForm } from '../../../../contexts/RecipeMultiStepFormContext';
-import { DEFAULT_GROUP, getGroupItems, sortGroups } from '../../../../helpers/group.helpers';
+import { DEFAULT_GROUP, getGroupItems, sortGroupIdsByPosition } from '../../../../helpers/group.helpers';
 import { IngredientAndGroupListProps } from '../IngredientAndGroupList';
 
 import { GroupItem } from './GroupItem';
@@ -130,8 +130,8 @@ export const GroupsContainers = ({
   };
 
   const updateGroupsIds = (newGroups: Groups | null) => {
-    const sortedNewGroups = sortGroups(newGroups);
-    setGroupsIds([DEFAULT_GROUP.id, ...sortedNewGroups]);
+    const sortedNewGroupsIds = sortGroupIdsByPosition(newGroups);
+    setGroupsIds([DEFAULT_GROUP.id, ...sortedNewGroupsIds]);
   };
 
   // find the group that contains the id
@@ -184,6 +184,7 @@ export const GroupsContainers = ({
   };
 
   // move the ingredient to its new group and remove it from the old one
+  // if the ingredient has been dropped on the same group, updates its position
   const updateIngredients = (
     items: GroupWithIngredients[],
     newIndex: number,
@@ -204,9 +205,9 @@ export const GroupsContainers = ({
           .map((ing, index) => ({ ...ing, position: index }));
       }
 
-      // if group is the new group
+      // if group is the group we dropped the ingredient in
       if (group.id === overContainer.id) {
-        // if group id the default group id set groupId property to false
+        // if group id is the default group id, set groupId property to false
         const groupId = group.id === DEFAULT_GROUP.id ? false : group.id;
 
         // add the ingredient at the right index and update its group
@@ -214,7 +215,11 @@ export const GroupsContainers = ({
 
         // list of ingredients which position needs to be updated
         const ingredientsWithPosToUpdate = newIngredients
-          .filter(ing => ing.groupId === overContainer.id)
+          .filter(ing => {
+            // because ingredients from default group have groupId set to false
+            const overId = overContainer.id === DEFAULT_GROUP.id ? false : overContainer.id;
+            return ing.groupId === overId;
+          })
           .map((ing, index) => ({ ...ing, position: index }));
 
         // update position for ingredients in the new group
