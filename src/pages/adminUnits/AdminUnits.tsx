@@ -8,6 +8,7 @@ import AdminContainer from '../../components/AdminContainer/AdminContainer';
 import UnitForm from './UnitForm';
 import Units from './Units';
 import Modal from '../../components/Modal/Modal';
+import { reverseObject } from '../../utils';
 
 const AdminUnits = () => {
   const [unitToEdit, setUnitToEdit] = useState<UnitWithId | null>(null);
@@ -29,12 +30,17 @@ const AdminUnits = () => {
     <AdminContainer className='admin-units'>
       <h1>Unités</h1>
 
-      {units && (
-        <Units units={units} setUnitToEdit={setUnitToEdit} handleDelete={handleDelete} />
-      )}
-
       <h2>Créer une unité</h2>
       <UnitForm />
+
+      <h2 className='list-title'>Liste des unités ({ units ? Object.keys(units).length : 0 })</h2>
+      {units && (
+        <Units
+          units={reverseObject(units)}
+          setUnitToEdit={setUnitToEdit}
+          handleDelete={handleDelete}
+        />
+      )}
 
       <Modal isShow={unitToEdit !== null} close={closeEditForm} title='Modifier unité'>
         <UnitForm unitToEdit={unitToEdit} close={closeEditForm} />

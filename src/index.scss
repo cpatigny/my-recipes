@@ -169,6 +169,14 @@ form textarea::placeholder {
 .admin-container {
   padding-bottom: 2rem;
 
+  h2 {
+    margin-bottom: 1.1rem;
+  }
+
+  .list-title {
+    margin-top: 2.8rem;
+  }
+
   .actions.delete-edit {
     flex-shrink: 0;
     display: flex;

@@ -3,6 +3,7 @@ import { useIngredientsDetails } from '../../contexts/IngredientsDetailsContext'
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { useRecipes } from '../../contexts/RecipesContext';
 import { deleteIngredientDetails } from '../../helpers/ingredientDetails.helpers';
+import { reverseObject } from '../../utils';
 
 import AdminContainer from '../../components/AdminContainer/AdminContainer';
 import IngredientsDetails from './IngredientsDetails';
@@ -25,22 +26,29 @@ const AdminIngredientsDetails = () => {
     if (recipes) deleteIngredientDetails(ingredientDetails.id, recipes);
   };
 
+  let nbOfIngredients = 0;
+
+  if (ingredientsDetails) {
+    nbOfIngredients = Object.keys(ingredientsDetails).length;
+  }
+
   return (
     <AdminContainer className='admin-ingredients'>
       <h1>Ingrédients</h1>
-
-      {ingredientsDetails && (
-        <IngredientsDetails
-          ingredients={ingredientsDetails}
-          setIngredientToEdit={setIngredientToEdit}
-          handleDelete={handleDelete}
-        />
-      )}
 
       <div className='ingredient-form'>
         <h2>Créer un ingrédient</h2>
         <IngredientDetailsForm />
       </div>
+
+      <h2 className='list-title'>Liste des ingrédients ({ nbOfIngredients })</h2>
+      {ingredientsDetails && (
+        <IngredientsDetails
+          ingredients={reverseObject(ingredientsDetails)}
+          setIngredientToEdit={setIngredientToEdit}
+          handleDelete={handleDelete}
+        />
+      )}
 
       <Modal isShow={!!ingredientToEdit} close={closeEditForm} title='Modifier ingrédient'>
         {ingredientToEdit && (
