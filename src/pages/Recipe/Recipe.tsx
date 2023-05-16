@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import remarkGfm from 'remark-gfm';
 import { Navigate } from 'react-router-dom';
 import { GroupWithIngredients, RecipeIngredientWithId } from '../../types/recipe';
@@ -10,6 +10,7 @@ import useRecipeBySlug from '../../hooks/useRecipeBySlug';
 import { getGroupsWithTheirIngredients } from '../../helpers/group.helpers';
 import { getIngredientsWithoutGroup } from '../../helpers/ingredient.helpers';
 import { formatDate } from '../../utils';
+import { getServingRatio } from '../../helpers/recipe.helpers';
 
 import Loading from '../../components/Loading/Loading';
 import RecipeActions from './RecipeActions';
@@ -19,6 +20,7 @@ import GoBack from '../../components/GoBack/GoBack';
 import Category from '../home/Category';
 import IngredientList from './IngredientList';
 import GroupList from './GroupList';
+import Servings from './Servings';
 
 import './Recipe.scss';
 
@@ -46,9 +48,10 @@ const components: Components = {
 };
 
 const Recipe = () => {
+  const [numberOfServings, setNumberOfServings] = useState(0);
+
   const { user } = useUser();
   const { categories } = useCategories();
-
   const { restoreScroll } = useScrollRestoration();
   const { recipe, noMatch } = useRecipeBySlug();
 
@@ -72,6 +75,8 @@ const Recipe = () => {
   if (typeof ingredients === 'object' && typeof groups === 'object') {
     groupsWithIngredients = getGroupsWithTheirIngredients(groups, ingredients);
   }
+
+  const servingRatio = getServingRatio(numberOfServings, recipe.nbServings);
 
   return (
     <div className={`show-recipe container ${recipe.imageName ? '' : 'no-image'}`}>
@@ -102,16 +107,23 @@ const Recipe = () => {
 
       <div className='ingredients'>
         <h2>Ingrédients</h2>
+        {typeof ingredients === 'object' && (
+          <Servings
+            numberOfServings={numberOfServings}
+            setNumberOfServings={setNumberOfServings}
+            recipe={recipe}
+          />
+        )}
         {typeof ingredients === 'string' && (
           <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
             { ingredients }
           </ReactMarkdown>
         )}
         {ingredientsWithoutGroup && (
-          <IngredientList ingredients={ingredientsWithoutGroup} />
+          <IngredientList ingredients={ingredientsWithoutGroup} servingRatio={servingRatio} />
         )}
         {groupsWithIngredients && (
-          <GroupList groups={groupsWithIngredients} />
+          <GroupList groups={groupsWithIngredients} servingRatio={servingRatio} />
         )}
       </div>
 

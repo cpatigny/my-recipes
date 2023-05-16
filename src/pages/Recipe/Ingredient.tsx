@@ -7,9 +7,12 @@ interface IngredientProps {
   ingredient: RecipeIngredientWithId;
   ingredientsDetails: IngredientsDetails | null;
   units: Units | null;
+  servingRatio: number | null;
 }
 
-const Ingredient = ({ ingredient, ingredientsDetails, units }: IngredientProps) => {
+const Ingredient = ({
+  ingredient, ingredientsDetails, units, servingRatio,
+}: IngredientProps) => {
   return (
     <li>
       <label className='checkbox-container'>
@@ -19,6 +22,7 @@ const Ingredient = ({ ingredient, ingredientsDetails, units }: IngredientProps) 
           ingredient={ingredient}
           ingredientsDetails={ingredientsDetails}
           units={units}
+          servingRatio={servingRatio}
         />
       </label>
     </li>

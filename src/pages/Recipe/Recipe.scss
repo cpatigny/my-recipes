@@ -92,6 +92,47 @@
     }
   }
 
+  .ingredients .servings {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    margin-bottom: 1.2rem;
+
+    .number-servings {
+      margin: 0 0.3rem;
+      padding: 0 0.6rem;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.25rem;
+      border-radius: 999px;
+      background-color: rgba($main-color, 0.8);
+      color: #fff;
+      transition-duration: 200ms;
+    }
+
+    button:hover {
+      background-color: rgba($main-color, 1);
+    }
+
+    button.disabled {
+      background-color: rgba($main-color, 0.45);
+    }
+
+    button span {
+      font-size: 1.4rem;
+    }
+  }
+
+  h2 {
+    margin-bottom: 1.6rem;
+  }
+
   .ingredients {
     ul {
       padding-left: 0;

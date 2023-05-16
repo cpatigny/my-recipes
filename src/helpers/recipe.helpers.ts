@@ -153,3 +153,11 @@ export const generateRecipeKey = () => {
   const path = 'recipes';
   return generateKey(path);
 };
+
+export const getServingRatio = (numberOfServings: number, recipeServings?: string) => {
+  if (!recipeServings) {
+    return null;
+  }
+
+  return numberOfServings / Number(recipeServings);
+};

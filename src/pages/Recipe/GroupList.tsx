@@ -4,12 +4,13 @@ import Group from './Group';
 
 interface GroupListProps {
   groups: GroupWithIngredients[];
+  servingRatio: number | null;
 }
 
-const GroupList = ({ groups }: GroupListProps) => (
+const GroupList = ({ groups, servingRatio }: GroupListProps) => (
   <>
     {groups.map(group => (
-      <Group key={group.id} {...group} />
+      <Group key={group.id} servingRatio={servingRatio} {...group} />
     ))}
   </>
 );

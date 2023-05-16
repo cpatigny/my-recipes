@@ -5,13 +5,14 @@ import IngredientList from './IngredientList';
 interface GroupProps {
   name: string;
   ingredients: RecipeIngredientWithId[];
+  servingRatio: number | null;
 }
 
-const Group = ({ name, ingredients }: GroupProps) => (
+const Group = ({ name, ingredients, servingRatio }: GroupProps) => (
   <>
     <p className='group-name'>{ name } :</p>
     <ul>
-      <IngredientList ingredients={ingredients} />
+      <IngredientList ingredients={ingredients} servingRatio={servingRatio} />
     </ul>
   </>
 );

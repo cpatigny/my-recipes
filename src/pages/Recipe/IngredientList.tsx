@@ -6,9 +6,10 @@ import Ingredient from './Ingredient';
 
 interface IngredientListProps {
   ingredients: RecipeIngredientWithId[];
+  servingRatio: number | null;
 }
 
-const IngredientList = ({ ingredients }: IngredientListProps) => {
+const IngredientList = ({ ingredients, servingRatio }: IngredientListProps) => {
   const { ingredientsDetails } = useIngredientsDetails();
   const { units } = useUnits();
 
@@ -20,6 +21,7 @@ const IngredientList = ({ ingredients }: IngredientListProps) => {
           ingredient={ingredient}
           ingredientsDetails={ingredientsDetails}
           units={units}
+          servingRatio={servingRatio}
         />
       ))}
     </ul>

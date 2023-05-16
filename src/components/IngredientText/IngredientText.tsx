@@ -9,10 +9,11 @@ interface IngredientTextProps extends React.InputHTMLAttributes<HTMLSpanElement>
   ingredientsDetails: IngredientsDetails | null;
   units: Units | null;
   amountIsBold?: boolean;
+  servingRatio?: number | null;
 }
 
 const IngredientText = ({
-  ingredient, ingredientsDetails, units, amountIsBold = true, ...props
+  ingredient, ingredientsDetails, units, amountIsBold = true, servingRatio, ...props
 }: IngredientTextProps) => {
   if (!ingredientsDetails || !units) {
     return null;
@@ -21,7 +22,15 @@ const IngredientText = ({
   const ingredientName = getIngredientName(ingredient, ingredientsDetails);
   const unit = getUnitDetails(units, ingredient.unitId);
   const unitName = getUnitName(unit, Number(ingredient.quantity));
-  const quantity = ingredient.quantity ? ingredient.quantity : '';
+  let quantity = ingredient.quantity ? ingredient.quantity : '';
+
+  if (ingredient.quantity && servingRatio) {
+    quantity = ingredient.quantity * servingRatio;
+
+    // round number to nearest decimal
+    quantity = Math.round(quantity * 10) / 10;
+  }
+
   let ingredientAmount = `${quantity}`;
   ingredientAmount += ingredientAmount.length > 0 ? ` ${unitName}` : '';
 
