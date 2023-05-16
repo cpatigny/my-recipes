@@ -5,6 +5,7 @@ import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormCon
 import { getCategoryName } from '../../../helpers/category.helpers';
 import { getGroupsWithTheirIngredients } from '../../../helpers/group.helpers';
 import { getIngredientsWithoutGroup } from '../../../helpers/ingredient.helpers';
+import { getCookTimeText } from '../../../helpers/recipe.helpers';
 
 import ReactMarkdown from 'react-markdown';
 import PreviewIngredientList from './PreviewIngredientList';
@@ -13,7 +14,7 @@ const Preview = () => {
   const { recipeFormData, previewImageSrc } = useRecipeMultiStepForm();
   const { categories } = useCategories();
 
-  const { ingredients, groups, categoryId } = recipeFormData;
+  const { ingredients, groups, categoryId, cookTimeInMins } = recipeFormData;
   const noIngredients = typeof ingredients === 'object' && Object.keys(ingredients).length === 0;
 
   let ingredientsWithoutGroup: RecipeIngredientWithId[] | null = null;
@@ -35,6 +36,10 @@ const Preview = () => {
         <h2 className='title'>{ recipeFormData.title }</h2>
         {previewImageSrc && recipeFormData.imageName && (
           <img src={previewImageSrc} alt={recipeFormData.imageName} />
+        )}
+
+        {cookTimeInMins && (
+          <p>Temps de cuisson : <b>{ getCookTimeText(cookTimeInMins) }</b></p>
         )}
 
         <p>Catégorie : { categoryName }</p>

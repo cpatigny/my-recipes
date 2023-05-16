@@ -45,6 +45,7 @@ export interface Recipe {
   slug: string;
   imageName: string | false;
   categoryId: string | false;
+  cookTimeInMins: number | false;
   nbServings?: string;
   servingsUnit?: string;
   ingredients: string | RecipeIngredients;

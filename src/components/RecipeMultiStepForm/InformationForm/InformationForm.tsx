@@ -22,7 +22,7 @@ const InformationForm = () => {
     setPreviewImageSrc,
     setRecipeFormData,
   } = useRecipeMultiStepForm();
-  const { title, slug, categoryId, imageName } = recipeFormData;
+  const { title, slug, categoryId, imageName, cookTimeInMins } = recipeFormData;
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
@@ -41,6 +41,15 @@ const InformationForm = () => {
     setRecipeFormData(draft => {
       draft.title = value;
       draft.slug = slugify(value);
+    });
+  };
+
+  const handleCookTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    const nb = Number(value);
+
+    setRecipeFormData(draft => {
+      draft.cookTimeInMins = nb > 0 ? nb : false;
     });
   };
 
@@ -121,6 +130,16 @@ const InformationForm = () => {
             ) : null;
           })}
         </select>
+      </div>
+
+      <div>
+        <label htmlFor='cookTime'>Temps de cuisson (en minutes)</label>
+        <input
+          id='cookTime'
+          name='cookTime'
+          type='number'
+          value={cookTimeInMins || 0}
+          onChange={handleCookTimeChange} />
       </div>
     </form>
   );

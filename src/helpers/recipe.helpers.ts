@@ -161,3 +161,14 @@ export const getServingRatio = (numberOfServings: number, recipeServings?: strin
 
   return numberOfServings / Number(recipeServings);
 };
+
+export const getCookTimeText = (cookTimeInMins: number) => {
+  if (cookTimeInMins < 60) {
+    return `${cookTimeInMins}min`;
+  }
+
+  const minutes = cookTimeInMins % 60;
+  const hours = (cookTimeInMins - minutes) / 60;
+  const minutesText = minutes < 10 ? `0${minutes}` : minutes;
+  return `${hours}h${minutesText}`;
+};
