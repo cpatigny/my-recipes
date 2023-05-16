@@ -185,14 +185,19 @@
         min-width: 120px;
       }
 
-      .unit {
+      .unit-container {
         flex: 1;
         min-width: auto;
         min-width: 120px;
       }
 
-      .name {
-        flex: 2;
+      .preposition {
+        flex: 1;
+        min-width: 8rem;
+      }
+
+      .name-container {
+        flex: 100%;
         min-width: 200px;
       }
 

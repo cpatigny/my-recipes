@@ -68,3 +68,8 @@ export const formatDate = (timestamp: number): string => {
 
   return `${day}/${month}/${year}`;
 };
+
+export const lastCharIs = (str: string, char: string) => {
+  const lastChar = str[str.length - 1];
+  return lastChar === char;
+};

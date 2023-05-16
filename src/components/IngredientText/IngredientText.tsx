@@ -3,6 +3,7 @@ import { getUnitDetails, getUnitName } from '../../helpers/units.helpers';
 import { IngredientsDetails } from '../../types/ingredientDetails';
 import { RecipeIngredientWithId, RecipeIngredient } from '../../types/recipe';
 import { Units } from '../../types/unit';
+import { lastCharIs } from '../../utils';
 
 interface IngredientTextProps extends React.InputHTMLAttributes<HTMLSpanElement> {
   ingredient: RecipeIngredientWithId | RecipeIngredient;
@@ -31,6 +32,16 @@ const IngredientText = ({
     quantity = Math.round(quantity * 10) / 10;
   }
 
+  let prepositionText = '';
+
+  if (ingredient.preposition) {
+    prepositionText = ingredient.preposition;
+  }
+
+  if (!lastCharIs(prepositionText, `'`)) {
+    prepositionText = `${prepositionText} `; // add space
+  }
+
   let ingredientAmount = `${quantity}`;
   ingredientAmount += ingredientAmount.length > 0 ? ` ${unitName}` : '';
 
@@ -46,6 +57,7 @@ const IngredientText = ({
         ingredientAmount
       )}
       {' '}
+      { prepositionText }
       { ingredientName }
     </span>
   );

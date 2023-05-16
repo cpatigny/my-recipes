@@ -17,6 +17,7 @@ export const DEFAULT_INGREDIENT: RecipeIngredientWithId = {
   unitId: false,
   detailsId: '',
   groupId: false,
+  preposition: false,
 };
 
 export const DefaultGroup = ({

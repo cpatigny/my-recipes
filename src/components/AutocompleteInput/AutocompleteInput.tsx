@@ -19,6 +19,7 @@ interface AutocompleteInputProps<T extends RequiredProps>
     name: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: string;
+    noMatchingMsg: string;
 }
 
 const AutocompleteInput = <T extends RequiredProps>({
@@ -31,6 +32,7 @@ const AutocompleteInput = <T extends RequiredProps>({
   value,
   onChange,
   labelText,
+  noMatchingMsg,
   name,
   ...inputProps
 }: AutocompleteInputProps<T>) => {
@@ -74,8 +76,10 @@ const AutocompleteInput = <T extends RequiredProps>({
     }
   };
 
+  const containerClassName = `${name}-container`;
+
   return (
-    <div className='autocomplete-container' ref={autocompleteContainerRef}>
+    <div className={`autocomplete-container ${containerClassName}`} ref={autocompleteContainerRef}>
       <UnderlineInput
         labelText={labelText}
         error={error}
@@ -94,7 +98,7 @@ const AutocompleteInput = <T extends RequiredProps>({
           matchingObjects={matchingObjects}
           propertyToShow={propertyToShow}
           secondaryPropertyToShow={secondaryPropertyToShow}
-          noMatchingMsg='Aucun ingrédient trouvé'
+          noMatchingMsg={noMatchingMsg}
           selectItem={selectItemAndCloseAutocomplete}
         />
       )}

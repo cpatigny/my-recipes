@@ -25,6 +25,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
     quantity: '',
     unitId: '',
     detailsId: '',
+    preposition: '',
   };
 
   const [
@@ -55,6 +56,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
       quantity: ingredient.quantity ? ingredient.quantity.toString() : '',
       unitId: ingredient.unitId ? ingredient.unitId : '',
       detailsId: ingredient.detailsId,
+      preposition: ingredient.preposition ? ingredient.preposition : '',
     });
 
     const ingredientDetails = ingredientsDetails[ingredient.detailsId];
@@ -100,6 +102,10 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
 
     if (ingredientToValidate.unitId && !ingredientToValidate.quantity) {
       errors.quantity = `La quantité doit être indiquée si une unité est fournie`;
+    }
+
+    if (!ingredientToValidate.unitId && ingredientToValidate.preposition) {
+      errors.unit = `Une unité est requise si une préposition est fournie`;
     }
 
     return errors;
@@ -233,6 +239,16 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
             name='unit'
             value={unitName}
             onChange={handleUnitChange}
+            error={!!ingredientErrors.unit}
+            noMatchingMsg='Aucune unité trouvée'
+          />
+
+          <UnderlineInput
+            labelText='Préposition'
+            name='preposition'
+            type='text'
+            value={ingredientData.preposition}
+            onChange={handleIngredientChange}
           />
 
           <AutocompleteInput<IngredientDetailsWithId>
@@ -245,6 +261,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
             value={ingredientName}
             error={!!ingredientErrors.name}
             onChange={handleIngredientNameChange}
+            noMatchingMsg='Aucun ingrédient trouvé'
             required
           />
         </div>
