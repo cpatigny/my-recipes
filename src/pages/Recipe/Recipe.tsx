@@ -39,7 +39,12 @@ const Recipe = () => {
     <div className={`show-recipe container ${recipe.imageName ? '' : 'no-image'}`}>
       <div className='recipe-header'>
         <GoBack />
-        <h1>{ recipe.title }</h1>
+        <div className='title-category'>
+          <h1>{ recipe.title }</h1>
+          { recipeCategory && (
+            <Category category={recipeCategory} />
+          )}
+        </div>
       </div>
 
       <div className='wrapper'>
@@ -53,14 +58,6 @@ const Recipe = () => {
       </div>
 
       <RecipeImage recipe={recipe} />
-
-      { recipeCategory && (
-        <>
-          catégorie :
-          {' '}
-          <Category category={recipeCategory} />
-        </>
-      )}
 
       {cookTimeInMins && (
         <p>Temps de cuisson : <b>{ getCookTimeText(cookTimeInMins) }</b></p>
