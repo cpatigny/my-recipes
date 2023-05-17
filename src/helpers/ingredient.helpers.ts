@@ -1,5 +1,6 @@
 import { IngredientsDetails } from '../types/ingredientDetails';
 import { GroupWithId, RecipeIngredient, RecipeIngredientWithId, RecipeIngredients } from '../types/recipe';
+import { lastCharIs } from '../utils';
 import { generateKey } from './firebase.helpers';
 import { sortItemsByPosition } from './helpers';
 
@@ -131,4 +132,31 @@ export const removeGroupId = (ingredients: RecipeIngredients) => {
 export const generateIngredientKey = (recipeId: string) => {
   const path = `recipes/${recipeId}/groups`;
   return generateKey(path);
+};
+
+export const getQuantityText = (quantity: number | false, servingRatio?: number) => {
+  let quantityText = quantity || '';
+
+  if (quantity && servingRatio) {
+    quantityText = quantity * servingRatio;
+
+    // round number to nearest decimal
+    quantityText = Math.round(quantity * 10) / 10;
+  }
+
+  return quantityText.toString();
+};
+
+export const getPrepositionText = (preposition: string | false) => {
+  let prepositionText = '';
+
+  if (preposition) {
+    prepositionText = preposition;
+  }
+
+  if (!lastCharIs(prepositionText, `'`)) {
+    prepositionText = `${prepositionText} `; // add space
+  }
+
+  return prepositionText;
 };

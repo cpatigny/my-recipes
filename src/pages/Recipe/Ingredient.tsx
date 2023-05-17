@@ -7,7 +7,7 @@ interface IngredientProps {
   ingredient: RecipeIngredientWithId;
   ingredientsDetails: IngredientsDetails | null;
   units: Units | null;
-  servingRatio: number | null;
+  servingRatio?: number;
 }
 
 const Ingredient = ({

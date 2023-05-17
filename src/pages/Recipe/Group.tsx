@@ -5,7 +5,7 @@ import IngredientList from './IngredientList';
 interface GroupProps {
   name: string;
   ingredients: RecipeIngredientWithId[];
-  servingRatio: number | null;
+  servingRatio?: number;
 }
 
 const Group = ({ name, ingredients, servingRatio }: GroupProps) => (

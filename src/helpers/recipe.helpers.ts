@@ -156,7 +156,7 @@ export const generateRecipeKey = () => {
 
 export const getServingRatio = (numberOfServings: number, recipeServings?: string) => {
   if (!recipeServings) {
-    return null;
+    return undefined;
   }
 
   return numberOfServings / Number(recipeServings);

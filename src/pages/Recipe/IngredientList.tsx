@@ -6,7 +6,7 @@ import Ingredient from './Ingredient';
 
 interface IngredientListProps {
   ingredients: RecipeIngredientWithId[];
-  servingRatio: number | null;
+  servingRatio?: number;
 }
 
 const IngredientList = ({ ingredients, servingRatio }: IngredientListProps) => {
