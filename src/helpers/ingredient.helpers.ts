@@ -141,7 +141,9 @@ export const getQuantityText = (quantity: number | false, servingRatio?: number)
     quantityText = quantity * servingRatio;
 
     // round number to nearest decimal
-    quantityText = Math.round(quantity * 10) / 10;
+    quantityText = Math.round(quantityText * 10) / 10;
+    quantityText = quantityText === 0.5 ? '1/2' : quantityText;
+    quantityText = quantityText === 0.25 ? '1/4' : quantityText;
   }
 
   return quantityText.toString();
