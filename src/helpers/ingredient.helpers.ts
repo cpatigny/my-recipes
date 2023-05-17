@@ -141,10 +141,18 @@ export const getQuantityText = (quantity: number | false, servingRatio?: number)
 
   // round number to nearest decimal
   quantityNumber = Math.round(quantityNumber * 10) / 10;
-  let quantityText = quantityNumber === 0.5 ? '1/2' : quantityNumber;
-  quantityText = quantityNumber === 0.25 ? '1/4' : quantityNumber;
 
-  return quantityText.toString();
+  let quantityText = quantityNumber.toString();
+
+  if (quantityNumber === 0.5) {
+    quantityText = '1/2';
+  }
+
+  if (quantityNumber === 0.25) {
+    quantityText = '1/4';
+  }
+
+  return quantityText;
 };
 
 export const getPrepositionText = (preposition: string | false) => {
