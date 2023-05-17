@@ -55,7 +55,7 @@ export interface Recipe {
   ingredients: string | RecipeIngredients;
   groups?: Groups;
   content: string;
-  createdAt?: number;
+  createdAt: number;
 }
 
 export interface Recipes {

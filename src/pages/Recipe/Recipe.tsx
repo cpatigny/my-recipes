@@ -48,11 +48,9 @@ const Recipe = () => {
       </div>
 
       <div className='wrapper'>
-        { recipe.createdAt &&
-          <div className='recipe-date'>
-            <span>Ajouté le <b>{ formatDate(recipe.createdAt) }</b></span>
-          </div>
-        }
+        <div className='recipe-date'>
+          <span>Ajouté le <b>{ formatDate(recipe.createdAt) }</b></span>
+        </div>
 
         { user && <RecipeActions recipe={recipe} /> }
       </div>
