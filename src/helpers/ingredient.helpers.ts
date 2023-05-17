@@ -135,16 +135,14 @@ export const generateIngredientKey = (recipeId: string) => {
 };
 
 export const getQuantityText = (quantity: number | false, servingRatio?: number) => {
-  let quantityText = quantity || '';
+  if (!quantity || !servingRatio) return '';
 
-  if (quantity && servingRatio) {
-    quantityText = quantity * servingRatio;
+  let quantityNumber = quantity * servingRatio;
 
-    // round number to nearest decimal
-    quantityText = Math.round(quantityText * 10) / 10;
-    quantityText = quantityText === 0.5 ? '1/2' : quantityText;
-    quantityText = quantityText === 0.25 ? '1/4' : quantityText;
-  }
+  // round number to nearest decimal
+  quantityNumber = Math.round(quantityNumber * 10) / 10;
+  let quantityText = quantityNumber === 0.5 ? '1/2' : quantityNumber;
+  quantityText = quantityNumber === 0.25 ? '1/4' : quantityNumber;
 
   return quantityText.toString();
 };
