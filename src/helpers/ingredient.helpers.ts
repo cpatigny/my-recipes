@@ -135,8 +135,8 @@ export const generateIngredientKey = (recipeId: string) => {
 };
 
 export const getQuantityText = (quantity: number | false, servingRatio?: number) => {
-  if (!quantity || !servingRatio) return '';
-
+  if (!quantity) return '';
+  if (!servingRatio) return quantity.toString();
   let quantityNumber = quantity * servingRatio;
 
   // round number to nearest decimal
