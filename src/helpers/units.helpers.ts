@@ -19,7 +19,12 @@ export const getMatchingUnits = (search: string, units: Units | null) => {
       const singularContainsSearch = strContains(unit.singular, search);
       const pluralContainsSearch = strContains(unit.plural, search);
 
-      if (singularContainsSearch || pluralContainsSearch) {
+      let unitMatchesSearch = false;
+      if (unit.symbol) {
+        unitMatchesSearch = strContains(unit.symbol, search);
+      }
+
+      if (singularContainsSearch || pluralContainsSearch || unitMatchesSearch) {
         matchingUnits.push({ id: key, ...unit });
       }
     });
