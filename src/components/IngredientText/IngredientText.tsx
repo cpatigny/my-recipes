@@ -42,6 +42,8 @@ const IngredientText = ({
     prepositionText = `${prepositionText} `; // add space
   }
 
+  const additionalInfo = ingredient.additionalInfo ? ingredient.additionalInfo : '';
+
   let ingredientAmount = `${quantity}`;
   ingredientAmount += ingredientAmount.length > 0 ? ` ${unitName}` : '';
 
@@ -59,6 +61,8 @@ const IngredientText = ({
       {' '}
       { prepositionText }
       { ingredientName }
+      {' '}
+      { additionalInfo }
     </span>
   );
 };

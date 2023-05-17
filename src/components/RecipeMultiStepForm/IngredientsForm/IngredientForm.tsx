@@ -26,6 +26,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
     unitId: '',
     detailsId: '',
     preposition: '',
+    additionalInfo: '',
   };
 
   const [
@@ -57,6 +58,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
       unitId: ingredient.unitId ? ingredient.unitId : '',
       detailsId: ingredient.detailsId,
       preposition: ingredient.preposition ? ingredient.preposition : '',
+      additionalInfo: ingredient.additionalInfo ? ingredient.additionalInfo : '',
     });
 
     const ingredientDetails = ingredientsDetails[ingredient.detailsId];
@@ -207,7 +209,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
 
   const selectUnit = (unitToSelect: UnitWithId) => {
     setIngredientData({ ...ingredientData, unitId: unitToSelect.id });
-    setUnitName(unitToSelect.singular);
+    setUnitName(unitToSelect.symbol ? unitToSelect.symbol : unitToSelect.singular);
   };
 
   return (
@@ -263,6 +265,14 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
             onChange={handleIngredientNameChange}
             noMatchingMsg='Aucun ingrédient trouvé'
             required
+          />
+
+          <UnderlineInput
+            labelText='Information supplémentaire'
+            name='additionalInfo'
+            type='text'
+            value={ingredientData.additionalInfo}
+            onChange={handleIngredientChange}
           />
         </div>
         { hasErrors && (

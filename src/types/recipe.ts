@@ -5,6 +5,7 @@ export interface RecipeIngredient {
   detailsId: string;
   groupId: string | false;
   preposition: string | false;
+  additionalInfo: string | false;
 }
 
 export interface RecipeIngredientWithId extends RecipeIngredient {
@@ -20,6 +21,7 @@ export interface RecipeIngredientFormData {
   unitId: string;
   detailsId: string;
   preposition: string;
+  additionalInfo: string;
 }
 
 export interface Group {

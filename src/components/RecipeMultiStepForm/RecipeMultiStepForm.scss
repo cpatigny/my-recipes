@@ -181,7 +181,7 @@
       }
 
       .quantity {
-        flex: 1;
+        flex: 0.6;
         min-width: 120px;
       }
 
@@ -199,6 +199,10 @@
       .name-container {
         flex: 100%;
         min-width: 200px;
+      }
+
+      .additionalInfo {
+        flex: 1;
       }
 
       .form-errors {
