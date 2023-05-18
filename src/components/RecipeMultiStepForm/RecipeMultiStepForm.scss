@@ -434,9 +434,19 @@
       min-width: 120px;
     }
 
+    .preposition {
+      flex: 1;
+      min-width: 6.25rem;
+    }
+
     .name {
       flex: 2;
       min-width: 200px;
+    }
+
+    .additionalInfo {
+      flex: 1;
+      min-width: 12.5rem;
     }
 
     .form-errors {
