@@ -19,10 +19,15 @@ const IngredientText = ({
     return null;
   }
 
-  const ingredientName = getIngredientName(ingredient, ingredientsDetails);
+  let quantity = Number(ingredient.quantity); // 0 if false
+  if (servingRatio) {
+    quantity *= servingRatio;
+  }
+
+  const ingredientName = getIngredientName(ingredient, quantity, ingredientsDetails);
   const unit = getUnitDetails(units, ingredient.unitId);
-  const unitName = getUnitName(unit, Number(ingredient.quantity));
-  const quantityText = getQuantityText(ingredient.quantity, servingRatio);
+  const unitName = getUnitName(unit, quantity);
+  const quantityText = getQuantityText(quantity);
   const prepositionText = getPrepositionText(ingredient.preposition);
   const additionalInfo = ingredient.additionalInfo ? ingredient.additionalInfo : '';
 

@@ -85,6 +85,7 @@ export const getExcludedIngredients = (
 
 export const getIngredientName = (
   ingredient: RecipeIngredientWithId | RecipeIngredient,
+  quantity: number,
   ingredientsDetails: IngredientsDetails | null,
 ) => {
   if (!ingredientsDetails) return '';
@@ -92,8 +93,7 @@ export const getIngredientName = (
   const details = ingredientsDetails[ingredient.detailsId];
   if (!details) return '';
 
-  const quantity = ingredient.quantity;
-  if (quantity && quantity > 1) {
+  if (quantity >= 2) {
     return details.plural;
   }
 
@@ -134,21 +134,19 @@ export const generateIngredientKey = (recipeId: string) => {
   return generateKey(path);
 };
 
-export const getQuantityText = (quantity: number | false, servingRatio?: number) => {
+export const getQuantityText = (quantity: number) => {
   if (!quantity) return '';
-  if (!servingRatio) return quantity.toString();
-  let quantityNumber = quantity * servingRatio;
 
   // round number to nearest decimal
-  quantityNumber = Math.round(quantityNumber * 10) / 10;
+  const roundedQuantity = Math.round(quantity * 10) / 10;
 
-  let quantityText = quantityNumber.toString();
+  let quantityText = roundedQuantity.toString();
 
-  if (quantityNumber === 0.5) {
+  if (roundedQuantity === 0.5) {
     quantityText = '1/2';
   }
 
-  if (quantityNumber === 0.25) {
+  if (roundedQuantity === 0.25) {
     quantityText = '1/4';
   }
 

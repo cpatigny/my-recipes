@@ -57,7 +57,7 @@ export const getUnitName = (unit: Unit, quantity: number) => {
     return unit.symbol;
   }
 
-  if (quantity > 1) {
+  if (quantity >= 2) {
     return unit.plural;
   }
 
