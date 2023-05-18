@@ -158,8 +158,8 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
       if (!ingredientToEdit) return;
 
       draft.ingredients[ingredient.id] = {
-        ...ingredientData,
         ...ingredientToEdit,
+        ...ingredientData,
         unitId: ingredientData.unitId ? ingredientData.unitId : false,
         quantity: ingredientData.quantity ? Number(ingredientData.quantity) : false,
       };
