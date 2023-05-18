@@ -224,8 +224,8 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
             labelText='Quantité'
             name='quantity'
             type='number'
-            min='1'
-            step='1'
+            min='0.1'
+            step='0.1'
             value={ingredientData.quantity}
             onChange={handleIngredientChange}
             error={!!ingredientErrors.quantity}
