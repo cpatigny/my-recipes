@@ -30,21 +30,13 @@ const IngredientText = ({
   ingredientAmount += ingredientAmount.length > 0 ? ` ${unitName}` : '';
 
   if (ingredientAmount.length === 0) {
-    return <span {...props}>{ ingredientName }</span>;
+    return <span {...props}>{`${ingredientName} ${additionalInfo}`}</span>;
   }
 
   return (
     <span {...props}>
-      {amountIsBold ? (
-        <b>{ ingredientAmount }</b>
-      ) : (
-        ingredientAmount
-      )}
-      {' '}
-      { prepositionText }
-      { ingredientName }
-      {' '}
-      { additionalInfo }
+      {amountIsBold ? <b>{ ingredientAmount }</b> : ingredientAmount}
+      {` ${prepositionText}${ingredientName} ${additionalInfo}`}
     </span>
   );
 };
