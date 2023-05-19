@@ -94,6 +94,13 @@ const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) => {
       throw new Error('Calling editGroup function when not in edit mode');
     }
 
+    setRecipeFormData(draft => {
+      if (!draft.groups) return;
+      const groupToUpdate = draft.groups[group.id];
+      if (!groupToUpdate) return;
+      groupToUpdate.name = groupData.name;
+    });
+
     const groupedIngredients = addGroupIdToIngredients(
       group.id, groupData.ingredients, ingredients,
     );
