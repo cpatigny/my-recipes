@@ -80,7 +80,7 @@
 
 .mobile-menu {
   $top-bottom-padding: 0.4rem;
-  $left-right-padding: 1.8rem;
+  $left-right-padding: 2.8rem;
 
   position: fixed;
   right: 0;
@@ -129,7 +129,8 @@
     margin-bottom: 0.3rem;
 
     span {
-      margin-right: 0.8rem;
+      margin-right: 1.1rem;
+      opacity: 0.9;
     }
 
     &.active {
