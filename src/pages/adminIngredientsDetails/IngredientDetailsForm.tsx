@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { updateIngredientDetails, createIngredientDetails } from '../../helpers/ingredientDetails.helpers';
+import UnderlineInput from '../../components/UnderlineInput/UnderlineInput';
 
 interface IngredientFormProps {
   ingredientToEdit?: IngredientDetailsWithId;
@@ -44,27 +45,24 @@ const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFormProps)
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor='singular'>Ingrédient (au <b>singulier</b>)</label>
-        <input
-          ref={inputRef}
-          id='singular'
-          type='text'
-          required
-          value={singular}
-          onChange={e => setSingular(e.currentTarget.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor='plural'>Ingrédient (au <b>pluriel</b>)</label>
-        <input
-          id='plural'
-          type='text'
-          required
-          value={plural}
-          onChange={e => setPlural(e.currentTarget.value)}
-        />
-      </div>
+      <UnderlineInput
+        labelText='Singulier'
+        ref={inputRef}
+        name='singular'
+        type='text'
+        required
+        value={singular}
+        onChange={e => setSingular(e.currentTarget.value)}
+      />
+
+      <UnderlineInput
+        labelText='Pluriel'
+        name='plural'
+        type='text'
+        required
+        value={plural}
+        onChange={e => setPlural(e.currentTarget.value)}
+      />
       <button>{ ingredientToEdit ? 'Modifier' : 'Créer un ingrédient' }</button>
     </form>
   );

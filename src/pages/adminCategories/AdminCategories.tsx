@@ -1,72 +1,41 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useCategories } from '../../contexts/CategoriesContext';
-import { createCategory } from '../../helpers/category.helpers';
-import { slugify } from '../../utils';
+import { CategoryWithId } from '../../types/category';
 
 import AdminCategoryList from './AdminCategoryList';
 import AdminContainer from '../../components/AdminContainer/AdminContainer';
+import CategoryForm from './CategoryForm';
+import Block from '../../components/Block/Block';
 
 import './AdminCategories.scss';
+import Modal from '../../components/Modal/Modal';
 
 const AdminCategories = () => {
-  const [name, setName] = useState('');
-  const [slug, setSlug] = useState('');
+  const [categoryToEdit, setCategoryToEdit] = useState<CategoryWithId | null>(null);
 
   const { categories } = useCategories();
-  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
-    setName(value);
-    setSlug(slugify(value));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await createCategory({ name, slug });
-    alert(`La catégorie "${name}" a bien été crée.`);
-    setName('');
-    setSlug('');
-
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  };
+  const closeModal = () => setCategoryToEdit(null);
 
   return (
     <AdminContainer className='admin-categories'>
       <h1>Catégories</h1>
 
-      <AdminCategoryList categories={categories} />
-
-      <div className='category-form'>
+      <Block className='form-container'>
         <h2>Ajouter une catégorie</h2>
+        <CategoryForm />
+      </Block>
 
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='name'>Nom de la catégorie</label>
-            <input
-              ref={inputRef}
-              type='text'
-              id='name'
-              required
-              value={name}
-              onChange={handleNameChange} />
-          </div>
+      <Block>
+        <h2 className='list-title'>Liste des catégories</h2>
+        <AdminCategoryList categories={categories} setCategoryToEdit={setCategoryToEdit} />
+      </Block>
 
-          <div>
-            <label htmlFor='slug'>Slug</label>
-            <input
-              type='text'
-              id='slug'
-              required
-              value={slug}
-              onChange={e => setSlug(slugify(e.currentTarget.value))} />
-          </div>
-
-          <button>Ajouter</button>
-        </form>
-      </div>
+      <Modal isShow={!!categoryToEdit} title='Modifier catégorie' close={closeModal}>
+        {categoryToEdit && (
+          <CategoryForm categoryToEdit={categoryToEdit} closeModal={closeModal} />
+        )}
+      </Modal>
     </AdminContainer>
   );
 };

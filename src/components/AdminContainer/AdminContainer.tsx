@@ -4,6 +4,8 @@ import { useUser } from '../../contexts/UserContext';
 import { Navigate } from 'react-router-dom';
 import Menu from '../Menu/Menu';
 
+import './AdminContainer.scss';
+
 interface AdminContainerProps {
   className: string;
   children: React.ReactNode;

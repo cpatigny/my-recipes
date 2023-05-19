@@ -9,6 +9,9 @@ import AdminContainer from '../../components/AdminContainer/AdminContainer';
 import IngredientsDetails from './IngredientsDetails';
 import Modal from '../../components/Modal/Modal';
 import IngredientDetailsForm from './IngredientDetailsForm';
+import Block from '../../components/Block/Block';
+
+import './AdminIngredientsDetails.scss';
 
 const AdminIngredientsDetails = () => {
   const [ingredientToEdit, setIngredientToEdit] = useState<IngredientDetailsWithId | null>(null);
@@ -36,19 +39,21 @@ const AdminIngredientsDetails = () => {
     <AdminContainer className='admin-ingredients'>
       <h1>Ingrédients</h1>
 
-      <div className='ingredient-form'>
+      <Block className='form-container'>
         <h2>Créer un ingrédient</h2>
         <IngredientDetailsForm />
-      </div>
+      </Block>
 
-      <h2 className='list-title'>Liste des ingrédients ({ nbOfIngredients })</h2>
-      {ingredientsDetails && (
-        <IngredientsDetails
-          ingredients={reverseObject(ingredientsDetails)}
-          setIngredientToEdit={setIngredientToEdit}
-          handleDelete={handleDelete}
-        />
-      )}
+      <Block>
+        <h2 className='list-title'>Liste des ingrédients ({ nbOfIngredients })</h2>
+        {ingredientsDetails && (
+          <IngredientsDetails
+            ingredients={reverseObject(ingredientsDetails)}
+            setIngredientToEdit={setIngredientToEdit}
+            handleDelete={handleDelete}
+          />
+        )}
+      </Block>
 
       <Modal isShow={!!ingredientToEdit} close={closeEditForm} title='Modifier ingrédient'>
         {ingredientToEdit && (

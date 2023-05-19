@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { UnitWithId } from '../../types/unit';
 import { updateUnit, createUnit } from '../../helpers/units.helpers';
+import UnderlineInput from '../../components/UnderlineInput/UnderlineInput';
 
 interface UnitFormData {
   singular: string;
@@ -67,39 +68,30 @@ const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor='singular'>Unité (au <b>singulier</b>)</label>
-        <input
-          ref={inputRef}
-          id='singular'
-          name='singular'
-          type='text'
-          required
-          value={unitFormData.singular}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor='plural'>Unité (au <b>pluriel</b>)</label>
-        <input
-          id='plural'
-          name='plural'
-          type='text'
-          required
-          value={unitFormData.plural}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor='symbol'>Symbole (facultatif)</label>
-        <input
-          id='symbol'
-          name='symbol'
-          type='text'
-          value={unitFormData.symbol}
-          onChange={handleChange}
-        />
-      </div>
+      <UnderlineInput
+        labelText='Singulier'
+        ref={inputRef}
+        name='singular'
+        type='text'
+        required
+        value={unitFormData.singular}
+        onChange={handleChange}
+      />
+      <UnderlineInput
+        labelText='Pluriel'
+        name='plural'
+        type='text'
+        required
+        value={unitFormData.plural}
+        onChange={handleChange}
+      />
+      <UnderlineInput
+        labelText='Symbole (facultatif)'
+        name='symbol'
+        type='text'
+        value={unitFormData.symbol}
+        onChange={handleChange}
+      />
       <button>
         { unitToEdit ? `Modifier l'unité` : 'Ajouter une unité' }
       </button>

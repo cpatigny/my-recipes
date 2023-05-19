@@ -1,22 +1,29 @@
-import { Categories } from '../../types/category';
+import { Categories, CategoryWithId } from '../../types/category';
 
 import AdminCategory from './AdminCategory';
 
 interface AdminCategoryListProps {
   categories: Categories | null;
+  setCategoryToEdit: React.Dispatch<React.SetStateAction<CategoryWithId | null>>;
 }
 
-const AdminCategoryList = ({ categories }: AdminCategoryListProps) => {
+const AdminCategoryList = ({ categories, setCategoryToEdit }: AdminCategoryListProps) => {
   if (!categories) return null;
 
   return (
-    <div className='category-list'>
+    <ul className='admin-list'>
       {categories && Object.keys(categories).map(key => {
         const category = categories[key];
         if (!category) return null;
-        return <AdminCategory key={key} category={{ id: key, ...category }} />;
+        return (
+          <AdminCategory
+            key={key}
+            category={{ id: key, ...category }}
+            setCategoryToEdit={setCategoryToEdit}
+          />
+        );
       })}
-    </div>
+    </ul>
   );
 };
 

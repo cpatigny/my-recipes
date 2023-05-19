@@ -14,6 +14,7 @@ import { FormErrors } from '../RecipeMultiStepForm';
 import AutocompleteInput from '../../AutocompleteInput/AutocompleteInput';
 import Icon from '../../Icon/Icon';
 import UnderlineInput from '../../UnderlineInput/UnderlineInput';
+import Block from '../../Block/Block';
 
 interface IngredientFormProps {
   ingredient?: RecipeIngredientWithId;
@@ -209,7 +210,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
   };
 
   return (
-    <div className={editMode ? 'edit-ingredient' : 'add-ingredient'}>
+    <Block className={editMode ? 'edit-ingredient' : 'add-ingredient'}>
       {!editMode && (
         <p className='label'><b>Ajout d&apos;ingrédients :</b></p>
       )}
@@ -283,7 +284,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
           { editMode ? 'Modifier ' : 'Ajouter ingrédient' }
         </button>
       </form>
-    </div>
+    </Block>
   );
 };
 

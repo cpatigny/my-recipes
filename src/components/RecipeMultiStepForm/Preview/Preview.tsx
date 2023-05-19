@@ -9,6 +9,7 @@ import { getCookTimeText } from '../../../helpers/recipe.helpers';
 
 import ReactMarkdown from 'react-markdown';
 import PreviewIngredientList from './PreviewIngredientList';
+import Block from '../../Block/Block';
 
 const Preview = () => {
   const { recipeFormData, previewImageSrc } = useRecipeMultiStepForm();
@@ -28,7 +29,7 @@ const Preview = () => {
 
   return (
     <div id='submit-recipe' className='form-container preview'>
-      <div className='recipe-preview'>
+      <Block className='recipe-preview'>
         <h2 className='title'>{ recipeFormData.title }</h2>
         {previewImageSrc && recipeFormData.imageName && (
           <img src={previewImageSrc} alt={recipeFormData.imageName} />
@@ -60,7 +61,7 @@ const Preview = () => {
         <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: 'h3', h2: 'h3' }}>
           { recipeFormData.content }
         </ReactMarkdown>
-      </div>
+      </Block>
     </div>
   );
 };

@@ -1,4 +1,6 @@
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
+
+import Block from '../../Block/Block';
 import UnderlineInput from '../../UnderlineInput/UnderlineInput';
 
 interface NbOfServingsProps {
@@ -10,7 +12,7 @@ const NbOfServings = ({ handleStepSubmit }: NbOfServingsProps) => {
   const { nbServings, servingsUnit } = recipeFormData;
 
   return (
-    <div className='servings'>
+    <Block className='servings'>
       <p className='label'><b>Nombre de portions :</b></p>
       <form id={step.formId} className='d-flex items-center' onSubmit={handleStepSubmit}>
         <UnderlineInput
@@ -31,7 +33,7 @@ const NbOfServings = ({ handleStepSubmit }: NbOfServingsProps) => {
           onChange={handleChange} />
       </form>
       <i className='example'>Exemple : 2 personnes, 1 tarte, 4 bols...</i>
-    </div>
+    </Block>
   );
 };
 

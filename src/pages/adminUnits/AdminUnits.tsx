@@ -3,12 +3,15 @@ import { useUnits } from '../../contexts/UnitsContext';
 import { UnitWithId } from '../../types/unit';
 import { useRecipes } from '../../contexts/RecipesContext';
 import { deleteUnit } from '../../helpers/units.helpers';
+import { reverseObject } from '../../utils';
 
 import AdminContainer from '../../components/AdminContainer/AdminContainer';
 import UnitForm from './UnitForm';
 import Units from './Units';
 import Modal from '../../components/Modal/Modal';
-import { reverseObject } from '../../utils';
+import Block from '../../components/Block/Block';
+
+import './AdminUnits.scss';
 
 const AdminUnits = () => {
   const [unitToEdit, setUnitToEdit] = useState<UnitWithId | null>(null);
@@ -30,17 +33,21 @@ const AdminUnits = () => {
     <AdminContainer className='admin-units'>
       <h1>Unités</h1>
 
-      <h2>Créer une unité</h2>
-      <UnitForm />
+      <Block className='form-container'>
+        <h2>Créer une unité</h2>
+        <UnitForm />
+      </Block>
 
-      <h2 className='list-title'>Liste des unités ({ units ? Object.keys(units).length : 0 })</h2>
-      {units && (
-        <Units
-          units={reverseObject(units)}
-          setUnitToEdit={setUnitToEdit}
-          handleDelete={handleDelete}
-        />
-      )}
+      <Block>
+        <h2 className='list-title'>Unités ({ units ? Object.keys(units).length : 0 })</h2>
+        {units && (
+          <Units
+            units={reverseObject(units)}
+            setUnitToEdit={setUnitToEdit}
+            handleDelete={handleDelete}
+          />
+        )}
+      </Block>
 
       <Modal isShow={unitToEdit !== null} close={closeEditForm} title='Modifier unité'>
         <UnitForm unitToEdit={unitToEdit} close={closeEditForm} />
