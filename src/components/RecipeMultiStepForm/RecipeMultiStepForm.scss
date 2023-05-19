@@ -93,39 +93,7 @@
     margin-bottom: 8px;
   }
 
-  .mode-switcher {
-    display: inline-block;
-    padding: 4px;
-    background-color: #fff;
-    border: none;
-    border-radius: 999px;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
-    margin: 6px 0 8px;
-
-    .mode-btn {
-      margin: 0;
-      border-radius: 999px;
-      border: none;
-      padding: 6px 16px;
-      background-color: transparent;
-      font-size: 1rem;
-
-      &:last-child {
-        margin-left: 2px;
-      }
-
-      &.active {
-        background-color: rgba($main-color, 0.9);
-        color: #fff;
-      }
-
-      &:not(.active):hover {
-        background-color: rgba($main-color, 0.15);
-      }
-    }
-  }
-
-  .servings-mode {
+  .ingredients-form {
     margin: 12px 0 0;
 
     & > div:not(.modal-overlay) {
@@ -508,7 +476,7 @@
 
 @media (hover: none) and (pointer: coarse) {
   .edit-recipe, .add-recipe {
-    .servings-mode .group-containers .group-header {
+    .ingredients-form .group-containers .group-header {
       .delete-group, .edit {
         opacity: 1;
       }

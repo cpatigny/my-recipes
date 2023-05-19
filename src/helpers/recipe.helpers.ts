@@ -44,10 +44,6 @@ export const getRecipesByCategory = (recipes: Recipes, categoryId: string): Reci
 export const recipeUses = (recipe: Recipe, id: string, property: keyof RecipeIngredient) => {
   const ingredients = recipe.ingredients;
 
-  if (typeof ingredients === 'string') {
-    return false;
-  }
-
   return Object
     .keys(ingredients)
     .some(key => {
@@ -60,10 +56,6 @@ export const recipeUses = (recipe: Recipe, id: string, property: keyof RecipeIng
 export const removeValuefromRecipeIngredients = (
   recipe: Recipe, property: keyof RecipeIngredient, id: string,
 ) => {
-  if (typeof recipe.ingredients === 'string') {
-    return recipe;
-  }
-
   const updatedRecipe: Recipe = { ...recipe };
   const updatedIngredients = { ...recipe.ingredients };
 

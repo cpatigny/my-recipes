@@ -16,7 +16,7 @@ const IngredientAndGroupList = ({
   const { recipeFormData } = useRecipeMultiStepForm();
   const { ingredients } = recipeFormData;
 
-  const noIngredients = typeof ingredients === 'string' || Object.keys(ingredients).length === 0;
+  const noIngredients = Object.keys(ingredients).length === 0;
 
   return (
     <div className='all-groups-and-ingredients'>

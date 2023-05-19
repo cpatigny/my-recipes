@@ -52,7 +52,7 @@ export interface Recipe {
   cookTimeInMins: number | false;
   nbServings?: string;
   servingsUnit?: string;
-  ingredients: string | RecipeIngredients;
+  ingredients: RecipeIngredients;
   groups?: Groups;
   content: string;
   createdAt: number;

@@ -6,7 +6,7 @@ interface AddGroupProps {
 }
 
 const AddGroup = ({ ingredients, showGroupForm }: AddGroupProps) => {
-  const atLeastTwoIngredients = typeof ingredients === 'object' && Object.keys(ingredients).length >= 2;
+  const atLeastTwoIngredients = Object.keys(ingredients).length >= 2;
 
   return (
     <div className='add-group'>

@@ -43,8 +43,7 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
 
   const { ingredientsDetails } = useIngredientsDetails();
   const { units } = useUnits();
-  const { recipeFormData, setRecipeFormData, recipeId } = useRecipeMultiStepForm();
-  const { ingredients } = recipeFormData;
+  const { setRecipeFormData, recipeId } = useRecipeMultiStepForm();
   const quantityInputRef = useRef<HTMLInputElement | null>(null);
 
   const hasErrors = Object.keys(ingredientErrors).length > 0;
@@ -121,16 +120,13 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
       return;
     }
 
-    // If the ingredients was markdown (a string) we make it an empty array by default
-    const prevIngredients = typeof ingredients === 'object' ? { ...ingredients } : {};
     const newIngredientKey = generateIngredientKey(recipeId);
 
     setRecipeFormData(draft => {
-      draft.ingredients = prevIngredients;
       draft.ingredients[newIngredientKey] = {
         ...ingredientData,
         quantity: ingredientData.quantity ? Number(ingredientData.quantity) : false,
-        position: getNewItemPosition(prevIngredients),
+        position: getNewItemPosition(draft.ingredients),
         groupId: false,
         unitId: ingredientData.unitId ? ingredientData.unitId : false,
       };

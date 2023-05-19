@@ -63,7 +63,6 @@ const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) => {
 
   const updateIngredientsFormData = (updatedIngredients: RecipeIngredients) => {
     setRecipeFormData(draft => {
-      if (typeof draft.ingredients === 'string') return;
       draft.ingredients = { ...draft.ingredients, ...updatedIngredients };
     });
   };

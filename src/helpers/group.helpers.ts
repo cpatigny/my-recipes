@@ -43,19 +43,17 @@ export const generateGroupKey = (recipeId: string) => {
   return generateKey(path);
 };
 
-export const getGroupItems = (groups: Groups | null, ingredients: RecipeIngredients | string) => {
+export const getGroupItems = (groups: Groups | null, ingredients: RecipeIngredients) => {
   let groupItems: GroupWithIngredients[] = [];
 
-  if (typeof ingredients === 'object') {
-    groupItems.push({
-      id: DEFAULT_GROUP.id,
-      name: DEFAULT_GROUP.name,
-      position: DEFAULT_GROUP.position,
-      ingredients: getIngredientsWithoutGroup(ingredients),
-    });
-  }
+  groupItems.push({
+    id: DEFAULT_GROUP.id,
+    name: DEFAULT_GROUP.name,
+    position: DEFAULT_GROUP.position,
+    ingredients: getIngredientsWithoutGroup(ingredients),
+  });
 
-  if (typeof ingredients === 'object' && typeof groups === 'object') {
+  if (typeof groups === 'object') {
     groupItems = [
       ...groupItems,
       ...getGroupsWithTheirIngredients(groups, ingredients),

@@ -9,10 +9,6 @@ import IngredientsForm from '../components/RecipeMultiStepForm/IngredientsForm/I
 import PreparationForm from '../components/RecipeMultiStepForm/PreparationForm/PreparationForm';
 import Preview from '../components/RecipeMultiStepForm/Preview/Preview';
 
-export const NORMAL_MODE = 'nb-of-servings';
-export const MARKDOWN_MODE = 'markdown';
-
-export type Modes = typeof NORMAL_MODE | typeof MARKDOWN_MODE;
 export type FormElements = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 interface RecipeMultiStepFormContextValues extends useMultiStepFormReturn {
@@ -20,8 +16,6 @@ interface RecipeMultiStepFormContextValues extends useMultiStepFormReturn {
   setRecipeFormData: Updater<RecipeFormData>;
   previewImageSrc: string | null;
   setPreviewImageSrc: React.Dispatch<React.SetStateAction<string | null>>;
-  mode: Modes;
-  setMode: React.Dispatch<React.SetStateAction<Modes>>;
   imageFile: File | null;
   setImageFile: React.Dispatch<React.SetStateAction<File | null>>;
   recipeId: string;
@@ -57,7 +51,6 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
   const [oldImageName, setOldImageName] = useState<string | false>(false);
   const [previewImageSrc, setPreviewImageSrc] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [mode, setMode] = useState<Modes>(NORMAL_MODE);
   const [recipeId, setRecipeId] = useState<string>(generateRecipeKey());
 
   const steps: Step[] = [
@@ -101,12 +94,11 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
     });
 
     setOldImageName(recipe.imageName);
-    setMode(typeof recipe.ingredients === 'string' ? MARKDOWN_MODE : NORMAL_MODE);
 
     if (recipe.imageName) {
       setPreviewImageSrc(`https://firebasestorage.googleapis.com/v0/b/my-recipes-5f5d6.appspot.com/o/recipe-images%2F${recipe.imageName}?alt=media`);
     }
-  }, [recipe, setMode, setPreviewImageSrc, setRecipeFormData]);
+  }, [recipe, setPreviewImageSrc, setRecipeFormData]);
 
   const handleChange = (e: React.ChangeEvent<FormElements>) => {
     const { value, name } = e.currentTarget;
@@ -121,8 +113,6 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
     setPreviewImageSrc,
     imageFile,
     setImageFile,
-    mode,
-    setMode,
     recipeId,
     handleChange,
     isEditMode: !!recipe,

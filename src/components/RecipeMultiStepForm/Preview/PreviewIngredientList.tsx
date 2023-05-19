@@ -5,7 +5,7 @@ import { RecipeIngredientWithId } from '../../../types/recipe';
 import PreviewIngredientItem from './PreviewIngredientItem';
 
 interface PreviewIngredientListProps {
-  ingredients: RecipeIngredientWithId[] | null;
+  ingredients: RecipeIngredientWithId[];
 }
 
 const PreviewIngredientList = ({ ingredients }: PreviewIngredientListProps) => {
@@ -14,7 +14,7 @@ const PreviewIngredientList = ({ ingredients }: PreviewIngredientListProps) => {
 
   return (
     <ul>
-      {ingredients && ingredients.map(ingredient => (
+      {ingredients.map(ingredient => (
         <PreviewIngredientItem
           key={ingredient.id}
           ingredient={ingredient}

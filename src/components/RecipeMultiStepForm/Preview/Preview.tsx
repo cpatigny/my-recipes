@@ -1,4 +1,4 @@
-import { GroupWithIngredients, RecipeIngredientWithId } from '../../../types/recipe';
+import { GroupWithIngredients } from '../../../types/recipe';
 import remarkGfm from 'remark-gfm';
 import { useCategories } from '../../../contexts/CategoriesContext';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
@@ -15,16 +15,12 @@ const Preview = () => {
   const { categories } = useCategories();
 
   const { ingredients, groups, categoryId, cookTimeInMins } = recipeFormData;
-  const noIngredients = typeof ingredients === 'object' && Object.keys(ingredients).length === 0;
+  const noIngredients = Object.keys(ingredients).length === 0;
 
-  let ingredientsWithoutGroup: RecipeIngredientWithId[] | null = null;
+  const ingredientsWithoutGroup = getIngredientsWithoutGroup(ingredients);
   let groupsWithIngredients: GroupWithIngredients[] | null = null;
 
-  if (typeof ingredients === 'object') {
-    ingredientsWithoutGroup = getIngredientsWithoutGroup(ingredients);
-  }
-
-  if (typeof ingredients === 'object' && typeof groups === 'object') {
+  if (typeof groups === 'object') {
     groupsWithIngredients = getGroupsWithTheirIngredients(groups, ingredients);
   }
 
@@ -46,11 +42,6 @@ const Preview = () => {
 
         <h3>Ingrédients</h3>
         <p>{ recipeFormData.nbServings } { recipeFormData.servingsUnit } :</p>
-        {typeof ingredients === 'string' && (
-          <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: 'h3', h2: 'h4', h3: 'h5' }}>
-            { ingredients }
-          </ReactMarkdown>
-        )}
 
         { noIngredients && (
           <p className='secondary'>Vous n&apos;avez ajouté aucun ingrédient</p>
