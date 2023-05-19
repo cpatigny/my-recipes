@@ -1,6 +1,6 @@
 export const ROUTES = {
   HOME: '/',
-  RECIPE: '/recipe',
+  RECIPE: '/recette',
   ADD_RECIPE: '/ajouter',
   EDIT_RECIPE: '/modifier',
   CATEGORY: '/categorie',
@@ -8,7 +8,7 @@ export const ROUTES = {
   LOGIN: '/login',
   CATEGORIES: '/categories',
   INGREDIENTS: '/ingredients',
-  UNITS: '/units',
+  UNITS: '/unités',
   NOT_FOUND: '/404',
 } as const;
 
