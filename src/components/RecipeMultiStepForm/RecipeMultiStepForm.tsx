@@ -6,6 +6,7 @@ import { deleteRecipeImage, uploadRecipeImage } from '../../helpers/firebase.hel
 import { updateRecipe, createRecipe } from '../../helpers/recipe.helpers';
 
 import MultiStepFormActions from '../MultiStepFormActions/MultiStepFormActions';
+import ProgressBar from './ProgressBar';
 
 import './RecipeMultiStepForm.scss';
 
@@ -52,6 +53,8 @@ const RecipeMultiStepForm = () => {
 
   return (
     <div className='recipe-form'>
+      <ProgressBar />
+
       <h2>{ step.title }</h2>
 
       { step.element }

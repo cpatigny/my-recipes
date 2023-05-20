@@ -7,6 +7,7 @@ export interface Step {
 }
 
 export interface useMultiStepFormReturn {
+  steps: Step[];
   step: Step;
   currentStepIndex: number;
   isFirstStep: boolean;
@@ -14,14 +15,18 @@ export interface useMultiStepFormReturn {
   next: () => void;
   back: () => void;
   goTo: (index: number) => void;
+  completedStepIndexes: number[];
+  lastCompletedStepIndex: number;
 }
 
 const useMultiStepForm = (steps: Step[]): useMultiStepFormReturn => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [completedStepIndexes, setCompletedStepIndexes] = useState<number[]>([]);
 
   const isFirstStep = currentStepIndex === 0;
   const isLastStep = currentStepIndex === steps.length - 1;
   const step = steps[currentStepIndex];
+  const lastCompletedStepIndex = Math.max(...completedStepIndexes);
 
   if (!step) {
     throw new Error(`step[${currentStepIndex}] doesn't exist`);
@@ -32,6 +37,8 @@ const useMultiStepForm = (steps: Step[]): useMultiStepFormReturn => {
       if (isLastStep) return i;
       return i + 1;
     });
+
+    setCompletedStepIndexes([...completedStepIndexes, currentStepIndex]);
   };
 
   const back = () => {
@@ -50,6 +57,7 @@ const useMultiStepForm = (steps: Step[]): useMultiStepFormReturn => {
   };
 
   return {
+    steps,
     step,
     currentStepIndex,
     isFirstStep,
@@ -57,6 +65,8 @@ const useMultiStepForm = (steps: Step[]): useMultiStepFormReturn => {
     next,
     back,
     goTo,
+    completedStepIndexes,
+    lastCompletedStepIndex,
   };
 };
 
