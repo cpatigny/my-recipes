@@ -90,6 +90,22 @@
     }
 
     .step-index {
+      border: none;
+      background-color: transparent;
+      margin: 0;
+      padding: 3px;
+      border-radius: 999px;
+      border: 2px solid transparent;
+
+      &.disabled {
+        cursor: default;
+      }
+    }
+
+    .step-index span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 2.4rem;
       height: 2.4rem;
       padding: 0;
@@ -103,8 +119,11 @@
 
     .progress-bar-bar {
       height: 2px;
-      width: 6rem;
+      width: 7rem;
+      margin: 0 0.3rem;
+      border-radius: 999px;
       background-color: #e0e0e0;
+      transition-duration: 200ms;
     }
 
     .progress-bar-step-title {
@@ -117,23 +136,27 @@
 
   $progressBarColor: #F98D3E;
 
-  .progress-bar-step.completed {
-    .step-index {
-      border-color: $progressBarColor;
-      background-color: $progressBarColor;
-      color: #fff;
+  .progress-bar-step.completed .step-index span {
+    border-color: $progressBarColor;
+    background-color: $progressBarColor;
+    color: #fff;
 
-      &:hover {
-        background-color: $main-color;
-        border-color: $main-color;
-      }
+    &:hover {
+      background-color: $main-color;
+      border-color: $main-color;
     }
   }
 
-  .progress-bar-step.active {
-    .step-index {
-      border-color: $progressBarColor;
-      color: $main-color;
+  .progress-bar-step.active .step-index span {
+    border-color: $progressBarColor;
+    color: $main-color;
+  }
+
+  .progress-bar-step.completed.active .step-index {
+    border-color: $progressBarColor;
+
+    span {
+      color: #fff;
     }
   }
 
@@ -444,6 +467,10 @@
     justify-content: space-between;
     gap: 0 0.5rem;
     margin: 1.6rem 0 2rem;
+
+    [type="submit"] {
+      margin-left: auto;
+    }
   }
 
   .modal-edit-ingredient .edit-ingredient {

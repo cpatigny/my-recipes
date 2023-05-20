@@ -14,11 +14,12 @@ const ProgressBarStep = ({
 }: ProgressBarStepProps) => {
   const isCurrentStep = index === currentStepIndex;
   const stepIsCompleted = completedStepIndexes.includes(index);
+  const isNextStepToComplete = index === lastCompletedStepIndex + 1;
 
   let classNames = isCurrentStep ? 'active' : '';
-  classNames += stepIsCompleted && !isCurrentStep ? ' completed' : '';
+  classNames += stepIsCompleted ? ' completed' : '';
 
-  const onClickIsEnabled = stepIsCompleted || index === lastCompletedStepIndex + 1;
+  const isClickEnabled = (stepIsCompleted || isNextStepToComplete) && !isCurrentStep;
 
   const handleClick = () => goTo(index);
 
@@ -28,8 +29,8 @@ const ProgressBarStep = ({
         <div className='progress-bar-bar'></div>
       )}
       <div className='wrapper'>
-        <button className='step-index' onClick={onClickIsEnabled ? handleClick : undefined}>
-          { index + 1 }
+        <button className={`step-index ${isClickEnabled ? '' : 'disabled'}`} onClick={isClickEnabled ? handleClick : undefined}>
+          <span>{ index + 1 }</span>
         </button>
         <span className='progress-bar-step-title'>{ step.title }</span>
       </div>
