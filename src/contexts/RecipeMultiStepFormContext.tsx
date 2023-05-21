@@ -53,6 +53,8 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [recipeId, setRecipeId] = useState<string>(generateRecipeKey());
 
+  const isEditMode = !!recipe;
+
   const steps: Step[] = [
     {
       element: <InformationForm />,
@@ -76,7 +78,7 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
     },
   ];
 
-  const multiStepFormController = useMultiStepForm(steps);
+  const multiStepFormController = useMultiStepForm(steps, isEditMode);
 
   useEffect(() => {
     // recipe is loading or we're not in edit mode
@@ -115,7 +117,7 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
     setImageFile,
     recipeId,
     handleChange,
-    isEditMode: !!recipe,
+    isEditMode,
     oldImageName,
     recipe,
   };

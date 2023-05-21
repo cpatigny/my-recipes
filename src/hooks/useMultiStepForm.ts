@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export interface Step {
   element: JSX.Element;
@@ -19,9 +19,15 @@ export interface useMultiStepFormReturn {
   lastCompletedStepIndex: number;
 }
 
-const useMultiStepForm = (steps: Step[]): useMultiStepFormReturn => {
+const useMultiStepForm = (steps: Step[], isEditMode: boolean): useMultiStepFormReturn => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [stepIndexes] = useState(steps.map((step, i) => i));
   const [completedStepIndexes, setCompletedStepIndexes] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (!isEditMode) return;
+    setCompletedStepIndexes(stepIndexes);
+  }, [isEditMode, stepIndexes]);
 
   const isFirstStep = currentStepIndex === 0;
   const isLastStep = currentStepIndex === steps.length - 1;
