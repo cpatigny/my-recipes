@@ -16,7 +16,7 @@ const AddRecipe = () => {
   }, [user, navigate]);
 
   return (
-    <div className='add-recipe container'>
+    <div className='add-recipe container recipe-form-container'>
       <div className='title-container'>
         <GoBack />
         <h1>Ajouter une recette</h1>

@@ -15,7 +15,7 @@ const EditRecipe = () => {
   if (noMatch) return <Navigate to={ROUTES.NOT_FOUND} replace />;
 
   return (
-    <div className='edit-recipe container'>
+    <div className='edit-recipe container recipe-form-container'>
       <div className='title-container'>
         <GoBack />
         <h1>Modifier la recette</h1>

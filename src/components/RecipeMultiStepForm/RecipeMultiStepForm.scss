@@ -1,6 +1,6 @@
 @import '../../variables';
 
-.edit-recipe, .add-recipe {
+.container.recipe-form-container {
   .title-container {
     margin: 1.6rem 0 2.2rem;
     display: grid;
@@ -560,7 +560,7 @@
 }
 
 @media (hover: none) and (pointer: coarse) {
-  .edit-recipe, .add-recipe {
+  .container.recipe-form-container {
     .ingredients-form .group-containers .group-header {
       .delete-group, .edit {
         opacity: 1;
@@ -570,32 +570,95 @@
 }
 
 @media (max-width: 700px) {
-  .edit-recipe, .add-recipe {
+  .container.recipe-form-container {
+    padding: 0.3rem 1.8rem;
+
+    .title-container {
+      grid-template-columns: 2rem 1fr 2rem;
+      gap: 0 1.5rem;
+    }
+
     h1 {
       font-size: 2.7rem;
       line-height: 120%;
       margin-bottom: 20px;
     }
+
+    .progress-bar {
+      padding-bottom: 2rem;
+    }
+
+    .progress-bar-step {
+      .step-index span {
+        width: 2rem;
+        height: 2rem;
+      }
+
+      .progress-bar-bar {
+        width: 4rem;
+        margin: 0 0.2rem;
+      }
+    }
   }
 }
 
 @media (max-width: 600px) {
-  .edit-recipe, .add-recipe {
+  .container.recipe-form-container {
+    .title-container {
+      grid-template-columns: 1.5rem 1fr 1.5rem;
+    }
+
     .image-preview {
       width: 100%;
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: 2.1rem;
+    }
+
+    .progress-bar {
+      padding-bottom: 0;
+    }
+
+    .progress-bar-step {
+      .step-index {
+        border-width: 1px;
+        padding: 2px;
+      }
+
+      .step-index span {
+        width: 2rem;
+        height: 2rem;
+      }
+
+      .progress-bar-bar {
+        width: 12vw;
+        margin: 0.1rem;
+      }
+
+      .progress-bar-step-title {
+        display: none;
+      }
     }
   }
 }
 
 @media (max-width: 500px) {
-  .edit-recipe, .add-recipe {
-    .title-container h1 {
-      font-size: 1.8rem;
-      margin-left: 1.2rem;
+  .container.recipe-form-container {
+    padding: 0 1rem;
+
+    .title-container {
+      grid-template-columns: 1rem 1fr 1rem;
+      gap: 0 1rem;
+
+      h1 {
+        font-size: 1.6rem;
+        margin-left: 0;
+      }
+    }
+
+    h2 {
+      font-size: 2rem;
     }
   }
 }
