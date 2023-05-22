@@ -40,5 +40,3 @@ export const useIngredientsDetails = () => {
 
   return context;
 };
-
-export default IngredientsDetailsContext;

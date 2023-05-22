@@ -1,6 +1,6 @@
 import './Loading.scss';
 
-const Loading = () => (
+export const Loading = () => (
   <div className='loading'>
     <div className='dots'>
       <div className='dot'></div>
@@ -10,5 +10,3 @@ const Loading = () => (
     <p>Chargement...</p>
   </div>
 );
-
-export default Loading;

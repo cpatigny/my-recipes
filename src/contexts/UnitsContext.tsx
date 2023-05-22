@@ -40,5 +40,3 @@ export const useUnits = () => {
 
   return context;
 };
-
-export default UnitsContext;

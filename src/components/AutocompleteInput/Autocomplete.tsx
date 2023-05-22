@@ -11,7 +11,7 @@ interface AutocompleteProps<T extends RequiredProps> {
   selectItem: (obj: T) => void;
 }
 
-const Autocomplete = <T extends RequiredProps>({
+export const Autocomplete = <T extends RequiredProps>({
   matchingObjects, propertyToShow, secondaryPropertyToShow, noMatchingMsg, selectItem,
 }: AutocompleteProps<T>) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -130,5 +130,3 @@ const Autocomplete = <T extends RequiredProps>({
     </div>
   );
 };
-
-export default Autocomplete;

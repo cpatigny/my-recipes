@@ -5,15 +5,15 @@ import { useRecipes } from '../../contexts/RecipesContext';
 import { deleteIngredientDetails } from '../../helpers/ingredientDetails.helpers';
 import { reverseObject } from '../../utils';
 
-import AdminContainer from '../../components/AdminContainer/AdminContainer';
-import IngredientsDetails from './IngredientsDetails';
-import Modal from '../../components/Modal/Modal';
-import IngredientDetailsForm from './IngredientDetailsForm';
-import Block from '../../components/Block/Block';
+import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
+import { IngredientsDetails } from './IngredientsDetails';
+import { Modal } from '../../components/Modal/Modal';
+import { IngredientDetailsForm } from './IngredientDetailsForm';
+import { Block } from '../../components/Block/Block';
 
 import './AdminIngredientsDetails.scss';
 
-const AdminIngredientsDetails = () => {
+export const AdminIngredientsDetails = () => {
   const [ingredientToEdit, setIngredientToEdit] = useState<IngredientDetailsWithId | null>(null);
 
   const { recipes } = useRecipes();
@@ -63,5 +63,3 @@ const AdminIngredientsDetails = () => {
     </AdminContainer>
   );
 };
-
-export default AdminIngredientsDetails;

@@ -63,6 +63,7 @@
             "ignorePropertyModificationsFor": ["draft"] // for immer
         }],
         "unused-imports/no-unused-imports": "error",
+        "import/no-default-export": "error",
         "object-curly-newline": "off",
         "linebreak-style": "off",
         "prefer-destructuring": "off",

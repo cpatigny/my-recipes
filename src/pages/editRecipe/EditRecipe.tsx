@@ -1,13 +1,13 @@
 import { Navigate } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
 import { ROUTES } from '../../routes';
-import useRecipeBySlug from '../../hooks/useRecipeBySlug';
+import { useRecipeBySlug } from '../../hooks/useRecipeBySlug';
 
-import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
-import GoBack from '../../components/GoBack/GoBack';
+import { RecipeMultiStepForm } from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
+import { GoBack } from '../../components/GoBack/GoBack';
 import { RecipeMultiStepFormProvider } from '../../contexts/RecipeMultiStepFormContext';
 
-const EditRecipe = () => {
+export const EditRecipe = () => {
   const { user } = useUser();
   const { recipe, noMatch } = useRecipeBySlug();
 
@@ -26,5 +26,3 @@ const EditRecipe = () => {
     </div>
   );
 };
-
-export default EditRecipe;

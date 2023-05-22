@@ -1,4 +1,4 @@
-import Icon from '../../../Icon/Icon';
+import { Icon } from '../../../Icon/Icon';
 import { ActionProps, Action } from './Action';
 
 export const Delete = (props: ActionProps) => {

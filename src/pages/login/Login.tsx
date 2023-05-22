@@ -6,7 +6,7 @@ import { signIn } from '../../helpers/auth.helpers';
 
 import './Login.scss';
 
-const Login = () => {
+export const Login = () => {
   const [loginFormData, setLoginFormData] = useState({
     email: '',
     password: '',
@@ -73,5 +73,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;

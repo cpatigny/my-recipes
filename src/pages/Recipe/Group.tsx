@@ -1,6 +1,6 @@
 import { RecipeIngredientWithId } from '../../types/recipe';
 
-import IngredientList from './IngredientList';
+import { IngredientList } from './IngredientList';
 
 interface GroupProps {
   name: string;
@@ -8,7 +8,7 @@ interface GroupProps {
   servingRatio?: number;
 }
 
-const Group = ({ name, ingredients, servingRatio }: GroupProps) => (
+export const Group = ({ name, ingredients, servingRatio }: GroupProps) => (
   <>
     <p className='group-name'>{ name } :</p>
     <ul>
@@ -16,5 +16,3 @@ const Group = ({ name, ingredients, servingRatio }: GroupProps) => (
     </ul>
   </>
 );
-
-export default Group;

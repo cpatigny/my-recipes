@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { RecipeWithId } from '../../types/recipe';
 
-import Icon from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon/Icon';
 
 interface ServingsProps {
   numberOfServings: number;
@@ -9,7 +9,7 @@ interface ServingsProps {
   recipe: RecipeWithId;
 }
 
-const Servings = ({ numberOfServings, setNumberOfServings, recipe }: ServingsProps) => {
+export const Servings = ({ numberOfServings, setNumberOfServings, recipe }: ServingsProps) => {
   useEffect(() => {
     setNumberOfServings(recipe.nbServings ? Number(recipe.nbServings) : 0);
   }, [recipe.nbServings, setNumberOfServings]);
@@ -36,5 +36,3 @@ const Servings = ({ numberOfServings, setNumberOfServings, recipe }: ServingsPro
     </div>
   );
 };
-
-export default Servings;

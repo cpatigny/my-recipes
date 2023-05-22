@@ -11,16 +11,16 @@ import { RecipeIngredientWithId, RecipeIngredientFormData } from '../../../types
 import { UnitWithId } from '../../../types/unit';
 import { FormErrors } from '../RecipeMultiStepForm';
 
-import AutocompleteInput from '../../AutocompleteInput/AutocompleteInput';
-import Icon from '../../Icon/Icon';
-import UnderlineInput from '../../UnderlineInput/UnderlineInput';
+import { AutocompleteInput } from '../../AutocompleteInput/AutocompleteInput';
+import { Icon } from '../../Icon/Icon';
+import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
 
 interface IngredientFormProps {
   ingredient?: RecipeIngredientWithId;
   closeModal?: () => void;
 }
 
-const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
+export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
   const DEFAULT_INGREDIENT_DATA = {
     quantity: '',
     unitId: '',
@@ -286,5 +286,3 @@ const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
     </div>
   );
 };
-
-export default IngredientForm;

@@ -23,4 +23,4 @@ const UnderlineInput = forwardRef<RefType, UnderlineInputProps>((props, ref) => 
 
 UnderlineInput.displayName = 'UnderlineInput';
 
-export default UnderlineInput;
+export { UnderlineInput };

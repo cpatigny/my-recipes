@@ -4,14 +4,14 @@ import { CategoryWithId } from '../../types/category';
 import { countRecipesByCategory, deleteCategory } from '../../helpers/category.helpers';
 import { confirm } from '../../utils';
 
-import Icon from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon/Icon';
 
 interface AdminCategoryProps {
   category: CategoryWithId;
   setCategoryToEdit: React.Dispatch<React.SetStateAction<CategoryWithId | null>>;
 }
 
-const AdminCategory = ({ category, setCategoryToEdit }: AdminCategoryProps) => {
+export const AdminCategory = ({ category, setCategoryToEdit }: AdminCategoryProps) => {
   const [nbRecipesWithCategory, setNbRecipesWithCategory] = useState(0);
 
   const { recipes } = useRecipes();
@@ -46,5 +46,3 @@ const AdminCategory = ({ category, setCategoryToEdit }: AdminCategoryProps) => {
     </li>
   );
 };
-
-export default AdminCategory;

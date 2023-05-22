@@ -9,7 +9,7 @@ interface ProgressBarStepProps {
   lastCompletedStepIndex: number;
 }
 
-const ProgressBarStep = ({
+export const ProgressBarStep = ({
   step, currentStepIndex, index, completedStepIndexes, goTo, lastCompletedStepIndex,
 }: ProgressBarStepProps) => {
   const isCurrentStep = index === currentStepIndex;
@@ -37,5 +37,3 @@ const ProgressBarStep = ({
     </div>
   );
 };
-
-export default ProgressBarStep;

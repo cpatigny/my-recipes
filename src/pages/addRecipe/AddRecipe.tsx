@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
 import { ROUTES } from '../../routes';
 
-import RecipeMultiStepForm from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
-import GoBack from '../../components/GoBack/GoBack';
+import { RecipeMultiStepForm } from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
+import { GoBack } from '../../components/GoBack/GoBack';
 import { RecipeMultiStepFormProvider } from '../../contexts/RecipeMultiStepFormContext';
 
-const AddRecipe = () => {
+export const AddRecipe = () => {
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -27,5 +27,3 @@ const AddRecipe = () => {
     </div>
   );
 };
-
-export default AddRecipe;

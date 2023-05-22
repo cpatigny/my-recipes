@@ -8,7 +8,7 @@ interface FooterProps {
   user: User | null;
 }
 
-const Footer = ({ user }: FooterProps) => (
+export const Footer = ({ user }: FooterProps) => (
   <footer>
     <p>Made by <span className='name'>Clément</span></p>
     <div className='admin'>
@@ -19,5 +19,3 @@ const Footer = ({ user }: FooterProps) => (
     </div>
   </footer>
 );
-
-export default Footer;

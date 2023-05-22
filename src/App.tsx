@@ -5,10 +5,10 @@ import { useCategories } from './contexts/CategoriesContext';
 import { useIngredientsDetails } from './contexts/IngredientsDetailsContext';
 import { useUnits } from './contexts/UnitsContext';
 
-import Loading from './components/Loading/Loading';
+import { Loading } from './components/Loading/Loading';
 import { Outlet } from 'react-router-dom';
 
-const App = () => {
+export const App = () => {
   const { userLoading } = useUser();
   const { recipesLoading } = useRecipes();
   const { categoriesLoading } = useCategories();
@@ -25,5 +25,3 @@ const App = () => {
     <Outlet />
   );
 };
-
-export default App;

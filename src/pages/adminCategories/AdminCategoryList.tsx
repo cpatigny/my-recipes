@@ -1,13 +1,13 @@
 import { Categories, CategoryWithId } from '../../types/category';
 
-import AdminCategory from './AdminCategory';
+import { AdminCategory } from './AdminCategory';
 
 interface AdminCategoryListProps {
   categories: Categories | null;
   setCategoryToEdit: React.Dispatch<React.SetStateAction<CategoryWithId | null>>;
 }
 
-const AdminCategoryList = ({ categories, setCategoryToEdit }: AdminCategoryListProps) => {
+export const AdminCategoryList = ({ categories, setCategoryToEdit }: AdminCategoryListProps) => {
   if (!categories) return null;
 
   return (
@@ -26,5 +26,3 @@ const AdminCategoryList = ({ categories, setCategoryToEdit }: AdminCategoryListP
     </ul>
   );
 };
-
-export default AdminCategoryList;

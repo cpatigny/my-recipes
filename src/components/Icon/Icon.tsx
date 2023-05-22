@@ -3,10 +3,8 @@ interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   className?: string;
 }
 
-const Icon = ({ name, className = '', ...props }: IconProps) => (
+export const Icon = ({ name, className = '', ...props }: IconProps) => (
   <span className={`material-icons-round ${className}`} {...props}>
     { name }
   </span>
 );
-
-export default Icon;

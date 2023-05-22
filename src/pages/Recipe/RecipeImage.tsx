@@ -4,7 +4,7 @@ interface RecipeImageProps {
   recipe: RecipeWithId;
 }
 
-const RecipeImage = ({ recipe }: RecipeImageProps) => {
+export const RecipeImage = ({ recipe }: RecipeImageProps) => {
   if (!recipe.imageName) return null;
 
   return (
@@ -15,5 +15,3 @@ const RecipeImage = ({ recipe }: RecipeImageProps) => {
     </div>
   );
 };
-
-export default RecipeImage;

@@ -3,14 +3,14 @@ import { createCategory, updateCategory } from '../../helpers/category.helpers';
 import { slugify } from '../../utils';
 import { CategoryWithId } from '../../types/category';
 
-import UnderlineInput from '../../components/UnderlineInput/UnderlineInput';
+import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
 
 interface CategoryFormProps {
   categoryToEdit?: CategoryWithId;
   closeModal?: () => void;
 }
 
-const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) => {
+export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) => {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
 
@@ -76,5 +76,3 @@ const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) => {
     </form>
   );
 };
-
-export default CategoryForm;

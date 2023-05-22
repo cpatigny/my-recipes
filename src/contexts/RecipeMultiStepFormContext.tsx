@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import useMultiStepForm, { Step, useMultiStepFormReturn } from '../hooks/useMultiStepForm';
+import { useMultiStepForm, Step, useMultiStepFormReturn } from '../hooks/useMultiStepForm';
 import { Updater, useImmer } from 'use-immer';
 import { RecipeFormData, RecipeWithId } from '../types/recipe';
 import { generateRecipeKey } from '../helpers/recipe.helpers';
 
-import InformationForm from '../components/RecipeMultiStepForm/InformationForm/InformationForm';
-import IngredientsForm from '../components/RecipeMultiStepForm/IngredientsForm/IngredientsForm';
-import PreparationForm from '../components/RecipeMultiStepForm/PreparationForm/PreparationForm';
-import Preview from '../components/RecipeMultiStepForm/Preview/Preview';
+import { InformationForm } from '../components/RecipeMultiStepForm/InformationForm/InformationForm';
+import { IngredientsForm } from '../components/RecipeMultiStepForm/IngredientsForm/IngredientsForm';
+import { PreparationForm } from '../components/RecipeMultiStepForm/PreparationForm/PreparationForm';
+import { Preview } from '../components/RecipeMultiStepForm/Preview/Preview';
 
 export type FormElements = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
@@ -138,5 +138,3 @@ export const useRecipeMultiStepForm = () => {
 
   return context;
 };
-
-export default RecipeMultiStepFormContext;

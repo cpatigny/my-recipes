@@ -19,7 +19,7 @@ export interface useMultiStepFormReturn {
   lastCompletedStepIndex: number;
 }
 
-const useMultiStepForm = (steps: Step[], isEditMode: boolean): useMultiStepFormReturn => {
+export const useMultiStepForm = (steps: Step[], isEditMode: boolean): useMultiStepFormReturn => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [stepIndexes] = useState(steps.map((step, i) => i));
   const [completedStepIndexes, setCompletedStepIndexes] = useState<number[]>([]);
@@ -75,5 +75,3 @@ const useMultiStepForm = (steps: Step[], isEditMode: boolean): useMultiStepFormR
     lastCompletedStepIndex,
   };
 };
-
-export default useMultiStepForm;

@@ -1,6 +1,6 @@
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 
-const PreparationForm = () => {
+export const PreparationForm = () => {
   const { step, recipeFormData, handleChange, next } = useRecipeMultiStepForm();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -17,5 +17,3 @@ const PreparationForm = () => {
     </form>
   );
 };
-
-export default PreparationForm;

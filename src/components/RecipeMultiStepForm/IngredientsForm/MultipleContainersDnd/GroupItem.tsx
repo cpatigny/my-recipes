@@ -3,7 +3,7 @@ import { GroupWithId, GroupWithIngredients } from '../../../../types/recipe';
 
 import { Handle } from './Handle';
 import { Delete } from './Delete';
-import Icon from '../../../Icon/Icon';
+import { Icon } from '../../../Icon/Icon';
 
 export interface GroupItemProps {
   children: React.ReactNode;

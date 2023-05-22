@@ -1,6 +1,6 @@
 import { Units as IUnits, UnitWithId } from '../../types/unit';
 
-import Icon from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon/Icon';
 
 interface UnitsProps {
   units: IUnits;
@@ -8,7 +8,7 @@ interface UnitsProps {
   handleDelete: (unit: UnitWithId) => void;
 }
 
-const Units = ({ units, setUnitToEdit, handleDelete }: UnitsProps) => (
+export const Units = ({ units, setUnitToEdit, handleDelete }: UnitsProps) => (
   <ul className='admin-list'>
     {Object.keys(units).map(key => {
       const unit = units[key];
@@ -35,5 +35,3 @@ const Units = ({ units, setUnitToEdit, handleDelete }: UnitsProps) => (
     })}
   </ul>
 );
-
-export default Units;

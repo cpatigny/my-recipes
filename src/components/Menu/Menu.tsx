@@ -3,9 +3,9 @@ import { logOut } from '../../helpers/auth.helpers';
 import { ROUTES } from '../../routes';
 
 import { NavLink } from 'react-router-dom';
-import MobileMenu from './MobileMenu';
-import Overlay from '../Overlay/Overlay';
-import Icon from '../Icon/Icon';
+import { MobileMenu } from './MobileMenu';
+import { Overlay } from '../Overlay/Overlay';
+import { Icon } from '../Icon/Icon';
 
 import './Menu.scss';
 
@@ -16,7 +16,7 @@ export interface Link {
   iconName: string;
 }
 
-const Menu = () => {
+export const Menu = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const links: Link[] = [
@@ -52,5 +52,3 @@ const Menu = () => {
     </>
   );
 };
-
-export default Menu;

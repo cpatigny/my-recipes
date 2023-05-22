@@ -5,10 +5,8 @@ import { Link } from 'react-router-dom';
 
 import './Logo.scss';
 
-const Logo = () => (
+export const Logo = () => (
   <Link to={ROUTES.HOME} className='top'>
     <p><img src={logo} alt='logo' className='logo' />My recipes</p>
   </Link>
 );
-
-export default Logo;

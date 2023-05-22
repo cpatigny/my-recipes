@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { UnitWithId } from '../../types/unit';
 import { updateUnit, createUnit } from '../../helpers/units.helpers';
-import UnderlineInput from '../../components/UnderlineInput/UnderlineInput';
+import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
 
 interface UnitFormData {
   singular: string;
@@ -14,7 +14,7 @@ interface UnitFormProps {
   close?: () => void;
 }
 
-const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
+export const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
   const DEFAULT_DATA: UnitFormData = {
     singular: '',
     plural: '',
@@ -98,5 +98,3 @@ const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
     </form>
   );
 };
-
-export default UnitForm;

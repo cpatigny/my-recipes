@@ -3,7 +3,7 @@ import { Recipes } from '../../types/recipe';
 import { ROUTES } from '../../routes';
 import { getCategoriesOrderByRecipeCount, countRecipesByCategory } from '../../helpers/category.helpers';
 
-import Category from './Category';
+import { Category } from './Category';
 import { Link } from 'react-router-dom';
 
 interface CategoriesProps {
@@ -17,7 +17,7 @@ const DEFAULT_HOME_CATEGORY = {
   name: 'Tout',
 };
 
-const Categories = ({ categories, selectedCategory, recipes }: CategoriesProps) => {
+export const Categories = ({ categories, selectedCategory, recipes }: CategoriesProps) => {
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     const { scrollLeft, scrollWidth, clientWidth } = e.currentTarget;
     const maxScroll = Math.floor(scrollLeft) === scrollWidth - clientWidth;
@@ -57,5 +57,3 @@ const Categories = ({ categories, selectedCategory, recipes }: CategoriesProps) 
     </div>
   );
 };
-
-export default Categories;

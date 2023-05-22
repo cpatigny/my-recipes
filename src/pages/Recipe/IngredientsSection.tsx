@@ -4,11 +4,11 @@ import { GroupWithIngredients, RecipeWithId } from '../../types/recipe';
 import { useState } from 'react';
 import { getServingRatio } from '../../helpers/recipe.helpers';
 
-import GroupList from './GroupList';
-import IngredientList from './IngredientList';
-import Servings from './Servings';
+import { GroupList } from './GroupList';
+import { IngredientList } from './IngredientList';
+import { Servings } from './Servings';
 
-const IngredientsSection = ({ recipe }: { recipe: RecipeWithId }) => {
+export const IngredientsSection = ({ recipe }: { recipe: RecipeWithId }) => {
   const [numberOfServings, setNumberOfServings] = useState(0);
 
   const { ingredients, groups } = recipe;
@@ -37,5 +37,3 @@ const IngredientsSection = ({ recipe }: { recipe: RecipeWithId }) => {
     </section>
   );
 };
-
-export default IngredientsSection;

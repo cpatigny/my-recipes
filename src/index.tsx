@@ -10,16 +10,16 @@ import { IngredientsDetailsProvider } from './contexts/IngredientsDetailsContext
 import { RecipesProvider } from './contexts/RecipesContext';
 import { UnitsProvider } from './contexts/UnitsContext';
 import { UserProvider } from './contexts/UserContext';
-import App from './App';
-import NotFound from './pages/notFound/NotFound';
-import Recipe from './pages/Recipe/Recipe';
-import AddRecipe from './pages/addRecipe/AddRecipe';
-import AdminCategories from './pages/adminCategories/AdminCategories';
-import AdminIngredientsDetails from './pages/adminIngredientsDetails/AdminIngredientsDetails';
-import EditRecipe from './pages/editRecipe/EditRecipe';
-import Home from './pages/home/Home';
-import Login from './pages/login/Login';
-import AdminUnits from './pages/adminUnits/AdminUnits';
+import { App } from './App';
+import { NotFound } from './pages/notFound/NotFound';
+import { Recipe } from './pages/Recipe/Recipe';
+import { AddRecipe } from './pages/addRecipe/AddRecipe';
+import { AdminCategories } from './pages/adminCategories/AdminCategories';
+import { AdminIngredientsDetails } from './pages/adminIngredientsDetails/AdminIngredientsDetails';
+import { EditRecipe } from './pages/editRecipe/EditRecipe';
+import { Home } from './pages/home/Home';
+import { Login } from './pages/login/Login';
+import { AdminUnits } from './pages/adminUnits/AdminUnits';
 
 import './index.scss';
 

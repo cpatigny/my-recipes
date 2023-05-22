@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { RecipeWithId } from '../types/recipe';
 import { getRecipeBySlug } from '../helpers/recipe.helpers';
 
-const useRecipeBySlug = () => {
+export const useRecipeBySlug = () => {
   const [recipe, setRecipe] = useState<RecipeWithId | null>(null);
   const [noMatch, setNoMatch] = useState(false);
 
@@ -24,5 +24,3 @@ const useRecipeBySlug = () => {
 
   return { recipe, noMatch };
 };
-
-export default useRecipeBySlug;

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 
-import UnderlineInput from '../UnderlineInput/UnderlineInput';
-import Autocomplete from './Autocomplete';
+import { UnderlineInput } from '../UnderlineInput/UnderlineInput';
+import { Autocomplete } from './Autocomplete';
 
 export interface RequiredProps {
   id: string;
@@ -22,7 +22,7 @@ interface AutocompleteInputProps<T extends RequiredProps>
     noMatchingMsg: string;
 }
 
-const AutocompleteInput = <T extends RequiredProps>({
+export const AutocompleteInput = <T extends RequiredProps>({
   matchingObjects,
   propertyToShow,
   secondaryPropertyToShow,
@@ -105,5 +105,3 @@ const AutocompleteInput = <T extends RequiredProps>({
     </div>
   );
 };
-
-export default AutocompleteInput;

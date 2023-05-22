@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { useCategories } from '../../contexts/CategoriesContext';
 import { CategoryWithId } from '../../types/category';
 
-import AdminCategoryList from './AdminCategoryList';
-import AdminContainer from '../../components/AdminContainer/AdminContainer';
-import CategoryForm from './CategoryForm';
-import Block from '../../components/Block/Block';
+import { AdminCategoryList } from './AdminCategoryList';
+import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
+import { CategoryForm } from './CategoryForm';
+import { Block } from '../../components/Block/Block';
+import { Modal } from '../../components/Modal/Modal';
 
 import './AdminCategories.scss';
-import Modal from '../../components/Modal/Modal';
 
-const AdminCategories = () => {
+export const AdminCategories = () => {
   const [categoryToEdit, setCategoryToEdit] = useState<CategoryWithId | null>(null);
 
   const { categories } = useCategories();
@@ -39,5 +39,3 @@ const AdminCategories = () => {
     </AdminContainer>
   );
 };
-
-export default AdminCategories;

@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 import { RecipeIngredientWithId, GroupWithId, GroupWithIngredients, RecipeIngredients } from '../../../types/recipe';
 
-import Modal from '../../Modal/Modal';
-import AddGroup from './AddGroup';
-import GroupForm from './GroupForm';
-import IngredientAndGroupList from './IngredientAndGroupList';
-import IngredientForm from './IngredientForm';
-import NbOfServings from './NbOfServings';
-import Block from '../../Block/Block';
+import { Modal } from '../../Modal/Modal';
+import { AddGroup } from './AddGroup';
+import { GroupForm } from './GroupForm';
+import { IngredientAndGroupList } from './IngredientAndGroupList';
+import { IngredientForm } from './IngredientForm';
+import { NbOfServings } from './NbOfServings';
+import { Block } from '../../Block/Block';
 
-const IngredientsForm = () => {
+export const IngredientsForm = () => {
   const [ingredientToEdit, setIngredientToEdit] = useState<RecipeIngredientWithId | null>(null);
   const [groupToEdit, setGroupToEdit] = useState<GroupWithId | null>(null);
   const [showGroupForm, setShowGroupForm] = useState(false);
@@ -119,5 +119,3 @@ const IngredientsForm = () => {
     </div>
   );
 };
-
-export default IngredientsForm;

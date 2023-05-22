@@ -4,7 +4,7 @@ interface MultiStepFormActionsProps {
   submitForm: () => void;
 }
 
-const MultiStepFormActions = ({ submitForm }: MultiStepFormActionsProps) => {
+export const MultiStepFormActions = ({ submitForm }: MultiStepFormActionsProps) => {
   const { step, isEditMode, isFirstStep, isLastStep, back } = useRecipeMultiStepForm();
 
   return (
@@ -19,5 +19,3 @@ const MultiStepFormActions = ({ submitForm }: MultiStepFormActionsProps) => {
     </div>
   );
 };
-
-export default MultiStepFormActions;

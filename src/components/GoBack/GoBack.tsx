@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../routes';
 
-import Icon from '../Icon/Icon';
+import { Icon } from '../Icon/Icon';
 
 import './GoBack.scss';
 
-const GoBack = () => {
+export const GoBack = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -27,5 +27,3 @@ const GoBack = () => {
     </button>
   );
 };
-
-export default GoBack;

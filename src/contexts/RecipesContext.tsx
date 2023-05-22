@@ -40,5 +40,3 @@ export const useRecipes = () => {
 
   return context;
 };
-
-export default RecipesContext;

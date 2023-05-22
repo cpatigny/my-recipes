@@ -8,7 +8,7 @@ export interface FormErrors {
   [name: string]: string;
 }
 
-const InformationForm = () => {
+export const InformationForm = () => {
   const [formErrors, setFormErrors] = useState<FormErrors>({});
 
   const { categories } = useCategories();
@@ -144,5 +144,3 @@ const InformationForm = () => {
     </form>
   );
 };
-
-export default InformationForm;

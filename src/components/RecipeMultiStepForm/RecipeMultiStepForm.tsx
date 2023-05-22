@@ -5,8 +5,8 @@ import { RecipeFormData } from '../../types/recipe';
 import { deleteRecipeImage, uploadRecipeImage } from '../../helpers/firebase.helpers';
 import { updateRecipe, createRecipe } from '../../helpers/recipe.helpers';
 
-import MultiStepFormActions from '../MultiStepFormActions/MultiStepFormActions';
-import ProgressBar from './ProgressBar';
+import { MultiStepFormActions } from '../MultiStepFormActions/MultiStepFormActions';
+import { ProgressBar } from './ProgressBar';
 
 import './RecipeMultiStepForm.scss';
 
@@ -14,7 +14,7 @@ export interface FormErrors {
   [name: string]: string;
 }
 
-const RecipeMultiStepForm = () => {
+export const RecipeMultiStepForm = () => {
   const navigate = useNavigate();
   const {
     step, recipeFormData, setRecipeFormData, imageFile, oldImageName, recipe,
@@ -63,5 +63,3 @@ const RecipeMultiStepForm = () => {
     </div>
   );
 };
-
-export default RecipeMultiStepForm;

@@ -1,8 +1,8 @@
 import { useRecipeMultiStepForm } from '../../contexts/RecipeMultiStepFormContext';
 
-import ProgressBarStep from './ProgressBarStep';
+import { ProgressBarStep } from './ProgressBarStep';
 
-const ProgressBar = () => {
+export const ProgressBar = () => {
   const {
     steps, currentStepIndex, completedStepIndexes, goTo, lastCompletedStepIndex,
   } = useRecipeMultiStepForm();
@@ -23,5 +23,3 @@ const ProgressBar = () => {
     </div>
   );
 };
-
-export default ProgressBar;

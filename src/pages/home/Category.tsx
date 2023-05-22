@@ -8,10 +8,8 @@ interface CategoryProps {
   selected?: boolean;
 }
 
-const Category = ({ category, selected }: CategoryProps) => (
+export const Category = ({ category, selected }: CategoryProps) => (
   <Link to={getCategoryPath(category.slug)} className={`category ${selected ? 'selected' : ''}`}>
     { category.name }
   </Link>
 );
-
-export default Category;

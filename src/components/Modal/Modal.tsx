@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-import Overlay from '../Overlay/Overlay';
-import ModalContent from './ModalContent';
+import { Overlay } from '../Overlay/Overlay';
+import { ModalContent } from './ModalContent';
 
 import './Modal.scss';
 
@@ -14,7 +14,9 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-const Modal = ({ isShow, close, className, title, onCloseAnimationEnd, children }: ModalProps) => {
+export const Modal = ({
+  isShow, close, className, title, onCloseAnimationEnd, children,
+}: ModalProps) => {
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') close();
@@ -43,5 +45,3 @@ const Modal = ({ isShow, close, className, title, onCloseAnimationEnd, children 
     </Overlay>
   );
 };
-
-export default Modal;

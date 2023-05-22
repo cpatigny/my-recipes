@@ -8,7 +8,7 @@ interface NothingToShowProps {
   children?: React.ReactNode;
 }
 
-const NothingToShow = ({
+export const NothingToShow = ({
   message, src, alt, className = '', children,
 }: NothingToShowProps) => (
   <div className={`nothing-to-show ${className}`}>
@@ -17,5 +17,3 @@ const NothingToShow = ({
     { children }
   </div>
 );
-
-export default NothingToShow;

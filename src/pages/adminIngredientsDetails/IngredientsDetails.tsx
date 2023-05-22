@@ -2,7 +2,7 @@ import {
   IngredientDetailsWithId, IngredientsDetails as IngredientsDetailsType,
 } from '../../types/ingredientDetails';
 
-import Icon from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon/Icon';
 
 interface IngredientsDetailsProps {
   ingredients: IngredientsDetailsType;
@@ -10,7 +10,7 @@ interface IngredientsDetailsProps {
   handleDelete: (ingredientDetails: IngredientDetailsWithId) => void;
 }
 
-const IngredientsDetails = ({
+export const IngredientsDetails = ({
   ingredients, setIngredientToEdit, handleDelete,
 }: IngredientsDetailsProps) => (
   <ul className='admin-list'>
@@ -36,5 +36,3 @@ const IngredientsDetails = ({
     })}
   </ul>
 );
-
-export default IngredientsDetails;

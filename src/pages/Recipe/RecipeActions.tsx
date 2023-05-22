@@ -4,13 +4,13 @@ import { ROUTES, getEditRecipePath } from '../../routes';
 import { deleteRecipe } from '../../helpers/recipe.helpers';
 import { confirm } from '../../utils';
 
-import Icon from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon/Icon';
 
 interface RecipeActionsProps {
   recipe: RecipeWithId;
 }
 
-const RecipeActions = ({ recipe }: RecipeActionsProps) => {
+export const RecipeActions = ({ recipe }: RecipeActionsProps) => {
   const navigate = useNavigate();
 
   const wordToEnter = 'oui';
@@ -39,5 +39,3 @@ const RecipeActions = ({ recipe }: RecipeActionsProps) => {
     </div>
   );
 };
-
-export default RecipeActions;

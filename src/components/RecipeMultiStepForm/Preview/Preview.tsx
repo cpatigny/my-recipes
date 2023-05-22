@@ -8,10 +8,10 @@ import { getIngredientsWithoutGroup } from '../../../helpers/ingredient.helpers'
 import { getCookTimeText } from '../../../helpers/recipe.helpers';
 
 import ReactMarkdown from 'react-markdown';
-import PreviewIngredientList from './PreviewIngredientList';
-import Block from '../../Block/Block';
+import { PreviewIngredientList } from './PreviewIngredientList';
+import { Block } from '../../Block/Block';
 
-const Preview = () => {
+export const Preview = () => {
   const { recipeFormData, previewImageSrc } = useRecipeMultiStepForm();
   const { categories } = useCategories();
 
@@ -65,5 +65,3 @@ const Preview = () => {
     </div>
   );
 };
-
-export default Preview;

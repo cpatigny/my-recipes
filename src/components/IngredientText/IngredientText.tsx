@@ -12,7 +12,7 @@ interface IngredientTextProps extends React.InputHTMLAttributes<HTMLSpanElement>
   servingRatio?: number;
 }
 
-const IngredientText = ({
+export const IngredientText = ({
   ingredient, ingredientsDetails, units, amountIsBold = true, servingRatio, ...props
 }: IngredientTextProps) => {
   if (!ingredientsDetails || !units) {
@@ -45,5 +45,3 @@ const IngredientText = ({
     </span>
   );
 };
-
-export default IngredientText;

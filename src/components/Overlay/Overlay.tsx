@@ -10,7 +10,7 @@ interface OverlayProps {
   children: React.ReactNode;
 }
 
-const Overlay = ({ isShow, close, className, children }: OverlayProps) => {
+export const Overlay = ({ isShow, close, className, children }: OverlayProps) => {
   const [shouldCloseModal, setShouldCloseModal] = useState(true);
 
   useEffect(() => {
@@ -52,5 +52,3 @@ const Overlay = ({ isShow, close, className, children }: OverlayProps) => {
     </animated.div>
   ));
 };
-
-export default Overlay;

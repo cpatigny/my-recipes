@@ -1,13 +1,13 @@
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 
-import Block from '../../Block/Block';
-import UnderlineInput from '../../UnderlineInput/UnderlineInput';
+import { Block } from '../../Block/Block';
+import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
 
 interface NbOfServingsProps {
   handleStepSubmit: (e: React.FormEvent) => void;
 }
 
-const NbOfServings = ({ handleStepSubmit }: NbOfServingsProps) => {
+export const NbOfServings = ({ handleStepSubmit }: NbOfServingsProps) => {
   const { step, recipeFormData, handleChange } = useRecipeMultiStepForm();
   const { nbServings, servingsUnit } = recipeFormData;
 
@@ -36,5 +36,3 @@ const NbOfServings = ({ handleStepSubmit }: NbOfServingsProps) => {
     </Block>
   );
 };
-
-export default NbOfServings;

@@ -14,8 +14,8 @@ import { useUnits } from '../../../contexts/UnitsContext';
 import { GroupWithId, RecipeIngredients } from '../../../types/recipe';
 import { FormErrors } from '../RecipeMultiStepForm';
 
-import IngredientCheckbox from './IngredientCheckbox';
-import UnderlineInput from '../../UnderlineInput/UnderlineInput';
+import { IngredientCheckbox } from './IngredientCheckbox';
+import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
 
 interface GroupFormProps {
   group?: GroupWithId;
@@ -28,7 +28,7 @@ export interface GroupFormData {
   ingredients: string[];
 }
 
-const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) => {
+export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) => {
   const [groupData, setGroupData] = useState<GroupFormData>({
     name: '',
     ingredients: [],
@@ -194,5 +194,3 @@ const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) => {
     </form>
   );
 };
-
-export default GroupForm;

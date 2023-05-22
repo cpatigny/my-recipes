@@ -6,7 +6,7 @@ const SCROLL_STORAGE_KEY = 'scroll-positions';
 /**
  * Save scroll position and restore scroll
  */
-const useScrollRestoration = (shouldSaveScrollPos = true) => {
+export const useScrollRestoration = (shouldSaveScrollPos = true) => {
   const [scrollHasBeenRestored, setScrollHasBeenRestored] = useState(false);
 
   const { key } = useLocation();
@@ -47,5 +47,3 @@ const useScrollRestoration = (shouldSaveScrollPos = true) => {
 
   return { restoreScroll, deleteScrollStorage };
 };
-
-export default useScrollRestoration;

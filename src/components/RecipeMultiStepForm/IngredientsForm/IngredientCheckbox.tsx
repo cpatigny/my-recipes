@@ -2,7 +2,7 @@ import { IngredientsDetails } from '../../../types/ingredientDetails';
 import { RecipeIngredientWithId } from '../../../types/recipe';
 import { Units } from '../../../types/unit';
 
-import IngredientText from '../../IngredientText/IngredientText';
+import { IngredientText } from '../../IngredientText/IngredientText';
 
 interface IngredientCheckboxProps {
   ingredient: RecipeIngredientWithId;
@@ -12,7 +12,7 @@ interface IngredientCheckboxProps {
   handleCheck: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
-const IngredientCheckbox = ({
+export const IngredientCheckbox = ({
   ingredient, checked, ingredientsDetails, units, handleCheck,
 }: IngredientCheckboxProps) => (
   <label>
@@ -30,5 +30,3 @@ const IngredientCheckbox = ({
     />
   </label>
 );
-
-export default IngredientCheckbox;

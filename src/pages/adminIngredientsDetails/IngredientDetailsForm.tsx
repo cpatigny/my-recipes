@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { updateIngredientDetails, createIngredientDetails } from '../../helpers/ingredientDetails.helpers';
-import UnderlineInput from '../../components/UnderlineInput/UnderlineInput';
+import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
 
 interface IngredientFormProps {
   ingredientToEdit?: IngredientDetailsWithId;
   close?: () => void;
 }
 
-const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFormProps) => {
+export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFormProps) => {
   const [singular, setSingular] = useState('');
   const [plural, setPlural] = useState('');
 
@@ -67,5 +67,3 @@ const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFormProps)
     </form>
   );
 };
-
-export default IngredientDetailsForm;

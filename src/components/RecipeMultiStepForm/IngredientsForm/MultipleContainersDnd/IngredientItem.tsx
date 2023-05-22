@@ -4,8 +4,8 @@ import { RecipeIngredientWithId } from '../../../../types/recipe';
 import { useIngredientsDetails } from '../../../../contexts/IngredientsDetailsContext';
 import { useUnits } from '../../../../contexts/UnitsContext';
 
-import IngredientText from '../../../IngredientText/IngredientText';
-import Icon from '../../../Icon/Icon';
+import { IngredientText } from '../../../IngredientText/IngredientText';
+import { Icon } from '../../../Icon/Icon';
 import { DEFAULT_INGREDIENT } from './DefaultGroup';
 
 export interface IngredientItemProps extends React.HTMLAttributes<HTMLLIElement> {

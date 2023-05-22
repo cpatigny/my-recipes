@@ -1,13 +1,13 @@
 import { RecipeIngredients } from '../../../types/recipe';
 
-import Block from '../../Block/Block';
+import { Block } from '../../Block/Block';
 
 interface AddGroupProps {
   ingredients: string | RecipeIngredients;
   showGroupForm: () => void;
 }
 
-const AddGroup = ({ ingredients, showGroupForm }: AddGroupProps) => {
+export const AddGroup = ({ ingredients, showGroupForm }: AddGroupProps) => {
   const atLeastTwoIngredients = Object.keys(ingredients).length >= 2;
 
   return (
@@ -21,5 +21,3 @@ const AddGroup = ({ ingredients, showGroupForm }: AddGroupProps) => {
     </Block>
   );
 };
-
-export default AddGroup;

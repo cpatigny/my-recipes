@@ -3,7 +3,7 @@ import { logOut } from '../../helpers/auth.helpers';
 import { Link } from './Menu';
 
 import { NavLink } from 'react-router-dom';
-import Icon from '../Icon/Icon';
+import { Icon } from '../Icon/Icon';
 
 interface MobileMenuProps {
   isShow: boolean;
@@ -11,7 +11,7 @@ interface MobileMenuProps {
   links: Link[];
 }
 
-const MobileMenu = ({ isShow, close, links }: MobileMenuProps) => {
+export const MobileMenu = ({ isShow, close, links }: MobileMenuProps) => {
   const menuTransitions = useTransition(isShow, {
     from: { transform: 'translateX(100%)' },
     enter: { transform: 'translateX(0%)' },
@@ -42,5 +42,3 @@ const MobileMenu = ({ isShow, close, links }: MobileMenuProps) => {
     </animated.aside>
   ));
 };
-
-export default MobileMenu;

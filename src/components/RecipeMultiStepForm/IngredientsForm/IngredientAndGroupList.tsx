@@ -2,7 +2,7 @@ import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormCon
 import { GroupWithId, GroupWithIngredients, RecipeIngredientWithId } from '../../../types/recipe';
 
 import { GroupsContainers } from './MultipleContainersDnd/GroupsContainers';
-import Block from '../../Block/Block';
+import { Block } from '../../Block/Block';
 
 export interface IngredientAndGroupListProps {
   deleteIngredient: (key: string) => void;
@@ -11,7 +11,7 @@ export interface IngredientAndGroupListProps {
   deleteGroup: (group: GroupWithIngredients) => void;
 }
 
-const IngredientAndGroupList = ({
+export const IngredientAndGroupList = ({
   deleteIngredient, showEditIngredientForm, showEditGroupForm, deleteGroup,
 }: IngredientAndGroupListProps) => {
   const { recipeFormData } = useRecipeMultiStepForm();
@@ -34,5 +34,3 @@ const IngredientAndGroupList = ({
     </Block>
   );
 };
-
-export default IngredientAndGroupList;

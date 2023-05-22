@@ -2,24 +2,24 @@ import { useEffect } from 'react';
 import remarkGfm from 'remark-gfm';
 import { Navigate } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
-import useScrollRestoration from '../../hooks/useScrollRestoration';
+import { useScrollRestoration } from '../../hooks/useScrollRestoration';
 import { useCategories } from '../../contexts/CategoriesContext';
 import { ROUTES } from '../../routes';
-import useRecipeBySlug from '../../hooks/useRecipeBySlug';
+import { useRecipeBySlug } from '../../hooks/useRecipeBySlug';
 import { formatDate } from '../../utils';
 import { getCookTimeText } from '../../helpers/recipe.helpers';
 
-import Loading from '../../components/Loading/Loading';
-import RecipeActions from './RecipeActions';
+import { Loading } from '../../components/Loading/Loading';
+import { RecipeActions } from './RecipeActions';
 import ReactMarkdown from 'react-markdown';
-import RecipeImage from './RecipeImage';
-import GoBack from '../../components/GoBack/GoBack';
-import Category from '../home/Category';
-import IngredientsSection from './IngredientsSection';
+import { RecipeImage } from './RecipeImage';
+import { GoBack } from '../../components/GoBack/GoBack';
+import { Category } from '../home/Category';
+import { IngredientsSection } from './IngredientsSection';
 
 import './Recipe.scss';
 
-const Recipe = () => {
+export const Recipe = () => {
   const { user } = useUser();
   const { categories } = useCategories();
   const { restoreScroll } = useScrollRestoration();
@@ -77,5 +77,3 @@ const Recipe = () => {
     </div>
   );
 };
-
-export default Recipe;

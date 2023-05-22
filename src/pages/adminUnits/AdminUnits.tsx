@@ -5,15 +5,15 @@ import { useRecipes } from '../../contexts/RecipesContext';
 import { deleteUnit } from '../../helpers/units.helpers';
 import { reverseObject } from '../../utils';
 
-import AdminContainer from '../../components/AdminContainer/AdminContainer';
-import UnitForm from './UnitForm';
-import Units from './Units';
-import Modal from '../../components/Modal/Modal';
-import Block from '../../components/Block/Block';
+import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
+import { UnitForm } from './UnitForm';
+import { Units } from './Units';
+import { Modal } from '../../components/Modal/Modal';
+import { Block } from '../../components/Block/Block';
 
 import './AdminUnits.scss';
 
-const AdminUnits = () => {
+export const AdminUnits = () => {
   const [unitToEdit, setUnitToEdit] = useState<UnitWithId | null>(null);
 
   const { units } = useUnits();
@@ -55,5 +55,3 @@ const AdminUnits = () => {
     </AdminContainer>
   );
 };
-
-export default AdminUnits;

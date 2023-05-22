@@ -1,4 +1,4 @@
-import IngredientText from '../../components/IngredientText/IngredientText';
+import { IngredientText } from '../../components/IngredientText/IngredientText';
 import { IngredientsDetails } from '../../types/ingredientDetails';
 import { RecipeIngredientWithId } from '../../types/recipe';
 import { Units } from '../../types/unit';
@@ -10,7 +10,7 @@ interface IngredientProps {
   servingRatio?: number;
 }
 
-const Ingredient = ({
+export const Ingredient = ({
   ingredient, ingredientsDetails, units, servingRatio,
 }: IngredientProps) => {
   return (
@@ -28,5 +28,3 @@ const Ingredient = ({
     </li>
   );
 };
-
-export default Ingredient;

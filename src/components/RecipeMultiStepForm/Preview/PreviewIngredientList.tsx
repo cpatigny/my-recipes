@@ -2,13 +2,13 @@ import { useIngredientsDetails } from '../../../contexts/IngredientsDetailsConte
 import { useUnits } from '../../../contexts/UnitsContext';
 import { RecipeIngredientWithId } from '../../../types/recipe';
 
-import PreviewIngredientItem from './PreviewIngredientItem';
+import { PreviewIngredientItem } from './PreviewIngredientItem';
 
 interface PreviewIngredientListProps {
   ingredients: RecipeIngredientWithId[];
 }
 
-const PreviewIngredientList = ({ ingredients }: PreviewIngredientListProps) => {
+export const PreviewIngredientList = ({ ingredients }: PreviewIngredientListProps) => {
   const { ingredientsDetails } = useIngredientsDetails();
   const { units } = useUnits();
 
@@ -25,5 +25,3 @@ const PreviewIngredientList = ({ ingredients }: PreviewIngredientListProps) => {
     </ul>
   );
 };
-
-export default PreviewIngredientList;

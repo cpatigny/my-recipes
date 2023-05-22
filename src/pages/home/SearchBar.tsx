@@ -1,11 +1,11 @@
-import Icon from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon/Icon';
 
 interface SearchBarProps {
   search: string;
   setSearch: (str: string) => void;
 }
 
-const SearchBar = ({ search, setSearch }: SearchBarProps) => {
+export const SearchBar = ({ search, setSearch }: SearchBarProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const wordToSearch = e.currentTarget.value;
     setSearch(wordToSearch);
@@ -39,5 +39,3 @@ const SearchBar = ({ search, setSearch }: SearchBarProps) => {
     </div>
   );
 };
-
-export default SearchBar;

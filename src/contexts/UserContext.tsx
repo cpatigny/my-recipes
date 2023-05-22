@@ -54,5 +54,3 @@ export const useUser = () => {
 
   return context;
 };
-
-export default UserContext;

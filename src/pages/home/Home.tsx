@@ -3,26 +3,26 @@ import { Recipes } from '../../types/recipe';
 import { useUser } from '../../contexts/UserContext';
 import { useRecipes } from '../../contexts/RecipesContext';
 import { useCategories } from '../../contexts/CategoriesContext';
-import useScrollRestoration from '../../hooks/useScrollRestoration';
+import { useScrollRestoration } from '../../hooks/useScrollRestoration';
 import { CategoryWithId } from '../../types/category';
 import { ROUTES } from '../../routes';
 import { getCategoryBySlug, countRecipesByCategory } from '../../helpers/category.helpers';
 import { searchMatchingRecipes, getRecipesByCategory, reverseRecipes } from '../../helpers/recipe.helpers';
 
 import { Link, useParams } from 'react-router-dom';
-import RecipeCard from './RecipeCard';
-import SearchBar from './SearchBar';
-import NothingToShow from '../../components/NothingToShow/NothingToShow';
-import Footer from '../../components/Footer/Footer';
-import Categories from './Categories';
-import Menu from '../../components/Menu/Menu';
+import { RecipeCard } from './RecipeCard';
+import { SearchBar } from './SearchBar';
+import { NothingToShow } from '../../components/NothingToShow/NothingToShow';
+import { Footer } from '../../components/Footer/Footer';
+import { Categories } from './Categories';
+import { Menu } from '../../components/Menu/Menu';
 
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import logo from '../../assets/img/logo.svg';
 
 import './Home.scss';
 
-const Home = () => {
+export const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
   const [search, setSearch] = useState('');
   const [noSearchResult, setNoSearchResult] = useState(false);
@@ -142,5 +142,3 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;

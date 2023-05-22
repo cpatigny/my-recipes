@@ -1,6 +1,6 @@
 import { useTransition, animated } from '@react-spring/web';
 
-import Icon from '../Icon/Icon';
+import { Icon } from '../Icon/Icon';
 
 interface ModalContentProps {
   close: () => void;
@@ -11,7 +11,7 @@ interface ModalContentProps {
   children: React.ReactNode;
 }
 
-const ModalContent = ({
+export const ModalContent = ({
   close, isShow, className, title, onCloseAnimationEnd, children,
 }: ModalContentProps) => {
   const modalTransitions = useTransition(isShow, {
@@ -34,5 +34,3 @@ const ModalContent = ({
     </animated.div>
   ));
 };
-
-export default ModalContent;

@@ -2,7 +2,7 @@ import { ROUTES } from '../../routes';
 import { useUser } from '../../contexts/UserContext';
 
 import { Navigate } from 'react-router-dom';
-import Menu from '../Menu/Menu';
+import { Menu } from '../Menu/Menu';
 
 import './AdminContainer.scss';
 
@@ -11,7 +11,7 @@ interface AdminContainerProps {
   children: React.ReactNode;
 }
 
-const AdminContainer = ({ className, children }: AdminContainerProps) => {
+export const AdminContainer = ({ className, children }: AdminContainerProps) => {
   const { user, userLoading } = useUser();
 
   if (!user && !userLoading) return <Navigate to={ROUTES.HOME} />;
@@ -23,5 +23,3 @@ const AdminContainer = ({ className, children }: AdminContainerProps) => {
     </div>
   );
 };
-
-export default AdminContainer;
