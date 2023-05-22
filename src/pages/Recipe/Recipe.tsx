@@ -26,6 +26,11 @@ const Recipe = () => {
   const { recipe, noMatch } = useRecipeBySlug();
 
   useEffect(() => {
+    if (!recipe) return;
+    document.title = recipe.title;
+  }, [recipe]);
+
+  useEffect(() => {
     restoreScroll();
   }, [restoreScroll]);
 
