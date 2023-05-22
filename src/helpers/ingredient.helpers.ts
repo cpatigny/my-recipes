@@ -134,11 +134,26 @@ export const generateIngredientKey = (recipeId: string) => {
   return generateKey(path);
 };
 
+export const roundQuantity = (quantity: number) => {
+  if (quantity >= 100) {
+    // round to nearest 5
+    return Math.round(quantity / 5) * 5;
+  }
+
+  if (quantity >= 10) {
+    // round to nearest integer
+    return Math.round(quantity);
+  }
+
+  // round to nearest decimal
+  return Math.round(quantity * 10) / 10;
+};
+
 export const getQuantityText = (quantity: number) => {
   if (!quantity) return '';
 
   // round number to nearest decimal
-  const roundedQuantity = Math.round(quantity * 10) / 10;
+  const roundedQuantity = roundQuantity(quantity);
 
   let quantityText = roundedQuantity.toString();
 
