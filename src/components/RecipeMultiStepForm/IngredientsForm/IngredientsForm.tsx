@@ -8,6 +8,7 @@ import GroupForm from './GroupForm';
 import IngredientAndGroupList from './IngredientAndGroupList';
 import IngredientForm from './IngredientForm';
 import NbOfServings from './NbOfServings';
+import Block from '../../Block/Block';
 
 const IngredientsForm = () => {
   const [ingredientToEdit, setIngredientToEdit] = useState<RecipeIngredientWithId | null>(null);
@@ -79,7 +80,9 @@ const IngredientsForm = () => {
   return (
     <div className='form-container ingredients-form'>
       <NbOfServings handleStepSubmit={handleStepSubmit} />
-      <IngredientForm />
+      <Block>
+        <IngredientForm />
+      </Block>
       <AddGroup ingredients={ingredients} showGroupForm={() => setShowGroupForm(true)} />
       <IngredientAndGroupList
         deleteIngredient={deleteIngredient}
