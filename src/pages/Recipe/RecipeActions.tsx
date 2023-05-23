@@ -3,6 +3,7 @@ import { RecipeWithId } from '../../types/recipe';
 import { ROUTES, getEditRecipePath } from '../../routes';
 import { deleteRecipe } from '../../helpers/recipe.helpers';
 import { confirm } from '../../utils';
+import { useToast } from '../../contexts/ToastContext';
 
 import { Icon } from '../../components/Icon/Icon';
 
@@ -12,6 +13,7 @@ interface RecipeActionsProps {
 
 export const RecipeActions = ({ recipe }: RecipeActionsProps) => {
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const wordToEnter = 'oui';
   const confirmText = `Êtes-vous sûr de vouloir supprimer la recette "${recipe.title}" ? (cette action est irréversible !) Écrivez "${wordToEnter}" pour confirmer :`;
@@ -20,7 +22,7 @@ export const RecipeActions = ({ recipe }: RecipeActionsProps) => {
     confirm(confirmText, wordToEnter, async () => {
       await deleteRecipe(recipe);
       navigate(ROUTES.HOME, { replace: true });
-      alert('La recette a bien été supprimée.');
+      toast.success('La recette a bien été supprimée');
     });
   };
 

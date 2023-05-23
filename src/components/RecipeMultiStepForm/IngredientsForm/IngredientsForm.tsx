@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 import { RecipeIngredientWithId, GroupWithId, GroupWithIngredients, RecipeIngredients } from '../../../types/recipe';
+import { useToast } from '../../../contexts/ToastContext';
 
 import { Modal } from '../../Modal/Modal';
 import { AddGroup } from './AddGroup';
@@ -15,6 +16,7 @@ export const IngredientsForm = () => {
   const [groupToEdit, setGroupToEdit] = useState<GroupWithId | null>(null);
   const [showGroupForm, setShowGroupForm] = useState(false);
 
+  const { toast } = useToast();
   const { recipeFormData, setRecipeFormData, next } = useRecipeMultiStepForm();
   const { ingredients } = recipeFormData;
 
@@ -68,7 +70,7 @@ export const IngredientsForm = () => {
     e.preventDefault();
 
     if (Object.keys(ingredients).length === 0) {
-      alert('Veuillez ajouter au moins 1 ingrédient');
+      toast.error('Veuillez ajouter au moins 1 ingrédient');
       return;
     }
 

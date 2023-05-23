@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { createCategory, updateCategory } from '../../helpers/category.helpers';
 import { slugify } from '../../utils';
 import { CategoryWithId } from '../../types/category';
+import { useToast } from '../../contexts/ToastContext';
 
 import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
 
@@ -15,6 +16,7 @@ export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) 
   const [slug, setSlug] = useState('');
 
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!categoryToEdit) return;
@@ -43,7 +45,7 @@ export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) 
     }
 
     await createCategory({ name, slug });
-    alert(`La catégorie "${name}" a bien été crée.`);
+    toast.success(`La catégorie "${name}" a bien été crée.`);
     setName('');
     setSlug('');
 

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { RecipeFormData } from '../../types/recipe';
 import { deleteRecipeImage, uploadRecipeImage } from '../../helpers/firebase.helpers';
 import { updateRecipe, createRecipe } from '../../helpers/recipe.helpers';
+import { useToast } from '../../contexts/ToastContext';
 
 import { MultiStepFormActions } from '../MultiStepFormActions/MultiStepFormActions';
 import { ProgressBar } from './ProgressBar';
@@ -16,6 +17,7 @@ export interface FormErrors {
 
 export const RecipeMultiStepForm = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const {
     step, recipeFormData, setRecipeFormData, imageFile, oldImageName, recipe,
   } = useRecipeMultiStepForm();
@@ -24,7 +26,7 @@ export const RecipeMultiStepForm = () => {
     if (imageFile) {
       // if file size is more than 1mb
       if (imageFile.size > 1 * 1024 * 1024) {
-        alert(`L'image ne doit pas dépasser 1mo`);
+        toast.error(`L'image ne doit pas dépasser 1mo`);
         return;
       }
 

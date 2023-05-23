@@ -3,6 +3,7 @@ import { useRecipes } from '../../contexts/RecipesContext';
 import { CategoryWithId } from '../../types/category';
 import { countRecipesByCategory, deleteCategory } from '../../helpers/category.helpers';
 import { confirm } from '../../utils';
+import { useToast } from '../../contexts/ToastContext';
 
 import { Icon } from '../../components/Icon/Icon';
 
@@ -15,6 +16,7 @@ export const AdminCategory = ({ category, setCategoryToEdit }: AdminCategoryProp
   const [nbRecipesWithCategory, setNbRecipesWithCategory] = useState(0);
 
   const { recipes } = useRecipes();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (recipes) {
@@ -27,7 +29,7 @@ export const AdminCategory = ({ category, setCategoryToEdit }: AdminCategoryProp
   const onConfirm = async () => {
     if (recipes) {
       await deleteCategory({ recipes, category });
-      alert('La catégorie a bien été supprimée.');
+      toast.success('La catégorie a bien été supprimée.');
     }
   };
 

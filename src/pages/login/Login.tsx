@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
 import { ROUTES } from '../../routes';
 import { signIn } from '../../helpers/auth.helpers';
+import { useToast } from '../../contexts/ToastContext';
 
 import './Login.scss';
 
@@ -14,6 +15,7 @@ export const Login = () => {
 
   const navigate = useNavigate();
   const { user } = useUser();
+  const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -28,7 +30,7 @@ export const Login = () => {
       await signIn(email, password);
       navigate(ROUTES.HOME, { replace: true });
     } catch (error) {
-      alert('Email ou mot de passe incorrect');
+      toast.error('Email ou mot de passe incorrect');
     }
   };
 
