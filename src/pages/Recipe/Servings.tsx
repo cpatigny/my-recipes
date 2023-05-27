@@ -11,7 +11,7 @@ interface ServingsProps {
 
 export const Servings = ({ numberOfServings, setNumberOfServings, recipe }: ServingsProps) => {
   useEffect(() => {
-    setNumberOfServings(recipe.nbServings ? Number(recipe.nbServings) : 0);
+    setNumberOfServings(Number(recipe.nbServings));
   }, [recipe.nbServings, setNumberOfServings]);
 
   const decrementNumberOfServings = () => {

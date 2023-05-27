@@ -50,8 +50,8 @@ export interface Recipe {
   imageName: string | false;
   categoryId: string | false;
   cookTimeInMins: number | false;
-  nbServings?: string;
-  servingsUnit?: string;
+  nbServings: string;
+  servingsUnit: string;
   ingredients: RecipeIngredients;
   groups?: Groups;
   content: string;
