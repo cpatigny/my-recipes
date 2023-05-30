@@ -26,8 +26,12 @@ export const Recipe = () => {
   const { recipe, noMatch } = useRecipeBySlug();
 
   useEffect(() => {
-    if (!recipe) return;
+    if (!recipe) return undefined;
     document.title = recipe.title;
+
+    return () => {
+      document.title = 'My Recipes';
+    };
   }, [recipe]);
 
   useEffect(() => {
