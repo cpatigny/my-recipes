@@ -1,3 +1,4 @@
+import { getRecipeImgUrl } from '../../helpers/firebase.helpers';
 import { RecipeWithId } from '../../types/recipe';
 
 interface RecipeImageProps {
@@ -10,7 +11,7 @@ export const RecipeImage = ({ recipe }: RecipeImageProps) => {
   return (
     <div className='recipe-image'>
       <img
-        src={`https://firebasestorage.googleapis.com/v0/b/my-recipes-5f5d6.appspot.com/o/recipe-images%2F${recipe.imageName}?alt=media`}
+        src={getRecipeImgUrl(recipe.imageName)}
         alt={recipe.title} />
     </div>
   );

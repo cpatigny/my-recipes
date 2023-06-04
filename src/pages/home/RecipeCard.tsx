@@ -1,3 +1,4 @@
+import { getRecipeImgUrl } from '../../helpers/firebase.helpers';
 import { getRecipePath } from '../../routes';
 
 import { Link } from 'react-router-dom';
@@ -10,7 +11,7 @@ interface RecipeCardProps {
 
 export const RecipeCard = ({ title, imageName, slug }: RecipeCardProps) => {
   const gradient = 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.7))';
-  const imageUrl = imageName && `https://firebasestorage.googleapis.com/v0/b/my-recipes-5f5d6.appspot.com/o/recipe-images%2F${imageName}?alt=media`;
+  const imageUrl = imageName && getRecipeImgUrl(imageName);
   const backgroundImage = imageName ? `${gradient}, url(${imageUrl})` : gradient;
 
   return (

@@ -3,6 +3,7 @@ import { useMultiStepForm, Step, useMultiStepFormReturn } from '../hooks/useMult
 import { Updater, useImmer } from 'use-immer';
 import { RecipeFormData, RecipeWithId } from '../types/recipe';
 import { generateRecipeKey } from '../helpers/recipe.helpers';
+import { getRecipeImgUrl } from '../helpers/firebase.helpers';
 
 import { InformationForm } from '../components/RecipeMultiStepForm/InformationForm/InformationForm';
 import { IngredientsForm } from '../components/RecipeMultiStepForm/IngredientsForm/IngredientsForm';
@@ -98,7 +99,8 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
     setOldImageName(recipe.imageName);
 
     if (recipe.imageName) {
-      setPreviewImageSrc(`https://firebasestorage.googleapis.com/v0/b/my-recipes-5f5d6.appspot.com/o/recipe-images%2F${recipe.imageName}?alt=media`);
+      const imgUrl = getRecipeImgUrl(recipe.imageName);
+      setPreviewImageSrc(imgUrl);
     }
   }, [recipe, setPreviewImageSrc, setRecipeFormData]);
 
