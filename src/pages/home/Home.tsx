@@ -18,6 +18,7 @@ import { Categories } from './Categories';
 import { Menu } from '../../components/Menu/Menu';
 
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
+import emptyIllustration from '../../assets/img/undraw-empty.svg';
 import logo from '../../assets/img/logo.svg';
 
 import './Home.scss';
@@ -36,6 +37,7 @@ export const Home = () => {
 
   const searchMode = search !== '';
   const { restoreScroll } = useScrollRestoration(!searchMode);
+  const noRecipes = !searchMode && !recipesToShow;
 
   useEffect(() => {
     restoreScroll();
@@ -121,6 +123,15 @@ export const Home = () => {
           alt='no result illustration'
         />
       }
+
+      {noRecipes && (
+        <NothingToShow
+          className='no-recipe-to-show'
+          src={emptyIllustration}
+          message={`Aucune recette à afficher`}
+          alt='empty box illustration'
+        />
+      )}
 
       <div className='recipes'>
         { recipesToShow && Object.keys(recipesToShow).map(key => {
