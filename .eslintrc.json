@@ -22,7 +22,9 @@
         "airbnb-base",
         "plugin:jsx-a11y/strict",
         "plugin:sonarjs/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:jest-dom/recommended",
+        "plugin:jest/recommended"
     ],
     "overrides": [
     ],
@@ -38,7 +40,9 @@
         "jsx-a11y",
         "sonarjs",
         "@typescript-eslint",
-        "unused-imports"
+        "unused-imports",
+        "jest",
+        "jest-dom"
     ],
     "rules": {
         "indent": ["error", 2, { "SwitchCase": 1 }],
