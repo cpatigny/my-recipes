@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRecipes } from '../../contexts/RecipesContext';
 import { CategoryWithId } from '../../types/category';
 import { countRecipesByCategory, deleteCategory } from '../../helpers/category.helpers';
-import { confirm } from '../../utils';
+import { confirm } from '../../utils/utils';
 import { useToast } from '../../contexts/ToastContext';
 
 import { Icon } from '../../components/Icon/Icon';

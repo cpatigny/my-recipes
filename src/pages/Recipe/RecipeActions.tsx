@@ -2,7 +2,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { RecipeWithId } from '../../types/recipe';
 import { ROUTES, getEditRecipePath } from '../../routes';
 import { deleteRecipe } from '../../helpers/recipe.helpers';
-import { confirm } from '../../utils';
+import { confirm } from '../../utils/utils';
 import { useToast } from '../../contexts/ToastContext';
 
 import { Icon } from '../../components/Icon/Icon';

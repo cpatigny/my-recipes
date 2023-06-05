@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useCategories } from '../../../contexts/CategoriesContext';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 import { DEFAULT_RECIPE_CATEGORY } from '../../../constants';
-import { slugify } from '../../../utils';
+import { slugify } from '../../../utils/utils';
 
 export interface FormErrors {
   [name: string]: string;

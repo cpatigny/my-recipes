@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { createCategory, updateCategory } from '../../helpers/category.helpers';
-import { slugify } from '../../utils';
+import { slugify } from '../../utils/utils';
 import { CategoryWithId } from '../../types/category';
 import { useToast } from '../../contexts/ToastContext';
 

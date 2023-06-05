@@ -1,7 +1,7 @@
 import { getDatabase, ref, remove, update, push } from 'firebase/database';
 import { ref as storageRef, getStorage, deleteObject } from 'firebase/storage';
 import { Recipe, RecipeFormData, RecipeIngredient, Recipes, RecipeWithId } from '../types/recipe';
-import { strContains } from '../utils';
+import { strContains } from '../utils/utils';
 import { generateKey } from './firebase.helpers';
 
 export const getRecipeBySlug = (slug: string, recipes: Recipes): RecipeWithId | null => {

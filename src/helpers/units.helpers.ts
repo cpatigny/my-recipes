@@ -1,7 +1,7 @@
 import { getDatabase, ref, push, set, update, remove } from 'firebase/database';
 import { RecipeIngredient, Recipes } from '../types/recipe';
 import { Units, UnitWithId, Unit } from '../types/unit';
-import { strContains } from '../utils';
+import { strContains } from '../utils/utils';
 import { recipeUses, removeValuefromRecipeIngredients } from './recipe.helpers';
 
 export const getMatchingUnits = (search: string, units: Units | null) => {

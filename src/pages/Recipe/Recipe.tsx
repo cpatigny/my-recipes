@@ -6,7 +6,7 @@ import { useScrollRestoration } from '../../hooks/useScrollRestoration';
 import { useCategories } from '../../contexts/CategoriesContext';
 import { ROUTES } from '../../routes';
 import { useRecipeBySlug } from '../../hooks/useRecipeBySlug';
-import { formatDate } from '../../utils';
+import { formatDate } from '../../utils/utils';
 import { getCookTimeText } from '../../helpers/recipe.helpers';
 
 import { Loading } from '../../components/Loading/Loading';

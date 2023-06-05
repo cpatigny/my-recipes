@@ -3,7 +3,7 @@ import { useIngredientsDetails } from '../../contexts/IngredientsDetailsContext'
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { useRecipes } from '../../contexts/RecipesContext';
 import { deleteIngredientDetails } from '../../helpers/ingredientDetails.helpers';
-import { reverseObject } from '../../utils';
+import { reverseObject } from '../../utils/utils';
 
 import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
 import { IngredientsDetails } from './IngredientsDetails';

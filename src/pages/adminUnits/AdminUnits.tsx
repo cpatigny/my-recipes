@@ -3,7 +3,7 @@ import { useUnits } from '../../contexts/UnitsContext';
 import { UnitWithId } from '../../types/unit';
 import { useRecipes } from '../../contexts/RecipesContext';
 import { deleteUnit } from '../../helpers/units.helpers';
-import { reverseObject } from '../../utils';
+import { reverseObject } from '../../utils/utils';
 
 import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
 import { UnitForm } from './UnitForm';

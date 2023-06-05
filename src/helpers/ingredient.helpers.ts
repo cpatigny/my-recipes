@@ -1,6 +1,6 @@
 import { IngredientsDetails } from '../types/ingredientDetails';
 import { GroupWithId, RecipeIngredient, RecipeIngredientWithId, RecipeIngredients } from '../types/recipe';
-import { lastCharIs } from '../utils';
+import { lastCharIs } from '../utils/utils';
 import { generateKey } from './firebase.helpers';
 import { sortItemsByPosition } from './helpers';
 

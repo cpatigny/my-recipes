@@ -1,7 +1,7 @@
 import { getDatabase, ref, push, set, update, remove } from 'firebase/database';
 import { IngredientsDetails, IngredientDetailsWithId, IngredientDetails } from '../types/ingredientDetails';
 import { Recipes } from '../types/recipe';
-import { strContains } from '../utils';
+import { strContains } from '../utils/utils';
 import { recipeUses, removeValuefromRecipeIngredients } from './recipe.helpers';
 
 export const getMatchingIngredientsDetails = (
