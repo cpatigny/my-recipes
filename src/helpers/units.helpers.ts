@@ -32,6 +32,10 @@ export const getMatchingUnits = (search: string, units: Units | null) => {
   return matchingUnits;
 };
 
+/**
+ * returns a unit object which properties all have a defined value
+ * it'll return the default unit if no unitId is passed
+ */
 export const getUnitDetails = (units: Units | null, unitId?: RecipeIngredient['unitId']) => {
   const defaultUnit: Unit = {
     singular: '',

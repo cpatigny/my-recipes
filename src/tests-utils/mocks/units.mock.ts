@@ -2,7 +2,7 @@
 import { faker } from '@faker-js/faker';
 import { Unit, UnitWithId, Units } from '../../types/unit';
 
-export const generateOneMockUnit = (): Unit => {
+export const getOneMockUnit = (): Unit => {
   return {
     singular: faker.word.noun(),
     plural: faker.word.noun(),
@@ -10,28 +10,28 @@ export const generateOneMockUnit = (): Unit => {
   };
 };
 
-export const generateOneMockUnitWithId = (): UnitWithId => {
+export const getOneMockUnitWithId = (): UnitWithId => {
   return {
-    ...generateOneMockUnit(),
+    ...getOneMockUnit(),
     id: faker.string.nanoid(),
   };
 };
 
-export const generateMockUnits = () => {
+export const getMockUnits = (number = 25) => {
   const mockUnits: Units = {};
 
-  for (let i = 1; i < 25; i++) {
-    mockUnits[`unit${i}`] = generateOneMockUnit();
+  for (let i = 0; i < number; i++) {
+    mockUnits[`unit${i}`] = getOneMockUnit();
   }
 
   return mockUnits;
 };
 
-export const generateMockUnitsWithId = () => {
+export const getMockUnitsWithId = (number = 25) => {
   const mockUnits: UnitWithId[] = [];
 
-  for (let i = 1; i < 25; i++) {
-    mockUnits.push(generateOneMockUnitWithId());
+  for (let i = 0; i < number; i++) {
+    mockUnits.push(getOneMockUnitWithId());
   }
 
   return mockUnits;

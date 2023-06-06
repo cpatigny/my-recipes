@@ -2,35 +2,35 @@
 import { faker } from '@faker-js/faker';
 import { IngredientDetails, IngredientDetailsWithId, IngredientsDetails } from '../../types/ingredientDetails';
 
-export const generateOneMockIngredientDetails = (): IngredientDetails => {
+export const getOneMockIngredientDetails = (): IngredientDetails => {
   return {
     singular: faker.word.noun(),
     plural: faker.word.noun(),
   };
 };
 
-export const generateOneMockIngredientDetailsWithId = (): IngredientDetailsWithId => {
+export const getOneMockIngredientDetailsWithId = (): IngredientDetailsWithId => {
   return {
-    ...generateOneMockIngredientDetails(),
+    ...getOneMockIngredientDetails(),
     id: faker.string.nanoid(),
   };
 };
 
-export const generateMockIngredientsDetails = () => {
+export const getMockIngredientsDetails = (number = 200) => {
   const mockIngredientsDetails: IngredientsDetails = {};
 
-  for (let i = 1; i < 200; i++) {
-    mockIngredientsDetails[`ingredientDetails${i}`] = generateOneMockIngredientDetails();
+  for (let i = 0; i < number; i++) {
+    mockIngredientsDetails[`ingredientDetails${i}`] = getOneMockIngredientDetails();
   }
 
   return mockIngredientsDetails;
 };
 
-export const generateMockIngredientsDetailsWithId = () => {
+export const getMockIngredientsDetailsWithId = (number = 200) => {
   const mockIngredientsDetails: IngredientDetailsWithId[] = [];
 
-  for (let i = 1; i < 200; i++) {
-    mockIngredientsDetails.push(generateOneMockIngredientDetailsWithId());
+  for (let i = 0; i < number; i++) {
+    mockIngredientsDetails.push(getOneMockIngredientDetailsWithId());
   }
 
   return mockIngredientsDetails;

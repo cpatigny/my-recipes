@@ -2,35 +2,35 @@
 import { faker } from '@faker-js/faker';
 import { Categories, Category, CategoryWithId } from '../../types/category';
 
-export const generateOneMockCategory = (): Category => {
+export const getOneMockCategory = (): Category => {
   return {
     name: faker.word.noun(),
     slug: faker.lorem.slug(),
   };
 };
 
-export const generateOneMockCategoryWithId = (): CategoryWithId => {
+export const getOneMockCategoryWithId = (): CategoryWithId => {
   return {
-    ...generateOneMockCategory(),
+    ...getOneMockCategory(),
     id: faker.string.nanoid(),
   };
 };
 
-export const generateMockCategories = () => {
+export const getMockCategories = (number = 6) => {
   const mockCategories: Categories = {};
 
-  for (let i = 1; i <= 6; i++) {
-    mockCategories[`category${i}`] = generateOneMockCategory();
+  for (let i = 0; i < number; i++) {
+    mockCategories[`category${i}`] = getOneMockCategory();
   }
 
   return mockCategories;
 };
 
-export const generateMockCategoriesWithId = () => {
+export const getMockCategoriesWithId = (number = 6) => {
   const mockCategories: CategoryWithId[] = [];
 
-  for (let i = 1; i <= 6; i++) {
-    mockCategories.push(generateOneMockCategoryWithId());
+  for (let i = 0; i < number; i++) {
+    mockCategories.push(getOneMockCategoryWithId());
   }
 
   return mockCategories;
