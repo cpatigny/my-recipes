@@ -64,7 +64,7 @@ export const getIngredientsByGroup = (groupId: string, ingredients: RecipeIngred
 /**
  * @param group the group the user is editing but not yet updated
  * @param selectedIngredientsId the list of ingredients id the user selected (checked)
- * @param ingredients the list of all ingredients
+ * @param ingredients the list of all ingredients from the recipe
  * @returns the list of ingredients that got removed from a group
  */
 export const getExcludedIngredients = (
@@ -152,17 +152,17 @@ export const roundQuantity = (quantity: number) => {
 export const getQuantityText = (quantity: number) => {
   if (!quantity) return '';
 
-  // round number to nearest decimal
+  // we do it before rounding because 0.25 will always be rounded to 0.3
+  if (quantity === 0.25) {
+    return '1/4';
+  }
+
   const roundedQuantity = roundQuantity(quantity);
 
   let quantityText = roundedQuantity.toString();
 
   if (roundedQuantity === 0.5) {
     quantityText = '1/2';
-  }
-
-  if (roundedQuantity === 0.25) {
-    quantityText = '1/4';
   }
 
   return quantityText;

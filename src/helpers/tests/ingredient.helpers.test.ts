@@ -2,7 +2,7 @@ import { getMockCategories } from '../../tests-utils/mocks/categories.mock';
 import { getMockIngredientsDetails } from '../../tests-utils/mocks/ingredientsDetails.mock';
 import { getMockRecipeIngredientsWithId, getOneMockRecipe } from '../../tests-utils/mocks/recipes.mock';
 import { getMockUnits } from '../../tests-utils/mocks/units.mock';
-import { addGroupIdToIngredients, convertIngredientsArrayToObject, convertIngredientsObjectToArray, getIngredientsByGroup } from '../ingredient.helpers';
+import { addGroupIdToIngredients, convertIngredientsArrayToObject, convertIngredientsObjectToArray, getIngredientName, getIngredientsByGroup, getIngredientsWithoutGroup, getPrepositionText, getQuantityText, removeGroupId, roundQuantity } from '../ingredient.helpers';
 
 const categories = getMockCategories();
 const ingredientsDetails = getMockIngredientsDetails();
@@ -54,13 +54,13 @@ describe('convertIngredientsObjectToArray', () => {
 
 describe('getIngredientsByGroup', () => {
   test('should return an array of ingredients', () => {
-    const ingredients = getOneMockRecipe(idList, true).ingredients;
+    const ingredients = getOneMockRecipe(idList, 10, true).ingredients;
     const ingredientsByGroup = getIngredientsByGroup('whatever', ingredients);
     expect(Array.isArray(ingredientsByGroup)).toBe(true);
   });
 
   test('should only return ingredients with the given groupId', () => {
-    const ingredients = getOneMockRecipe(idList, true).ingredients;
+    const ingredients = getOneMockRecipe(idList, 10, true).ingredients;
     const key = Object.keys(ingredients)[0];
     const item = key ? ingredients[key] : null;
     if (!item) return;
@@ -72,5 +72,108 @@ describe('getIngredientsByGroup', () => {
 
     const ingredientsByGroup = getIngredientsByGroup(groupId, ingredients);
     expect(ingredientsByGroup.every(i => i.groupId === groupId)).toBe(true);
+  });
+});
+
+describe('getIngredientName', () => {
+  const ingredients = getOneMockRecipe(idList).ingredients;
+  const key = Object.keys(ingredients)[0];
+  const ingredient = key ? ingredients[key] : null;
+  if (!ingredient) return;
+
+  test('should return an empty string if ingredient details is null', () => {
+    const name = getIngredientName(ingredient, 1, null);
+    expect(name).toBe('');
+  });
+
+  test('should return an empty string if ingredient detailsId doesn\'t match', () => {
+    const name = getIngredientName({ ...ingredient, detailsId: 'azerty123456' }, 1, null);
+    expect(name).toBe('');
+  });
+
+  test('should return plural if quantity is greater than or equal to 2', () => {
+    const name = getIngredientName(ingredient, 2, ingredientsDetails);
+    expect(name).toBe(ingredientsDetails[ingredient.detailsId]?.plural);
+  });
+
+  test('should return singular if quantity is lesser than 2', () => {
+    const name = getIngredientName(ingredient, 1, ingredientsDetails);
+    expect(name).toBe(ingredientsDetails[ingredient.detailsId]?.singular);
+  });
+});
+
+describe('removeGroupId', () => {
+  test('should return ingredients with groupId removed', () => {
+    const ingredients = getOneMockRecipe(idList, 200).ingredients;
+    const groupIdRemovedIngredients = removeGroupId(ingredients);
+    const noGroupId = Object
+      .keys(groupIdRemovedIngredients)
+      .every(key => {
+        const ing = groupIdRemovedIngredients[key];
+        if (!ing) return false;
+        return ing.groupId === false;
+      });
+    expect(noGroupId).toBe(true);
+  });
+});
+
+describe('getIngredientsWithoutGroup', () => {
+  test('should return only ingredients that do not have a groupId', () => {
+    const ingredients = getOneMockRecipe(idList, 50).ingredients;
+    const key = Object.keys(ingredients)[0];
+    if (!key) return;
+    const ingredient = ingredients[key];
+    if (!ingredient) return;
+    const ingredientWithoutGroup = removeGroupId({ [key]: ingredient });
+    const updatedIngredients = { ...ingredients, ...ingredientWithoutGroup };
+    const ingsWithoutGroup = getIngredientsWithoutGroup(updatedIngredients);
+    expect(ingsWithoutGroup.every(i => i.groupId === false)).toBe(true);
+  });
+});
+
+describe('roundQuantity', () => {
+  test('should round quantity to nearest 5 if quantity is greater than or equal to 100', () => {
+    expect(roundQuantity(152)).toBe(150);
+  });
+
+  test('should round quantity to nearest integer if quantity is greater than or equal to 10', () => {
+    expect(roundQuantity(15.8)).toBe(16);
+  });
+
+  test('should round quantity to nearest decimal if quantity is lesser than 10', () => {
+    expect(roundQuantity(5.8165)).toBe(5.8);
+  });
+});
+
+describe('getQuantityText', () => {
+  test('should return an empty string if quantity is equal to 0', () => {
+    expect(getQuantityText(0)).toBe('');
+  });
+
+  test('should return rounded quantity string', () => {
+    expect(getQuantityText(152)).toBe('150');
+  });
+
+  test('should return 1/2 if quantity is rounded to 0.5', () => {
+    expect(getQuantityText(0.5)).toBe('1/2');
+    expect(getQuantityText(0.52)).toBe('1/2');
+  });
+
+  test('should return 1/4 if quantity is rounded to 0.25', () => {
+    expect(getQuantityText(0.25)).toBe('1/4');
+  });
+});
+
+describe('getPrepositionText', () => {
+  test('should return an emtpy string if preposition is false', () => {
+    expect(getPrepositionText(false)).toBe(' ');
+  });
+
+  test('should return the string without spaces at the end if no apostrophe', () => {
+    expect(getPrepositionText('it')).toBe('it ');
+  });
+
+  test('should return string with space at the end if apostrophe', () => {
+    expect(getPrepositionText(`it'`)).toBe(`it'`);
   });
 });

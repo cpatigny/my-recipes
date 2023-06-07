@@ -84,7 +84,7 @@ export const getMockRecipeIngredientsWithId = (ids: Ids) => {
 /**
  * @param alwaysGroup if recipe ingredients always have a group
  */
-export const getOneMockRecipe = (ids: Ids, alwaysGroup = false): Recipe => {
+export const getOneMockRecipe = (ids: Ids, nbIngredients = 10, alwaysGroup = false): Recipe => {
   const groups: Groups = {};
 
   for (let i = 1; i < faker.number.int({ min: 2, max: 4 }); i++) {
@@ -93,7 +93,7 @@ export const getOneMockRecipe = (ids: Ids, alwaysGroup = false): Recipe => {
 
   const ingredients: RecipeIngredients = {};
 
-  for (let i = 1; i < faker.number.int({ min: 6, max: 15 }); i++) {
+  for (let i = 1; i < nbIngredients; i++) {
     const randomDetailsId = faker.helpers.arrayElement(ids.ingredientsDetailsIds);
     const randomGroupId = faker.helpers.arrayElement(Object.keys(groups));
     const randomUnitId = faker.helpers.arrayElement(ids.unitsIds);
