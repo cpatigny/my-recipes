@@ -38,7 +38,7 @@ export const useToast = () => {
   const { setToasts } = context;
 
   const deleteToast = (key: string) => {
-    setToasts(popUps => popUps.filter(popUp => popUp.key !== key));
+    setToasts(toasts => toasts.filter(toast => toast.key !== key));
   };
 
   const createToast = (message: string, status: Status) => {
