@@ -93,11 +93,11 @@ export const getIngredientName = (
   const details = ingredientsDetails[ingredient.detailsId];
   if (!details) return '';
 
-  if (quantity >= 2) {
+  if (details.plural && quantity >= 2) {
     return details.plural;
   }
 
-  return details.singular;
+  return details.name;
 };
 
 export const getIngredientsWithoutGroup = (ingredients: RecipeIngredients) => {

@@ -9,7 +9,7 @@ interface IngredientFormProps {
 }
 
 export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFormProps) => {
-  const [singular, setSingular] = useState('');
+  const [name, setName] = useState('');
   const [plural, setPlural] = useState('');
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -17,12 +17,12 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
   useEffect(() => {
     if (!ingredientToEdit) return;
 
-    setSingular(ingredientToEdit.singular);
-    setPlural(ingredientToEdit.plural);
+    setName(ingredientToEdit.name);
+    setPlural(ingredientToEdit.plural ?? '');
   }, [ingredientToEdit]);
 
   const reset = () => {
-    setSingular('');
+    setName('');
     setPlural('');
   };
 
@@ -30,12 +30,12 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
     e.preventDefault();
 
     if (ingredientToEdit) {
-      await updateIngredientDetails({ id: ingredientToEdit.id, singular, plural });
+      await updateIngredientDetails({ id: ingredientToEdit.id, name, plural });
       if (close) close();
       return;
     }
 
-    await createIngredientDetails({ singular, plural });
+    await createIngredientDetails({ name, plural });
     reset();
 
     if (inputRef.current) {
@@ -51,15 +51,14 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
         name='singular'
         type='text'
         required
-        value={singular}
-        onChange={e => setSingular(e.currentTarget.value)}
+        value={name}
+        onChange={e => setName(e.currentTarget.value)}
       />
 
       <UnderlineInput
         labelText='Pluriel'
         name='plural'
         type='text'
-        required
         value={plural}
         onChange={e => setPlural(e.currentTarget.value)}
       />

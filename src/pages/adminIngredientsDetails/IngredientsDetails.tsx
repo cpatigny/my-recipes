@@ -20,8 +20,10 @@ export const IngredientsDetails = ({
       return (
         <li key={key} className='ingredient'>
           <div className='ingredient-name'>
-            <p>singulier : <b>{ ingredient.singular }</b></p>
-            <p>pluriel : <b>{ ingredient.plural }</b></p>
+            <p>nom : <b>{ ingredient.name }</b></p>
+            {ingredient.plural && (
+              <p>pluriel : <b>{ ingredient.plural }</b></p>
+            )}
           </div>
           <div className='actions delete-edit'>
             <button className='edit' onClick={() => setIngredientToEdit({ id: key, ...ingredient })}>

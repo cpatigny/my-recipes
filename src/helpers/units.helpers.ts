@@ -77,9 +77,10 @@ export const createUnit = (unit: Unit) => {
 };
 
 export const updateUnit = (unit: UnitWithId) => {
+  const { id: unitId, ...unitData } = unit;
   const db = getDatabase();
-  const unitRef = ref(db, `units/${unit.id}`);
-  return set(unitRef, unit);
+  const unitRef = ref(db, `units/${unitId}`);
+  return set(unitRef, unitData);
 };
 
 export const deleteUnit = async (unitId: string, recipes: Recipes) => {

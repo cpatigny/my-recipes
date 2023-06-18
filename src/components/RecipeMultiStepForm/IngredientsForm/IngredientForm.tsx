@@ -62,7 +62,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
 
     const ingredientDetails = ingredientsDetails[ingredient.detailsId];
     if (ingredientDetails) {
-      setIngredientName(ingredientDetails.singular);
+      setIngredientName(ingredientDetails.name);
     }
 
     const unitId = ingredient.unitId;
@@ -190,7 +190,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
 
   const selectIngredient = (ingredientDetails: IngredientDetailsWithId) => {
     setIngredientData({ ...ingredientData, detailsId: ingredientDetails.id });
-    setIngredientName(ingredientDetails.singular);
+    setIngredientName(ingredientDetails.name);
   };
 
   const handleUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -251,7 +251,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
 
           <AutocompleteInput<IngredientDetailsWithId>
             matchingObjects={matchingIngredientsDetails}
-            propertyToShow='singular'
+            propertyToShow='name'
             selectItem={selectIngredient}
             setMatchingObjects={setMatchingIngredientsDetails}
             labelText='Ingrédient'

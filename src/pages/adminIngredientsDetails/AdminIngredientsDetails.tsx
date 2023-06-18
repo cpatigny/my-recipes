@@ -22,7 +22,7 @@ export const AdminIngredientsDetails = () => {
   const closeEditForm = () => setIngredientToEdit(null);
 
   const handleDelete = (ingredientDetails: IngredientDetailsWithId) => {
-    if (!window.confirm(`Supprimer "${ingredientDetails.singular}" ?`)) {
+    if (!window.confirm(`Supprimer "${ingredientDetails.name}" ?`)) {
       return;
     }
 

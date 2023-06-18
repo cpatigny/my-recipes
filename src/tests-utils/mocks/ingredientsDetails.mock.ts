@@ -4,7 +4,7 @@ import { IngredientDetails, IngredientDetailsWithId, IngredientsDetails } from '
 
 export const getOneMockIngredientDetails = (): IngredientDetails => {
   return {
-    singular: faker.word.noun(),
+    name: faker.word.noun(),
     plural: faker.word.noun(),
   };
 };

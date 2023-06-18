@@ -12,11 +12,14 @@ describe('getMatchingIngredientsDetails', () => {
   if (!item) return;
 
   test('should return the matching ingredients details using singular', () => {
-    const matchingItems = getMatchingIngredientsDetails(item.singular, ingredientsDetails);
+    const matchingItems = getMatchingIngredientsDetails(item.name, ingredientsDetails);
     expect(matchingItems.some(i => i.id === key)).toBe(true);
   });
 
   test('should return the matching ingredients details using plural', () => {
+    if (!item.plural) {
+      throw new Error('item should have plural property defined in order for the test to work');
+    }
     const matchingItems = getMatchingIngredientsDetails(item.plural, ingredientsDetails);
     expect(matchingItems.some(i => i.id === key)).toBe(true);
   });

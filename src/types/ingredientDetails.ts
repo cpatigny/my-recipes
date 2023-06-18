@@ -1,6 +1,6 @@
 export interface IngredientDetails {
-  singular: string;
-  plural: string;
+  name: string;
+  plural?: string;
 }
 
 export interface IngredientDetailsWithId extends IngredientDetails {

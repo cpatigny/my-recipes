@@ -2,6 +2,8 @@ import { getMockCategories } from '../../tests-utils/mocks/categories.mock';
 import { getMockIngredientsDetails } from '../../tests-utils/mocks/ingredientsDetails.mock';
 import { getMockRecipeIngredientsWithId, getOneMockRecipe } from '../../tests-utils/mocks/recipes.mock';
 import { getMockUnits } from '../../tests-utils/mocks/units.mock';
+import { IngredientDetails } from '../../types/ingredientDetails';
+import { RecipeIngredient } from '../../types/recipe';
 import { addGroupIdToIngredients, convertIngredientsArrayToObject, convertIngredientsObjectToArray, getIngredientName, getIngredientsByGroup, getIngredientsWithoutGroup, getPrepositionText, getQuantityText, removeGroupId, roundQuantity } from '../ingredient.helpers';
 
 const categories = getMockCategories();
@@ -91,14 +93,37 @@ describe('getIngredientName', () => {
     expect(name).toBe('');
   });
 
-  test('should return plural if quantity is greater than or equal to 2', () => {
+  test('should always return name if ingredient has no plural', () => {
+    const detailsId = '123';
+
+    // we create an ingredient details without plural
+    const noPluralIngredientDetails: IngredientDetails = {
+      name: 'sugar',
+    };
+
+    // we create a key value object with the previous ingredient details
+    const ingredientsDetailsWithoutPlural = {
+      [detailsId]: noPluralIngredientDetails,
+    };
+
+    // we create a recipe ingredient that uses the previously created ingredient details
+    const recipeIngredient: RecipeIngredient = { ...ingredient, detailsId };
+
+    const nameOne = getIngredientName(recipeIngredient, 1, ingredientsDetailsWithoutPlural);
+    const nameTwo = getIngredientName(recipeIngredient, 2, ingredientsDetailsWithoutPlural);
+
+    expect(nameOne).toBe(noPluralIngredientDetails.name);
+    expect(nameTwo).toBe(noPluralIngredientDetails.name);
+  });
+
+  test('should return plural if quantity is greater than or equal to 2 and plural is defined', () => {
     const name = getIngredientName(ingredient, 2, ingredientsDetails);
     expect(name).toBe(ingredientsDetails[ingredient.detailsId]?.plural);
   });
 
-  test('should return singular if quantity is lesser than 2', () => {
+  test('should return name if quantity is lesser than 2', () => {
     const name = getIngredientName(ingredient, 1, ingredientsDetails);
-    expect(name).toBe(ingredientsDetails[ingredient.detailsId]?.singular);
+    expect(name).toBe(ingredientsDetails[ingredient.detailsId]?.name);
   });
 });
 

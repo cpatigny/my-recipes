@@ -18,9 +18,14 @@ export const getMatchingIngredientsDetails = (
     .forEach(key => {
       const ingredientDetails = ingredientsDetails[key];
       if (!ingredientDetails) return;
-      const singularContainsSearch = strContains(ingredientDetails.singular, search);
-      const pluralContainsSearch = strContains(ingredientDetails.plural, search);
-      if (singularContainsSearch || pluralContainsSearch) {
+      const nameContainsSearch = strContains(ingredientDetails.name, search);
+
+      let pluralContainsSearch = false;
+      if (ingredientDetails.plural) {
+        pluralContainsSearch = strContains(ingredientDetails.plural, search);
+      }
+
+      if (nameContainsSearch || pluralContainsSearch) {
         matchingIngredientsDetails.push({ id: key, ...ingredientDetails });
       }
     });
@@ -37,9 +42,10 @@ export const createIngredientDetails = (ingredientDetails: IngredientDetails) =>
 };
 
 export const updateIngredientDetails = (ingredient: IngredientDetailsWithId) => {
+  const { id: ingredientId, ...ingredientData } = ingredient;
   const db = getDatabase();
-  const ingredientDetailsRef = ref(db, `ingredients/${ingredient.id}`);
-  return set(ingredientDetailsRef, ingredient);
+  const ingredientDetailsRef = ref(db, `ingredients/${ingredientId}`);
+  return set(ingredientDetailsRef, ingredientData);
 };
 
 export const deleteIngredientDetails = async (ingredientDetailsId: string, recipes: Recipes) => {
