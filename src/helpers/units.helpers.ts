@@ -68,6 +68,23 @@ export const getUnitName = (unit: Unit, quantity: number) => {
   return unit.singular;
 };
 
+export const getUnitNameById = (units: Units | null, id: string) => {
+  if (!id || !units) {
+    return '';
+  }
+
+  const unit = units[id];
+  if (!unit) {
+    return '';
+  }
+
+  if (!unit.symbol) {
+    return unit.singular;
+  }
+
+  return `${unit.singular} (${unit.symbol})`;
+};
+
 /* firebase */
 
 export const createUnit = (unit: Unit) => {

@@ -66,6 +66,12 @@
             "props": true,
             "ignorePropertyModificationsFor": ["draft"] // for immer
         }],
+        "import/no-extraneous-dependencies": ["error", {
+            "devDependencies": [
+                "**/*.test.ts",
+                "**/*.test.tsx"
+            ]
+        }],
         "unused-imports/no-unused-imports": "error",
         "import/no-default-export": "error",
         "object-curly-newline": "off",

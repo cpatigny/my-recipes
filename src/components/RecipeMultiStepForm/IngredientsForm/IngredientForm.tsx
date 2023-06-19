@@ -1,19 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
 import { getNewItemPosition } from '../../../helpers/helpers';
 import { generateIngredientKey } from '../../../helpers/ingredient.helpers';
-import { getMatchingIngredientsDetails } from '../../../helpers/ingredientDetails.helpers';
-import { getMatchingUnits } from '../../../helpers/units.helpers';
 import { useIngredientsDetails } from '../../../contexts/IngredientsDetailsContext';
 import { useRecipeMultiStepForm, FormElements } from '../../../contexts/RecipeMultiStepFormContext';
 import { useUnits } from '../../../contexts/UnitsContext';
-import { IngredientDetailsWithId } from '../../../types/ingredientDetails';
 import { RecipeIngredientWithId, RecipeIngredientFormData } from '../../../types/recipe';
-import { UnitWithId } from '../../../types/unit';
 import { FormErrors } from '../RecipeMultiStepForm';
 
-import { AutocompleteInput } from '../../AutocompleteInput/AutocompleteInput';
 import { Icon } from '../../Icon/Icon';
 import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
+import { IngredientDetailsCombobox } from './IngredientDetailsCombobox';
+import { UnitCombobox } from './UnitCombobox';
 
 interface IngredientFormProps {
   ingredient?: RecipeIngredientWithId;
@@ -34,12 +31,6 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
     setIngredientData,
   ] = useState<RecipeIngredientFormData>(DEFAULT_INGREDIENT_DATA);
   const [ingredientErrors, setIngredientErrors] = useState<FormErrors>({});
-  const [ingredientName, setIngredientName] = useState('');
-  const [
-    matchingIngredientsDetails, setMatchingIngredientsDetails,
-  ] = useState<IngredientDetailsWithId[] | null>(null);
-  const [unitName, setUnitName] = useState('');
-  const [matchingUnits, setMatchingUnits] = useState<UnitWithId[] | null>(null);
 
   const { ingredientsDetails } = useIngredientsDetails();
   const { units } = useUnits();
@@ -59,17 +50,6 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
       preposition: ingredient.preposition ? ingredient.preposition : '',
       additionalInfo: ingredient.additionalInfo ? ingredient.additionalInfo : '',
     });
-
-    const ingredientDetails = ingredientsDetails[ingredient.detailsId];
-    if (ingredientDetails) {
-      setIngredientName(ingredientDetails.name);
-    }
-
-    const unitId = ingredient.unitId;
-    const unit = unitId && units[unitId];
-    if (unit) {
-      setUnitName(unit.symbol ? unit.symbol : unit.singular);
-    }
   }, [ingredient, ingredientsDetails, units]);
 
   const handleIngredientChange = (e: React.ChangeEvent<FormElements>) => {
@@ -83,8 +63,6 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
 
   const resetForm = () => {
     setIngredientData(DEFAULT_INGREDIENT_DATA);
-    setIngredientName('');
-    setUnitName('');
     setIngredientErrors({});
   };
 
@@ -180,34 +158,6 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
     addIngredient();
   };
 
-  const handleIngredientNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.currentTarget.value;
-    setIngredientName(name);
-    const matchingIng = getMatchingIngredientsDetails(name, ingredientsDetails);
-    setMatchingIngredientsDetails(matchingIng);
-    setIngredientData({ ...ingredientData, detailsId: '' });
-  };
-
-  const selectIngredient = (ingredientDetails: IngredientDetailsWithId) => {
-    setIngredientData({ ...ingredientData, detailsId: ingredientDetails.id });
-    setIngredientName(ingredientDetails.name);
-  };
-
-  const handleUnitChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.currentTarget.value;
-    setUnitName(name);
-    const matching = getMatchingUnits(name, units);
-    setMatchingUnits(matching);
-
-    // to remove selected unit if there is one when user edit unit name
-    setIngredientData({ ...ingredientData, unitId: '' });
-  };
-
-  const selectUnit = (unitToSelect: UnitWithId) => {
-    setIngredientData({ ...ingredientData, unitId: unitToSelect.id });
-    setUnitName(unitToSelect.symbol ? unitToSelect.symbol : unitToSelect.singular);
-  };
-
   return (
     <div className={editMode ? 'edit-ingredient' : 'add-ingredient'}>
       {!editMode && (
@@ -227,18 +177,11 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             error={!!ingredientErrors.quantity}
           />
 
-          <AutocompleteInput<UnitWithId>
-            matchingObjects={matchingUnits}
-            propertyToShow='singular'
-            secondaryPropertyToShow='symbol'
-            selectItem={selectUnit}
-            setMatchingObjects={setMatchingUnits}
-            labelText='Unité'
-            name='unit'
-            value={unitName}
-            onChange={handleUnitChange}
+          <UnitCombobox
+            ingredientData={ingredientData}
+            setIngredientData={setIngredientData}
+            units={units}
             error={!!ingredientErrors.unit}
-            noMatchingMsg='Aucune unité trouvée'
           />
 
           <UnderlineInput
@@ -249,18 +192,11 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             onChange={handleIngredientChange}
           />
 
-          <AutocompleteInput<IngredientDetailsWithId>
-            matchingObjects={matchingIngredientsDetails}
-            propertyToShow='name'
-            selectItem={selectIngredient}
-            setMatchingObjects={setMatchingIngredientsDetails}
-            labelText='Ingrédient'
-            name='name'
-            value={ingredientName}
+          <IngredientDetailsCombobox
+            ingredientData={ingredientData}
+            setIngredientData={setIngredientData}
+            ingredientsDetails={ingredientsDetails}
             error={!!ingredientErrors.name}
-            onChange={handleIngredientNameChange}
-            noMatchingMsg='Aucun ingrédient trouvé'
-            required
           />
 
           <UnderlineInput

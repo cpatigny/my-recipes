@@ -33,6 +33,19 @@ export const getMatchingIngredientsDetails = (
   return matchingIngredientsDetails;
 };
 
+export const getIngredientDetailsName = (
+  ingredientsDetails: IngredientsDetails | null, id: string,
+) => {
+  if (ingredientsDetails === null || id === '') {
+    return '';
+  }
+
+  const details = ingredientsDetails[id];
+  if (!details) return '';
+
+  return details.name;
+};
+
 /* firebase */
 
 export const createIngredientDetails = (ingredientDetails: IngredientDetails) => {

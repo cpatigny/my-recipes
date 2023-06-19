@@ -14,6 +14,109 @@
     }
   }
 
+  $brs: 0.5rem;
+
+  .combobox {
+    position: relative;
+  }
+
+  .ingredient-details-combobox {
+    flex: 100% 1;
+    margin-top: 0.6rem;
+  }
+
+  .unit-combobox {
+    flex: 1;
+    min-width: 120px;
+    margin-top: 12px; /* same value as label margin top in index.scss file */
+  }
+
+  .combobox-input {
+    padding: 6px 0;
+    border: none;
+    border-bottom: 1px solid #dadce0;
+    outline: none;
+    transition-duration: 200ms;
+    color: #44505B;
+    border-radius: 0;
+    background-color: transparent;
+    margin-bottom: 0.3rem;
+
+    &.error {
+      border-color: $danger-color;
+
+      &::placeholder {
+        color: $danger-color;
+      }
+    }
+
+    &:not(.error):focus {
+      border-color: $main-color;
+    }
+
+    &::placeholder {
+      color: #6D6D6D;
+    }
+  }
+
+  .combobox-options {
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-radius: $brs;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    overflow-y: auto;
+    max-height: 14rem;
+    max-height: 6rem;
+
+    .no-match {
+      padding: 0.5rem 0.8rem;
+      color: $tertiary-text-color;
+    }
+  }
+
+  .combobox-option {
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    padding: 0.3rem 0.8rem;
+    width: 100%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &.has-option-selected .combobox-option-text {
+      padding-left: 1.5rem;
+    }
+
+    .check-icon {
+      position: absolute;
+      color: rgba($main-color, 0.9);
+      font-size: 1.2rem;
+    }
+
+    &[data-headlessui-state~="active"] {
+      background-color: rgba($main-color, 0.9);
+      color: #fff;
+    }
+
+    &[data-headlessui-state~="selected"] span {
+      font-weight: 600;
+    }
+
+    &[data-headlessui-state~="active"][data-headlessui-state~="selected"] {
+      .check-icon {
+        color: #fff;
+      }
+    }
+  }
+
   button.btn-primary {
     background-color: rgba($main-color, 0.9);
     color: #fff;
@@ -238,7 +341,7 @@
         min-width: 120px;
       }
 
-      .unit-container {
+      .unit-combobox {
         flex: 1;
         min-width: auto;
         min-width: 120px;
@@ -485,10 +588,9 @@
       min-width: 120px;
     }
 
-    .unit {
-      flex: 1;
-      min-width: auto;
-      min-width: 120px;
+    .unit-combobox {
+      flex: 2;
+      min-width: 12.5rem;
     }
 
     .preposition {
@@ -496,7 +598,7 @@
       min-width: 6.25rem;
     }
 
-    .name {
+    .ingredient-details-combobox {
       flex: 2;
       min-width: 200px;
     }
