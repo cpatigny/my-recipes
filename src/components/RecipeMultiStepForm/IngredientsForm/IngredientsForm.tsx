@@ -108,7 +108,7 @@ export const IngredientsForm = () => {
         close={closeGroupForm}
         title={title}
         className='modal-group-form'
-        onCloseAnimationEnd={() => setGroupToEdit(null)}
+        afterLeave={() => setGroupToEdit(null)}
       >
         {typeof ingredients !== 'string' && (
           <GroupForm

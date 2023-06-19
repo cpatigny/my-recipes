@@ -7,18 +7,18 @@ interface ModalContentProps {
   isShow: boolean;
   className?: string;
   title: string;
-  onCloseAnimationEnd?: () => void;
+  afterLeave?: () => void;
   children: React.ReactNode;
 }
 
 export const ModalContent = ({
-  close, isShow, className, title, onCloseAnimationEnd, children,
+  close, isShow, className, title, afterLeave, children,
 }: ModalContentProps) => {
   const modalTransitions = useTransition(isShow, {
     from: { transform: 'translateY(-100px)' },
     enter: { transform: 'translateY(0px)' },
     leave: { transform: 'translateY(-100px)' },
-    onDestroyed: onCloseAnimationEnd,
+    onDestroyed: afterLeave,
     config: { tension: 500, friction: 35 },
   });
 

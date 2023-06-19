@@ -10,12 +10,12 @@ interface ModalProps {
   close: () => void;
   className?: string;
   title: string;
-  onCloseAnimationEnd?: () => void;
+  afterLeave?: () => void; // after leave animation end
   children: React.ReactNode;
 }
 
 export const Modal = ({
-  isShow, close, className, title, onCloseAnimationEnd, children,
+  isShow, close, className, title, afterLeave, children,
 }: ModalProps) => {
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
@@ -38,7 +38,7 @@ export const Modal = ({
         isShow={isShow}
         title={title}
         className={className}
-        onCloseAnimationEnd={onCloseAnimationEnd}
+        afterLeave={afterLeave}
       >
         { children }
       </ModalContent>
