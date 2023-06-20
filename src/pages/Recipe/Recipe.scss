@@ -153,68 +153,55 @@
       margin-top: 1.6rem;
     }
 
-    .checkbox-container {
-      display: block;
+    .checkbox-item {
+      display: flex;
+      align-items: center;
       margin-bottom: 20px;
+    }
+
+    .checkbox-root {
+      background-color: transparent;
+      border: 2px solid rgba(0, 0, 0, 0.65);
+      height: 18px;
+      width: 18px;
+      border-radius: 3px;
+      position: relative;
+      padding: 0;
+
+      &[data-state="checked"] {
+        border-color: transparent;
+      }
+
+      &:focus {
+        outline: 2px solid #000;
+        outline-offset: 3px;
+      }
+    }
+
+    .checkbox-label {
+      flex: 1;
       cursor: pointer;
+      padding-left: 18px;
+    }
 
-      input {
-        opacity: 0;
-        position: absolute;
-        cursor: pointer;
-        height: 0;
-        width: 0;
+    .checkbox-indicator {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
 
-        // even though the input isn't visible when we click the label it'll :checked the input
-        &:checked + .checkmark:after {
-          opacity: 1;
-        }
-
-        &:checked + .checkmark:before {
-          border-color: rgba(0, 0, 0, 0);
-        }
-
-        &:focus + .checkmark:before {
-          outline: 2px solid #014ecb;
-          outline-offset: 3px;
-        }
-      }
-
-      // &:hover .checkmark:before {
-      //   background-color: #eee;
-      // }
-
-      .checkmark {
-        display: block;
-        position: relative;
-        padding-left: 36px;
-
-        &:before {
-          content: '';
-          position: absolute;
-          top: 5px;
-          left: 0;
-          border: 2px solid rgba(0, 0, 0, 0.65);
-          height: 18px;
-          width: 18px;
-          border-radius: 3px;
-        }
-
-        &:after {
-          content: '';
-          display: inline-block;
-          position: absolute;
-          height: 16px;
-          top: 4px;
-          left: 5px;
-          opacity: 0;
-          background-color: rgba(0,0,0,0);
-          border-right: solid 2px $main-color;
-          border-bottom: solid 2px $main-color;
-          transform: rotate(45deg);
-          width: 8px;
-        }
-      }
+    .checkbox-check-icon {
+      position: absolute;
+      top: -3px;
+      left: 3px;
+      height: 16px;
+      width: 8px;
+      background-color: rgba(0,0,0,0);
+      border-right: solid 2px $main-color;
+      border-bottom: solid 2px $main-color;
+      transform: rotate(45deg);
     }
   }
 
