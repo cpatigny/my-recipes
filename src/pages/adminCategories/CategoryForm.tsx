@@ -5,6 +5,7 @@ import { CategoryWithId } from '../../types/category';
 import { useToast } from '../../contexts/ToastContext';
 
 import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
+import { CancelBtn } from '../../components/CancelBtn/CancelBtn';
 
 interface CategoryFormProps {
   categoryToEdit?: CategoryWithId;
@@ -74,7 +75,15 @@ export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) 
         value={slug}
         onChange={e => setSlug(slugify(e.currentTarget.value))}
       />
-      <button>{ categoryToEdit ? 'Modifier' : 'Ajouter' }</button>
+
+      {categoryToEdit ? (
+        <div className='modal-actions'>
+          <button className='btn-primary modal-button'>Modifier</button>
+          {closeModal && <CancelBtn onClick={closeModal} text='Annuler' />}
+        </div>
+      ) : (
+        <button>Ajouter</button>
+      )}
     </form>
   );
 };

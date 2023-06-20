@@ -49,7 +49,7 @@ export const AdminUnits = () => {
         )}
       </Block>
 
-      <Modal isShow={unitToEdit !== null} close={closeEditForm} title='Modifier unité'>
+      <Modal isShow={unitToEdit !== null} onClose={closeEditForm} title='Modifier unité'>
         <UnitForm unitToEdit={unitToEdit} close={closeEditForm} />
       </Modal>
     </AdminContainer>

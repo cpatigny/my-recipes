@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { updateIngredientDetails, createIngredientDetails } from '../../helpers/ingredientDetails.helpers';
+
 import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
+import { CancelBtn } from '../../components/CancelBtn/CancelBtn';
 
 interface IngredientFormProps {
   ingredientToEdit?: IngredientDetailsWithId;
@@ -62,7 +64,15 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
         value={plural}
         onChange={e => setPlural(e.currentTarget.value)}
       />
-      <button>{ ingredientToEdit ? 'Modifier' : 'Créer un ingrédient' }</button>
+
+      {ingredientToEdit ? (
+        <div className='modal-actions'>
+          <button className='btn-primary modal-button'>Modifier</button>
+          {close && <CancelBtn onClick={close} text='Annuler' />}
+        </div>
+      ) : (
+        <button>Créer un ingrédient</button>
+      )}
     </form>
   );
 };

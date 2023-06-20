@@ -55,7 +55,7 @@ export const AdminIngredientsDetails = () => {
         )}
       </Block>
 
-      <Modal isShow={!!ingredientToEdit} close={closeEditForm} title='Modifier ingrédient'>
+      <Modal isShow={!!ingredientToEdit} onClose={closeEditForm} title='Modifier ingrédient'>
         {ingredientToEdit && (
           <IngredientDetailsForm ingredientToEdit={ingredientToEdit} close={closeEditForm} />
         )}

@@ -3,6 +3,8 @@
 .modal-overlay {
   display: flex;
   padding: 20px;
+  position: relative;
+  z-index: 9999;
 }
 
 .modal {
@@ -13,6 +15,25 @@
   border-radius: 20px;
   width: 100%;
   max-width: 500px;
+  position: relative;
+}
+
+.modal-transition {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.modal-container {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem;
 }
 
 .modal-top {
@@ -23,31 +44,36 @@
 }
 
 .modal .modal-title {
-  margin: 0;
+  margin: 0 0 0.5rem;
   font-size: 1.7rem;
 }
 
-.close-modal {
-  color: #9ca3aa;
-  background-color: transparent;
+.modal .modal-actions {
   display: flex;
-  margin: 0 -18px 0 auto;
-  border-radius: 6px;
-  border: none;
-}
+  align-items: center;
+  gap: 0.6rem 0.4rem;
+  flex-wrap: wrap;
+  margin: 1.6rem 0 0;
 
-.close-modal .close-icon {
-  font-size: 2rem;
-  color: var$main-text-color;
-  transition-duration: 250ms;
-}
-
-.close-modal:hover .close-icon {
-  color: $main-color;
+  button, .modal-button.btn-primary {
+    margin-top: 0;
+    padding: 0.7rem 1.3rem;
+  }
 }
 
 @media (max-width: 425px) {
   .modal-overlay {
     padding: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .modal-actions {
+    flex-direction: column;
+    align-items: stretch;
+
+    button {
+      width: 100%;
+    }
   }
 }

@@ -94,7 +94,7 @@ export const IngredientsForm = () => {
       />
       <Modal
         isShow={!!ingredientToEdit}
-        close={() => setIngredientToEdit(null)}
+        onClose={() => setIngredientToEdit(null)}
         title='Modifier ingrédient'
         className='modal-edit-ingredient'
       >
@@ -105,18 +105,16 @@ export const IngredientsForm = () => {
       </Modal>
       <Modal
         isShow={showGroupForm}
-        close={closeGroupForm}
+        onClose={closeGroupForm}
         title={title}
         className='modal-group-form'
         afterLeave={() => setGroupToEdit(null)}
       >
-        {typeof ingredients !== 'string' && (
-          <GroupForm
-            group={groupToEdit ?? undefined}
-            ingredients={ingredients}
-            closeModal={closeGroupForm}
-          />
-        )}
+        <GroupForm
+          group={groupToEdit ?? undefined}
+          ingredients={ingredients}
+          closeModal={closeGroupForm}
+        />
       </Modal>
     </div>
   );

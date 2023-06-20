@@ -11,6 +11,7 @@ import { Icon } from '../../Icon/Icon';
 import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
 import { IngredientDetailsCombobox } from './IngredientDetailsCombobox';
 import { UnitCombobox } from './UnitCombobox';
+import { CancelBtn } from '../../CancelBtn/CancelBtn';
 
 interface IngredientFormProps {
   ingredient?: RecipeIngredientWithId;
@@ -214,10 +215,20 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             ))}
           </ul>
         )}
-        <button className='btn-primary d-flex items-center justify-center'>
-          <Icon name={ editMode ? 'edit' : 'add' } />
-          { editMode ? 'Modifier ' : 'Ajouter ingrédient' }
-        </button>
+        {editMode ? (
+          <div className='modal-actions'>
+            <button className='btn-primary d-flex items-center justify-center'>
+              <Icon name={ editMode ? 'edit' : 'add' } />
+              Modifier
+            </button>
+            {closeModal && <CancelBtn onClick={closeModal} text='Annuler' icon={true} />}
+          </div>
+        ) : (
+          <button className='btn-primary d-flex items-center justify-center'>
+            <Icon name={ editMode ? 'edit' : 'add' } />
+            Ajouter ingrédient
+          </button>
+        )}
       </form>
     </div>
   );

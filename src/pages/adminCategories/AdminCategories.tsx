@@ -31,7 +31,7 @@ export const AdminCategories = () => {
         <AdminCategoryList categories={categories} setCategoryToEdit={setCategoryToEdit} />
       </Block>
 
-      <Modal isShow={!!categoryToEdit} title='Modifier catégorie' close={closeModal}>
+      <Modal isShow={!!categoryToEdit} title='Modifier catégorie' onClose={closeModal}>
         {categoryToEdit && (
           <CategoryForm categoryToEdit={categoryToEdit} closeModal={closeModal} />
         )}

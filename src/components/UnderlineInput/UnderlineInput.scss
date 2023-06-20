@@ -56,3 +56,8 @@
     }
   }
 }
+
+.modal .underline-input-container:not(:first-child),
+.combobox:not(:first-child) {
+  margin-top: 1.5rem;
+}

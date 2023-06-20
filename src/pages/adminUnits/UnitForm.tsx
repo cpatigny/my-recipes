@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { UnitWithId } from '../../types/unit';
 import { updateUnit, createUnit } from '../../helpers/units.helpers';
+
 import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
+import { CancelBtn } from '../../components/CancelBtn/CancelBtn';
 
 interface UnitFormData {
   singular: string;
@@ -92,9 +94,15 @@ export const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
         value={unitFormData.symbol}
         onChange={handleChange}
       />
-      <button>
-        { unitToEdit ? `Modifier l'unité` : 'Ajouter une unité' }
-      </button>
+
+      {unitToEdit ? (
+        <div className='modal-actions'>
+          <button className='btn-primary modal-button'>Modifier l&apos;unité</button>
+          {close && <CancelBtn onClick={close} text='Annuler' />}
+        </div>
+      ) : (
+        <button>Ajouter une unité</button>
+      )}
     </form>
   );
 };

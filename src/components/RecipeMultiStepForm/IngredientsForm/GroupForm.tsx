@@ -16,6 +16,7 @@ import { FormErrors } from '../RecipeMultiStepForm';
 
 import { IngredientCheckbox } from './IngredientCheckbox';
 import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
+import { CancelBtn } from '../../CancelBtn/CancelBtn';
 
 interface GroupFormProps {
   group?: GroupWithId;
@@ -188,9 +189,12 @@ export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) =>
         ))}
       </div>
 
-      <button className='btn-primary'>
-        { group ? 'Modifier' : 'Créer' }
-      </button>
+      <div className='modal-actions'>
+        <button className='btn-primary modal-button'>
+          { group ? 'Modifier' : 'Créer' }
+        </button>
+        <CancelBtn onClick={closeModal} text='Annuler' />
+      </div>
     </form>
   );
 };
