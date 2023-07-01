@@ -110,7 +110,7 @@ export const getOneMockRecipe = (ids: Ids, nbIngredients = 10, alwaysGroup = fal
     slug: faker.lorem.slug(),
     content: faker.lorem.paragraphs({ min: 3, max: 8 }),
     cookTimeInMins: faker.number.int(280),
-    imageName: faker.image.url(),
+    imageName: false,
     createdAt: new Date(faker.date.past()).getTime(),
     categoryId: faker.helpers.arrayElement(ids.categoriesIds),
     nbServings: faker.number.int({ min: 1, max: 12 }).toString(),
