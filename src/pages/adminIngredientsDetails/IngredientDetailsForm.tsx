@@ -48,7 +48,7 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
   return (
     <form onSubmit={handleSubmit}>
       <UnderlineInput
-        labelText='Singulier'
+        labelText='Nom'
         ref={inputRef}
         name='singular'
         type='text'
@@ -58,7 +58,7 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
       />
 
       <UnderlineInput
-        labelText='Pluriel'
+        labelText='Pluriel (facultatif)'
         name='plural'
         type='text'
         value={plural}
