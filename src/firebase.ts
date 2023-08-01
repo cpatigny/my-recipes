@@ -20,8 +20,9 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
+const hostname = window.location.hostname;
 
-if (window.location.hostname === 'localhost') {
+if (hostname === 'localhost' || hostname === '127.0.0.1') {
   const db = getDatabase();
   connectDatabaseEmulator(db, 'localhost', DB_EMULATOR_PORT);
 
