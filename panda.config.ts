@@ -42,6 +42,16 @@ export default defineConfig({
       breakpoints: {
         xsm: '450px',
       },
+      keyframes: {
+        scaleUp: {
+          '0%, 100%': {
+            transform: 'scale(0.2)',
+          },
+          '40%, 50%': {
+            transform: 'scale(1)',
+          },
+        },
+      },
     },
     semanticTokens: {
       colors: {
