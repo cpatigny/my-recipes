@@ -8,6 +8,9 @@ import { CategoryWithId } from '../../types/category';
 import { ROUTES } from '../../routes';
 import { getCategoryBySlug, countRecipesByCategory } from '../../helpers/category.helpers';
 import { searchMatchingRecipes, getRecipesByCategory, reverseRecipes } from '../../helpers/recipe.helpers';
+import { css } from '../../../styled-system/css';
+import { hstack, stack } from '../../../styled-system/patterns';
+import { buttonStyle } from '../../components/Button';
 
 import { Link, useParams } from 'react-router-dom';
 import { RecipeCard } from './RecipeCard';
@@ -16,12 +19,25 @@ import { NothingToShow } from '../../components/NothingToShow/NothingToShow';
 import { Footer } from '../../components/Footer/Footer';
 import { Categories } from './Categories';
 import { Menu } from '../../components/Menu/Menu';
+import { Grid, Wrap } from '../../../styled-system/jsx';
 
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import emptyIllustration from '../../assets/img/undraw-empty.svg';
 import logo from '../../assets/img/logo.svg';
 
 import './Home.scss';
+
+const homeContainerStyles = css({
+  maxW: 'homeContainer',
+  paddingX: '1.5625rem',
+  '@media (min-width: 400px)': {
+    paddingX: '2.1875rem',
+  },
+  '@media (min-width: 500px)': {
+    paddingX: '3rem',
+  },
+  margin: '0 auto',
+});
 
 export const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
@@ -94,62 +110,104 @@ export const Home = () => {
   };
 
   return (
-    <div className='app container'>
-      {user && <Menu />}
+    <>
+      {user && <Menu className={homeContainerStyles} />}
 
-      <div className='top'>
-        <h1><img src={logo} alt='logo' className='logo' />My recipes</h1>
-        <SearchBar search={search} setSearch={setSearch} />
-      </div>
-
-      <div className='wrap'>
-        <h2 className='h1'>
-          { getTitle() }
-        </h2>
-        { user && <Link className='btn btn-outline-primary' to={ROUTES.ADD_RECIPE} state={{ hasClickedLink: true }}>+ Ajouter</Link> }
-      </div>
-
-      <Categories
-        categories={categories}
-        selectedCategory={selectedCategory}
-        recipes={recipes}
-      />
-
-      { noSearchResult &&
-        <NothingToShow
-          className='no-recipe-to-show'
-          src={noResultFoundImg}
-          message='Aucun résultat ne correspond à votre recherche'
-          alt='no result illustration'
-        />
-      }
-
-      {noRecipes && (
-        <NothingToShow
-          className='no-recipe-to-show'
-          src={emptyIllustration}
-          message={`Aucune recette à afficher`}
-          alt='empty box illustration'
-        />
-      )}
-
-      <div className='recipes'>
-        { recipesToShow && Object.keys(recipesToShow).map(key => {
-          const recipe = recipesToShow[key];
-          if (!recipe) return null;
-
-          return (
-            <RecipeCard
-              key={key}
-              title={recipe.title}
-              imageName={recipe.imageName}
-              slug={recipe.slug}
+      <div className={homeContainerStyles}>
+        <div
+          className={stack({
+            direction: { base: 'column', sm: 'row' },
+            align: { base: 'flex-start', sm: 'center' },
+            gap: '1.35rem 0',
+            justify: 'space-between',
+            mt: '1.5rem',
+          })}
+        >
+          <h1
+            className={hstack({
+              color: 'primary',
+              fontSize: { base: '1.5rem', xsm: '2rem', md: '2.3rem' },
+              gap: '0',
+            })}
+          >
+            <img
+              src={logo}
+              alt='logo'
+              className={css({
+                mr: '1.5',
+                w: { base: '2.2rem', xsm: '2.8rem' },
+              })}
             />
-          );
-        })}
-      </div>
+            My recipes
+          </h1>
+          <SearchBar search={search} setSearch={setSearch} />
+        </div>
 
-      <Footer user={user} />
-    </div>
+        <Wrap gap='0.5rem 1rem' justify='space-between' align='center' className={css({
+          m: { base: '1.875rem 0 1.125rem', sm: '4rem 0 0.95rem' },
+        })}>
+          <h2
+            className={css({
+              fontSize: { base: '2.5rem', md: '3.05rem' },
+              fontWeight: '600',
+              color: 'text',
+            })}
+          >
+            { getTitle() }
+          </h2>
+          {user && (
+            <Link
+              className={buttonStyle({ visual: 'outline', color: 'primary', size: 'sm' })}
+              to={ROUTES.ADD_RECIPE}
+              state={{ hasClickedLink: true }}
+            >
+              + Ajouter
+            </Link>
+          )}
+        </Wrap>
+
+        <Categories
+          categories={categories}
+          selectedCategory={selectedCategory}
+          recipes={recipes}
+        />
+
+        { noSearchResult &&
+          <NothingToShow
+            className='no-recipe-to-show'
+            src={noResultFoundImg}
+            message='Aucun résultat ne correspond à votre recherche'
+            alt='no result illustration'
+          />
+        }
+
+        {noRecipes && (
+          <NothingToShow
+            className='no-recipe-to-show'
+            src={emptyIllustration}
+            message={`Aucune recette à afficher`}
+            alt='empty box illustration'
+          />
+        )}
+
+        <Grid minChildWidth='17.5rem' gap='2.19rem'>
+          { recipesToShow && Object.keys(recipesToShow).map(key => {
+            const recipe = recipesToShow[key];
+            if (!recipe) return null;
+
+            return (
+              <RecipeCard
+                key={key}
+                title={recipe.title}
+                imageName={recipe.imageName}
+                slug={recipe.slug}
+              />
+            );
+          })}
+        </Grid>
+
+        <Footer user={user} />
+      </div>
+    </>
   );
 };

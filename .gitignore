@@ -34,3 +34,7 @@ ui-debug.log
 firebase.json
 database.rules.json
 storage.rules
+
+# Panda
+styled-system
+styled-system-static

@@ -51,7 +51,8 @@
       "error",
       2,
       {
-        "SwitchCase": 1
+        "SwitchCase": 1,
+        "ignoredNodes": ["TemplateLiteral *"]
       }
     ],
     "quotes": [
@@ -90,6 +91,7 @@
       "error",
       "ignorePackages",
       {
+        "": "never",
         "js": "never",
         "jsx": "never",
         "ts": "never",
@@ -108,12 +110,12 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": [
-          "**/*.test.ts",
-          "**/*.test.tsx"
-        ]
+        "devDependencies": true
       }
     ],
+    "import/no-unresolved": ["error", {
+      "ignore": ["styled-system"]
+    }],
     "unused-imports/no-unused-imports": "error",
     "import/no-default-export": "error",
     "object-curly-newline": "off",

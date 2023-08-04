@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTransition, animated } from '@react-spring/web';
+import { css } from '../../../styled-system/css';
 
 import './Overlay.scss';
 
@@ -45,8 +46,22 @@ export const Overlay = ({ isShow, close, className, children }: OverlayProps) =>
     <animated.div
       onMouseUp={handleMouseUp}
       onMouseDown={handleMouseDown}
-      className={`overlay ${className || ''}`}
       style={style}
+      className={`
+        ${className || ''}
+        ${css({
+          pos: 'fixed',
+          top: '0',
+          right: '0',
+          bottom: '0',
+          left: '0',
+          bg: 'rgba(0, 0, 0, 0.6)',
+          overflowX: 'hidden',
+          overflowY: 'auto',
+          zIndex: '10',
+          backdropFilter: 'blur(3px)',
+        })}
+      `}
     >
       {children}
     </animated.div>

@@ -1,0 +1,89 @@
+/* eslint-disable */
+import { defineConfig, defineTokens } from '@pandacss/dev';
+
+export default defineConfig({
+  // Whether to use css reset
+  preflight: true,
+
+  // Where to look for your css declarations
+  include: ['./src/**/*.{js,jsx,ts,tsx}', './pages/**/*.{js,jsx,ts,tsx}'],
+
+  // Files to exclude
+  exclude: [],
+
+  jsxFramework: 'react',
+
+  // Useful for theme customization
+  theme: {
+    extend: {
+      tokens: {
+        colors: {
+          orange: {
+            50: { value: '#FEDFC9' },
+            100: { value: '#FDD3B5' },
+            200: { value: '#FCBB8D' },
+            300: { value: '#FBA366' },
+            400: { value: '#FA8B3E' },
+            450: { value: '#F9802C' },
+            500: { value: '#f97316' },
+            600: { value: '#D25905' },
+            700: { value: '#9B4204' },
+            800: { value: '#642B03' },
+            900: { value: '#2D1301' },
+          },
+        },
+        fonts: {
+          default: { value: ['Nunito', 'sans-serif'] }
+        },
+        radii: {
+          '2xl': { value: '1.125rem' },
+        },
+      },
+      breakpoints: {
+        xsm: '450px',
+      },
+    },
+    semanticTokens: {
+      colors: {
+        primary: { value: '{colors.orange.500}' },
+        lightPrimary: { value: '#F7E3D5' },
+        danger: { value: '{colors.red.600}' },
+        bg: {
+          DEFAULT: { value: '#F7F7F7' },
+        },
+        text: {
+          DEFAULT: { value: '#313746' },
+          secondary: { value: '#6b7280' },
+          disabled: { value: '#989fac' },
+        },
+      },
+      fontSizes: {
+        text: { value: '1.1rem' },
+      },
+      sizes: {
+        homeContainer: { value: '56rem' },
+      },
+    },
+  },
+
+  globalCss: {
+    body: {
+      fontFamily: 'default',
+      bg: 'bg',
+    },
+    p: {
+      fontSize: 'text',
+      color: 'text',
+    },
+    h1: {
+      fontWeight: '700',
+    },
+    button: {
+      cursor: 'pointer',
+      padding: '0.0625rem 0.375rem',
+    },
+  },
+
+  // The output directory for your css system
+  outdir: 'styled-system',
+});

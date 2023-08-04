@@ -1,301 +1,301 @@
-@import '../../variables';
-@import 'SearchBar';
+// @import '../../variables';
+// @import 'SearchBar';
 
-.app {
-  .top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 1.5rem 0 0;
-    gap: 1.35rem 0;
+// .app {
+//   .top {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     margin: 1.5rem 0 0;
+//     gap: 1.35rem 0;
 
-    h1 {
-      color: $main-color;
-      font-size: 2.3rem;
-      display: flex;
-      align-items: center;
-      margin: 0;
+//     h1 {
+//       color: $main-color;
+//       font-size: 2.3rem;
+//       display: flex;
+//       align-items: center;
+//       margin: 0;
 
-      .logo {
-        margin-right: 6px;
-        width: 45px;
-      }
-    }
-  }
+//       .logo {
+//         margin-right: 6px;
+//         width: 45px;
+//       }
+//     }
+//   }
 
-  .wrap {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px 15px;
-    margin: 4rem 0 0.95rem;
+//   .wrap {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     align-items: center;
+//     flex-wrap: wrap;
+//     gap: 8px 15px;
+//     margin: 4rem 0 0.95rem;
 
-    .btn {
-      font-size: 1.1rem;
-      padding: 8px 12px;
-      white-space: nowrap;
-    }
+//     .btn {
+//       font-size: 1.1rem;
+//       padding: 8px 12px;
+//       white-space: nowrap;
+//     }
 
-    h2 {
-      margin: 0;
-    }
-  }
+//     h2 {
+//       margin: 0;
+//     }
+//   }
 
-  .categories {
-    margin-bottom: 30px;
+//   .categories {
+//     margin-bottom: 30px;
 
-    .wrapper {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px 15px;
+//     .wrapper {
+//       display: flex;
+//       align-items: center;
+//       flex-wrap: wrap;
+//       gap: 10px 15px;
 
-      .gradient {
-        display: none;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        width: 25px;
-        background: linear-gradient(90deg, rgba(247,247,247,0) 0%, rgba(247,247,247,1) 100%);
-      }
+//       .gradient {
+//         display: none;
+//         position: absolute;
+//         top: 0;
+//         bottom: 0;
+//         right: 0;
+//         width: 25px;
+//         background: linear-gradient(90deg, rgba(247,247,247,0) 0%, rgba(247,247,247,1) 100%);
+//       }
 
-      .category {
-        background-color: #fff;
-        border: none;
-        padding: 8px 24px;
-        color: #909090;
-        transition-duration: 300ms;
-        border-radius: 999px;
-        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-        white-space: nowrap;
-        font-size: 1rem;
-        text-decoration: none;
-        margin-bottom: 2px; /* same as box-shadow */
+//       .category {
+//         background-color: #fff;
+//         border: none;
+//         padding: 8px 24px;
+//         color: #909090;
+//         transition-duration: 300ms;
+//         border-radius: 999px;
+//         box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+//         white-space: nowrap;
+//         font-size: 1rem;
+//         text-decoration: none;
+//         margin-bottom: 2px; /* same as box-shadow */
 
-        &:hover:not(.selected) {
-          background-color: rgba($main-color, 0.2);
-        }
+//         &:hover:not(.selected) {
+//           background-color: rgba($main-color, 0.2);
+//         }
 
-        &.selected {
-          background-color: rgba($main-color, 0.82);
-          color: #fff;
-        }
-    }
-    }
-  }
+//         &.selected {
+//           background-color: rgba($main-color, 0.82);
+//           color: #fff;
+//         }
+//     }
+//     }
+//   }
 
-  .recipes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 35px;
+//   .recipes {
+//     display: grid;
+//     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+//     gap: 35px;
 
-    .recipe {
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-      border-radius: $main-border-radius;
-      display: grid;
-      place-items: end center;
-      height: 350px;
-      position: relative;
-      background-color: transparent;
-      text-decoration: none;
-      background-color: #f5f5f5;
-      overflow: hidden;
-      isolation: isolate; /* to fix ios bug where border-radius stops working during image scale animation */
+//     .recipe {
+//       box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+//       border-radius: $main-border-radius;
+//       display: grid;
+//       place-items: end center;
+//       height: 350px;
+//       position: relative;
+//       background-color: transparent;
+//       text-decoration: none;
+//       background-color: #f5f5f5;
+//       overflow: hidden;
+//       isolation: isolate; /* to fix ios bug where border-radius stops working during image scale animation */
 
-      &.no-image:before {
-        content: '\e3f4';
-        font-family: 'Material Icons Round';
-        color: rgb(223, 223, 223);
-        font-style: normal;
-        font-weight: 400;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 50px;
-      }
+//       &.no-image:before {
+//         content: '\e3f4';
+//         font-family: 'Material Icons Round';
+//         color: rgb(223, 223, 223);
+//         font-style: normal;
+//         font-weight: 400;
+//         position: absolute;
+//         top: 50%;
+//         left: 50%;
+//         transform: translate(-50%, -50%);
+//         font-size: 50px;
+//       }
 
-      &:hover .bg-image {
-        transform: scale(1.1);
-      }
+//       &:hover .bg-image {
+//         transform: scale(1.1);
+//       }
 
-      .bg-image {
-        background: transparent center/cover no-repeat;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: $main-border-radius;
-        transition-duration: 400ms;
-      }
+//       .bg-image {
+//         background: transparent center/cover no-repeat;
+//         position: absolute;
+//         width: 100%;
+//         height: 100%;
+//         border-radius: $main-border-radius;
+//         transition-duration: 400ms;
+//       }
 
-      .recipe-title {
-        padding: 0 15px;
-        margin: 15px auto;
-        text-align: center;
-        position: relative;
-        z-index: 999;
-        color: #fff;
-        font-weight: 600;
-        font-size: 1.95rem;
-      }
-    }
-  }
+//       .recipe-title {
+//         padding: 0 15px;
+//         margin: 15px auto;
+//         text-align: center;
+//         position: relative;
+//         z-index: 999;
+//         color: #fff;
+//         font-weight: 600;
+//         font-size: 1.95rem;
+//       }
+//     }
+//   }
 
-  footer {
-    background-color: rgba($main-color, 0.9);
-    padding: 15px 36px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: $main-border-radius;
-    margin: 50px 0 30px;
-    font-size: $text-size;
+//   footer {
+//     background-color: rgba($main-color, 0.9);
+//     padding: 15px 36px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     border-radius: $main-border-radius;
+//     margin: 50px 0 30px;
+//     font-size: $text-size;
 
-    p {
-      color: #fff;
-    }
+//     p {
+//       color: #fff;
+//     }
 
-    .admin {
-      a {
-        color: #fff;
-        text-decoration: none;
-      }
+//     .admin {
+//       a {
+//         color: #fff;
+//         text-decoration: none;
+//       }
 
-      .sign-out {
-        color: #fff;
-        background-color: transparent;
-        border: none;
-        margin-right: 12px;
-      }
-    }
-  }
-}
+//       .sign-out {
+//         color: #fff;
+//         background-color: transparent;
+//         border: none;
+//         margin-right: 12px;
+//       }
+//     }
+//   }
+// }
 
-@media (hover: none) and (pointer: coarse) {
-  .app {
-    .categories {
-      position: relative;
+// @media (hover: none) and (pointer: coarse) {
+//   .app {
+//     .categories {
+//       position: relative;
 
-      .wrapper {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
+//       .wrapper {
+//         flex-wrap: nowrap;
+//         overflow-x: auto;
+//         -ms-overflow-style: none;  /* IE and Edge */
+//         scrollbar-width: none;  /* Firefox */
 
-        /* Chrome, Safari and Opera */
-        &::-webkit-scrollbar {
-          display: none;
-        }
+//         /* Chrome, Safari and Opera */
+//         &::-webkit-scrollbar {
+//           display: none;
+//         }
 
-        &:not(.max-scroll) .gradient {
-          display: block;
-        }
-      }
-    }
-  }
-}
+//         &:not(.max-scroll) .gradient {
+//           display: block;
+//         }
+//       }
+//     }
+//   }
+// }
 
-@media (max-width: 800px) {
-  .app {
-    .categories .category {
-      font-size: 0.9rem;
-    }
+// @media (max-width: 800px) {
+//   .app {
+//     .categories .category {
+//       font-size: 0.9rem;
+//     }
 
-    .categories .wrapper {
-      gap: 10px;
+//     .categories .wrapper {
+//       gap: 10px;
 
-      .category {
-        padding: 6px 20px;
-      }
-    }
-  }
-}
+//       .category {
+//         padding: 6px 20px;
+//       }
+//     }
+//   }
+// }
 
-@media (max-width: 700px) {
-  .app {
-    .top h1 {
-      font-size: 2rem;
-    }
+// @media (max-width: 700px) {
+//   .app {
+//     .top h1 {
+//       font-size: 2rem;
+//     }
 
-    .wrap {
-      margin: 30px 0 18px;
+//     .wrap {
+//       margin: 30px 0 18px;
 
-      h2 {
-        font-size: 2.5rem;
-      }
-    }
-  }
-}
+//       h2 {
+//         font-size: 2.5rem;
+//       }
+//     }
+//   }
+// }
 
-@media (max-width: 600px) {
+// @media (max-width: 600px) {
 
-  .app h2 {
-    margin-top: 24px;
-    font-size: 2.7rem;
-  }
+//   .app h2 {
+//     margin-top: 24px;
+//     font-size: 2.7rem;
+//   }
 
-  .app .top {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+//   .app .top {
+//     flex-direction: column;
+//     align-items: flex-start;
+//   }
 
-  .app footer {
-    margin-top: 25px;
+//   .app footer {
+//     margin-top: 25px;
 
-    .admin {
-      display: flex;
-      justify-content: flex-end;
-      flex-direction: column;
+//     .admin {
+//       display: flex;
+//       justify-content: flex-end;
+//       flex-direction: column;
 
-      p {
-        margin-right: 8px;
-      }
+//       p {
+//         margin-right: 8px;
+//       }
 
-      button {
-        padding: 0;
-      }
+//       button {
+//         padding: 0;
+//       }
 
-      .sign-out {
-        margin-right: 0;
-      }
-    }
-  }
-}
+//       .sign-out {
+//         margin-right: 0;
+//       }
+//     }
+//   }
+// }
 
-@media (max-width: 500px) {
-  .app .recipes .recipe .recipe-title {
-    font-size: 1.5rem;
-  }
-}
+// @media (max-width: 500px) {
+//   .app .recipes .recipe .recipe-title {
+//     font-size: 1.5rem;
+//   }
+// }
 
-@media (max-width: 450px) {
-  .app {
-    .top h1 {
-      font-size: 1.5rem;
+// @media (max-width: 450px) {
+//   .app {
+//     .top h1 {
+//       font-size: 1.5rem;
 
-      .logo {
-        width: 35px;
-      }
-    }
+//       .logo {
+//         width: 35px;
+//       }
+//     }
 
-    h2 {
-      font-size: 2.3rem;
-    }
+//     h2 {
+//       font-size: 2.3rem;
+//     }
 
-    .recipes .recipe {
-      height: 250px;
-    }
+//     .recipes .recipe {
+//       height: 250px;
+//     }
 
-    footer {
-      margin-bottom: 10px;
-      padding: 15px 15px;
+//     footer {
+//       margin-bottom: 10px;
+//       padding: 15px 15px;
 
-      p {
-        margin: 0;
-      }
-    }
-  }
-}
+//       p {
+//         margin: 0;
+//       }
+//     }
+//   }
+// }

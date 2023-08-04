@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { logOut } from '../../helpers/auth.helpers';
 import { ROUTES } from '../../routes';
+import { css } from '../../../styled-system/css';
+import { flex, hstack } from '../../../styled-system/patterns';
+import { token } from '../../../styled-system/tokens';
 
 import { NavLink } from 'react-router-dom';
 import { MobileMenu } from './MobileMenu';
@@ -9,6 +12,21 @@ import { Icon } from '../Icon/Icon';
 
 import './Menu.scss';
 
+const menuItemStyles = css({
+  bg: 'transparent',
+  transitionDuration: '200ms',
+  fontSize: 'md',
+  color: '#454B58',
+});
+
+const menuBtnBarStyles = css({
+  display: 'block',
+  w: '100%',
+  h: '3px',
+  bg: 'text',
+  rounded: 'full',
+});
+
 export interface Link {
   id: number;
   path: string;
@@ -16,7 +34,7 @@ export interface Link {
   iconName: string;
 }
 
-export const Menu = () => {
+export const Menu = ({ className }: { className: string}) => {
   const [showMenu, setShowMenu] = useState(false);
 
   const links: Link[] = [
@@ -28,21 +46,74 @@ export const Menu = () => {
 
   return (
     <>
-      <div className='margin-b'></div>
-      <header className='menu'>
-        <div className='container'>
-          <nav>
+      <div className={css({ mb: '5.3125rem' })}></div>
+      <header
+        className={css({
+          pos: 'absolute',
+          top: '0',
+          left: '0',
+          right: '0',
+          zIndex: '9',
+          bg: '#fcfcfc',
+          boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
+        })}
+      >
+        <div
+          className={`
+            ${className}
+            ${flex({
+              justify: { base: 'flex-end', md: 'space-between' },
+              gap: '0 0.6rem',
+              py: { base: '0.6rem', md: '1rem' },
+            })}
+          `}
+        >
+          <nav
+            className={hstack({
+              gap: '0 1.2rem',
+              display: { base: 'none', md: 'flex' },
+            })}
+          >
             {links.map(link => (
-              <NavLink key={link.id} to={link.path} end>{ link.name }</NavLink>
+              <NavLink
+                key={link.id}
+                to={link.path}
+                end
+                className={`
+                  ${menuItemStyles}
+                  ${css({ _hover: { color: 'primary' } })}
+                `}
+                style={({ isActive }) => {
+                  return {
+                    color: isActive ? token('colors.primary') : '',
+                  };
+                }}
+              >
+                { link.name }
+              </NavLink>
             ))}
           </nav>
-          <button className='sign-out' onClick={() => logOut()}>
+          <button
+            className={`
+              ${menuItemStyles}
+              ${hstack({ gap: '0 0.4rem', display: { base: 'none', md: 'flex' } })}
+            `}
+            onClick={() => logOut()}
+          >
             <Icon name='logout' />
             Déconnexion
           </button>
-          <button className='open-menu' onClick={() => setShowMenu(true)}>
-            <span className='bar one'></span>
-            <span className='bar two'></span>
+          <button
+            className={css({
+              display: { base: 'block', md: 'none' },
+              w: '2.5rem',
+              p: '0.8rem 0.4rem',
+            })}
+            onClick={() => setShowMenu(true)}
+          >
+            <span className={menuBtnBarStyles}></span>
+            <span className={css({ display: 'block', mb: '0.5rem' })} />
+            <span className={menuBtnBarStyles}></span>
           </button>
         </div>
       </header>

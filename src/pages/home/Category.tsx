@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom';
 interface CategoryProps {
   category: CategoryType;
   selected?: boolean;
+  className: string;
 }
 
-export const Category = ({ category, selected }: CategoryProps) => (
-  <Link to={getCategoryPath(category.slug)} className={`category ${selected ? 'selected' : ''}`}>
+export const Category = ({ category, selected, className }: CategoryProps) => (
+  <Link to={getCategoryPath(category.slug)} className={className} data-selected={selected}>
     { category.name }
   </Link>
 );

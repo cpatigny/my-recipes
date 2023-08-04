@@ -21,6 +21,7 @@ import { Login } from './pages/login/Login';
 import { AdminUnits } from './pages/adminUnits/AdminUnits';
 
 import './index.scss';
+import './index.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
