@@ -34,7 +34,7 @@ export interface Link {
   iconName: string;
 }
 
-export const Menu = ({ className }: { className: string}) => {
+export const Menu = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   const links: Link[] = [
@@ -59,14 +59,11 @@ export const Menu = ({ className }: { className: string}) => {
         })}
       >
         <div
-          className={`
-            ${className}
-            ${flex({
-              justify: { base: 'flex-end', md: 'space-between' },
-              gap: '0 0.6rem',
-              py: { base: '0.6rem', md: '1rem' },
-            })}
-          `}
+          className={flex({
+            justify: { base: 'flex-end', md: 'space-between' },
+            gap: '0 0.6rem',
+            py: { base: '0.6rem', md: '1rem' },
+          })}
         >
           <nav
             className={hstack({

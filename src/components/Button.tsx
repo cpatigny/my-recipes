@@ -8,6 +8,8 @@ const editColor = 'colors.sky.500';
 export const buttonStyle = cva({
   base: {
     display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontFamily: 'default',
     fontWeight: '400',
     rounded: 'full',

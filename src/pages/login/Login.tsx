@@ -4,8 +4,26 @@ import { useUser } from '../../contexts/UserContext';
 import { ROUTES } from '../../routes';
 import { signIn } from '../../helpers/auth.helpers';
 import { useToast } from '../../contexts/ToastContext';
+import { flex } from '../../../styled-system/patterns';
+import { css } from '../../../styled-system/css';
+
+import { Container } from '../../components/Container';
+import { Button } from '../../components/Button';
 
 import './Login.scss';
+
+const inputStyles = css({
+  p: '0.5rem 0.625rem',
+  rounded: 'lg',
+  mb: '1.125rem',
+  WebkitAppearance: 'none', // so that box-shadow works on input on ios
+  shadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
+  w: '100%',
+});
+
+const labelStyles = css({
+  m: '0.75rem 0 0.2rem',
+});
 
 export const Login = () => {
   const [loginFormData, setLoginFormData] = useState({
@@ -40,38 +58,66 @@ export const Login = () => {
   }
 
   return (
-    <div className='container login'>
-      <div className='login'>
-        <h1>Login</h1>
+    <Container
+      type='admin'
+      className={flex({
+        pos: 'fixed',
+        top: '0',
+        bottom: '0',
+        left: '0',
+        right: '0',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        zIndex: '10',
+        align: 'center',
+        justify: 'center',
+        p: '1.25',
+      })}
+    >
+      <div
+        className={css({
+          rounded: '2xl',
+          maxW: '23.75rem',
+          w: '100%',
+          p: '1.125rem 1.6rem',
+          shadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
+          bg: '#fefefe',
+        })}
+      >
+        <h1 className={css({ fontSize: '2.4rem', mb: '1rem' })}>Login</h1>
 
         <div className='form-container'>
           <form onSubmit={handleSignIn}>
             <div>
-              <label htmlFor='email'>Email</label>
+              <label htmlFor='email' className={labelStyles}>Email</label>
               <input
                 id='email'
                 name='email'
                 type='email'
                 required
-                placeholder='user@example.com'
                 value={loginFormData.email}
-                onChange={handleChange} />
+                onChange={handleChange}
+                className={inputStyles}
+              />
             </div>
             <div>
-              <label htmlFor='password'>Mot de passe</label>
+              <label htmlFor='password' className={labelStyles}>Mot de passe</label>
               <input
                 id='password'
                 name='password'
                 type='password'
                 required
-                placeholder='Mot de passe'
                 value={loginFormData.password}
-                onChange={handleChange} />
+                onChange={handleChange}
+                className={inputStyles}
+              />
             </div>
-            <button className='btn btn-primary'>Se connecter</button>
+            <Button fullWidth={true} mt='0.5rem' rounded='lg'>
+              Se connecter
+            </Button>
           </form>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };

@@ -60,9 +60,6 @@ export default defineConfig({
       fontSizes: {
         text: { value: '1.1rem' },
       },
-      sizes: {
-        homeContainer: { value: '56rem' },
-      },
     },
   },
 
@@ -82,6 +79,13 @@ export default defineConfig({
       cursor: 'pointer',
       padding: '0.0625rem 0.375rem',
     },
+    input: {
+      color: 'text',
+    },
+    'h1, h2, h3, h4, h5, h6, label': {
+      color: 'text',
+    },
+    label: { display: 'block' }
   },
 
   // The output directory for your css system

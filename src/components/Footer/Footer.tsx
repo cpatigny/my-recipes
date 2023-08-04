@@ -28,7 +28,7 @@ export const Footer = ({ user }: FooterProps) => (
     <div className='admin'>
       { user
         ? <button className={css({ color: 'white' })} onClick={() => logOut()}>Déconnexion</button>
-        : <Link to={ROUTES.ADMIN}>Admin</Link>
+        : <Link to={ROUTES.ADMIN} className={css({ color: 'white' })}>Admin</Link>
       }
     </div>
   </footer>

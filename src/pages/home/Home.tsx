@@ -20,24 +20,13 @@ import { Footer } from '../../components/Footer/Footer';
 import { Categories } from './Categories';
 import { Menu } from '../../components/Menu/Menu';
 import { Grid, Wrap } from '../../../styled-system/jsx';
+import { Container } from '../../components/Container';
 
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import emptyIllustration from '../../assets/img/undraw-empty.svg';
 import logo from '../../assets/img/logo.svg';
 
 import './Home.scss';
-
-const homeContainerStyles = css({
-  maxW: 'homeContainer',
-  paddingX: '1.5625rem',
-  '@media (min-width: 400px)': {
-    paddingX: '2.1875rem',
-  },
-  '@media (min-width: 500px)': {
-    paddingX: '3rem',
-  },
-  margin: '0 auto',
-});
 
 export const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
@@ -111,9 +100,9 @@ export const Home = () => {
 
   return (
     <>
-      {user && <Menu className={homeContainerStyles} />}
+      {user && <Menu />}
 
-      <div className={homeContainerStyles}>
+      <Container>
         <div
           className={stack({
             direction: { base: 'column', sm: 'row' },
@@ -207,7 +196,7 @@ export const Home = () => {
         </Grid>
 
         <Footer user={user} />
-      </div>
+      </Container>
     </>
   );
 };
