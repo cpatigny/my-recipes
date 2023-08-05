@@ -1,4 +1,5 @@
 import { animated, useTransition } from '@react-spring/web';
+import { css } from '../../../styled-system/css';
 
 interface OverlayTransitionProps {
   isShow: boolean;
@@ -13,6 +14,21 @@ export const ModalOverlay = ({ isShow }: OverlayTransitionProps) => {
   });
 
   return overlayTransitions((style, item) => item && (
-    <animated.div style={style} className='overlay modal-overlay' aria-hidden='true' />
+    <animated.div
+      style={style}
+      aria-hidden='true'
+      className={css({
+        pos: 'fixed',
+        top: '0',
+        right: '0',
+        bottom: '0',
+        left: '0',
+        p: { base: '0.6rem', xsm: '1.2rem' },
+        bg: 'rgba(0, 0, 0, 0.6)',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        backdropFilter: 'blur(3px)',
+      })}
+    />
   ));
 };

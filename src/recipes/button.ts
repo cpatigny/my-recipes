@@ -56,6 +56,10 @@ export const button = cva({
         p: '0.5rem 0.75rem',
         '--padding': '0.2rem',
       },
+      smd: {
+        p: '0.7rem 1.3rem',
+        '--padding': '0.25rem',
+      },
       md: {
         p: '0.7rem 1.8rem',
         '--padding': '0.3rem',
@@ -103,6 +107,15 @@ export const button = cva({
     color: 'primary',
     size: 'sm',
   },
+  compoundVariants: [
+    {
+      visual: 'semiTransparent',
+      color: 'primary',
+      css: {
+        color: 'primary',
+      },
+    },
+  ],
 });
 
 export type ButtonVariants = RecipeVariantProps<typeof button>;

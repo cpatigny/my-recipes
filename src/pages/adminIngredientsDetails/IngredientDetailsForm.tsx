@@ -7,6 +7,7 @@ import { wrap } from '../../../styled-system/patterns';
 import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
 import { CancelBtn } from '../../components/CancelBtn/CancelBtn';
 import { Button } from '../../components/Button';
+import { ModalActions } from '../../components/Modal/ModalActions';
 
 interface IngredientFormProps {
   ingredientToEdit?: IngredientDetailsWithId;
@@ -58,7 +59,7 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
         required
         value={name}
         onChange={e => setName(e.currentTarget.value)}
-        className={css({ flex: '1', minW: '12.5rem' })}
+        className={css({ flex: '1', minW: '14rem' })}
       />
 
       <UnderlineInput
@@ -67,14 +68,14 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
         type='text'
         value={plural}
         onChange={e => setPlural(e.currentTarget.value)}
-        className={css({ flex: '1', minW: '12.5rem' })}
+        className={css({ flex: '1', minW: '14rem' })}
       />
 
       {ingredientToEdit ? (
-        <div className='modal-actions'>
-          <button className='btn-primary modal-button'>Modifier</button>
+        <ModalActions>
+          <Button size='smd'>Modifier</Button>
           {close && <CancelBtn onClick={close} text='Annuler' />}
-        </div>
+        </ModalActions>
       ) : (
         <Button fullWidth={true} mt='1.1rem'>Créer un ingrédient</Button>
       )}

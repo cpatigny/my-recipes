@@ -1,3 +1,4 @@
+import { Button } from '../Button';
 import { Icon } from '../Icon/Icon';
 
 import './CancelBtn.scss';
@@ -10,9 +11,14 @@ interface CancelBtnProps {
 
 export const CancelBtn = ({ onClick, text, icon = false }: CancelBtnProps) => {
   return (
-    <button className='cancel-btn' type='button' onClick={onClick}>
+    <Button
+      visual='semiTransparent'
+      size='smd'
+      type='button'
+      onClick={onClick}
+    >
       {icon && <Icon name='close' />}
       { text }
-    </button>
+    </Button>
   );
 };

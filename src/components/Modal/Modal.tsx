@@ -1,6 +1,9 @@
 import { Dialog } from '@headlessui/react';
+import { css, cx } from '../../../styled-system/css';
+import { flex } from '../../../styled-system/patterns';
+
 import { ModalTransition } from './ModalTransition';
-import { ModalOverlay } from '../Overlay/OverlayTransition';
+import { ModalOverlay } from './ModalOverlay';
 
 import './Modal.scss';
 
@@ -20,9 +23,31 @@ export const Modal = ({
     <Dialog static open={isShow} onClose={onClose}>
       <ModalOverlay isShow={isShow} />
       <ModalTransition isShow={isShow} afterLeave={afterLeave}>
-        <div className='modal-container'>
-          <Dialog.Panel className={`modal ${className || ''}`}>
-            <Dialog.Title className='modal-title'>{ title }</Dialog.Title>
+        <div
+          className={flex({
+            minH: '100%',
+            justify: 'center',
+            align: 'center',
+            p: '1.2rem',
+          })}
+        >
+          <Dialog.Panel
+            className={cx(
+              className ?? '',
+              css({
+                pos: 'relative',
+                m: 'auto',
+                bg: 'white',
+                p: '1.4rem 2rem',
+                rounded: '1.25rem',
+                w: '100%',
+                maxW: '31.25rem',
+              }),
+            )}
+          >
+            <Dialog.Title className={css({ mb: '0.5rem', fontSize: '1.7rem' })}>
+              { title }
+            </Dialog.Title>
             { children }
           </Dialog.Panel>
         </div>

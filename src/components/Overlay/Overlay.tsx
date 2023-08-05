@@ -7,11 +7,10 @@ import './Overlay.scss';
 interface OverlayProps {
   isShow: boolean;
   close: () => void;
-  className?: string;
   children: React.ReactNode;
 }
 
-export const Overlay = ({ isShow, close, className, children }: OverlayProps) => {
+export const Overlay = ({ isShow, close, children }: OverlayProps) => {
   const [shouldCloseModal, setShouldCloseModal] = useState(true);
 
   useEffect(() => {
@@ -47,21 +46,18 @@ export const Overlay = ({ isShow, close, className, children }: OverlayProps) =>
       onMouseUp={handleMouseUp}
       onMouseDown={handleMouseDown}
       style={style}
-      className={`
-        ${className || ''}
-        ${css({
-          pos: 'fixed',
-          top: '0',
-          right: '0',
-          bottom: '0',
-          left: '0',
-          bg: 'rgba(0, 0, 0, 0.6)',
-          overflowX: 'hidden',
-          overflowY: 'auto',
-          zIndex: '10',
-          backdropFilter: 'blur(3px)',
-        })}
-      `}
+      className={css({
+        pos: 'fixed',
+        top: '0',
+        right: '0',
+        bottom: '0',
+        left: '0',
+        bg: 'rgba(0, 0, 0, 0.6)',
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        zIndex: '10',
+        backdropFilter: 'blur(3px)',
+      })}
     >
       {children}
     </animated.div>

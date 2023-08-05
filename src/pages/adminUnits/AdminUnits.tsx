@@ -32,10 +32,10 @@ export const AdminUnits = () => {
   };
 
   return (
-    <AdminContainer className='admin-units'>
+    <AdminContainer>
       <h1 className={css({ fontSize: 'pageTitle' })}>Unités</h1>
 
-      <Block className='form-container'>
+      <Block>
         <h2 className={blockTitle()}>Créer une unité</h2>
         <UnitForm />
       </Block>

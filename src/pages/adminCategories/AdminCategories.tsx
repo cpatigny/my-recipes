@@ -20,7 +20,7 @@ export const AdminCategories = () => {
   const closeModal = () => setCategoryToEdit(null);
 
   return (
-    <AdminContainer className='admin-categories'>
+    <AdminContainer>
       <h1 className={css({ fontSize: 'pageTitle' })}>Catégories</h1>
 
       <Block className='form-container'>

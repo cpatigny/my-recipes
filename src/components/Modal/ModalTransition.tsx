@@ -1,4 +1,5 @@
 import { useTransition, animated } from '@react-spring/web';
+import { css } from '../../../styled-system/css';
 
 interface ModalContentProps {
   isShow: boolean;
@@ -22,7 +23,18 @@ export const ModalTransition = ({
   });
 
   return modalTransitions((style, item) => item && (
-    <animated.div style={style} className='modal-transition'>
+    <animated.div
+      style={style}
+      className={css({
+        pos: 'fixed',
+        top: '0',
+        bottom: '0',
+        left: '0',
+        right: '0',
+        zIndex: '999',
+        overflowY: 'auto',
+      })}
+    >
       { children }
     </animated.div>
   ));

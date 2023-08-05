@@ -7,6 +7,7 @@ import { wrap } from '../../../styled-system/patterns';
 import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
 import { CancelBtn } from '../../components/CancelBtn/CancelBtn';
 import { Button } from '../../components/Button';
+import { ModalActions } from '../../components/Modal/ModalActions';
 
 interface UnitFormData {
   singular: string;
@@ -102,10 +103,10 @@ export const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
       />
 
       {unitToEdit ? (
-        <div className='modal-actions'>
-          <button className='btn-primary modal-button'>Modifier l&apos;unité</button>
+        <ModalActions>
+          <Button size='smd'>Modifier l&apos;unité</Button>
           {close && <CancelBtn onClick={close} text='Annuler' />}
-        </div>
+        </ModalActions>
       ) : (
         <Button fullWidth={true} mt='1.1rem'>Ajouter une unité</Button>
       )}
