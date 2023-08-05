@@ -1,83 +1,83 @@
-@import '../../variables';
+// @import '../../variables';
 
-.toasts-container {
-  position: fixed;
-  z-index: 9999;
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  pointer-events: none;
+// .toasts-container {
+//   position: fixed;
+//   z-index: 9999;
+//   bottom: 1rem;
+//   left: 1rem;
+//   right: 1rem;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   pointer-events: none;
 
-  .toast {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    padding: 1rem 0.75rem;
-    margin-top: 0.4rem;
-    pointer-events: auto;
-    max-width: 500px;
-    border-radius: 0.6rem;
-    transform-origin: bottom;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1), 0 3px 3px rgba(0, 0, 0, 0.05);
-  }
+//   .toast {
+//     position: relative;
+//     display: flex;
+//     align-items: center;
+//     background-color: #fff;
+//     padding: 1rem 0.75rem;
+//     margin-top: 0.4rem;
+//     pointer-events: auto;
+//     max-width: 500px;
+//     border-radius: 0.6rem;
+//     transform-origin: bottom;
+//     overflow: hidden;
+//     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1), 0 3px 3px rgba(0, 0, 0, 0.05);
+//   }
 
-  .status-icon {
-    font-size: 2rem;
-  }
+//   .status-icon {
+//     font-size: 2rem;
+//   }
 
-  .success .status-icon {
-    color: #61d345;
-  }
+//   .success .status-icon {
+//     color: #61d345;
+//   }
 
-  .error .status-icon {
-    color: #ff4b4b;
-  }
+//   .error .status-icon {
+//     color: #ff4b4b;
+//   }
 
-  .toast-message {
-    margin: 0 0.95rem 0 1.1rem;
-    font-size: 1.1rem;
-  }
+//   .toast-message {
+//     margin: 0 0.95rem 0 1.1rem;
+//     font-size: 1.1rem;
+//   }
 
-  .close-toast {
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-  }
+//   .close-toast {
+//     border: none;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     background-color: transparent;
+//   }
 
-  .close-icon {
-    font-size: 1.6rem;
-    color: $main-text-color;
-  }
-}
+//   .close-icon {
+//     font-size: 1.6rem;
+//     color: $main-text-color;
+//   }
+// }
 
-@media (max-width: 650px) {
-  .toasts-container {
-    bottom: 0.9rem;
-    left: 0.5rem;
-    right: 0.5rem;
+// @media (max-width: 650px) {
+//   .toasts-container {
+//     bottom: 0.9rem;
+//     left: 0.5rem;
+//     right: 0.5rem;
 
-    .toast {
-      padding: 0.8rem 0.5rem 0.8rem 0.6rem;
-    }
+//     .toast {
+//       padding: 0.8rem 0.5rem 0.8rem 0.6rem;
+//     }
 
-    .status-icon {
-      font-size: 1.7rem;
-    }
+//     .status-icon {
+//       font-size: 1.7rem;
+//     }
 
-    .toast-message {
-      margin: 0 0.85rem 0 1rem;
-      font-size: 1rem;
-    }
+//     .toast-message {
+//       margin: 0 0.85rem 0 1rem;
+//       font-size: 1rem;
+//     }
 
-    .close-icon {
-      font-size: 1.4rem;
-    }
-  }
-}
+//     .close-icon {
+//       font-size: 1.4rem;
+//     }
+//   }
+// }

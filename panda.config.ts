@@ -58,7 +58,8 @@ export default defineConfig({
       colors: {
         primary: { value: '{colors.orange.500}' },
         lightPrimary: { value: '#F7E3D5' },
-        danger: { value: '{colors.red.600}' },
+        danger: { value: '{colors.red.500}' },
+        success: { value: '{colors.green.500}' },
         edit: { value: '{colors.sky.500}' },
         bg: {
           DEFAULT: { value: '#F7F7F7' },
