@@ -1,6 +1,7 @@
 import { Categories, CategoryWithId } from '../../types/category';
 
 import { AdminCategory } from './AdminCategory';
+import { AdminList } from '../../components/AdminList/AdminList';
 
 interface AdminCategoryListProps {
   categories: Categories | null;
@@ -11,7 +12,7 @@ export const AdminCategoryList = ({ categories, setCategoryToEdit }: AdminCatego
   if (!categories) return null;
 
   return (
-    <ul className='admin-list'>
+    <AdminList>
       {categories && Object.keys(categories).map(key => {
         const category = categories[key];
         if (!category) return null;
@@ -23,6 +24,6 @@ export const AdminCategoryList = ({ categories, setCategoryToEdit }: AdminCatego
           />
         );
       })}
-    </ul>
+    </AdminList>
   );
 };

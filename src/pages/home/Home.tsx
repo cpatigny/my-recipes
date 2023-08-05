@@ -10,7 +10,7 @@ import { getCategoryBySlug, countRecipesByCategory } from '../../helpers/categor
 import { searchMatchingRecipes, getRecipesByCategory, reverseRecipes } from '../../helpers/recipe.helpers';
 import { css } from '../../../styled-system/css';
 import { hstack, stack } from '../../../styled-system/patterns';
-import { buttonStyle } from '../../components/Button';
+import { button } from '../../recipes/button';
 
 import { Link, useParams } from 'react-router-dom';
 import { RecipeCard } from './RecipeCard';
@@ -146,7 +146,7 @@ export const Home = () => {
           </h2>
           {user && (
             <Link
-              className={buttonStyle({ visual: 'outline', color: 'primary', size: 'sm' })}
+              className={button({ visual: 'outline', color: 'primary', size: 'sm' })}
               to={ROUTES.ADD_RECIPE}
               state={{ hasClickedLink: true }}
             >

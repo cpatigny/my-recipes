@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useCategories } from '../../contexts/CategoriesContext';
 import { CategoryWithId } from '../../types/category';
+import { blockTitle } from '../../recipes/blockTitle';
+import { css } from '../../../styled-system/css';
 
 import { AdminCategoryList } from './AdminCategoryList';
 import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
@@ -19,15 +21,15 @@ export const AdminCategories = () => {
 
   return (
     <AdminContainer className='admin-categories'>
-      <h1>Catégories</h1>
+      <h1 className={css({ fontSize: 'pageTitle' })}>Catégories</h1>
 
       <Block className='form-container'>
-        <h2>Ajouter une catégorie</h2>
+        <h2 className={blockTitle()}>Ajouter une catégorie</h2>
         <CategoryForm />
       </Block>
 
       <Block>
-        <h2 className='list-title'>Liste des catégories</h2>
+        <h2 className={blockTitle()}>Liste des catégories</h2>
         <AdminCategoryList categories={categories} setCategoryToEdit={setCategoryToEdit} />
       </Block>
 

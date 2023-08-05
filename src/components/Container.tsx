@@ -1,38 +1,4 @@
-import { RecipeVariantProps, cva } from '../../styled-system/css';
 import { styled } from '../../styled-system/jsx';
+import { container } from '../recipes/container';
 
-export const containerStyles = cva({
-  base: {
-    m: '0 auto',
-    maxW: '56rem',
-    '@media (min-width: 500px)': {
-      paddingX: '3rem',
-    },
-    '@media (min-width: 400px)': {
-      px: '2.1875rem',
-    },
-  },
-  variants: {
-    type: {
-      home: {
-        px: '1.5625rem',
-      },
-      admin: {
-        p: '0.2rem 0.7rem',
-        '@media (min-width: 425px)': {
-          pb: '2rem',
-        },
-        '@media (min-width: 360px)': {
-          p: '0.2rem 1rem',
-        },
-      },
-    },
-  },
-  defaultVariants: {
-    type: 'home',
-  },
-});
-
-export type ContainerVariants = RecipeVariantProps<typeof containerStyles>;
-
-export const Container = styled('div', containerStyles);
+export const Container = styled('div', container);

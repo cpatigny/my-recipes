@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom';
 import { MobileMenu } from './MobileMenu';
 import { Overlay } from '../Overlay/Overlay';
 import { Icon } from '../Icon/Icon';
+import { Container } from '../Container';
 
 import './Menu.scss';
 
@@ -58,7 +59,7 @@ export const Menu = () => {
           boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
         })}
       >
-        <div
+        <Container
           className={flex({
             justify: { base: 'flex-end', md: 'space-between' },
             gap: '0 0.6rem',
@@ -112,7 +113,7 @@ export const Menu = () => {
             <span className={css({ display: 'block', mb: '0.5rem' })} />
             <span className={menuBtnBarStyles}></span>
           </button>
-        </div>
+        </Container>
       </header>
       <Overlay isShow={showMenu} close={() => setShowMenu(false)}>
         <MobileMenu isShow={showMenu} close={() => setShowMenu(false)} links={links} />

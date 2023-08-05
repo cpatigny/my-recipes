@@ -4,8 +4,12 @@ import { CategoryWithId } from '../../types/category';
 import { countRecipesByCategory, deleteCategory } from '../../helpers/category.helpers';
 import { confirm } from '../../utils/utils';
 import { useToast } from '../../contexts/ToastContext';
+import { css } from '../../../styled-system/css';
 
 import { Icon } from '../../components/Icon/Icon';
+import { AdminListItem } from '../../components/AdminList/AdminListItem';
+import { Button } from '../../components/Button';
+import { AdminActions } from '../../components/AdminActions';
 
 interface AdminCategoryProps {
   category: CategoryWithId;
@@ -34,17 +38,30 @@ export const AdminCategory = ({ category, setCategoryToEdit }: AdminCategoryProp
   };
 
   return (
-    <li className='admin-category'>
+    <AdminListItem>
       <p>({ nbRecipesWithCategory }) { category.name }</p>
 
-      <div className='actions delete-edit'>
-        <button className='edit' onClick={() => setCategoryToEdit(category)}>
-          <Icon name='edit' />
-        </button>
-        <button className='delete' onClick={() => confirm(confirmText, wordToEnter, onConfirm)}>
-          <Icon name='delete_outline' />
-        </button>
-      </div>
-    </li>
+      <AdminActions>
+        <Button
+          visual='transparent'
+          color='edit'
+          size='md'
+          circle={true}
+          onClick={() => setCategoryToEdit(category)}
+        >
+          <Icon name='edit' className={css({ fontSize: '1.4rem!' })} />
+        </Button>
+        <Button
+          visual='transparent'
+          color='danger'
+          size='md'
+          circle={true}
+          onClick={() => confirm(confirmText, wordToEnter, onConfirm)}
+          className={css({ color: 'danger' })}
+        >
+          <Icon name='delete_outline' className={css({ fontSize: '1.4rem!' })} />
+        </Button>
+      </AdminActions>
+    </AdminListItem>
   );
 };

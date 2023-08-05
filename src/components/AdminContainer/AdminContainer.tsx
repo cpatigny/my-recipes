@@ -3,11 +3,12 @@ import { useUser } from '../../contexts/UserContext';
 
 import { Navigate } from 'react-router-dom';
 import { Menu } from '../Menu/Menu';
+import { Container } from '../Container';
 
 import './AdminContainer.scss';
 
 interface AdminContainerProps {
-  className: string;
+  className?: string;
   children: React.ReactNode;
 }
 
@@ -17,9 +18,9 @@ export const AdminContainer = ({ className, children }: AdminContainerProps) => 
   if (!user && !userLoading) return <Navigate to={ROUTES.HOME} />;
 
   return (
-    <div className={`container admin-container ${className}`}>
+    <Container type='admin' className={className || ''}>
       <Menu />
       { children }
-    </div>
+    </Container>
   );
 };

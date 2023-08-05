@@ -58,6 +58,7 @@ export default defineConfig({
         primary: { value: '{colors.orange.500}' },
         lightPrimary: { value: '#F7E3D5' },
         danger: { value: '{colors.red.600}' },
+        edit: { value: '{colors.sky.500}' },
         bg: {
           DEFAULT: { value: '#F7F7F7' },
         },
@@ -69,6 +70,7 @@ export default defineConfig({
       },
       fontSizes: {
         text: { value: '1.1rem' },
+        pageTitle: { value: 'clamp(1.9rem, 1.4453rem + 2.2737vw, 2.44rem)' },
       },
     },
   },
@@ -91,9 +93,13 @@ export default defineConfig({
     },
     input: {
       color: 'text',
+      w: '100%',
     },
     'h1, h2, h3, h4, h5, h6, label': {
       color: 'text',
+    },
+    'h2, h3, h4, h5, h6': {
+      fontWeight: '600',
     },
     label: { display: 'block' }
   },

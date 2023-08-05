@@ -3,9 +3,12 @@ import { createCategory, updateCategory } from '../../helpers/category.helpers';
 import { slugify } from '../../utils/utils';
 import { CategoryWithId } from '../../types/category';
 import { useToast } from '../../contexts/ToastContext';
+import { wrap } from '../../../styled-system/patterns';
+import { css } from '../../../styled-system/css';
 
 import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
 import { CancelBtn } from '../../components/CancelBtn/CancelBtn';
+import { Button } from '../../components/Button';
 
 interface CategoryFormProps {
   categoryToEdit?: CategoryWithId;
@@ -56,7 +59,7 @@ export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) 
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={wrap({ gap: '1rem' })}>
       <UnderlineInput
         ref={inputRef}
         labelText='Nom'
@@ -65,6 +68,7 @@ export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) 
         required
         value={name}
         onChange={handleNameChange}
+        className={css({ flex: '1', minW: '10rem' })}
       />
 
       <UnderlineInput
@@ -74,6 +78,7 @@ export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) 
         required
         value={slug}
         onChange={e => setSlug(slugify(e.currentTarget.value))}
+        className={css({ flex: '1', minW: '10rem' })}
       />
 
       {categoryToEdit ? (
@@ -82,7 +87,7 @@ export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) 
           {closeModal && <CancelBtn onClick={closeModal} text='Annuler' />}
         </div>
       ) : (
-        <button>Ajouter</button>
+        <Button fullWidth={true} mt='1.5rem'>Ajouter</Button>
       )}
     </form>
   );
