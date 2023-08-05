@@ -4,6 +4,8 @@ import { UnitWithId } from '../../types/unit';
 import { useRecipes } from '../../contexts/RecipesContext';
 import { deleteUnit } from '../../helpers/units.helpers';
 import { reverseObject } from '../../utils/utils';
+import { css } from '../../../styled-system/css';
+import { blockTitle } from '../../recipes/blockTitle';
 
 import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
 import { UnitForm } from './UnitForm';
@@ -31,15 +33,15 @@ export const AdminUnits = () => {
 
   return (
     <AdminContainer className='admin-units'>
-      <h1>Unités</h1>
+      <h1 className={css({ fontSize: 'pageTitle' })}>Unités</h1>
 
       <Block className='form-container'>
-        <h2>Créer une unité</h2>
+        <h2 className={blockTitle()}>Créer une unité</h2>
         <UnitForm />
       </Block>
 
       <Block>
-        <h2 className='list-title'>Unités ({ units ? Object.keys(units).length : 0 })</h2>
+        <h2 className={blockTitle()}>Unités ({ units ? Object.keys(units).length : 0 })</h2>
         {units && (
           <Units
             units={reverseObject(units)}

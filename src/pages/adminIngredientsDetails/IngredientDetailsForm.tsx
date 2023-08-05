@@ -76,7 +76,7 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
           {close && <CancelBtn onClick={close} text='Annuler' />}
         </div>
       ) : (
-        <Button fullWidth={true} mt='1.5rem'>Créer un ingrédient</Button>
+        <Button fullWidth={true} mt='1.1rem'>Créer un ingrédient</Button>
       )}
     </form>
   );

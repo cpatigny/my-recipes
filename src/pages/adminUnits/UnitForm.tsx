@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { UnitWithId } from '../../types/unit';
 import { updateUnit, createUnit } from '../../helpers/units.helpers';
+import { css } from '../../../styled-system/css';
+import { wrap } from '../../../styled-system/patterns';
 
 import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
 import { CancelBtn } from '../../components/CancelBtn/CancelBtn';
+import { Button } from '../../components/Button';
 
 interface UnitFormData {
   singular: string;
@@ -69,7 +72,7 @@ export const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={wrap({ gap: '1rem' })}>
       <UnderlineInput
         labelText='Singulier'
         ref={inputRef}
@@ -78,6 +81,7 @@ export const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
         required
         value={unitFormData.singular}
         onChange={handleChange}
+        className={css({ flex: '1', minW: '14rem' })}
       />
       <UnderlineInput
         labelText='Pluriel'
@@ -86,6 +90,7 @@ export const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
         required
         value={unitFormData.plural}
         onChange={handleChange}
+        className={css({ flex: '1', minW: '14rem' })}
       />
       <UnderlineInput
         labelText='Symbole (facultatif)'
@@ -93,6 +98,7 @@ export const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
         type='text'
         value={unitFormData.symbol}
         onChange={handleChange}
+        className={css({ flex: '1', minW: '100%' })}
       />
 
       {unitToEdit ? (
@@ -101,7 +107,7 @@ export const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
           {close && <CancelBtn onClick={close} text='Annuler' />}
         </div>
       ) : (
-        <button>Ajouter une unité</button>
+        <Button fullWidth={true} mt='1.1rem'>Ajouter une unité</Button>
       )}
     </form>
   );

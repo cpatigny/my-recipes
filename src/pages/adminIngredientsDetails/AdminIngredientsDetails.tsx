@@ -38,10 +38,10 @@ export const AdminIngredientsDetails = () => {
   }
 
   return (
-    <AdminContainer className='admin-ingredients'>
+    <AdminContainer>
       <h1 className={css({ fontSize: 'pageTitle' })}>Ingrédients</h1>
 
-      <Block className='form-container'>
+      <Block>
         <h2 className={blockTitle()}>Créer un ingrédient</h2>
         <IngredientDetailsForm />
       </Block>

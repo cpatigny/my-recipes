@@ -87,7 +87,7 @@ export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) 
           {closeModal && <CancelBtn onClick={closeModal} text='Annuler' />}
         </div>
       ) : (
-        <Button fullWidth={true} mt='1.5rem'>Ajouter</Button>
+        <Button fullWidth={true} mt='1.1rem'>Ajouter</Button>
       )}
     </form>
   );
