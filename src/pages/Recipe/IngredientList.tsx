@@ -1,6 +1,7 @@
 import { useIngredientsDetails } from '../../contexts/IngredientsDetailsContext';
 import { useUnits } from '../../contexts/UnitsContext';
 import { RecipeIngredientWithId } from '../../types/recipe';
+import { css } from '../../../styled-system/css';
 
 import { Ingredient } from './Ingredient';
 
@@ -14,7 +15,7 @@ export const IngredientList = ({ ingredients, servingRatio }: IngredientListProp
   const { units } = useUnits();
 
   return (
-    <ul>
+    <ul className={css({ py: '1rem' })}>
       {ingredients.map(ingredient => (
         <Ingredient
           key={ingredient.id}

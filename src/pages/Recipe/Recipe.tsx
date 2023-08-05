@@ -8,6 +8,8 @@ import { ROUTES } from '../../routes';
 import { useRecipeBySlug } from '../../hooks/useRecipeBySlug';
 import { formatDate } from '../../utils/utils';
 import { getCookTimeText } from '../../helpers/recipe.helpers';
+import { css, cx } from '../../../styled-system/css';
+import { flex, vstack } from '../../../styled-system/patterns';
 
 import { Loading } from '../../components/Loading/Loading';
 import { RecipeActions } from './RecipeActions';
@@ -16,8 +18,10 @@ import { RecipeImage } from './RecipeImage';
 import { GoBack } from '../../components/GoBack/GoBack';
 import { Category } from '../home/Category';
 import { IngredientsSection } from './IngredientsSection';
+import { Container } from '../../components/Container';
 
 import './Recipe.scss';
+import { button } from '../../recipes/button';
 
 export const Recipe = () => {
   const { user } = useUser();
@@ -45,18 +49,55 @@ export const Recipe = () => {
   const { cookTimeInMins } = recipe;
 
   return (
-    <div className={`show-recipe container ${recipe.imageName ? '' : 'no-image'}`}>
-      <div className='recipe-header'>
-        <GoBack />
-        <div className='title-category'>
-          <h1>{ recipe.title }</h1>
-          { recipeCategory && (
-            <Category category={recipeCategory} />
+    <Container>
+      <div
+        className={css({
+          pos: 'relative',
+          m: { base: '1rem 0 1.5625rem', md: '1.25rem 0 2.19rem' },
+        })}
+      >
+        <GoBack
+          className={css({
+            pos: 'absolute',
+            top: { base: '0', sm: '0.3rem', md: '0.45rem' },
+            left: '0',
+          })}
+        />
+        <div className={vstack({ gap: '0.625rem' })}>
+          <h1
+            className={css({
+              fontSize: 'clamp(1.6rem, 0.4429rem + 4.1143vw, 2.5rem)',
+              textAlign: 'center',
+              p: { base: '0 3rem', xsm: '0 3.5rem', md: '0 4rem' },
+            })}
+          >
+            { recipe.title }
+          </h1>
+          {recipeCategory && (
+            <Category
+              category={recipeCategory}
+              className={cx(
+                button({
+                  color: 'primary',
+                  visual: 'outline',
+                }),
+                css({
+                  p: '0.2rem 1.25rem',
+                  fontSize: '1rem',
+                }),
+              )}
+            />
           )}
         </div>
       </div>
 
-      <div className='wrapper'>
+      <div
+        className={flex({
+          justify: 'space-between',
+          align: 'flex-end',
+          mb: '0.625rem',
+        })}
+      >
         <div className='recipe-date'>
           <span>Ajouté le <b>{ formatDate(recipe.createdAt) }</b></span>
         </div>
@@ -67,17 +108,36 @@ export const Recipe = () => {
       <RecipeImage recipe={recipe} />
 
       {cookTimeInMins && (
-        <p>Temps de cuisson : <b>{ getCookTimeText(cookTimeInMins) }</b></p>
+        <p className={css({ my: '1rem' })}>
+          Temps de cuisson : <b>{ getCookTimeText(cookTimeInMins) }</b>
+        </p>
       )}
 
       <IngredientsSection recipe={recipe} />
 
       <section className='recipe-content'>
-        <h2>Préparation</h2>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: 'h3', h2: 'h4', h3: 'h5' }}>
+        <h2 className={css({ fontSize: 'clamp(2rem, 1.6295rem + 1.8526vw, 2.44rem)' })}>
+          Préparation
+        </h2>
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          components={{ h1: 'h3', h2: 'h4', h3: 'h5' }}
+          className={css({
+            '& h3': {
+              fontSize: 'clamp(1.36rem, 1.1916rem + 0.8421vw, 1.56rem)',
+              fontWeight: '700',
+              m: '2.2rem 0 0.625rem',
+            },
+            '& p': {
+              fontSize: '1.2rem',
+              lineHeight: '150%',
+              mt: '0.625rem',
+            },
+          })}
+        >
           { recipe.content }
         </ReactMarkdown>
       </section>
-    </div>
+    </Container>
   );
 };

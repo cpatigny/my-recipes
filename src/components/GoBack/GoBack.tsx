@@ -1,11 +1,13 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../routes';
+import { css, cx } from '../../../styled-system/css';
+import { flex } from '../../../styled-system/patterns';
 
 import { Icon } from '../Icon/Icon';
 
 import './GoBack.scss';
 
-export const GoBack = () => {
+export const GoBack = ({ className }: { className?: string }) => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -22,8 +24,23 @@ export const GoBack = () => {
   };
 
   return (
-    <button className='go-back' onClick={handleClick}>
-      <Icon name='west' className='go-back-icon' />
+    <button
+      onClick={handleClick}
+      className={cx(
+        className,
+        flex({
+          justify: 'center',
+          align: 'center',
+        }),
+      )}
+    >
+      <Icon
+        name='west'
+        className={css({
+          color: 'text',
+          fontSize: { base: '2.2rem!', xsm: '2.6rem!' },
+        })}
+      />
     </button>
   );
 };

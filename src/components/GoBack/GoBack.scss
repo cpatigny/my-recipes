@@ -1,22 +1,22 @@
-@import '../../variables';
+// @import '../../variables';
 
-.go-back {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  padding: 0;
-  background-color: transparent;
-  // margin-top: 16px;
+// .go-back {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   border: none;
+//   padding: 0;
+//   background-color: transparent;
+//   // margin-top: 16px;
 
-  .go-back-icon {
-    font-size: 2.6rem;
-    color: $main-text-color;
-  }
-}
+//   .go-back-icon {
+//     font-size: 2.6rem;
+//     color: $main-text-color;
+//   }
+// }
 
-@media (max-width: 450px) {
-  .go-back .go-back-icon {
-    font-size: 2.2rem;
-  }
-}
+// @media (max-width: 450px) {
+//   .go-back .go-back-icon {
+//     font-size: 2.2rem;
+//   }
+// }

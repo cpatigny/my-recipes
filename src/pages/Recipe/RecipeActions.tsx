@@ -4,8 +4,10 @@ import { ROUTES, getEditRecipePath } from '../../routes';
 import { deleteRecipe } from '../../helpers/recipe.helpers';
 import { confirm } from '../../utils/utils';
 import { useToast } from '../../contexts/ToastContext';
+import { hstack } from '../../../styled-system/patterns';
 
 import { Icon } from '../../components/Icon/Icon';
+import { button } from '../../recipes/button';
 
 interface RecipeActionsProps {
   recipe: RecipeWithId;
@@ -27,15 +29,18 @@ export const RecipeActions = ({ recipe }: RecipeActionsProps) => {
   };
 
   return (
-    <div className='recipe-actions'>
+    <div className={hstack()}>
       <Link
         to={getEditRecipePath(recipe.slug)}
         state={{ hasClickedLink: true }}
-        id='edit-recipe'
+        className={button({ visual: 'semiTransparent', size: 'lg', circle: true, color: 'edit' })}
       >
         <Icon name='edit' />
       </Link>
-      <button id='delete-recipe' onClick={onClickHandler}>
+      <button
+        onClick={onClickHandler}
+        className={button({ visual: 'semiTransparent', size: 'lg', circle: true, color: 'danger' })}
+      >
         <Icon name='delete' />
       </button>
     </div>

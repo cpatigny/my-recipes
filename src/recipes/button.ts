@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import { cva, RecipeVariantProps } from '../../styled-system/css';
 
 const primaryColor = 'colors.orange.450';
@@ -21,6 +22,9 @@ export const button = cva({
         border: 'none',
         color: 'white',
         bg: 'var(--background-color)',
+        '[data-disabled=true]&': {
+          bg: 'var(--disabled-bg-color)',
+        },
       },
       outline: {
         borderWidth: '1px',
@@ -38,6 +42,11 @@ export const button = cva({
           bg: 'var(--light-bg-color)',
         },
       },
+      semiTransparent: {
+        border: 'none',
+        bg: 'var(--light-bg-color)',
+        color: 'var(--color)',
+      },
     },
     size: {
       sm: {
@@ -48,13 +57,18 @@ export const button = cva({
         p: '0.7rem 1.8rem',
         '--padding': '0.3rem',
       },
+      lg: {
+        p: '5rem 10rem',
+        '--padding': '0.4375rem',
+      },
     },
     color: {
       primary: {
         '--background-color': primaryColor,
         '--border-color': primaryColor,
         '--color': primaryColor,
-        '--light-bg-color': 'lightPrimary',
+        '--light-bg-color': 'colors.lightPrimary',
+        '--disabled-bg-color': 'colors.orange.200',
       },
       danger: {
         '--background-color': dangerColor,

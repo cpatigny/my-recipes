@@ -3,6 +3,7 @@ import { getIngredientsWithoutGroup } from '../../helpers/ingredient.helpers';
 import { GroupWithIngredients, RecipeWithId } from '../../types/recipe';
 import { useState } from 'react';
 import { getServingRatio } from '../../helpers/recipe.helpers';
+import { css } from '../../../styled-system/css';
 
 import { GroupList } from './GroupList';
 import { IngredientList } from './IngredientList';
@@ -23,8 +24,8 @@ export const IngredientsSection = ({ recipe }: { recipe: RecipeWithId }) => {
   const servingRatio = getServingRatio(numberOfServings, recipe.nbServings);
 
   return (
-    <section className='ingredients'>
-      <h2>Ingrédients</h2>
+    <section>
+      <h2 className={css({ fontSize: 'clamp(2rem, 1.6295rem + 1.8526vw, 2.44rem)' })}>Ingrédients</h2>
       <Servings
         numberOfServings={numberOfServings}
         setNumberOfServings={setNumberOfServings}
