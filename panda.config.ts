@@ -26,6 +26,7 @@ export default defineConfig({
             400: { value: '#FA8B3E' },
             450: { value: '#F9802C' },
             500: { value: '#f97316' },
+            550: { value: '#ED6506' },
             600: { value: '#D25905' },
             700: { value: '#9B4204' },
             800: { value: '#642B03' },

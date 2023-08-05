@@ -25,6 +25,9 @@ export const button = cva({
         '[data-disabled=true]&': {
           bg: 'var(--disabled-bg-color)',
         },
+        _hover: {
+          bg: 'var(--darker-bg-color)',
+        },
       },
       outline: {
         borderWidth: '1px',
@@ -69,6 +72,7 @@ export const button = cva({
         '--color': primaryColor,
         '--light-bg-color': 'colors.lightPrimary',
         '--disabled-bg-color': 'colors.orange.200',
+        '--darker-bg-color': 'colors.orange.550',
       },
       danger: {
         '--background-color': dangerColor,
