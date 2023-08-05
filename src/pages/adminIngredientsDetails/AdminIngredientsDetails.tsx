@@ -4,6 +4,8 @@ import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { useRecipes } from '../../contexts/RecipesContext';
 import { deleteIngredientDetails } from '../../helpers/ingredientDetails.helpers';
 import { reverseObject } from '../../utils/utils';
+import { css } from '../../../styled-system/css';
+import { blockTitle } from '../../recipes/blockTitle';
 
 import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
 import { IngredientsDetails } from './IngredientsDetails';
@@ -37,15 +39,15 @@ export const AdminIngredientsDetails = () => {
 
   return (
     <AdminContainer className='admin-ingredients'>
-      <h1>Ingrédients</h1>
+      <h1 className={css({ fontSize: 'pageTitle' })}>Ingrédients</h1>
 
       <Block className='form-container'>
-        <h2>Créer un ingrédient</h2>
+        <h2 className={blockTitle()}>Créer un ingrédient</h2>
         <IngredientDetailsForm />
       </Block>
 
       <Block>
-        <h2 className='list-title'>Liste des ingrédients ({ nbOfIngredients })</h2>
+        <h2 className={blockTitle()}>Liste des ingrédients ({ nbOfIngredients })</h2>
         {ingredientsDetails && (
           <IngredientsDetails
             ingredients={reverseObject(ingredientsDetails)}

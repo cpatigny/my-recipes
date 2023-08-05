@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { updateIngredientDetails, createIngredientDetails } from '../../helpers/ingredientDetails.helpers';
+import { css } from '../../../styled-system/css';
+import { wrap } from '../../../styled-system/patterns';
 
 import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
 import { CancelBtn } from '../../components/CancelBtn/CancelBtn';
+import { Button } from '../../components/Button';
 
 interface IngredientFormProps {
   ingredientToEdit?: IngredientDetailsWithId;
@@ -46,7 +49,7 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={wrap({ gap: '1rem' })}>
       <UnderlineInput
         labelText='Nom'
         ref={inputRef}
@@ -55,6 +58,7 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
         required
         value={name}
         onChange={e => setName(e.currentTarget.value)}
+        className={css({ flex: '1', minW: '12.5rem' })}
       />
 
       <UnderlineInput
@@ -63,6 +67,7 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
         type='text'
         value={plural}
         onChange={e => setPlural(e.currentTarget.value)}
+        className={css({ flex: '1', minW: '12.5rem' })}
       />
 
       {ingredientToEdit ? (
@@ -71,7 +76,7 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
           {close && <CancelBtn onClick={close} text='Annuler' />}
         </div>
       ) : (
-        <button>Créer un ingrédient</button>
+        <Button fullWidth={true} mt='1.5rem'>Créer un ingrédient</Button>
       )}
     </form>
   );
