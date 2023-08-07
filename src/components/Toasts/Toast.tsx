@@ -4,7 +4,7 @@ import { Toast as ToastType } from '../../contexts/ToastContext';
 import { center, flex } from '../../../styled-system/patterns';
 import { css } from '../../../styled-system/css';
 
-import { Icon } from '../Icon/Icon';
+import { Icon } from '../Icon';
 
 export const Toast = ({ message, status, close }: ToastType) => {
   const [isShow, setIsShow] = useState(true);

@@ -6,8 +6,8 @@ import { useToast } from '../../contexts/ToastContext';
 import { wrap } from '../../../styled-system/patterns';
 import { css } from '../../../styled-system/css';
 
-import { UnderlineInput } from '../../components/UnderlineInput/UnderlineInput';
-import { CancelBtn } from '../../components/CancelBtn/CancelBtn';
+import { UnderlineInput } from '../../components/UnderlineInput';
+import { CancelBtn } from '../../components/CancelBtn';
 import { Button } from '../../components/Button';
 import { ModalActions } from '../../components/Modal/ModalActions';
 

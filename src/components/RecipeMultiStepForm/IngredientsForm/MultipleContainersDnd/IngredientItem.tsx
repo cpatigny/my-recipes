@@ -6,8 +6,8 @@ import { useUnits } from '../../../../contexts/UnitsContext';
 import { css } from '../../../../../styled-system/css';
 import { center, flex } from '../../../../../styled-system/patterns';
 
-import { IngredientText } from '../../../IngredientText/IngredientText';
-import { Icon } from '../../../Icon/Icon';
+import { IngredientText } from '../../../IngredientText';
+import { Icon } from '../../../Icon';
 import { DEFAULT_INGREDIENT } from './DefaultGroup';
 import { Button } from '../../../Button';
 

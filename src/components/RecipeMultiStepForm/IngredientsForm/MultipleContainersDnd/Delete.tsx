@@ -1,7 +1,7 @@
 import { cx } from '../../../../../styled-system/css';
 import { button } from '../../../../recipes/button';
 
-import { Icon } from '../../../Icon/Icon';
+import { Icon } from '../../../Icon';
 import { ActionProps, Action } from './Action';
 
 export const Delete = (props: ActionProps) => {

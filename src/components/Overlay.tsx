@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTransition, animated } from '@react-spring/web';
-import { css } from '../../../styled-system/css';
-
-import './Overlay.scss';
+import { css } from '../../styled-system/css';
 
 interface OverlayProps {
   isShow: boolean;

@@ -2,7 +2,7 @@ import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormCon
 import { GroupWithId, GroupWithIngredients, RecipeIngredientWithId } from '../../../types/recipe';
 
 import { GroupsContainers } from './MultipleContainersDnd/GroupsContainers';
-import { Block } from '../../Block/Block';
+import { Block } from '../../Block';
 import { SecondaryText } from '../../SecondaryText';
 
 export interface IngredientAndGroupListProps {

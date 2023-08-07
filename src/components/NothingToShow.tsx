@@ -1,5 +1,3 @@
-import './NothingToShow.scss';
-
 interface NothingToShowProps {
   message: string;
   src: string;

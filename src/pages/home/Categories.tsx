@@ -46,7 +46,7 @@ export const Categories = ({ categories, selectedCategory, recipes }: Categories
 
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
     const { scrollLeft, scrollWidth, clientWidth } = e.currentTarget;
-    const maxScroll = Math.floor(scrollLeft) === scrollWidth - clientWidth;
+    const maxScroll = Math.floor(scrollLeft) + 5 >= scrollWidth - clientWidth;
     setIsMaxScroll(maxScroll);
   };
 

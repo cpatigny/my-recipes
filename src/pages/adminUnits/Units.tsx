@@ -1,7 +1,7 @@
 import { Units as IUnits, UnitWithId } from '../../types/unit';
 import { css } from '../../../styled-system/css';
 
-import { Icon } from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon';
 import { AdminList } from '../../components/AdminList/AdminList';
 import { AdminListItem } from '../../components/AdminList/AdminListItem';
 import { AdminActions } from '../../components/AdminActions';

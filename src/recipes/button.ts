@@ -24,6 +24,7 @@ export const button = cva({
         bg: 'var(--background-color)',
         '[data-disabled=true]&': {
           bg: 'var(--disabled-bg-color)',
+          _hover: { bg: 'var(--disabled-bg-color)' },
         },
         _hover: {
           bg: 'var(--darker-bg-color)',

@@ -7,13 +7,11 @@ import { reverseObject } from '../../utils/utils';
 import { css } from '../../../styled-system/css';
 import { blockTitle } from '../../recipes/blockTitle';
 
-import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
+import { AdminContainer } from '../../components/AdminContainer';
 import { UnitForm } from './UnitForm';
 import { Units } from './Units';
 import { Modal } from '../../components/Modal/Modal';
-import { Block } from '../../components/Block/Block';
-
-import './AdminUnits.scss';
+import { Block } from '../../components/Block';
 
 export const AdminUnits = () => {
   const [unitToEdit, setUnitToEdit] = useState<UnitWithId | null>(null);

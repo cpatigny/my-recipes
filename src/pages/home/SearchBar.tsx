@@ -1,6 +1,6 @@
 import { css } from '../../../styled-system/css';
 
-import { Icon } from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon';
 
 const placeholderColor = '#6b7280';
 

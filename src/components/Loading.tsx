@@ -1,7 +1,5 @@
-import { css, cx } from '../../../styled-system/css';
-import { flex } from '../../../styled-system/patterns';
-
-import './Loading.scss';
+import { css, cx } from '../../styled-system/css';
+import { flex } from '../../styled-system/patterns';
 
 const dotStyles = css({
   bg: 'primary',

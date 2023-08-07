@@ -1,7 +1,7 @@
-import { css } from '../../../styled-system/css';
-import { flex } from '../../../styled-system/patterns';
-import { useRecipeMultiStepForm } from '../../contexts/RecipeMultiStepFormContext';
-import { Button } from '../Button';
+import { css } from '../../styled-system/css';
+import { flex } from '../../styled-system/patterns';
+import { useRecipeMultiStepForm } from '../contexts/RecipeMultiStepFormContext';
+import { Button } from './Button';
 
 interface MultiStepFormActionsProps {
   submitForm: () => void;

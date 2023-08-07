@@ -5,8 +5,6 @@ import { flex } from '../../../styled-system/patterns';
 import { ModalTransition } from './ModalTransition';
 import { ModalOverlay } from './ModalOverlay';
 
-import './Modal.scss';
-
 interface ModalProps {
   isShow: boolean;
   onClose: () => void;

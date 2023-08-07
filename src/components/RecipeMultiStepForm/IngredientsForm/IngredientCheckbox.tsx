@@ -3,7 +3,7 @@ import { IngredientsDetails } from '../../../types/ingredientDetails';
 import { RecipeIngredientWithId } from '../../../types/recipe';
 import { Units } from '../../../types/unit';
 
-import { IngredientText } from '../../IngredientText/IngredientText';
+import { IngredientText } from '../../IngredientText';
 
 interface IngredientCheckboxProps {
   ingredient: RecipeIngredientWithId;

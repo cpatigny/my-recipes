@@ -7,10 +7,8 @@ import { updateRecipe, createRecipe } from '../../helpers/recipe.helpers';
 import { useToast } from '../../contexts/ToastContext';
 import { css } from '../../../styled-system/css';
 
-import { MultiStepFormActions } from '../MultiStepFormActions/MultiStepFormActions';
+import { MultiStepFormActions } from '../MultiStepFormActions';
 import { ProgressBar } from './ProgressBar';
-
-import './RecipeMultiStepForm.scss';
 
 export interface FormErrors {
   [name: string]: string;

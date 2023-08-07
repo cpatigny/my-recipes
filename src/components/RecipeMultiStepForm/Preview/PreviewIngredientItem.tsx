@@ -3,7 +3,7 @@ import { RecipeIngredientWithId } from '../../../types/recipe';
 import { Units } from '../../../types/unit';
 import { css } from '../../../../styled-system/css';
 
-import { IngredientText } from '../../IngredientText/IngredientText';
+import { IngredientText } from '../../IngredientText';
 
 interface PreviewIngredientItemProps {
   ingredient: RecipeIngredientWithId;

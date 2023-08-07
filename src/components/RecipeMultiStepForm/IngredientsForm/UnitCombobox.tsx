@@ -5,7 +5,7 @@ import { Units } from '../../../types/unit';
 import { cx } from '../../../../styled-system/css';
 import { combobox } from '../../../recipes/combobox';
 
-import { Icon } from '../../Icon/Icon';
+import { Icon } from '../../Icon';
 import { Combobox } from '@headlessui/react';
 
 interface UnitComboboxProps {

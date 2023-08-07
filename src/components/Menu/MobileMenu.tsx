@@ -5,7 +5,7 @@ import { flex, hstack } from '../../../styled-system/patterns';
 import { css } from '../../../styled-system/css';
 
 import { NavLink } from 'react-router-dom';
-import { Icon } from '../Icon/Icon';
+import { Icon } from '../Icon';
 
 const topBottomPadding = '0.4rem';
 const leftRightPadding = '2.8rem';

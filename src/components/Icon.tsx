@@ -1,5 +1,5 @@
-import { css, cx } from '../../../styled-system/css';
-import { CssProperties } from '../../../styled-system/types/system-types';
+import { css, cx } from '../../styled-system/css';
+import { CssProperties } from '../../styled-system/types/system-types';
 
 interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   name: string;

@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom';
 
 import notFoundSvg from '../../assets/img/undraw-page-not-found.svg';
 
-import './NotFound.scss';
-
 export const NotFound = () => (
   <Container className={vstack({ p: '3.6rem 1rem' })}>
     <img

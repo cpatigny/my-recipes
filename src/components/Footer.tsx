@@ -1,8 +1,8 @@
 import { User } from 'firebase/auth';
-import { logOut } from '../../helpers/auth.helpers';
-import { ROUTES } from '../../routes';
-import { flex } from '../../../styled-system/patterns';
-import { css } from '../../../styled-system/css';
+import { logOut } from '../helpers/auth.helpers';
+import { ROUTES } from '../routes';
+import { flex } from '../../styled-system/patterns';
+import { css } from '../../styled-system/css';
 
 import { Link } from 'react-router-dom';
 

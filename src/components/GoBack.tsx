@@ -1,11 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../routes';
-import { css, cx } from '../../../styled-system/css';
-import { flex } from '../../../styled-system/patterns';
+import { ROUTES } from '../routes';
+import { css, cx } from '../../styled-system/css';
+import { flex } from '../../styled-system/patterns';
 
-import { Icon } from '../Icon/Icon';
-
-import './GoBack.scss';
+import { Icon } from './Icon';
 
 export const GoBack = ({ className }: { className?: string }) => {
   const navigate = useNavigate();

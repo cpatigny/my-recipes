@@ -15,8 +15,8 @@ import { button } from '../../recipes/button';
 import { Link, useParams } from 'react-router-dom';
 import { RecipeCard } from './RecipeCard';
 import { SearchBar } from './SearchBar';
-import { NothingToShow } from '../../components/NothingToShow/NothingToShow';
-import { Footer } from '../../components/Footer/Footer';
+import { NothingToShow } from '../../components/NothingToShow';
+import { Footer } from '../../components/Footer';
 import { Categories } from './Categories';
 import { Menu } from '../../components/Menu/Menu';
 import { Grid, Wrap } from '../../../styled-system/jsx';
@@ -25,8 +25,6 @@ import { Container } from '../../components/Container';
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import emptyIllustration from '../../assets/img/undraw-empty.svg';
 import logo from '../../assets/img/logo.svg';
-
-import './Home.scss';
 
 export const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);

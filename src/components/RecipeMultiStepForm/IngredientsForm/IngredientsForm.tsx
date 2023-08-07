@@ -9,7 +9,7 @@ import { GroupForm } from './GroupForm';
 import { IngredientAndGroupList } from './IngredientAndGroupList';
 import { IngredientForm } from './IngredientForm';
 import { NbOfServings } from './NbOfServings';
-import { Block } from '../../Block/Block';
+import { Block } from '../../Block';
 
 export const IngredientsForm = () => {
   const [ingredientToEdit, setIngredientToEdit] = useState<RecipeIngredientWithId | null>(null);

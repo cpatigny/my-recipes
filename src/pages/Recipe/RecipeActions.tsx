@@ -6,7 +6,7 @@ import { confirm } from '../../utils/utils';
 import { useToast } from '../../contexts/ToastContext';
 import { hstack } from '../../../styled-system/patterns';
 
-import { Icon } from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon';
 import { button } from '../../recipes/button';
 
 interface RecipeActionsProps {

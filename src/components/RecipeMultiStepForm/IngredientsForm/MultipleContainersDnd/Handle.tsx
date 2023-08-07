@@ -1,7 +1,7 @@
 import { css, cx } from '../../../../../styled-system/css';
 import { button } from '../../../../recipes/button';
 
-import { Icon } from '../../../Icon/Icon';
+import { Icon } from '../../../Icon';
 import { Action, ActionProps } from './Action';
 
 export const Handle = (props: ActionProps) => {

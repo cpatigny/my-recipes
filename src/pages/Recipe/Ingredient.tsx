@@ -1,4 +1,4 @@
-import { IngredientText } from '../../components/IngredientText/IngredientText';
+import { IngredientText } from '../../components/IngredientText';
 import { IngredientsDetails } from '../../types/ingredientDetails';
 import { RecipeIngredientWithId } from '../../types/recipe';
 import { Units } from '../../types/unit';

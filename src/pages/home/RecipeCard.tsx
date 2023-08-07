@@ -4,7 +4,7 @@ import { getRecipeImgUrl } from '../../helpers/firebase.helpers';
 import { getRecipePath } from '../../routes';
 
 import { Link } from 'react-router-dom';
-import { Icon } from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon';
 
 interface RecipeCardProps {
   title: string;

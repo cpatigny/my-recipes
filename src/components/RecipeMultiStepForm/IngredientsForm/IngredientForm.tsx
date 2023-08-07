@@ -9,11 +9,11 @@ import { FormErrors } from '../RecipeMultiStepForm';
 import { wrap } from '../../../../styled-system/patterns';
 import { css } from '../../../../styled-system/css';
 
-import { Icon } from '../../Icon/Icon';
-import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
+import { Icon } from '../../Icon';
+import { UnderlineInput } from '../../UnderlineInput';
 import { IngredientDetailsCombobox } from './IngredientDetailsCombobox';
 import { UnitCombobox } from './UnitCombobox';
-import { CancelBtn } from '../../CancelBtn/CancelBtn';
+import { CancelBtn } from '../../CancelBtn';
 import { Button } from '../../Button';
 import { ModalActions } from '../../Modal/ModalActions';
 

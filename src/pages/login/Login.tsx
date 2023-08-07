@@ -10,8 +10,6 @@ import { css } from '../../../styled-system/css';
 import { Container } from '../../components/Container';
 import { Button } from '../../components/Button';
 
-import './Login.scss';
-
 const inputStyles = css({
   p: '0.5rem 0.625rem',
   rounded: 'lg',

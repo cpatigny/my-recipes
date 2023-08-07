@@ -1,7 +1,5 @@
 import { forwardRef } from 'react';
-import { css, cx } from '../../../styled-system/css';
-
-import './UnderlineInput.scss';
+import { css, cx } from '../../styled-system/css';
 
 const transitionDuration = '200ms';
 const onFocus = {

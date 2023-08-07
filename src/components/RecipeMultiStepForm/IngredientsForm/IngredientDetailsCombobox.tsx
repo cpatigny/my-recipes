@@ -6,7 +6,7 @@ import { cx } from '../../../../styled-system/css';
 import { combobox } from '../../../recipes/combobox';
 
 import { Combobox } from '@headlessui/react';
-import { Icon } from '../../Icon/Icon';
+import { Icon } from '../../Icon';
 
 interface IngredientDetailsComboboxProps {
   ingredientData: RecipeIngredientFormData;

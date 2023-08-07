@@ -1,6 +1,4 @@
-import { css, cx } from '../../../styled-system/css';
-
-import './Block.scss';
+import { css, cx } from '../../styled-system/css';
 
 interface BlockProps {
   className?: string;

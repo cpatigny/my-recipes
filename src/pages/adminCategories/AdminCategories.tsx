@@ -5,12 +5,10 @@ import { blockTitle } from '../../recipes/blockTitle';
 import { css } from '../../../styled-system/css';
 
 import { AdminCategoryList } from './AdminCategoryList';
-import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
+import { AdminContainer } from '../../components/AdminContainer';
 import { CategoryForm } from './CategoryForm';
-import { Block } from '../../components/Block/Block';
+import { Block } from '../../components/Block';
 import { Modal } from '../../components/Modal/Modal';
-
-import './AdminCategories.scss';
 
 export const AdminCategories = () => {
   const [categoryToEdit, setCategoryToEdit] = useState<CategoryWithId | null>(null);

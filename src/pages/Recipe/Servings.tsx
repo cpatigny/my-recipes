@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { RecipeWithId } from '../../types/recipe';
 import { css, cx } from '../../../styled-system/css';
 
-import { Icon } from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon';
 import { button } from '../../recipes/button';
 
 interface ServingsProps {

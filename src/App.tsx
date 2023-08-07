@@ -5,7 +5,7 @@ import { useCategories } from './contexts/CategoriesContext';
 import { useIngredientsDetails } from './contexts/IngredientsDetailsContext';
 import { useUnits } from './contexts/UnitsContext';
 
-import { Loading } from './components/Loading/Loading';
+import { Loading } from './components/Loading';
 import { Outlet } from 'react-router-dom';
 
 export const App = () => {

@@ -2,9 +2,9 @@ import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormCon
 import { css } from '../../../../styled-system/css';
 import { wrap } from '../../../../styled-system/patterns';
 
-import { Block } from '../../Block/Block';
+import { Block } from '../../Block';
 import { InfoText } from '../../InfoText';
-import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
+import { UnderlineInput } from '../../UnderlineInput';
 
 interface NbOfServingsProps {
   handleStepSubmit: (e: React.FormEvent) => void;

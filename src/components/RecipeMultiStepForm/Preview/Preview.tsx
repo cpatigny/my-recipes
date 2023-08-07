@@ -9,7 +9,7 @@ import { getCookTimeText } from '../../../helpers/recipe.helpers';
 
 import ReactMarkdown from 'react-markdown';
 import { PreviewIngredientList } from './PreviewIngredientList';
-import { Block } from '../../Block/Block';
+import { Block } from '../../Block';
 import { SecondaryText } from '../../SecondaryText';
 import { css } from '../../../../styled-system/css';
 

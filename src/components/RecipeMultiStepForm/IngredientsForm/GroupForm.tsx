@@ -16,8 +16,8 @@ import { FormErrors } from '../RecipeMultiStepForm';
 import { css } from '../../../../styled-system/css';
 
 import { IngredientCheckbox } from './IngredientCheckbox';
-import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
-import { CancelBtn } from '../../CancelBtn/CancelBtn';
+import { UnderlineInput } from '../../UnderlineInput';
+import { CancelBtn } from '../../CancelBtn';
 import { InfoText } from '../../InfoText';
 import { ModalActions } from '../../Modal/ModalActions';
 import { Button } from '../../Button';

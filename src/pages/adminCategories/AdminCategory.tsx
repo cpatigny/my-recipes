@@ -6,7 +6,7 @@ import { confirm } from '../../utils/utils';
 import { useToast } from '../../contexts/ToastContext';
 import { css } from '../../../styled-system/css';
 
-import { Icon } from '../../components/Icon/Icon';
+import { Icon } from '../../components/Icon';
 import { AdminListItem } from '../../components/AdminList/AdminListItem';
 import { Button } from '../../components/Button';
 import { AdminActions } from '../../components/AdminActions';

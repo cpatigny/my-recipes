@@ -7,11 +7,9 @@ import { token } from '../../../styled-system/tokens';
 
 import { NavLink } from 'react-router-dom';
 import { MobileMenu } from './MobileMenu';
-import { Overlay } from '../Overlay/Overlay';
-import { Icon } from '../Icon/Icon';
+import { Overlay } from '../Overlay';
+import { Icon } from '../Icon';
 import { Container } from '../Container';
-
-import './Menu.scss';
 
 const menuItemStyles = css({
   bg: 'transparent',

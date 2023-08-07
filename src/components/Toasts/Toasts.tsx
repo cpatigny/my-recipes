@@ -3,8 +3,6 @@ import { Toast as ToastType } from '../../contexts/ToastContext';
 
 import { Toast } from './Toast';
 
-import './Toasts.scss';
-
 export const Toasts = ({ toasts }: { toasts: ToastType[] }) => {
   return (
     <div

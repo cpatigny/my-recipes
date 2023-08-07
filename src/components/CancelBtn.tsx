@@ -1,7 +1,5 @@
-import { Button } from '../Button';
-import { Icon } from '../Icon/Icon';
-
-import './CancelBtn.scss';
+import { Button } from './Button';
+import { Icon } from './Icon';
 
 interface CancelBtnProps {
   onClick: () => void;

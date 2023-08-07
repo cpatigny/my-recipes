@@ -1,6 +1,6 @@
 import { RecipeIngredients } from '../../../types/recipe';
 
-import { Block } from '../../Block/Block';
+import { Block } from '../../Block';
 import { Button } from '../../Button';
 import { SecondaryText } from '../../SecondaryText';
 

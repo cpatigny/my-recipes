@@ -10,18 +10,16 @@ import { formatDate } from '../../utils/utils';
 import { getCookTimeText } from '../../helpers/recipe.helpers';
 import { css, cx } from '../../../styled-system/css';
 import { flex, vstack } from '../../../styled-system/patterns';
+import { button } from '../../recipes/button';
 
-import { Loading } from '../../components/Loading/Loading';
+import { Loading } from '../../components/Loading';
 import { RecipeActions } from './RecipeActions';
 import ReactMarkdown from 'react-markdown';
 import { RecipeImage } from './RecipeImage';
-import { GoBack } from '../../components/GoBack/GoBack';
+import { GoBack } from '../../components/GoBack';
 import { Category } from '../home/Category';
 import { IngredientsSection } from './IngredientsSection';
 import { Container } from '../../components/Container';
-
-import './Recipe.scss';
-import { button } from '../../recipes/button';
 
 export const Recipe = () => {
   const { user } = useUser();

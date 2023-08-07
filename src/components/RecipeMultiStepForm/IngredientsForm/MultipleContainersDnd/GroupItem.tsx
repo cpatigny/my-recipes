@@ -5,7 +5,7 @@ import { flex } from '../../../../../styled-system/patterns';
 
 import { Handle } from './Handle';
 import { Delete } from './Delete';
-import { Icon } from '../../../Icon/Icon';
+import { Icon } from '../../../Icon';
 import { Button } from '../../../Button';
 
 export interface GroupItemProps {

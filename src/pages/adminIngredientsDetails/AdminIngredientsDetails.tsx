@@ -7,13 +7,11 @@ import { reverseObject } from '../../utils/utils';
 import { css } from '../../../styled-system/css';
 import { blockTitle } from '../../recipes/blockTitle';
 
-import { AdminContainer } from '../../components/AdminContainer/AdminContainer';
+import { AdminContainer } from '../../components/AdminContainer';
 import { IngredientsDetails } from './IngredientsDetails';
 import { Modal } from '../../components/Modal/Modal';
 import { IngredientDetailsForm } from './IngredientDetailsForm';
-import { Block } from '../../components/Block/Block';
-
-import './AdminIngredientsDetails.scss';
+import { Block } from '../../components/Block';
 
 export const AdminIngredientsDetails = () => {
   const [ingredientToEdit, setIngredientToEdit] = useState<IngredientDetailsWithId | null>(null);

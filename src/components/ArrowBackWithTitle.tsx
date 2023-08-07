@@ -1,7 +1,7 @@
 import { css } from '../../styled-system/css';
 import { grid } from '../../styled-system/patterns';
 
-import { GoBack } from './GoBack/GoBack';
+import { GoBack } from './GoBack';
 
 export const ArrowBackWithTitle = ({ title }: { title: string }) => {
   return (

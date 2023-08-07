@@ -1,11 +1,9 @@
-import { ROUTES } from '../../routes';
-import { useUser } from '../../contexts/UserContext';
+import { ROUTES } from '../routes';
+import { useUser } from '../contexts/UserContext';
 
 import { Navigate } from 'react-router-dom';
-import { Menu } from '../Menu/Menu';
-import { Container } from '../Container';
-
-import './AdminContainer.scss';
+import { Menu } from './Menu/Menu';
+import { Container } from './Container';
 
 interface AdminContainerProps {
   className?: string;
