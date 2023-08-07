@@ -6,12 +6,16 @@ import { useRecipeMultiStepForm, FormElements } from '../../../contexts/RecipeMu
 import { useUnits } from '../../../contexts/UnitsContext';
 import { RecipeIngredientWithId, RecipeIngredientFormData } from '../../../types/recipe';
 import { FormErrors } from '../RecipeMultiStepForm';
+import { wrap } from '../../../../styled-system/patterns';
+import { css } from '../../../../styled-system/css';
 
 import { Icon } from '../../Icon/Icon';
 import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
 import { IngredientDetailsCombobox } from './IngredientDetailsCombobox';
 import { UnitCombobox } from './UnitCombobox';
 import { CancelBtn } from '../../CancelBtn/CancelBtn';
+import { Button } from '../../Button';
+import { ModalActions } from '../../Modal/ModalActions';
 
 interface IngredientFormProps {
   ingredient?: RecipeIngredientWithId;
@@ -160,12 +164,12 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
   };
 
   return (
-    <div className={editMode ? 'edit-ingredient' : 'add-ingredient'}>
+    <div data-editing={editMode}>
       {!editMode && (
-        <p className='label'><b>Ajout d&apos;ingrédients :</b></p>
+        <p className={css({ mb: '0.5rem' })}><b>Ajout d&apos;ingrédients :</b></p>
       )}
-      <form id='ingredient-form' className='ingredient-form' onSubmit={handleSubmit}>
-        <div className='ingredient-inputs'>
+      <form onSubmit={handleSubmit}>
+        <div className={wrap({ gap: '1rem' })}>
           <UnderlineInput
             ref={quantityInputRef}
             labelText='Quantité'
@@ -176,6 +180,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             value={ingredientData.quantity}
             onChange={handleIngredientChange}
             error={!!ingredientErrors.quantity}
+            className={css({ flex: 1, minW: '7.5rem' })}
           />
 
           <UnitCombobox
@@ -183,6 +188,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             setIngredientData={setIngredientData}
             units={units}
             error={!!ingredientErrors.unit}
+            className={css({ flex: 2, minW: '12.5rem', mt: '0.7rem' })}
           />
 
           <UnderlineInput
@@ -191,6 +197,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             type='text'
             value={ingredientData.preposition}
             onChange={handleIngredientChange}
+            className={css({ flex: '1.5', minW: '8rem' })}
           />
 
           <IngredientDetailsCombobox
@@ -198,6 +205,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             setIngredientData={setIngredientData}
             ingredientsDetails={ingredientsDetails}
             error={!!ingredientErrors.name}
+            className={css({ flex: '100% 1', minW: '12.5rem', mt: '0.7rem' })}
           />
 
           <UnderlineInput
@@ -206,28 +214,39 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             type='text'
             value={ingredientData.additionalInfo}
             onChange={handleIngredientChange}
+            className={css({ flex: 1, minW: '12.5rem' })}
           />
         </div>
         { hasErrors && (
-          <ul className='form-errors'>
+          <ul className={css({ my: '1rem' })}>
             { Object.keys(ingredientErrors).map(key => (
-              <li key={key} className='form-error'>{ ingredientErrors[key] }</li>
+              <li
+                key={key}
+                className={css({
+                  color: 'danger',
+                  fontSize: '1rem',
+                  listStylePosition: 'inside',
+                  listStyleType: 'disc',
+                })}
+              >
+                { ingredientErrors[key] }
+              </li>
             ))}
           </ul>
         )}
         {editMode ? (
-          <div className='modal-actions'>
-            <button className='btn-primary d-flex items-center justify-center'>
+          <ModalActions>
+            <Button size='smd'>
               <Icon name={ editMode ? 'edit' : 'add' } />
               Modifier
-            </button>
+            </Button>
             {closeModal && <CancelBtn onClick={closeModal} text='Annuler' icon={true} />}
-          </div>
+          </ModalActions>
         ) : (
-          <button className='btn-primary d-flex items-center justify-center'>
-            <Icon name={ editMode ? 'edit' : 'add' } />
+          <Button fullWidth={true} mt='1.6rem'>
+            <Icon name={ editMode ? 'edit' : 'add' } className={css({ mr: '0.3rem' })} />
             Ajouter ingrédient
-          </button>
+          </Button>
         )}
       </form>
     </div>

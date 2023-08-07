@@ -1,3 +1,4 @@
+import { css } from '../../../../styled-system/css';
 import { IngredientsDetails } from '../../../types/ingredientDetails';
 import { RecipeIngredientWithId } from '../../../types/recipe';
 import { Units } from '../../../types/unit';
@@ -15,13 +16,18 @@ interface IngredientCheckboxProps {
 export const IngredientCheckbox = ({
   ingredient, checked, ingredientsDetails, units, handleCheck,
 }: IngredientCheckboxProps) => (
-  <label>
+  <label className={css({ mt: '0.2rem' })}>
     <input
       type='checkbox'
       checked={checked}
       name={ingredient.id}
       value={ingredient.id}
       onChange={handleCheck}
+      className={css({
+        w: 'auto',
+        m: '0 0.6rem 0 0',
+        verticalAlign: 'middle',
+      })}
     />
     <IngredientText
       ingredient={ingredient}

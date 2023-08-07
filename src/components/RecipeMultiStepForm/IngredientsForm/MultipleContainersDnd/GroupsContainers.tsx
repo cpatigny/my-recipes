@@ -391,7 +391,7 @@ export const GroupsContainers = ({
       onDragEnd={handleDragEnd}
       onDragCancel={onDragCancel}
     >
-      <div className='group-containers'>
+      <div>
         <SortableContext
           items={groupsIds}
           strategy={verticalListSortingStrategy}

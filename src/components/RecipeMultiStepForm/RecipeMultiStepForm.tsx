@@ -5,6 +5,7 @@ import { RecipeFormData } from '../../types/recipe';
 import { deleteRecipeImage, uploadRecipeImage } from '../../helpers/firebase.helpers';
 import { updateRecipe, createRecipe } from '../../helpers/recipe.helpers';
 import { useToast } from '../../contexts/ToastContext';
+import { css } from '../../../styled-system/css';
 
 import { MultiStepFormActions } from '../MultiStepFormActions/MultiStepFormActions';
 import { ProgressBar } from './ProgressBar';
@@ -57,7 +58,7 @@ export const RecipeMultiStepForm = () => {
     <div className='recipe-form'>
       <ProgressBar />
 
-      <h2>{ step.title }</h2>
+      <h2 className={css({ fontSize: 'pageTitle', m: '2rem 0 1rem' })}>{ step.title }</h2>
 
       { step.element }
 

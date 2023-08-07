@@ -2,6 +2,8 @@ import { RecipeIngredientFormData } from '../../../types/recipe';
 import { useState } from 'react';
 import { getMatchingUnits, getUnitName, getUnitNameById } from '../../../helpers/units.helpers';
 import { Units } from '../../../types/unit';
+import { cx } from '../../../../styled-system/css';
+import { combobox } from '../../../recipes/combobox';
 
 import { Icon } from '../../Icon/Icon';
 import { Combobox } from '@headlessui/react';
@@ -11,10 +13,11 @@ interface UnitComboboxProps {
   setIngredientData: React.Dispatch<React.SetStateAction<RecipeIngredientFormData>>;
   units: Units | null;
   error: boolean;
+  className?: string;
 }
 
 export const UnitCombobox = ({
-  ingredientData, setIngredientData, units, error,
+  ingredientData, setIngredientData, units, error, className,
 }: UnitComboboxProps) => {
   const [unitSearch, setUnitSearch] = useState('');
 
@@ -23,14 +26,17 @@ export const UnitCombobox = ({
   return (
     <Combobox
       as='div'
-      className='combobox unit-combobox'
       value={ingredientData.unitId}
       onChange={value => setIngredientData({ ...ingredientData, unitId: value ?? '' })}
       nullable
+      className={cx(
+        className || '',
+        combobox(),
+      )}
     >
       <Combobox.Input
         placeholder='Unité'
-        className={`combobox-input ${error ? 'error' : ''}`}
+        data-error={error}
         onChange={e => setUnitSearch(e.currentTarget.value)}
         displayValue={(id: string) => {
           const unit = units ? units[id] : null;
@@ -46,7 +52,7 @@ export const UnitCombobox = ({
             <Combobox.Option
               key={unit.id}
               value={unit.id}
-              className={`combobox-option ${ingredientData.unitId ? 'has-option-selected' : ''}`}
+              data-an-option-is-selected={!!ingredientData.unitId}
             >
               {({ selected }) => (
                 <>

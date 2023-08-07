@@ -1,6 +1,7 @@
 import { IngredientsDetails } from '../../../types/ingredientDetails';
 import { RecipeIngredientWithId } from '../../../types/recipe';
 import { Units } from '../../../types/unit';
+import { css } from '../../../../styled-system/css';
 
 import { IngredientText } from '../../IngredientText/IngredientText';
 
@@ -13,7 +14,7 @@ interface PreviewIngredientItemProps {
 export const PreviewIngredientItem = ({
   ingredient, ingredientsDetails, units,
 }: PreviewIngredientItemProps) => (
-  <li>
+  <li className={css({ listStyleType: 'disc' })}>
     <IngredientText
       ingredient={ingredient}
       ingredientsDetails={ingredientsDetails}

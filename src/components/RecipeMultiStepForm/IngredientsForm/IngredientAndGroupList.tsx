@@ -3,6 +3,7 @@ import { GroupWithId, GroupWithIngredients, RecipeIngredientWithId } from '../..
 
 import { GroupsContainers } from './MultipleContainersDnd/GroupsContainers';
 import { Block } from '../../Block/Block';
+import { SecondaryText } from '../../SecondaryText';
 
 export interface IngredientAndGroupListProps {
   deleteIngredient: (key: string) => void;
@@ -20,10 +21,10 @@ export const IngredientAndGroupList = ({
   const noIngredients = Object.keys(ingredients).length === 0;
 
   return (
-    <Block className='all-groups-and-ingredients'>
-      <p className='label'><b>Liste des groupes & ingrédients :</b></p>
+    <Block>
+      <p><b>Liste des groupes & ingrédients :</b></p>
       { noIngredients && (
-        <p className='secondary'>Vous n&apos;avez ajouté aucun ingrédient</p>
+        <SecondaryText>Vous n&apos;avez ajouté aucun ingrédient</SecondaryText>
       )}
       <GroupsContainers
         deleteIngredient={deleteIngredient}

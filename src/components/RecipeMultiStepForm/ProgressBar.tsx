@@ -1,4 +1,5 @@
 import { useRecipeMultiStepForm } from '../../contexts/RecipeMultiStepFormContext';
+import { flex } from '../../../styled-system/patterns';
 
 import { ProgressBarStep } from './ProgressBarStep';
 
@@ -8,7 +9,12 @@ export const ProgressBar = () => {
   } = useRecipeMultiStepForm();
 
   return (
-    <div className='progress-bar'>
+    <div
+      className={flex({
+        justify: 'center',
+        pb: { base: '0', sm: '2rem' },
+      })}
+    >
       {steps.map((step, index) => (
         <ProgressBarStep
           key={index}

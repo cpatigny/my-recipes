@@ -1,6 +1,8 @@
 import { RecipeIngredients } from '../../../types/recipe';
 
 import { Block } from '../../Block/Block';
+import { Button } from '../../Button';
+import { SecondaryText } from '../../SecondaryText';
 
 interface AddGroupProps {
   ingredients: string | RecipeIngredients;
@@ -14,9 +16,13 @@ export const AddGroup = ({ ingredients, showGroupForm }: AddGroupProps) => {
     <Block className='add-group'>
       <p className='label'><b>Créer un groupe d&apos;ingrédients :</b></p>
       { atLeastTwoIngredients ? (
-        <button className='btn-primary' type='button' onClick={showGroupForm}>Créer un groupe</button>
+        <Button size='md' py='0.6rem' mt='1.3rem' type='button' onClick={showGroupForm}>
+          Créer un groupe
+        </Button>
       ) : (
-        <p className='secondary'>Vous devez ajouter au moins <b>2 ingrédients</b> pour pouvoir créer un groupe</p>
+        <SecondaryText>
+          Vous devez ajouter au moins <b>2 ingrédients</b> pour pouvoir créer un groupe
+        </SecondaryText>
       )}
     </Block>
   );

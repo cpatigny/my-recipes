@@ -1,3 +1,5 @@
+import { css } from '../../../../../styled-system/css';
+
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { GroupWithIngredients, RecipeIngredientWithId } from '../../../../types/recipe';
 import { SortableIngredientItem } from './SortableIngredientItem';
@@ -27,7 +29,16 @@ export const DefaultGroup = ({
   const noIngredients = group.ingredients.length === 0;
   const ingredients = noIngredients ? [DEFAULT_INGREDIENT] : group.ingredients;
   return (
-    <div className={`default-group ${noIngredients ? 'no-ingredients' : ''}`}>
+    <div
+      data-no-ingredients={!!noIngredients}
+      className={css({
+        m: '1.2rem 0 1.5rem',
+
+        '&[data-no-ingredients=true]': {
+          mt: '0',
+        },
+      })}
+    >
       <SortableContext items={ingredients} strategy={verticalListSortingStrategy}>
         {ingredients.map(ingredient => (
           <SortableIngredientItem

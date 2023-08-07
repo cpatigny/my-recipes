@@ -46,9 +46,20 @@ export const button = cva({
         },
       },
       semiTransparent: {
-        border: 'none',
+        border: '1px solid transparent',
         bg: 'var(--light-bg-color)',
         color: 'var(--color)',
+        _hover: {
+          borderColor: 'var(--border-color)',
+        },
+      },
+      grey: {
+        border: 'none',
+        color: '#919eab',
+        _hover: {
+          color: 'var(--color)',
+          bg: 'var(--light-bg-color)',
+        },
       },
     },
     size: {

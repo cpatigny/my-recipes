@@ -1,6 +1,9 @@
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
+import { css } from '../../../../styled-system/css';
+import { wrap } from '../../../../styled-system/patterns';
 
 import { Block } from '../../Block/Block';
+import { InfoText } from '../../InfoText';
 import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
 
 interface NbOfServingsProps {
@@ -13,8 +16,15 @@ export const NbOfServings = ({ handleStepSubmit }: NbOfServingsProps) => {
 
   return (
     <Block className='servings'>
-      <p className='label'><b>Nombre de portions :</b></p>
-      <form id={step.formId} className='d-flex items-center' onSubmit={handleStepSubmit}>
+      <p className={css({ mb: '0.5rem' })}><b>Nombre de portions :</b></p>
+      <form
+        id={step.formId}
+        onSubmit={handleStepSubmit}
+        className={wrap({
+          gap: '0.6rem 1rem',
+          align: 'center',
+        })}
+      >
         <UnderlineInput
           labelText='XX'
           name='nbServings'
@@ -23,16 +33,20 @@ export const NbOfServings = ({ handleStepSubmit }: NbOfServingsProps) => {
           step='1'
           required
           value={nbServings}
-          onChange={handleChange} />
+          onChange={handleChange}
+          className={css({ maxW: '4.5rem' })}
+        />
         <UnderlineInput
           labelText='Personnes, tartes, bols...'
           name='servingsUnit'
           type='text'
           required
           value={servingsUnit}
-          onChange={handleChange} />
+          onChange={handleChange}
+          className={css({ maxW: '100%', w: '16rem' })}
+        />
       </form>
-      <i className='example'>Exemple : 2 personnes, 1 tarte, 4 bols...</i>
+      <InfoText>Exemple : 2 personnes, 1 tarte, 4 bols...</InfoText>
     </Block>
   );
 };

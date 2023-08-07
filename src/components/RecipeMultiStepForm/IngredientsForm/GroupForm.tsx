@@ -13,10 +13,14 @@ import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormCon
 import { useUnits } from '../../../contexts/UnitsContext';
 import { GroupWithId, RecipeIngredients } from '../../../types/recipe';
 import { FormErrors } from '../RecipeMultiStepForm';
+import { css } from '../../../../styled-system/css';
 
 import { IngredientCheckbox } from './IngredientCheckbox';
 import { UnderlineInput } from '../../UnderlineInput/UnderlineInput';
 import { CancelBtn } from '../../CancelBtn/CancelBtn';
+import { InfoText } from '../../InfoText';
+import { ModalActions } from '../../Modal/ModalActions';
+import { Button } from '../../Button';
 
 interface GroupFormProps {
   group?: GroupWithId;
@@ -161,7 +165,7 @@ export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) =>
   }
 
   return (
-    <form className='group-form' onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <UnderlineInput
         labelText='Nom du groupe'
         name='name'
@@ -169,14 +173,19 @@ export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) =>
         value={groupData.name}
         onChange={handleChange}
         required
+        className={css({ w: '100%' })}
       />
-      <i className='example'>Exemple : Pour la sauce, Pour la marinade...</i>
+      <InfoText>Exemple : Pour la sauce, Pour la marinade...</InfoText>
 
-      <p><b>Ingrédients dans le groupe :</b></p>
+      <p className={css({ m: '0.7rem 0 .5rem' })}>
+        <b>Ingrédients dans le groupe :</b>
+      </p>
       { groupErrors.ingredients && (
-        <p className='form-error'>{ groupErrors.ingredients }</p>
+        <p className={css({ color: 'danger', fontSize: '1rem' })}>
+          { groupErrors.ingredients }
+        </p>
       )}
-      <div className='ingredients'>
+      <div>
         {ingredientsToShow.map(ingredient => (
           <IngredientCheckbox
             key={ingredient.id}
@@ -189,12 +198,12 @@ export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) =>
         ))}
       </div>
 
-      <div className='modal-actions'>
-        <button className='btn-primary modal-button'>
+      <ModalActions>
+        <Button size='smd'>
           { group ? 'Modifier' : 'Créer' }
-        </button>
+        </Button>
         <CancelBtn onClick={closeModal} text='Annuler' />
-      </div>
+      </ModalActions>
     </form>
   );
 };

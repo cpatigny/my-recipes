@@ -1,6 +1,7 @@
 import { useIngredientsDetails } from '../../../contexts/IngredientsDetailsContext';
 import { useUnits } from '../../../contexts/UnitsContext';
 import { RecipeIngredientWithId } from '../../../types/recipe';
+import { css } from '../../../../styled-system/css';
 
 import { PreviewIngredientItem } from './PreviewIngredientItem';
 
@@ -13,7 +14,7 @@ export const PreviewIngredientList = ({ ingredients }: PreviewIngredientListProp
   const { units } = useUnits();
 
   return (
-    <ul>
+    <ul className={css({ pl: '2.4rem' })}>
       {ingredients.map(ingredient => (
         <PreviewIngredientItem
           key={ingredient.id}

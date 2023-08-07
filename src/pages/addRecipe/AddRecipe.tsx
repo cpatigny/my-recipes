@@ -4,8 +4,9 @@ import { useUser } from '../../contexts/UserContext';
 import { ROUTES } from '../../routes';
 
 import { RecipeMultiStepForm } from '../../components/RecipeMultiStepForm/RecipeMultiStepForm';
-import { GoBack } from '../../components/GoBack/GoBack';
 import { RecipeMultiStepFormProvider } from '../../contexts/RecipeMultiStepFormContext';
+import { Container } from '../../components/Container';
+import { ArrowBackWithTitle } from '../../components/ArrowBackWithTitle';
 
 export const AddRecipe = () => {
   const { user } = useUser();
@@ -16,14 +17,11 @@ export const AddRecipe = () => {
   }, [user, navigate]);
 
   return (
-    <div className='add-recipe container recipe-form-container'>
-      <div className='title-container'>
-        <GoBack />
-        <h1>Ajouter une recette</h1>
-      </div>
+    <Container type='admin'>
+      <ArrowBackWithTitle title='Ajouter une recette' />
       <RecipeMultiStepFormProvider>
         <RecipeMultiStepForm />
       </RecipeMultiStepFormProvider>
-    </div>
+    </Container>
   );
 };

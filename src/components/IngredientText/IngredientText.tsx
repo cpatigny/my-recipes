@@ -3,6 +3,7 @@ import { getUnitDetails, getUnitName } from '../../helpers/units.helpers';
 import { IngredientsDetails } from '../../types/ingredientDetails';
 import { RecipeIngredientWithId, RecipeIngredient } from '../../types/recipe';
 import { Units } from '../../types/unit';
+import { css } from '../../../styled-system/css';
 
 interface IngredientTextProps extends React.InputHTMLAttributes<HTMLSpanElement> {
   ingredient: RecipeIngredientWithId | RecipeIngredient;
@@ -10,10 +11,11 @@ interface IngredientTextProps extends React.InputHTMLAttributes<HTMLSpanElement>
   units: Units | null;
   amountIsBold?: boolean;
   servingRatio?: number;
+  fontSize?: string;
 }
 
 export const IngredientText = ({
-  ingredient, ingredientsDetails, units, amountIsBold = true, servingRatio, ...props
+  ingredient, ingredientsDetails, units, amountIsBold = true, servingRatio, fontSize = '1.1rem', ...props
 }: IngredientTextProps) => {
   if (!ingredientsDetails || !units) {
     return null;
@@ -35,11 +37,15 @@ export const IngredientText = ({
   ingredientAmount += ingredientAmount.length > 0 ? ` ${unitName}` : '';
 
   if (ingredientAmount.length === 0) {
-    return <span {...props}>{`${ingredientName} ${additionalInfo}`}</span>;
+    return (
+      <span {...props} className={css({ fontSize })}>
+        {`${ingredientName} ${additionalInfo}`}
+      </span>
+    );
   }
 
   return (
-    <span {...props}>
+    <span {...props} className={css({ fontSize })}>
       {amountIsBold ? <b>{ ingredientAmount }</b> : ingredientAmount}
       {` ${prepositionText}${ingredientName} ${additionalInfo}`}
     </span>

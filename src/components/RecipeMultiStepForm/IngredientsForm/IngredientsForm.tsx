@@ -80,7 +80,7 @@ export const IngredientsForm = () => {
   const title = groupToEdit ? 'Modifier un groupe' : 'Créer un groupe';
 
   return (
-    <div className='form-container ingredients-form'>
+    <div>
       <NbOfServings handleStepSubmit={handleStepSubmit} />
       <Block>
         <IngredientForm />

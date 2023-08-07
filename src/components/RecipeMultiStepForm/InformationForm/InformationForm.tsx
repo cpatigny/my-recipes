@@ -3,6 +3,20 @@ import { useCategories } from '../../../contexts/CategoriesContext';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 import { DEFAULT_RECIPE_CATEGORY } from '../../../constants';
 import { slugify } from '../../../utils/utils';
+import { css } from '../../../../styled-system/css';
+
+const inputStyles = css({
+  bg: 'white',
+  rounded: 'lg',
+  p: '0.5rem 0.625rem',
+  border: '1px solid #e9e9e9',
+  outline: 'none',
+  _focus: {
+    borderColor: 'primary',
+  },
+});
+
+const marginTop = '1.4rem';
 
 export interface FormErrors {
   [name: string]: string;
@@ -87,7 +101,7 @@ export const InformationForm = () => {
   };
 
   return (
-    <form id={step.formId} className='form-container informations-form' onSubmit={handleSubmit}>
+    <form id={step.formId} onSubmit={handleSubmit}>
       <div>
         <label htmlFor='title'>Titre</label>
         <input
@@ -95,33 +109,57 @@ export const InformationForm = () => {
           name='title'
           type='text'
           required
-          placeholder='Ma super recette'
           value={title}
-          onChange={handleTitleChange} />
+          onChange={handleTitleChange}
+          className={inputStyles}
+        />
       </div>
 
-      <div className={formErrors.slug ? 'form-error' : ''}>
+      <div data-error={!!formErrors.slug} className={css({ mt: marginTop })}>
         <label htmlFor='slug'>Slug</label>
-        <input type='text' name='slug' id='slug' required value={slug} onChange={handleChange} />
+        <input
+          type='text'
+          name='slug'
+          id='slug'
+          required
+          value={slug}
+          onChange={handleChange}
+          className={inputStyles}
+        />
         {formErrors.slug && <span>{ formErrors.slug }</span>}
       </div>
 
-      <div>
+      <div className={css({ mt: '1.56rem' })}>
         <label htmlFor='image'>Sélectionner une image pour la recette</label>
-        <input type='file' name='image' id='image' onChange={handleImageChange} />
+        <input type='file' name='image' onChange={handleImageChange} />
       </div>
 
       { previewImageSrc && imageName &&
-        <div className='image-preview'>
+        <div className={css({ maxW: '25rem' })}>
           <img
             src={previewImageSrc}
-            alt={imageName} />
+            alt={imageName}
+            className={css({ w: '100%' })}
+          />
         </div>
       }
 
-      <div>
+      <div className={css({ mt: marginTop })}>
         <label htmlFor='category'>Choisissez une catégorie</label>
-        <select name='category' id='category' required value={categoryId || DEFAULT_RECIPE_CATEGORY.value} onChange={handleCategoryChange}>
+        <select
+          name='category'
+          id='category'
+          required
+          value={categoryId || DEFAULT_RECIPE_CATEGORY.value}
+          onChange={handleCategoryChange}
+          className={css({
+            border: '1px solid #e9e9e9',
+            p: '0.5rem 0.625rem',
+            bg: 'white',
+            rounded: 'lg',
+            maxW: '100%',
+          })}
+        >
           <option value={DEFAULT_RECIPE_CATEGORY.value}>{ DEFAULT_RECIPE_CATEGORY.name }</option>
           {categories && Object.keys(categories).map(key => {
             const categoryObj = categories[key];
@@ -132,14 +170,16 @@ export const InformationForm = () => {
         </select>
       </div>
 
-      <div>
+      <div className={css({ mt: marginTop })}>
         <label htmlFor='cookTime'>Temps de cuisson (en minutes)</label>
         <input
           id='cookTime'
           name='cookTime'
           type='number'
           value={cookTimeInMins || 0}
-          onChange={handleCookTimeChange} />
+          onChange={handleCookTimeChange}
+          className={inputStyles}
+        />
       </div>
     </form>
   );
