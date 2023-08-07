@@ -53,7 +53,7 @@ export const RecipeMultiStepForm = () => {
   };
 
   return (
-    <div className='recipe-form'>
+    <div>
       <ProgressBar />
 
       <h2 className={css({ fontSize: 'pageTitle', m: '2rem 0 1rem' })}>{ step.title }</h2>

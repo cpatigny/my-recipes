@@ -9,7 +9,7 @@ import { ROUTES } from '../../routes';
 import { getCategoryBySlug, countRecipesByCategory } from '../../helpers/category.helpers';
 import { searchMatchingRecipes, getRecipesByCategory, reverseRecipes } from '../../helpers/recipe.helpers';
 import { css } from '../../../styled-system/css';
-import { hstack, stack } from '../../../styled-system/patterns';
+import { flex, hstack, stack } from '../../../styled-system/patterns';
 import { button } from '../../recipes/button';
 
 import { Link, useParams } from 'react-router-dom';
@@ -25,6 +25,17 @@ import { Container } from '../../components/Container';
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import emptyIllustration from '../../assets/img/undraw-empty.svg';
 import logo from '../../assets/img/logo.svg';
+
+const nothingToShowStyles = flex({
+  direction: 'column',
+  align: 'center',
+  mt: '3rem',
+  gap: '1rem',
+  '& img': {
+    w: '16.25rem',
+    maxW: '100%',
+  },
+});
 
 export const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
@@ -161,16 +172,16 @@ export const Home = () => {
 
         { noSearchResult &&
           <NothingToShow
-            className='no-recipe-to-show'
             src={noResultFoundImg}
             message='Aucun résultat ne correspond à votre recherche'
             alt='no result illustration'
+            className={nothingToShowStyles}
           />
         }
 
         {noRecipes && (
           <NothingToShow
-            className='no-recipe-to-show'
+            className={nothingToShowStyles}
             src={emptyIllustration}
             message={`Aucune recette à afficher`}
             alt='empty box illustration'

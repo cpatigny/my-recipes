@@ -22,7 +22,7 @@ export const RecipeCard = ({ title, imageName, slug }: RecipeCardProps) => {
     <Link
       to={getRecipePath(slug)}
       state={{ hasClickedLink: true }}
-      className={`group ${grid({
+      className={grid({
         placeItems: 'end center',
         h: { base: '15.625rem', xsm: '21.875rem' },
         shadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
@@ -30,7 +30,7 @@ export const RecipeCard = ({ title, imageName, slug }: RecipeCardProps) => {
         pos: 'relative',
         bg: '#f5f5f5',
         overflow: 'hidden',
-      })}`}
+      })}
     >
       <div
         className={css({

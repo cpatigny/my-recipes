@@ -32,7 +32,7 @@ export const Preview = () => {
   const categoryName = getCategoryName(categoryId, categories);
 
   return (
-    <div id='submit-recipe' className='form-container preview'>
+    <div>
       <Block>
         <h2 className={css({ fontSize: 'pageTitle', mb: '0.2rem' })}>{ recipeFormData.title }</h2>
         {previewImageSrc && recipeFormData.imageName && (
@@ -55,7 +55,7 @@ export const Preview = () => {
         <PreviewIngredientList ingredients={ingredientsWithoutGroup} />
 
         {groupsWithIngredients && groupsWithIngredients.map(group => (
-          <div key={group.id} className='group-preview'>
+          <div key={group.id}>
             <p>{ group.name } :</p>
             <PreviewIngredientList ingredients={group.ingredients} />
           </div>

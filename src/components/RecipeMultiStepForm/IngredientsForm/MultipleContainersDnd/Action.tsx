@@ -8,7 +8,7 @@ export const Action = ({ className, cursor, style, ...props }: ActionProps) => {
   return (
     <button
       {...props}
-      className={`action ${className ?? ''}`}
+      className={className ?? ''}
       tabIndex={0}
       style={{
         ...style,

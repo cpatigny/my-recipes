@@ -36,26 +36,25 @@ export const IngredientDetailsCombobox = ({
       <Combobox.Input
         placeholder='Ingrédient'
         data-error={error}
-        className={`combobox-input ${error ? 'error' : ''}`}
         onChange={e => setIngredientSearch(e.currentTarget.value)}
         displayValue={(id: string) => getIngredientDetailsName(ingredientsDetails, id)}
       />
-      <Combobox.Options className='combobox-options'>
+      <Combobox.Options>
         {matchingIngredients.length === 0 && ingredientSearch !== '' ? (
-          <div className='no-match'>Aucun ingrédient trouvé</div>
+          <div>Aucun ingrédient trouvé</div>
         ) : (
           matchingIngredients.map(ing => (
             <Combobox.Option
               key={ing.id}
               value={ing.id}
-              className={`combobox-option ${ingredientData.detailsId ? 'has-option-selected' : ''}`}
+              data-an-option-is-selected={!!ingredientData.detailsId}
             >
               {({ selected }) => (
                 <>
                   {selected && (
-                    <Icon name='check' className='check-icon' aria-hidden='true' />
+                    <Icon name='check' aria-hidden='true' />
                   )}
-                  <span className='combobox-option-text'>{ ing.name }</span>
+                  <span>{ ing.name }</span>
                 </>
               )}
             </Combobox.Option>

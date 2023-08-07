@@ -423,7 +423,7 @@ export const GroupsContainers = ({
           })}
         </SortableContext>
       </div>
-      <DragOverlay className='group-containers' dropAnimation={dropAnimation} adjustScale={false}>
+      <DragOverlay dropAnimation={dropAnimation} adjustScale={false}>
         {showGroupOverlay && (
           <GroupDragOverlay group={findGroupById(activeId)} />
         )}

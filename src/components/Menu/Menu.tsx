@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { logOut } from '../../helpers/auth.helpers';
 import { ROUTES } from '../../routes';
-import { css } from '../../../styled-system/css';
+import { css, cx } from '../../../styled-system/css';
 import { flex, hstack } from '../../../styled-system/patterns';
 import { token } from '../../../styled-system/tokens';
 
@@ -75,10 +75,10 @@ export const Menu = () => {
                 key={link.id}
                 to={link.path}
                 end
-                className={`
-                  ${menuItemStyles}
-                  ${css({ _hover: { color: 'primary' } })}
-                `}
+                className={cx(
+                  menuItemStyles,
+                  css({ _hover: { color: 'primary' } }),
+                )}
                 style={({ isActive }) => {
                   return {
                     color: isActive ? token('colors.primary') : '',
@@ -90,10 +90,10 @@ export const Menu = () => {
             ))}
           </nav>
           <button
-            className={`
-              ${menuItemStyles}
-              ${hstack({ gap: '0 0.4rem', display: { base: 'none', md: 'flex' } })}
-            `}
+            className={cx(
+              menuItemStyles,
+              hstack({ gap: '0 0.4rem', display: { base: 'none', md: 'flex' } }),
+            )}
             onClick={() => logOut()}
           >
             <Icon name='logout' />

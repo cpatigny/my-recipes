@@ -13,8 +13,8 @@ export const AddGroup = ({ ingredients, showGroupForm }: AddGroupProps) => {
   const atLeastTwoIngredients = Object.keys(ingredients).length >= 2;
 
   return (
-    <Block className='add-group'>
-      <p className='label'><b>Créer un groupe d&apos;ingrédients :</b></p>
+    <Block>
+      <p><b>Créer un groupe d&apos;ingrédients :</b></p>
       { atLeastTwoIngredients ? (
         <Button size='md' py='0.6rem' mt='1.3rem' type='button' onClick={showGroupForm}>
           Créer un groupe

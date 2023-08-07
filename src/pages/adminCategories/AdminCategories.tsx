@@ -21,7 +21,7 @@ export const AdminCategories = () => {
     <AdminContainer>
       <h1 className={css({ fontSize: 'pageTitle' })}>Catégories</h1>
 
-      <Block className='form-container'>
+      <Block>
         <h2 className={blockTitle()}>Ajouter une catégorie</h2>
         <CategoryForm />
       </Block>

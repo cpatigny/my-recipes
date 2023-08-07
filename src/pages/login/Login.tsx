@@ -84,12 +84,11 @@ export const Login = () => {
       >
         <h1 className={css({ fontSize: '2.4rem', mb: '1rem' })}>Login</h1>
 
-        <div className='form-container'>
+        <div>
           <form onSubmit={handleSignIn}>
             <div>
               <label htmlFor='email' className={labelStyles}>Email</label>
               <input
-                id='email'
                 name='email'
                 type='email'
                 required
@@ -101,7 +100,6 @@ export const Login = () => {
             <div>
               <label htmlFor='password' className={labelStyles}>Mot de passe</label>
               <input
-                id='password'
                 name='password'
                 type='password'
                 required

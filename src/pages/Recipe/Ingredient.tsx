@@ -69,7 +69,6 @@ export const Ingredient = ({
         })}
       >
         <IngredientText
-          className='checkmark'
           ingredient={ingredient}
           ingredientsDetails={ingredientsDetails}
           units={units}

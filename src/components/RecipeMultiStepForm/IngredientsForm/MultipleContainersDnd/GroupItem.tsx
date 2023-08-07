@@ -7,6 +7,7 @@ import { Handle } from './Handle';
 import { Delete } from './Delete';
 import { Icon } from '../../../Icon';
 import { Button } from '../../../Button';
+import { SecondaryText } from '../../../SecondaryText';
 
 export interface GroupItemProps {
   children: React.ReactNode;
@@ -110,7 +111,7 @@ const GroupItem = forwardRef<HTMLDivElement, GroupItemProps>(
           })}
         >
           {noIngredients ? (
-            <p className='group-has-no-ingredients secondary'>Ce groupe ne contient aucun ingrédient</p>
+            <SecondaryText>Ce groupe ne contient aucun ingrédient</SecondaryText>
           ) : (
             <ul>{ children }</ul>
           )}

@@ -1,4 +1,4 @@
-import { css } from '../../../styled-system/css';
+import { css, cx } from '../../../styled-system/css';
 
 import { Icon } from '../../components/Icon';
 
@@ -64,20 +64,23 @@ export const SearchBar = ({ search, setSearch }: SearchBarProps) => {
 
       <Icon
         name='search'
-        className={`${iconStyles} ${css({
-          left: '0.94rem',
-          pointerEvents: 'none',
-        })}`}
+        className={cx(
+          iconStyles,
+          css({
+            left: '0.94rem',
+            pointerEvents: 'none',
+          }),
+        )}
       />
 
       { search &&
         <button
-          className={`
-            ${iconStyles}
-            ${css({ right: '0.7rem' })}
-          `}
           aria-label='effacer la recherche'
           onClick={reset}
+          className={cx(
+            iconStyles,
+            css({ right: '0.7rem' }),
+          )}
         >
           <Icon name='clear' />
         </button>

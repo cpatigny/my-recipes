@@ -15,7 +15,7 @@ export const NbOfServings = ({ handleStepSubmit }: NbOfServingsProps) => {
   const { nbServings, servingsUnit } = recipeFormData;
 
   return (
-    <Block className='servings'>
+    <Block>
       <p className={css({ mb: '0.5rem' })}><b>Nombre de portions :</b></p>
       <form
         id={step.formId}

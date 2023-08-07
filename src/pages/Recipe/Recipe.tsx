@@ -96,7 +96,7 @@ export const Recipe = () => {
           mb: '0.625rem',
         })}
       >
-        <div className='recipe-date'>
+        <div>
           <span>Ajouté le <b>{ formatDate(recipe.createdAt) }</b></span>
         </div>
 
@@ -113,7 +113,7 @@ export const Recipe = () => {
 
       <IngredientsSection recipe={recipe} />
 
-      <section className='recipe-content'>
+      <section>
         <h2 className={css({ fontSize: 'clamp(2rem, 1.6295rem + 1.8526vw, 2.44rem)' })}>
           Préparation
         </h2>

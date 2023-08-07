@@ -44,9 +44,9 @@ export const UnitCombobox = ({
           return getUnitName(unit, 1);
         }}
       />
-      <Combobox.Options className='combobox-options'>
+      <Combobox.Options>
         {matchingUnits.length === 0 && unitSearch !== '' ? (
-          <div className='no-match'>Aucune unité trouvée</div>
+          <div>Aucune unité trouvée</div>
         ) : (
           matchingUnits.map(unit => (
             <Combobox.Option
@@ -57,9 +57,9 @@ export const UnitCombobox = ({
               {({ selected }) => (
                 <>
                   {selected && (
-                    <Icon name='check' className='check-icon' aria-hidden='true' />
+                    <Icon name='check' aria-hidden='true' />
                   )}
-                  <span className='combobox-option-text'>{ getUnitNameById(units, unit.id) }</span>
+                  <span>{ getUnitNameById(units, unit.id) }</span>
                 </>
               )}
             </Combobox.Option>
