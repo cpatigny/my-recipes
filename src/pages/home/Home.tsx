@@ -21,10 +21,12 @@ import { Categories } from './Categories';
 import { Menu } from '../../components/Menu/Menu';
 import { Grid, Wrap } from '../../../styled-system/jsx';
 import { Container } from '../../components/Container';
+import { Button } from '../../components/Button';
 
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import emptyIllustration from '../../assets/img/undraw-empty.svg';
 import logo from '../../assets/img/logo.svg';
+import listIcon from '../../assets/img/list-icon.svg';
 
 const nothingToShowStyles = flex({
   direction: 'column',
@@ -203,6 +205,25 @@ export const Home = () => {
             );
           })}
         </Grid>
+
+        <Button
+          circle={true}
+          className={css({
+            pos: 'fixed',
+            bottom: '1rem',
+            right: '1rem',
+            p: '0.8rem',
+          })}
+        >
+          <img
+            src={listIcon}
+            alt='list icon'
+            className={css({
+              fill: 'red',
+              w: '2rem',
+            })}
+          />
+        </Button>
 
         <Footer user={user} />
       </Container>
