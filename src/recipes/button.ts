@@ -102,6 +102,12 @@ export const button = cva({
         '--color': editColor,
         '--light-bg-color': 'colors.sky.100',
       },
+      blackAndWhite: {
+        '--background-color': 'rgba(0, 0, 0, 0.7)',
+        '--border-color': 'white',
+        '--color': 'white',
+        '--light-bg-color': 'rgba(0, 0, 0, 0.7)',
+      },
     },
     fullWidth: {
       true: {

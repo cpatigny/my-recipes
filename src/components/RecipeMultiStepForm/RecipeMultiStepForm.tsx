@@ -22,6 +22,12 @@ export const RecipeMultiStepForm = () => {
   } = useRecipeMultiStepForm();
 
   const submitRecipe = async () => {
+    // user deleted the image and didn't add a new one
+    if (oldImageName && !recipeFormData.imageName) {
+      // delete the old image
+      await deleteRecipeImage(oldImageName);
+    }
+
     if (imageFile) {
       // if file size is more than 1mb
       if (imageFile.size > 1 * 1024 * 1024) {

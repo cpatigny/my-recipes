@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useCategories } from '../../../contexts/CategoriesContext';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 import { DEFAULT_RECIPE_CATEGORY } from '../../../constants';
 import { slugify } from '../../../utils/utils';
 import { css } from '../../../../styled-system/css';
+
+import { Icon } from '../../Icon';
+import { Button } from '../../Button';
 
 const inputStyles = css({
   bg: 'white',
@@ -37,6 +40,8 @@ export const InformationForm = () => {
     setRecipeFormData,
   } = useRecipeMultiStepForm();
   const { title, slug, categoryId, imageName, cookTimeInMins } = recipeFormData;
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.currentTarget;
@@ -100,6 +105,15 @@ export const InformationForm = () => {
     next();
   };
 
+  const removeImage = () => {
+    setImageFile(null);
+    setRecipeFormData({ ...recipeFormData, imageName: false });
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   return (
     <form id={step.formId} onSubmit={handleSubmit}>
       <div>
@@ -129,11 +143,30 @@ export const InformationForm = () => {
 
       <div className={css({ mt: '1.56rem' })}>
         <label htmlFor='image'>Sélectionner une image pour la recette</label>
-        <input type='file' name='image' onChange={handleImageChange} />
+        <input type='file' ref={fileInputRef} name='image' onChange={handleImageChange} />
       </div>
 
       { previewImageSrc && imageName &&
-        <div className={css({ maxW: '25rem' })}>
+        <div
+          className={css({
+            maxW: '25rem',
+            pos: 'relative',
+          })}
+        >
+          <Button
+            type='button'
+            visual='semiTransparent'
+            color='blackAndWhite'
+            circle={true}
+            className={css({
+              pos: 'absolute',
+              top: '0.5rem',
+              right: '0.5rem',
+            })}
+            onClick={removeImage}
+          >
+            <Icon name='close' />
+          </Button>
           <img
             src={previewImageSrc}
             alt={imageName}
