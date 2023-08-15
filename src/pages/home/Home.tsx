@@ -9,7 +9,7 @@ import { ROUTES } from '../../routes';
 import { getCategoryBySlug, countRecipesByCategory } from '../../helpers/category.helpers';
 import { searchMatchingRecipes, getRecipesByCategory, reverseRecipes } from '../../helpers/recipe.helpers';
 import { css } from '../../../styled-system/css';
-import { flex, hstack, stack } from '../../../styled-system/patterns';
+import { flex, grid, hstack, stack } from '../../../styled-system/patterns';
 import { button } from '../../recipes/button';
 
 import { Link, useParams } from 'react-router-dom';
@@ -19,7 +19,7 @@ import { NothingToShow } from '../../components/NothingToShow';
 import { Footer } from '../../components/Footer';
 import { Categories } from './Categories';
 import { Menu } from '../../components/Menu/Menu';
-import { Grid, Wrap } from '../../../styled-system/jsx';
+import { Wrap } from '../../../styled-system/jsx';
 import { Container } from '../../components/Container';
 
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
@@ -188,7 +188,12 @@ export const Home = () => {
           />
         )}
 
-        <Grid minChildWidth='17.5rem' gap='2.19rem'>
+        <div
+          className={grid({
+            minChildWidth: { base: '12rem', xsm: '17.5rem' },
+            gap: '2.19rem',
+          })}
+        >
           { recipesToShow && Object.keys(recipesToShow).map(key => {
             const recipe = recipesToShow[key];
             if (!recipe) return null;
@@ -202,7 +207,7 @@ export const Home = () => {
               />
             );
           })}
-        </Grid>
+        </div>
 
         <Footer user={user} />
       </Container>
