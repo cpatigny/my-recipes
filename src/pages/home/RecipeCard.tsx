@@ -1,4 +1,4 @@
-import { css } from '../../../styled-system/css';
+import { css, cx } from '../../../styled-system/css';
 import { grid } from '../../../styled-system/patterns';
 import { getRecipeImgUrl } from '../../helpers/firebase.helpers';
 import { getRecipePath } from '../../routes';
@@ -22,15 +22,18 @@ export const RecipeCard = ({ title, imageName, slug }: RecipeCardProps) => {
     <Link
       to={getRecipePath(slug)}
       state={{ hasClickedLink: true }}
-      className={grid({
-        placeItems: 'end center',
-        h: { base: '15.625rem', xsm: '21.875rem' },
-        shadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
-        rounded: '2xl',
-        pos: 'relative',
-        bg: '#f5f5f5',
-        overflow: 'hidden',
-      })}
+      className={cx(
+        'group',
+        grid({
+          placeItems: 'end center',
+          h: { base: '15.625rem', xsm: '21.875rem' },
+          shadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+          rounded: '2xl',
+          pos: 'relative',
+          bg: '#f5f5f5',
+          overflow: 'hidden',
+        }),
+      )}
     >
       <div
         className={css({
