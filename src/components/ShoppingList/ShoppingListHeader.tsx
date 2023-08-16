@@ -23,7 +23,7 @@ export const ShoppingListHeader = ({ closeShoppingList }: ShoppingListHeaderProp
         }),
       )}
     >
-      <h3
+      <h2
         className={css({
           fontSize: '1.2rem',
           fontWeight: '600',
@@ -32,7 +32,7 @@ export const ShoppingListHeader = ({ closeShoppingList }: ShoppingListHeaderProp
         })}
       >
         Liste de courses
-      </h3>
+      </h2>
       <button
         onClick={closeShoppingList}
         className={center({

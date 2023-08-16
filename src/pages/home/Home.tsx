@@ -199,9 +199,8 @@ export const Home = () => {
             return (
               <RecipeCard
                 key={key}
-                title={recipe.title}
-                imageName={recipe.imageName}
-                slug={recipe.slug}
+                id={key}
+                {...recipe}
               />
             );
           })}

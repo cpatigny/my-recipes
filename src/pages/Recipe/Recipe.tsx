@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import remarkGfm from 'remark-gfm';
 import { Navigate } from 'react-router-dom';
 import { useUser } from '../../contexts/UserContext';
@@ -11,6 +11,8 @@ import { getCookTimeText } from '../../helpers/recipe.helpers';
 import { css, cx } from '../../../styled-system/css';
 import { flex, vstack } from '../../../styled-system/patterns';
 import { button } from '../../recipes/button';
+import { useShoppingList } from '../../hooks/useShoppingList';
+import { ShoppingListItem } from '../../helpers/shoppingList.helpers';
 
 import { Loading } from '../../components/Loading';
 import { RecipeActions } from './RecipeActions';
@@ -20,12 +22,21 @@ import { GoBack } from '../../components/GoBack';
 import { Category } from '../home/Category';
 import { IngredientsSection } from './IngredientsSection';
 import { Container } from '../../components/Container';
+import { Button } from '../../components/Button';
+import { Icon } from '../../components/Icon';
 
 export const Recipe = () => {
+  const [numberOfServings, setNumberOfServings] = useState(0);
+
   const { user } = useUser();
   const { categories } = useCategories();
   const { restoreScroll } = useScrollRestoration();
   const { recipe, noMatch } = useRecipeBySlug();
+  const {
+    addToShoppingListAndNotify,
+    shoppingListContainsRecipe,
+    deleteFromShoppingListAndNotify,
+  } = useShoppingList();
 
   useEffect(() => {
     if (!recipe) return undefined;
@@ -45,6 +56,8 @@ export const Recipe = () => {
 
   const recipeCategory = recipe.categoryId && categories[recipe.categoryId];
   const { cookTimeInMins } = recipe;
+  const isRecipeInShoppingList = shoppingListContainsRecipe(recipe.id);
+  const item: ShoppingListItem = { id: recipe.id, servingsNb: numberOfServings };
 
   return (
     <Container>
@@ -105,13 +118,37 @@ export const Recipe = () => {
 
       <RecipeImage recipe={recipe} />
 
+      {isRecipeInShoppingList ? (
+        <Button
+          onClick={() => deleteFromShoppingListAndNotify(recipe.id)}
+          fullWidth={true}
+          className={css({ px: '1rem 1.2rem', mt: '1rem' })}
+        >
+          <Icon name='remove' className={css({ mr: '0.4rem' })} />
+          Retirer de liste de courses
+        </Button>
+      ) : (
+        <Button
+          onClick={() => addToShoppingListAndNotify(item)}
+          fullWidth={true}
+          className={css({ px: '1.2rem', mt: '1rem' })}
+        >
+          <Icon name='add' className={css({ mr: '0.4rem' })} />
+          Ajouter à liste de courses
+        </Button>
+      )}
+
       {cookTimeInMins && (
-        <p className={css({ my: '1rem' })}>
+        <p className={css({ m: '1.5rem 0 1.5rem' })}>
           Temps de cuisson : <b>{ getCookTimeText(cookTimeInMins) }</b>
         </p>
       )}
 
-      <IngredientsSection recipe={recipe} />
+      <IngredientsSection
+        recipe={recipe}
+        numberOfServings={numberOfServings}
+        setNumberOfServings={setNumberOfServings}
+      />
 
       <section>
         <h2 className={css({ fontSize: 'clamp(2rem, 1.6295rem + 1.8526vw, 2.44rem)' })}>

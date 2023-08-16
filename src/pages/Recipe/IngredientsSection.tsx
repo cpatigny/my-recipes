@@ -1,7 +1,6 @@
 import { getGroupsWithTheirIngredients } from '../../helpers/group.helpers';
 import { getIngredientsWithoutGroup } from '../../helpers/ingredient.helpers';
 import { GroupWithIngredients, RecipeWithId } from '../../types/recipe';
-import { useState } from 'react';
 import { getServingRatio } from '../../helpers/recipe.helpers';
 import { css } from '../../../styled-system/css';
 
@@ -9,9 +8,15 @@ import { GroupList } from './GroupList';
 import { IngredientList } from './IngredientList';
 import { Servings } from './Servings';
 
-export const IngredientsSection = ({ recipe }: { recipe: RecipeWithId }) => {
-  const [numberOfServings, setNumberOfServings] = useState(0);
+interface IngredientsSectionProps {
+  recipe: RecipeWithId;
+  numberOfServings: number;
+  setNumberOfServings: React.Dispatch<React.SetStateAction<number>>;
+}
 
+export const IngredientsSection = ({
+  recipe, numberOfServings, setNumberOfServings,
+}: IngredientsSectionProps) => {
   const { ingredients, groups } = recipe;
 
   const ingredientsWithoutGroup = getIngredientsWithoutGroup(ingredients);

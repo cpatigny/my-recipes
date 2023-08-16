@@ -21,7 +21,7 @@ export const ShoppingListBtn = ({ setShowShoppingList }: ShoppingListBtnProps) =
     >
       <img
         src={listIcon}
-        alt='list icon'
+        alt={`Icon d'une liste`}
         className={css({
           w: '2rem',
         })}

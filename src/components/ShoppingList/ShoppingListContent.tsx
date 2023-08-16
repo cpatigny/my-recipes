@@ -1,5 +1,6 @@
 import { css, cx } from '../../../styled-system/css';
 import { flex } from '../../../styled-system/patterns';
+import { useShoppingList } from '../../hooks/useShoppingList';
 import { shoppingListContainer } from './ShoppingListHeader';
 
 import { Tab } from '@headlessui/react';
@@ -17,6 +18,8 @@ const tabStyles = css({
 });
 
 export const ShoppingListContent = () => {
+  const { shoppingListRecipes: recipes } = useShoppingList();
+
   return (
     <div className={css({ bg: 'bg', h: '100%' })}>
       <Tab.Group>
@@ -35,7 +38,9 @@ export const ShoppingListContent = () => {
           )}
         >
           <Tab.Panel>
-            <p>Liste des recettes a faire</p>
+            <h3>
+              { recipes.length } { recipes.length > 1 ? 'recettes' : 'recette' }
+            </h3>
           </Tab.Panel>
           <Tab.Panel>
             <p>Liste des ingrédients</p>
