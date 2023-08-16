@@ -1,6 +1,6 @@
 import { useTransition, animated } from '@react-spring/web';
-import { css } from '../../../styled-system/css';
 import { token } from '../../../styled-system/tokens';
+import { flex } from '../../../styled-system/patterns';
 
 import { ShoppingListHeader } from './ShoppingListHeader';
 import { ShoppingListContent } from './ShoppingListContent';
@@ -20,7 +20,8 @@ export const ShoppingList = ({ closeShoppingList, isShow }: ShoppingListProps) =
 
   return shoppingListTransitions((style, item) => item && (
     <animated.div
-      className={css({
+      className={flex({
+        direction: 'column',
         pos: 'fixed',
         top: '0',
         bottom: '0',

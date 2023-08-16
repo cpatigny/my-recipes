@@ -13,8 +13,9 @@ export const Icon = ({ name, className = '', fontSize, ...props }: IconProps) =>
     className={cx(
       'icon material-icons-round',
       className,
-      css({ fontSize: `${fontSize}!` }),
+      css({ fontSize: `var(--fontSize)!` }),
     )}
+    style={{ '--fontSize': fontSize || '1.5rem' } as React.CSSProperties }
   >
     { name }
   </span>

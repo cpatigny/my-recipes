@@ -6,6 +6,7 @@ import {
   deleteRecipeFromShoppingList,
   getShoppingList,
   setShoppingListStorage,
+  updateShoppingListItem,
 } from '../shoppingList.helpers';
 
 const shoppingListItem: ShoppingListItemType = { id: '0', servingsNb: 3 };
@@ -63,5 +64,26 @@ describe('deleteRecipeFromShoppingList', () => {
     deleteRecipeFromShoppingList(shoppingListItem.id);
     const storageContainsRecipe = getShoppingList().some(item => item.id === shoppingListItem.id);
     expect(storageContainsRecipe).toBe(false);
+  });
+});
+
+describe('updateShoppingListItem', () => {
+  test('should update item', () => {
+    clearShoppingList();
+    addToShoppingList(shoppingListItem);
+    const newValue = 15;
+    updateShoppingListItem(shoppingListItem.id, newValue);
+    const updatedItem = getShoppingList().find(item => item.id === shoppingListItem.id);
+    expect(updatedItem).toBeDefined();
+    expect(updatedItem?.servingsNb).toBe(newValue);
+  });
+
+  test('should not overide existing data', () => {
+    clearShoppingList();
+    const id = '1';
+    addToShoppingList({ id, servingsNb: 54 });
+    addToShoppingList({ id: '2', servingsNb: 12 });
+    updateShoppingListItem(id, 45);
+    expect(getShoppingList().length).toBe(2);
   });
 });

@@ -1,7 +1,6 @@
 import {
   IngredientDetailsWithId, IngredientsDetails as IngredientsDetailsType,
 } from '../../types/ingredientDetails';
-import { css } from '../../../styled-system/css';
 
 import { Icon } from '../../components/Icon';
 import { AdminList } from '../../components/AdminList/AdminList';
@@ -38,7 +37,7 @@ export const IngredientsDetails = ({
               circle={true}
               onClick={() => setIngredientToEdit({ id: key, ...ingredient })}
             >
-              <Icon name='edit' className={css({ fontSize: '1.4rem!' })} />
+              <Icon name='edit' fontSize='1.4rem' />
             </Button>
             <Button
               visual='transparent'
@@ -47,7 +46,7 @@ export const IngredientsDetails = ({
               circle={true}
               onClick={() => handleDelete({ id: key, ...ingredient })}
             >
-              <Icon name='delete_outline' className={css({ fontSize: '1.4rem!' })} />
+              <Icon name='delete_outline' fontSize='1.4rem' />
             </Button>
           </AdminActions>
         </AdminListItem>

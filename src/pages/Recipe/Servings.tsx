@@ -9,9 +9,12 @@ interface ServingsProps {
   numberOfServings: number;
   setNumberOfServings: React.Dispatch<React.SetStateAction<number>>;
   recipe: RecipeWithId;
+  className?: string;
 }
 
-export const Servings = ({ numberOfServings, setNumberOfServings, recipe }: ServingsProps) => {
+export const Servings = ({
+  numberOfServings, setNumberOfServings, recipe, className,
+}: ServingsProps) => {
   useEffect(() => {
     setNumberOfServings(Number(recipe.nbServings));
   }, [recipe.nbServings, setNumberOfServings]);
@@ -25,11 +28,14 @@ export const Servings = ({ numberOfServings, setNumberOfServings, recipe }: Serv
 
   return (
     <div
-      className={css({
-        display: 'inline-flex',
-        alignItems: 'center',
-        m: '1.5rem 0 1.2rem',
-      })}
+      className={cx(
+        className,
+        css({
+          display: 'inline-flex',
+          alignItems: 'center',
+          m: '1.5rem 0 1.2rem',
+        }),
+      )}
     >
       <button
         onClick={decrementNumberOfServings}
@@ -39,7 +45,7 @@ export const Servings = ({ numberOfServings, setNumberOfServings, recipe }: Serv
           css({ bg: 'orange.400' }),
         )}
       >
-        <Icon name='remove' className={css({ fontSize: '1.4rem!' })} />
+        <Icon name='remove' fontSize='1.4rem' />
       </button>
       <p className={css({ mx: '0.3rem', px: '0.6rem', fontSize: '1.2rem' })}>
         <b>{ numberOfServings } </b>
@@ -52,7 +58,7 @@ export const Servings = ({ numberOfServings, setNumberOfServings, recipe }: Serv
           css({ bg: 'orange.400' }),
         )}
       >
-        <Icon name='add' className={css({ fontSize: '1.4rem!' })} />
+        <Icon name='add' fontSize='1.4rem' />
       </button>
     </div>
   );

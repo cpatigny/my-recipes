@@ -4,7 +4,7 @@ import { css, cx } from '../../../styled-system/css';
 import { Icon } from '../Icon';
 
 export const shoppingListContainer = css({
-  px: '1.56rem',
+  px: { base: '1rem', xsm: '1.56rem' },
 });
 
 interface ShoppingListHeaderProps {
@@ -46,7 +46,7 @@ export const ShoppingListHeader = ({ closeShoppingList }: ShoppingListHeaderProp
           _hover: { color: 'rgba(255, 255, 255, 0.6)' },
         })}
       >
-        <Icon name='close' fontSize='1.1rem' />
+        <Icon name='close' fontSize='1.4rem' />
       </button>
     </div>
   );

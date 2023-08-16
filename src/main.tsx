@@ -9,6 +9,7 @@ import { RecipesProvider } from './contexts/RecipesContext';
 import { UnitsProvider } from './contexts/UnitsContext';
 import { UserProvider } from './contexts/UserContext';
 import { ToastProvider } from './contexts/ToastContext';
+import { ShoppingListProvider } from './contexts/ShoppingListContext';
 import { App } from './App';
 import { NotFound } from './pages/notFound/NotFound';
 import { Recipe } from './pages/Recipe/Recipe';
@@ -33,7 +34,9 @@ const AppWithProviders = () => (
         <IngredientsDetailsProvider>
           <UnitsProvider>
             <ToastProvider>
-              <App />
+              <ShoppingListProvider>
+                <App />
+              </ShoppingListProvider>
             </ToastProvider>
           </UnitsProvider>
         </IngredientsDetailsProvider>

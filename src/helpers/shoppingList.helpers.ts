@@ -29,3 +29,10 @@ export const deleteRecipeFromShoppingList = (recipeId: string) => {
 export const clearShoppingList = () => {
   localStorage.removeItem(SHOPPING_LIST_LOCALSTORAGE_KEY);
 };
+
+export const updateShoppingListItem = (recipeId: string, newServingsNb: number) => {
+  const shoppingList = getShoppingList();
+  const recipeIndex = shoppingList.findIndex(item => item.id === recipeId);
+  shoppingList[recipeIndex]!.servingsNb = newServingsNb;
+  setShoppingListStorage(shoppingList);
+};

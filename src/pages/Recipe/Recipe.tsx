@@ -11,8 +11,8 @@ import { getCookTimeText } from '../../helpers/recipe.helpers';
 import { css, cx } from '../../../styled-system/css';
 import { flex, vstack } from '../../../styled-system/patterns';
 import { button } from '../../recipes/button';
-import { useShoppingList } from '../../hooks/useShoppingList';
 import { ShoppingListItem } from '../../helpers/shoppingList.helpers';
+import { useShoppingList } from '../../contexts/ShoppingListContext';
 
 import { Loading } from '../../components/Loading';
 import { RecipeActions } from './RecipeActions';

@@ -1,5 +1,4 @@
 import { Units as IUnits, UnitWithId } from '../../types/unit';
-import { css } from '../../../styled-system/css';
 
 import { Icon } from '../../components/Icon';
 import { AdminList } from '../../components/AdminList/AdminList';
@@ -35,7 +34,7 @@ export const Units = ({ units, setUnitToEdit, handleDelete }: UnitsProps) => (
               circle={true}
               onClick={() => setUnitToEdit({ id: key, ...unit })}
             >
-              <Icon name='edit' className={css({ fontSize: '1.4rem!' })} />
+              <Icon name='edit' fontSize='1.4rem' />
             </Button>
             <Button
               visual='transparent'
@@ -44,7 +43,7 @@ export const Units = ({ units, setUnitToEdit, handleDelete }: UnitsProps) => (
               circle={true}
               onClick={() => handleDelete({ id: key, ...unit })}
             >
-              <Icon name='delete_outline' className={css({ fontSize: '1.4rem!' })} />
+              <Icon name='delete_outline' fontSize='1.4rem' />
             </Button>
           </AdminActions>
         </AdminListItem>

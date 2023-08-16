@@ -2,9 +2,9 @@ import { css, cx } from '../../../styled-system/css';
 import { grid } from '../../../styled-system/patterns';
 import { getRecipeImgUrl } from '../../helpers/firebase.helpers';
 import { getRecipePath } from '../../routes';
-import { useShoppingList } from '../../hooks/useShoppingList';
 import { Recipe } from '../../types/recipe';
 import { ShoppingListItem } from '../../helpers/shoppingList.helpers';
+import { useShoppingList } from '../../contexts/ShoppingListContext';
 
 import { Link } from 'react-router-dom';
 import { Icon } from '../../components/Icon';
@@ -47,6 +47,7 @@ export const RecipeCard = ({ id, title, imageName, slug, nbServings }: RecipeCar
         <button
           onClick={() => deleteFromShoppingListAndNotify(id)}
           className={shoppingListBtnStyles}
+          title='Supprimer la recette de votre liste de courses'
         >
           <Icon name='delete_outline' />
         </button>
@@ -54,12 +55,8 @@ export const RecipeCard = ({ id, title, imageName, slug, nbServings }: RecipeCar
         <button
           onClick={() => addToShoppingListAndNotify(item)}
           className={shoppingListBtnStyles}
+          title='Ajouter la recette à votre liste de courses'
         >
-          {/* <img
-            src={addToListIcon}
-            alt={`Icon d'une liste avec un signe plus`}
-            className={css({ w: '1.5rem' })}
-          /> */}
           <Icon name='post_add' />
         </button>
       )}

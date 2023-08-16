@@ -57,6 +57,10 @@ export const Home = () => {
   const noRecipes = !searchMode && !recipesToShow;
 
   useEffect(() => {
+    document.body.style.overflow = showShoppingList ? 'hidden' : 'visible';
+  }, [showShoppingList]);
+
+  useEffect(() => {
     restoreScroll();
   }, [restoreScroll]);
 

@@ -1,9 +1,10 @@
 import { css, cx } from '../../../styled-system/css';
 import { flex } from '../../../styled-system/patterns';
-import { useShoppingList } from '../../hooks/useShoppingList';
 import { shoppingListContainer } from './ShoppingListHeader';
+import { useShoppingList } from '../../contexts/ShoppingListContext';
 
 import { Tab } from '@headlessui/react';
+import { ShoppingListRecipesTab } from './ShoppingListRecipesTab';
 
 const tabStyles = css({
   flexGrow: 1,
@@ -18,10 +19,10 @@ const tabStyles = css({
 });
 
 export const ShoppingListContent = () => {
-  const { shoppingListRecipes: recipes } = useShoppingList();
+  const { shoppingListRecipes } = useShoppingList();
 
   return (
-    <div className={css({ bg: 'bg', h: '100%' })}>
+    <div className={flex({ direction: 'column', h: '100%', bg: 'bg' })}>
       <Tab.Group>
         <Tab.List
           className={flex({
@@ -34,13 +35,13 @@ export const ShoppingListContent = () => {
         <Tab.Panels
           className={cx(
             shoppingListContainer,
-            css({ py: '1rem' }),
+            // big padding bottom because ShoppingListHeader isn't take into account
+            // in the max height 100% so the content at the bottom is cut
+            css({ py: '1rem 3.5rem', maxH: '100%', overflowY: 'auto' }),
           )}
         >
           <Tab.Panel>
-            <h3>
-              { recipes.length } { recipes.length > 1 ? 'recettes' : 'recette' }
-            </h3>
+            <ShoppingListRecipesTab recipes={shoppingListRecipes} />
           </Tab.Panel>
           <Tab.Panel>
             <p>Liste des ingrédients</p>
