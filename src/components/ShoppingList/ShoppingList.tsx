@@ -4,6 +4,7 @@ import { flex } from '../../../styled-system/patterns';
 
 import { ShoppingListHeader } from './ShoppingListHeader';
 import { ShoppingListContent } from './ShoppingListContent';
+import { useEffect } from 'react';
 
 interface ShoppingListProps {
   closeShoppingList: () => void;
@@ -11,6 +12,20 @@ interface ShoppingListProps {
 }
 
 export const ShoppingList = ({ closeShoppingList, isShow }: ShoppingListProps) => {
+  useEffect(() => {
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeShoppingList();
+    };
+
+    if (isShow) {
+      document.addEventListener('keydown', handleKeydown);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeydown);
+    };
+  }, [closeShoppingList, isShow]);
+
   const shoppingListTransitions = useTransition(isShow, {
     from: { transform: 'scale(0)', opacity: 0 },
     enter: { transform: 'scale(1)', opacity: 1 },
