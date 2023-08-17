@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { ShoppingList, ShoppingListItem, addToShoppingList, deleteRecipeFromShoppingList, getShoppingList } from '../helpers/shoppingList.helpers';
+import { ShoppingList, ShoppingListItem, addToShoppingList, clearShoppingList, deleteRecipeFromShoppingList, getShoppingList } from '../helpers/shoppingList.helpers';
 import { RecipeWithId } from '../types/recipe';
 import { useRecipes } from './RecipesContext';
 import { useToast } from './ToastContext';
@@ -59,6 +59,11 @@ export const useShoppingList = () => {
     return shoppingList.some(item => item.id === recipeId);
   };
 
+  const clearShoppingListItems = () => {
+    clearShoppingList();
+    setShoppingList(getShoppingList());
+  };
+
   return {
     addToShoppingListAndNotify,
     deleteFromShoppingListAndNotify,
@@ -66,5 +71,6 @@ export const useShoppingList = () => {
     setShoppingList,
     shoppingListRecipes,
     shoppingListContainsRecipe,
+    clearShoppingListItems,
   };
 };

@@ -77,7 +77,7 @@ export const ShoppingListRecipe = ({
           numberOfServings={numberOfServings}
           setNumberOfServings={setNumberOfServings}
           className={css({
-            m: '0',
+            m: '0!',
             '& button span': {
               fontSize: '1.1rem!',
             },
