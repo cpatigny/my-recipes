@@ -1,6 +1,6 @@
+import { ShoppingListItem as ShoppingListItemType } from '../../types/shoppingList';
 import {
   SHOPPING_LIST_LOCALSTORAGE_KEY,
-  ShoppingListItem as ShoppingListItemType,
   addToShoppingList,
   clearShoppingList,
   deleteRecipeFromShoppingList,
