@@ -21,6 +21,8 @@ import { Categories } from './Categories';
 import { Menu } from '../../components/Menu/Menu';
 import { Wrap } from '../../../styled-system/jsx';
 import { Container } from '../../components/Container';
+import { ShoppingListBtn } from '../../components/ShoppingList/ShoppingListBtn';
+import { ShoppingList } from '../../components/ShoppingList/ShoppingList';
 
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import emptyIllustration from '../../assets/img/undraw-empty.svg';
@@ -42,6 +44,7 @@ export const Home = () => {
   const [search, setSearch] = useState('');
   const [noSearchResult, setNoSearchResult] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<CategoryWithId | null>(null);
+  const [showShoppingList, setShowShoppingList] = useState(false);
 
   const { user } = useUser();
   const { recipes } = useRecipes();
@@ -52,6 +55,10 @@ export const Home = () => {
   const searchMode = search !== '';
   const { restoreScroll } = useScrollRestoration(!searchMode);
   const noRecipes = !searchMode && !recipesToShow;
+
+  useEffect(() => {
+    document.body.style.overflow = showShoppingList ? 'hidden' : 'visible';
+  }, [showShoppingList]);
 
   useEffect(() => {
     restoreScroll();
@@ -201,13 +208,18 @@ export const Home = () => {
             return (
               <RecipeCard
                 key={key}
-                title={recipe.title}
-                imageName={recipe.imageName}
-                slug={recipe.slug}
+                id={key}
+                {...recipe}
               />
             );
           })}
         </div>
+
+        <ShoppingList
+          closeShoppingList={() => setShowShoppingList(false)}
+          isShow={showShoppingList}
+        />
+        <ShoppingListBtn setShowShoppingList={setShowShoppingList} />
 
         <Footer user={user} />
       </Container>

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { defineConfig, defineTokens } from '@pandacss/dev';
+import { defineConfig } from '@pandacss/dev';
 
 export default defineConfig({
   // Whether to use css reset
@@ -73,6 +73,9 @@ export default defineConfig({
       fontSizes: {
         text: { value: '1.1rem' },
         pageTitle: { value: 'clamp(1.9rem, 1.4453rem + 2.2737vw, 2.44rem)' },
+      },
+      spacing: {
+        shoppingListPositionValue: { value: { base: '1rem', md: '1.5rem' } },
       },
     },
   },

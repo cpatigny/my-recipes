@@ -89,7 +89,7 @@ const GroupItem = forwardRef<HTMLDivElement, GroupItemProps>(
                 color='edit'
                 onClick={() => showEditGroupForm(group)}
               >
-                <Icon name='edit' className={css({ fontSize: '1.2rem!' })} />
+                <Icon name='edit' fontSize='1.2rem' />
               </Button>
             )}
             {/* handleDelete will be undefined when using Container for DragOverlay */}

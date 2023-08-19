@@ -49,7 +49,7 @@ export const AdminCategory = ({ category, setCategoryToEdit }: AdminCategoryProp
           circle={true}
           onClick={() => setCategoryToEdit(category)}
         >
-          <Icon name='edit' className={css({ fontSize: '1.4rem!' })} />
+          <Icon name='edit' fontSize='1.4rem' />
         </Button>
         <Button
           visual='transparent'
@@ -59,7 +59,7 @@ export const AdminCategory = ({ category, setCategoryToEdit }: AdminCategoryProp
           onClick={() => confirm(confirmText, wordToEnter, onConfirm)}
           className={css({ color: 'danger' })}
         >
-          <Icon name='delete_outline' className={css({ fontSize: '1.4rem!' })} />
+          <Icon name='delete_outline' fontSize='1.4rem' />
         </Button>
       </AdminActions>
     </AdminListItem>

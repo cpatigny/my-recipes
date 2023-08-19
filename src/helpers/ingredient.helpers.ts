@@ -181,3 +181,66 @@ export const getPrepositionText = (preposition: string | false) => {
 
   return prepositionText;
 };
+
+export const mergeDuplicateIngredients = (ingredients: RecipeIngredientWithId[]) => {
+  const mergedIngredients: RecipeIngredientWithId[] = [];
+  ingredients.forEach(ing => {
+    // all ingredients except the one we're looping on
+    const ingredientsExceptCurrent = ingredients.filter(i => i.id !== ing.id);
+
+    const sameIngredientDetails = ingredientsExceptCurrent.filter(
+      i => i.detailsId === ing.detailsId,
+    );
+    if (sameIngredientDetails.length === 0) {
+      mergedIngredients.push(ing);
+      return;
+    }
+    const sameUnitIngredients = sameIngredientDetails.filter(i => i.unitId === ing.unitId);
+    if (sameUnitIngredients.length === 0) {
+      mergedIngredients.push(ing);
+      return;
+    }
+    const sameUnitAndDetailsIng = sameUnitIngredients[0];
+    if (!sameUnitAndDetailsIng) {
+      mergedIngredients.push(ing);
+      return;
+    }
+    if (sameUnitAndDetailsIng.additionalInfo !== ing.additionalInfo) {
+      mergedIngredients.push(ing);
+      return;
+    }
+    const sameUnitAndDetailsIngIndex = mergedIngredients.findIndex(
+      i => i.id === sameUnitAndDetailsIng.id,
+    );
+    if (sameUnitAndDetailsIngIndex === -1) {
+      mergedIngredients.push(ing);
+      return;
+    }
+    const ingToMerge = mergedIngredients[sameUnitAndDetailsIngIndex];
+    if (!ingToMerge) {
+      return;
+    }
+    if (typeof ingToMerge.quantity === 'number' && typeof ing.quantity === 'number') {
+      ingToMerge.quantity += ing.quantity;
+    }
+  });
+
+  return mergedIngredients;
+};
+
+export const orderIngredientsByDetailsId = (ingredients: RecipeIngredientWithId[]) => {
+  const orderedIngredients: RecipeIngredientWithId[] = [];
+  ingredients.forEach(ing => {
+    const sameDetailsIdIngIndex = orderedIngredients.findIndex(
+      i => i.detailsId === ing.detailsId && i.id !== ing.id,
+    );
+    if (sameDetailsIdIngIndex === -1) {
+      orderedIngredients.push(ing);
+      return;
+    }
+
+    // add ingredient to array after the ingredient that has the same detailsId
+    orderedIngredients.splice(sameDetailsIdIngIndex, 0, ing);
+  });
+  return orderedIngredients;
+};

@@ -110,7 +110,7 @@ export const IngredientItem = memo(
                 type='button'
                 onClick={() => showEditIngredientForm({ ...ingredient, id: ingredient.id })}
               >
-                <Icon name='edit' className={css({ fontSize: '1.2rem!' })} />
+                <Icon name='edit' fontSize='1.2rem' />
               </Button>
             )}
             {deleteIngredient && (
@@ -121,7 +121,7 @@ export const IngredientItem = memo(
                 type='button'
                 onClick={() => deleteIngredient(ingredient.id)}
               >
-                <Icon name='clear' className={css({ fontSize: '1.2rem!' })} />
+                <Icon name='clear' fontSize='1.2rem' />
               </Button>
             )}
           </div>
