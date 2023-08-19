@@ -17,6 +17,7 @@ export const ShoppingListBtn = ({ setShowShoppingList }: ShoppingListBtnProps) =
         bottom: 'shoppingListPositionValue',
         right: 'shoppingListPositionValue',
         p: '0.8rem',
+        zIndex: '9999',
       })}
     >
       <img
