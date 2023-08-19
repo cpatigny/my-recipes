@@ -73,6 +73,7 @@ export const RecipeCard = ({ id, title, imageName, slug, nbServings }: RecipeCar
             pos: 'relative',
             bg: '#f5f5f5',
             overflow: 'hidden',
+            isolation: 'isolate', // to fix ios bug where border-radius stops working during image scale animation
           }),
         )}
       >
