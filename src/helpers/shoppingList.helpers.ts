@@ -1,9 +1,4 @@
-export interface ShoppingListItem {
-  id: string;
-  servingsNb: number;
-}
-
-export type ShoppingList = ShoppingListItem[];
+import { ShoppingList, ShoppingListItem } from '../types/shoppingList';
 
 export const SHOPPING_LIST_LOCALSTORAGE_KEY = 'shopping-list';
 

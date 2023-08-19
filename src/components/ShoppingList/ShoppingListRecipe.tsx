@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { css } from '../../../styled-system/css';
 import { flex } from '../../../styled-system/patterns';
 import { getRecipeImgUrl } from '../../helpers/firebase.helpers';
-import { RecipeWithId } from '../../types/recipe';
 import { getRecipePath } from '../../routes';
+import { ShoppingListRecipeWithId } from '../../types/shoppingList';
 
 import { Servings } from '../../pages/Recipe/Servings';
 import { Link } from 'react-router-dom';
@@ -14,15 +14,21 @@ const imgSize = '4rem';
 const biggerImgSize = '5rem';
 
 interface ShoppingListRecipeProps {
-  recipe: RecipeWithId;
+  recipe: ShoppingListRecipeWithId;
   deleteFromShoppingListAndNotify: (recipeId: string) => void;
   updateShoppingListItem: (recipeId: string, newServingsNb: number) => void;
+  incrementServingsNb: (recipeId: string) => void;
+  decrementServingsNb: (recipeId: string) => void;
 }
 
 export const ShoppingListRecipe = ({
-  recipe, deleteFromShoppingListAndNotify, updateShoppingListItem,
+  recipe,
+  deleteFromShoppingListAndNotify,
+  updateShoppingListItem,
+  incrementServingsNb,
+  decrementServingsNb,
 }: ShoppingListRecipeProps) => {
-  const [numberOfServings, setNumberOfServings] = useState(Number(recipe.nbServings));
+  const [numberOfServings, setNumberOfServings] = useState(recipe.shoppingListServingsNb);
 
   useEffect(() => {
     updateShoppingListItem(recipe.id, numberOfServings);
@@ -76,6 +82,8 @@ export const ShoppingListRecipe = ({
           recipe={recipe}
           numberOfServings={numberOfServings}
           setNumberOfServings={setNumberOfServings}
+          incrementStorageServingsNb={incrementServingsNb}
+          decrementStorageServingsNb={decrementServingsNb}
           className={css({
             m: '0!',
             '& button span': {

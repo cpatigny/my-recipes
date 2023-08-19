@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from 'react';
-import { ShoppingList, ShoppingListItem, addToShoppingList, clearShoppingList, deleteRecipeFromShoppingList, getShoppingList } from '../helpers/shoppingList.helpers';
-import { RecipeWithId } from '../types/recipe';
+import { addToShoppingList, clearShoppingList, deleteRecipeFromShoppingList, getShoppingList, updateShoppingListItem } from '../helpers/shoppingList.helpers';
 import { useRecipes } from './RecipesContext';
 import { useToast } from './ToastContext';
+import { ShoppingList, ShoppingListItem, ShoppingListRecipeWithId } from '../types/shoppingList';
 
 interface ShoppingListContextValues {
   shoppingList: ShoppingList;
@@ -32,14 +32,14 @@ export const useShoppingList = () => {
   const { toast } = useToast();
   const { recipes } = useRecipes();
 
-  const shoppingListRecipes: RecipeWithId[] = [];
+  const shoppingListRecipes: ShoppingListRecipeWithId[] = [];
   shoppingList.forEach(item => {
     const recipe = recipes && recipes[item.id];
     if (!recipe) return;
     shoppingListRecipes.push({
       ...recipe,
       id: item.id,
-      nbServings: item.servingsNb.toString(),
+      shoppingListServingsNb: item.servingsNb,
     });
   });
 
@@ -64,6 +64,35 @@ export const useShoppingList = () => {
     setShoppingList(getShoppingList());
   };
 
+  const getRecipe = (recipeId: string) => {
+    const recipe = shoppingList.find(item => item.id === recipeId);
+    if (!recipe) {
+      throw new Error('No recipe matches provided id');
+    }
+    return recipe;
+  };
+
+  const incrementServingsNb = (recipeId: string) => {
+    const recipe = getRecipe(recipeId);
+    const currentNb = recipe.servingsNb;
+    const newServingsNb = currentNb + 1;
+    updateShoppingListItem(recipeId, newServingsNb);
+    setShoppingList(getShoppingList());
+  };
+
+  const decrementServingsNb = (recipeId: string) => {
+    const recipe = getRecipe(recipeId);
+    const currentNb = recipe.servingsNb;
+    let newServingsNb = 0;
+    if (currentNb === 1) {
+      newServingsNb = 1;
+    } else {
+      newServingsNb = currentNb - 1;
+    }
+    updateShoppingListItem(recipeId, newServingsNb);
+    setShoppingList(getShoppingList());
+  };
+
   return {
     addToShoppingListAndNotify,
     deleteFromShoppingListAndNotify,
@@ -72,5 +101,7 @@ export const useShoppingList = () => {
     shoppingListRecipes,
     shoppingListContainsRecipe,
     clearShoppingListItems,
+    incrementServingsNb,
+    decrementServingsNb,
   };
 };

@@ -2,16 +2,18 @@ import { css } from '../../../styled-system/css';
 import { flex } from '../../../styled-system/patterns';
 import { useShoppingList } from '../../contexts/ShoppingListContext';
 import { updateShoppingListItem } from '../../helpers/shoppingList.helpers';
-import { RecipeWithId } from '../../types/recipe';
+import { ShoppingListRecipeWithId } from '../../types/shoppingList';
 
 import { Button } from '../Button';
 import { SecondaryText } from '../SecondaryText';
 import { ShoppingListRecipe } from './ShoppingListRecipe';
 
-export const ShoppingListRecipesTab = ({ recipes }: { recipes: RecipeWithId[] }) => {
+export const ShoppingListRecipesTab = ({ recipes }: { recipes: ShoppingListRecipeWithId[] }) => {
   const {
     deleteFromShoppingListAndNotify,
     clearShoppingListItems,
+    incrementServingsNb,
+    decrementServingsNb,
   } = useShoppingList();
 
   return (
@@ -42,6 +44,8 @@ export const ShoppingListRecipesTab = ({ recipes }: { recipes: RecipeWithId[] })
           recipe={recipe}
           deleteFromShoppingListAndNotify={deleteFromShoppingListAndNotify}
           updateShoppingListItem={updateShoppingListItem}
+          incrementServingsNb={incrementServingsNb}
+          decrementServingsNb={decrementServingsNb}
         />
       ))}
     </>

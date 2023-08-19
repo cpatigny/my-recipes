@@ -5,9 +5,11 @@ import { useShoppingList } from '../../contexts/ShoppingListContext';
 
 import { Tab } from '@headlessui/react';
 import { ShoppingListRecipesTab } from './ShoppingListRecipesTab';
+import { ShoppingListIngredientsTab } from './ShoppingListIngredientsTab';
 
 const tabStyles = css({
   flexGrow: 1,
+  flexBasis: '50%',
   p: '0.6rem 1rem',
   borderBottom: '2px solid #ddd',
   color: 'text',
@@ -44,7 +46,7 @@ export const ShoppingListContent = () => {
             <ShoppingListRecipesTab recipes={shoppingListRecipes} />
           </Tab.Panel>
           <Tab.Panel>
-            <p>Liste des ingrédients</p>
+            <ShoppingListIngredientsTab recipes={shoppingListRecipes} />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

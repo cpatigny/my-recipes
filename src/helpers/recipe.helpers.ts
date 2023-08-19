@@ -1,8 +1,10 @@
 import { getDatabase, ref, remove, update, push } from 'firebase/database';
 import { ref as storageRef, getStorage, deleteObject } from 'firebase/storage';
-import { Recipe, RecipeFormData, RecipeIngredient, Recipes, RecipeWithId } from '../types/recipe';
+import { Recipe, RecipeFormData, RecipeIngredient, RecipeIngredientWithId, Recipes, RecipeWithId } from '../types/recipe';
 import { strContains } from '../utils/utils';
 import { generateKey } from './firebase.helpers';
+import { mergeDuplicateIngredients, orderIngredientsByDetailsId } from './ingredient.helpers';
+import { ShoppingListRecipeWithId } from '../types/shoppingList';
 
 export const getRecipeBySlug = (slug: string, recipes: Recipes): RecipeWithId | null => {
   if (!recipes) return null;
@@ -163,4 +165,30 @@ export const getCookTimeText = (cookTimeInMins: number) => {
   const hours = (cookTimeInMins - minutes) / 60;
   const minutesText = minutes < 10 ? `0${minutes}` : minutes;
   return `${hours}h${minutesText}`;
+};
+
+// returns the list of ingredients of all recipes in a given array
+// merge the duplicate ingredients
+export const getIngredientList = (recipes: ShoppingListRecipeWithId[]) => {
+  const allIngredients: RecipeIngredientWithId[] = [];
+
+  recipes.forEach(recipe => {
+    const recipeIngredients: RecipeIngredientWithId[] = [];
+    Object
+      .keys(recipe.ingredients)
+      .forEach(key => {
+        const ingredient = recipe.ingredients[key];
+        if (!ingredient) return;
+        let quantity: boolean | number = false;
+        if (ingredient.quantity) {
+          const servingRatio = getServingRatio(recipe.shoppingListServingsNb, recipe.nbServings);
+          if (!servingRatio) return;
+          quantity = ingredient.quantity * servingRatio;
+        }
+        recipeIngredients.push({ ...ingredient, quantity, id: key });
+      });
+    allIngredients.push(...recipeIngredients);
+  });
+  const mergedIngredients = mergeDuplicateIngredients(allIngredients);
+  return orderIngredientsByDetailsId(mergedIngredients);
 };
