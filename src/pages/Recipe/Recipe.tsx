@@ -139,7 +139,7 @@ export const Recipe = () => {
       )}
 
       {cookTimeInMins && (
-        <p className={css({ m: '1.5rem 0 1.5rem' })}>
+        <p className={css({ mt: '1.5rem' })}>
           Temps de cuisson : <b>{ getCookTimeText(cookTimeInMins) }</b>
         </p>
       )}

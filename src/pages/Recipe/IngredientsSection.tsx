@@ -29,7 +29,7 @@ export const IngredientsSection = ({
   const servingRatio = getServingRatio(numberOfServings, recipe.nbServings);
 
   return (
-    <section>
+    <section className={css({ mt: '2.2rem' })}>
       <h2 className={css({ fontSize: 'clamp(2rem, 1.6295rem + 1.8526vw, 2.44rem)' })}>Ingrédients</h2>
       <Servings
         numberOfServings={numberOfServings}
