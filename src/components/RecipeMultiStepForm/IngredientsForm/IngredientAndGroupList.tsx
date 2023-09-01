@@ -23,15 +23,16 @@ export const IngredientAndGroupList = ({
   return (
     <Block>
       <p><b>Liste des groupes & ingrédients :</b></p>
-      { noIngredients && (
+      { noIngredients ? (
         <SecondaryText>Vous n&apos;avez ajouté aucun ingrédient</SecondaryText>
+      ) : (
+        <GroupsContainers
+          deleteIngredient={deleteIngredient}
+          deleteGroup={deleteGroup}
+          showEditIngredientForm={showEditIngredientForm}
+          showEditGroupForm={showEditGroupForm}
+        />
       )}
-      <GroupsContainers
-        deleteIngredient={deleteIngredient}
-        deleteGroup={deleteGroup}
-        showEditIngredientForm={showEditIngredientForm}
-        showEditGroupForm={showEditGroupForm}
-      />
     </Block>
   );
 };
