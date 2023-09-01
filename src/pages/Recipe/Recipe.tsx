@@ -158,6 +158,7 @@ export const Recipe = () => {
           remarkPlugins={[remarkGfm]}
           components={{ h1: 'h3', h2: 'h4', h3: 'h5' }}
           className={css({
+            pb: '2rem',
             '& h3': {
               fontSize: 'clamp(1.36rem, 1.1916rem + 0.8421vw, 1.56rem)',
               fontWeight: '700',
