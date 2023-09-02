@@ -100,6 +100,7 @@ export default defineConfig({
       color: 'text',
       w: '100%',
       WebkitAppearance: 'none',
+      rounded: '0',
     },
     'h1, h2, h3, h4, h5, h6, label': {
       color: 'text',
