@@ -9,7 +9,6 @@ export const combobox = cva({
       borderBottom: '1px solid #dadce0',
       outline: 'none',
       transitionDuration: '200ms',
-      mb: '0.3rem',
       _placeholder: { color: '#6D6D6D' },
 
       '&[data-error=true]': {
@@ -27,6 +26,7 @@ export const combobox = cva({
       pos: 'absolute',
       zIndex: '999',
       w: '100%',
+      mt: '0.3rem',
       rounded: 'lg',
       bg: 'white',
       shadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',

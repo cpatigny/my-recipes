@@ -17,6 +17,8 @@ import { CancelBtn } from '../../CancelBtn';
 import { Button } from '../../Button';
 import { ModalActions } from '../../Modal/ModalActions';
 
+const underlineInputMargin = '0.7rem 0 0.2rem';
+
 interface IngredientFormProps {
   ingredient?: RecipeIngredientWithId;
   closeModal?: () => void;
@@ -169,7 +171,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
         <p className={css({ mb: '0.5rem' })}><b>Ajout d&apos;ingrédients :</b></p>
       )}
       <form onSubmit={handleSubmit}>
-        <div className={wrap({ gap: '1rem' })}>
+        <div className={wrap({ gap: '1rem', alignItems: 'flex-end' })}>
           <UnderlineInput
             ref={quantityInputRef}
             labelText='Quantité'
@@ -188,7 +190,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             setIngredientData={setIngredientData}
             units={units}
             error={!!ingredientErrors.unit}
-            className={css({ flex: 2, minW: '12.5rem', mt: '0.7rem' })}
+            className={css({ flex: 2, minW: '12.5rem', m: underlineInputMargin })}
           />
 
           <UnderlineInput
@@ -205,7 +207,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             setIngredientData={setIngredientData}
             ingredientsDetails={ingredientsDetails}
             error={!!ingredientErrors.name}
-            className={css({ flex: '100% 1', minW: '12.5rem', mt: '0.7rem' })}
+            className={css({ flex: '100% 1', minW: '12.5rem', m: underlineInputMargin })}
           />
 
           <UnderlineInput
