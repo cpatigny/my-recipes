@@ -111,7 +111,7 @@ export const Home = () => {
 
     let nbRecipes = 0;
     if (recipes) nbRecipes = Object.keys(recipes).length;
-    return `Mes recettes (${nbRecipes})`;
+    return `${nbRecipes} ${nbRecipes > 1 ? 'recettes' : 'recette'}`;
   };
 
   return (
