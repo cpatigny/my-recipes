@@ -27,6 +27,7 @@ import { ShoppingList } from '../../components/ShoppingList/ShoppingList';
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import emptyIllustration from '../../assets/img/undraw-empty.svg';
 import logo from '../../assets/img/logo.svg';
+import { Overlay } from '../../components/Overlay';
 
 const nothingToShowStyles = flex({
   direction: 'column',
@@ -215,10 +216,16 @@ export const Home = () => {
           })}
         </div>
 
-        <ShoppingList
-          closeShoppingList={() => setShowShoppingList(false)}
+        <Overlay
           isShow={showShoppingList}
-        />
+          close={() => setShowShoppingList(false)}
+          className={css({ bg: 'rgba(0, 0, 0, 0.2)' })}
+        >
+          <ShoppingList
+            closeShoppingList={() => setShowShoppingList(false)}
+            isShow={showShoppingList}
+          />
+        </Overlay>
         <ShoppingListBtn setShowShoppingList={setShowShoppingList} />
 
         <Footer user={user} />

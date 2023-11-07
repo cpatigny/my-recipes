@@ -19,7 +19,7 @@ const shoppingListBtnStyles = cx(
     pos: 'absolute',
     top: '0.8rem',
     right: '0.8rem',
-    zIndex: '9999',
+    zIndex: '9',
   }),
 );
 
