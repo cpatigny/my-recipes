@@ -27,6 +27,7 @@ export const IngredientCheckbox = ({
         w: 'auto',
         m: '0 0.6rem 0 0',
         verticalAlign: 'middle',
+        WebkitAppearance: 'checkbox',
       })}
     />
     <IngredientText
