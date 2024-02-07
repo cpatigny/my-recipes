@@ -1,6 +1,15 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { faker } from '@faker-js/faker';
-import { Group, GroupWithId, Groups, Recipe, RecipeIngredient, RecipeIngredientWithId, RecipeIngredients, RecipeWithId, Recipes } from '../../types/recipe';
+import {
+  Group,
+  GroupWithId,
+  Groups,
+  Recipe,
+  RecipeIngredient,
+  RecipeIngredientWithId,
+  RecipeIngredients,
+  RecipeWithId,
+  Recipes,
+} from '../../types/recipe';
 import { getMockCategories } from './categories.mock';
 import { getMockIngredientsDetails } from './ingredientsDetails.mock';
 import { getMockUnits } from './units.mock';
@@ -26,7 +35,8 @@ interface IdList {
 }
 
 export const getOneMockRecipeIngredient = (
-  maxPosition: number, idList: IdList,
+  maxPosition: number,
+  idList: IdList,
 ): RecipeIngredient => {
   const quantity = faker.number.int({ min: 1, max: 600 }).toString();
   return {
@@ -41,7 +51,8 @@ export const getOneMockRecipeIngredient = (
 };
 
 export const getOneMockRecipeIngredientWithId = (
-  maxPosition: number, idList: IdList,
+  maxPosition: number,
+  idList: IdList,
 ): RecipeIngredientWithId => {
   return {
     ...getOneMockRecipeIngredient(maxPosition, idList),
@@ -65,7 +76,9 @@ export const getMockRecipeIngredientsWithId = (ids: Ids) => {
   const ingredients: RecipeIngredientWithId[] = [];
 
   for (let i = 1; i < faker.number.int({ min: 6, max: 15 }); i++) {
-    const randomDetailsId = faker.helpers.arrayElement(ids.ingredientsDetailsIds);
+    const randomDetailsId = faker.helpers.arrayElement(
+      ids.ingredientsDetailsIds,
+    );
     const randomGroupId = faker.helpers.arrayElement(Object.keys(groups));
     const randomUnitId = faker.helpers.arrayElement(ids.unitsIds);
 
@@ -84,7 +97,11 @@ export const getMockRecipeIngredientsWithId = (ids: Ids) => {
 /**
  * @param alwaysGroup if recipe ingredients always have a group
  */
-export const getOneMockRecipe = (ids: Ids, nbIngredients = 10, alwaysGroup = false): Recipe => {
+export const getOneMockRecipe = (
+  ids: Ids,
+  nbIngredients = 10,
+  alwaysGroup = false,
+): Recipe => {
   const groups: Groups = {};
 
   for (let i = 1; i < faker.number.int({ min: 2, max: 4 }); i++) {
@@ -94,7 +111,9 @@ export const getOneMockRecipe = (ids: Ids, nbIngredients = 10, alwaysGroup = fal
   const ingredients: RecipeIngredients = {};
 
   for (let i = 1; i < nbIngredients; i++) {
-    const randomDetailsId = faker.helpers.arrayElement(ids.ingredientsDetailsIds);
+    const randomDetailsId = faker.helpers.arrayElement(
+      ids.ingredientsDetailsIds,
+    );
     const randomGroupId = faker.helpers.arrayElement(Object.keys(groups));
     const randomUnitId = faker.helpers.arrayElement(ids.unitsIds);
 
@@ -153,11 +172,13 @@ export const getMockRecipesWithId = (number = 50) => {
   const units = getMockUnits();
 
   for (let i = 0; i < number; i++) {
-    mockRecipes.push(getOneMockRecipeWithId({
-      categoriesIds: Object.keys(categories),
-      ingredientsDetailsIds: Object.keys(ingredientDetails),
-      unitsIds: Object.keys(units),
-    }));
+    mockRecipes.push(
+      getOneMockRecipeWithId({
+        categoriesIds: Object.keys(categories),
+        ingredientsDetailsIds: Object.keys(ingredientDetails),
+        unitsIds: Object.keys(units),
+      }),
+    );
   }
 
   return mockRecipes;

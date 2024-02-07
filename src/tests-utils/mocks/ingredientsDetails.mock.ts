@@ -1,6 +1,9 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { faker } from '@faker-js/faker';
-import { IngredientDetails, IngredientDetailsWithId, IngredientsDetails } from '../../types/ingredientDetails';
+import {
+  IngredientDetails,
+  IngredientDetailsWithId,
+  IngredientsDetails,
+} from '../../types/ingredientDetails';
 
 export const getOneMockIngredientDetails = (): IngredientDetails => {
   return {
@@ -9,18 +12,20 @@ export const getOneMockIngredientDetails = (): IngredientDetails => {
   };
 };
 
-export const getOneMockIngredientDetailsWithId = (): IngredientDetailsWithId => {
-  return {
-    ...getOneMockIngredientDetails(),
-    id: faker.string.nanoid(),
+export const getOneMockIngredientDetailsWithId =
+  (): IngredientDetailsWithId => {
+    return {
+      ...getOneMockIngredientDetails(),
+      id: faker.string.nanoid(),
+    };
   };
-};
 
 export const getMockIngredientsDetails = (number = 200) => {
   const mockIngredientsDetails: IngredientsDetails = {};
 
   for (let i = 0; i < number; i++) {
-    mockIngredientsDetails[`ingredientDetails${i}`] = getOneMockIngredientDetails();
+    mockIngredientsDetails[`ingredientDetails${i}`] =
+      getOneMockIngredientDetails();
   }
 
   return mockIngredientsDetails;

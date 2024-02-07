@@ -1,32 +1,39 @@
 import { useEffect, useState } from 'react';
-import { Recipes } from '../../types/recipe';
-import { useUser } from '../../contexts/UserContext';
-import { useRecipes } from '../../contexts/RecipesContext';
-import { useCategories } from '../../contexts/CategoriesContext';
-import { useScrollRestoration } from '../../hooks/useScrollRestoration';
-import { CategoryWithId } from '../../types/category';
-import { ROUTES } from '../../routes';
-import { getCategoryBySlug, countRecipesByCategory } from '../../helpers/category.helpers';
-import { searchMatchingRecipes, getRecipesByCategory, reverseRecipes } from '../../helpers/recipe.helpers';
 import { css } from '../../../styled-system/css';
 import { flex, grid, hstack, stack } from '../../../styled-system/patterns';
+import { useCategories } from '../../contexts/CategoriesContext';
+import { useRecipes } from '../../contexts/RecipesContext';
+import { useUser } from '../../contexts/UserContext';
+import {
+  countRecipesByCategory,
+  getCategoryBySlug,
+} from '../../helpers/category.helpers';
+import {
+  getRecipesByCategory,
+  reverseRecipes,
+  searchMatchingRecipes,
+} from '../../helpers/recipe.helpers';
+import { useScrollRestoration } from '../../hooks/useScrollRestoration';
 import { button } from '../../recipes/button';
+import { ROUTES } from '../../routes';
+import { CategoryWithId } from '../../types/category';
+import { Recipes } from '../../types/recipe';
 
 import { Link, useParams } from 'react-router-dom';
-import { RecipeCard } from './RecipeCard';
-import { SearchBar } from './SearchBar';
-import { NothingToShow } from '../../components/NothingToShow';
-import { Footer } from '../../components/Footer';
-import { Categories } from './Categories';
-import { Menu } from '../../components/Menu/Menu';
 import { Wrap } from '../../../styled-system/jsx';
 import { Container } from '../../components/Container';
-import { ShoppingListBtn } from '../../components/ShoppingList/ShoppingListBtn';
+import { Footer } from '../../components/Footer';
+import { Menu } from '../../components/Menu/Menu';
+import { NothingToShow } from '../../components/NothingToShow';
 import { ShoppingList } from '../../components/ShoppingList/ShoppingList';
+import { ShoppingListBtn } from '../../components/ShoppingList/ShoppingListBtn';
+import { Categories } from './Categories';
+import { RecipeCard } from './RecipeCard';
+import { SearchBar } from './SearchBar';
 
-import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
-import emptyIllustration from '../../assets/img/undraw-empty.svg';
 import logo from '../../assets/img/logo.svg';
+import emptyIllustration from '../../assets/img/undraw-empty.svg';
+import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
 import { Overlay } from '../../components/Overlay';
 
 const nothingToShowStyles = flex({
@@ -44,7 +51,8 @@ export const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
   const [search, setSearch] = useState('');
   const [noSearchResult, setNoSearchResult] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<CategoryWithId | null>(null);
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryWithId | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
 
   const { user } = useUser();
@@ -67,7 +75,9 @@ export const Home = () => {
 
   useEffect(() => {
     if (categories) {
-      const matchingCategory = slug ? getCategoryBySlug(categories, slug) : null;
+      const matchingCategory = slug
+        ? getCategoryBySlug(categories, slug)
+        : null;
       setSelectedCategory(matchingCategory);
     }
   }, [slug, categories]);
@@ -90,7 +100,10 @@ export const Home = () => {
     const defaultCategoryIsSelected = selectedCategory === null;
 
     if (matchingRecipes && !search && !defaultCategoryIsSelected) {
-      matchingRecipes = getRecipesByCategory(matchingRecipes, selectedCategory.id);
+      matchingRecipes = getRecipesByCategory(
+        matchingRecipes,
+        selectedCategory.id,
+      );
     }
 
     setNoSearchResult(noResult);
@@ -106,7 +119,9 @@ export const Home = () => {
 
     if (selectedCategory) {
       let count = 0;
-      count = recipes ? countRecipesByCategory(recipes, selectedCategory.id) : 0;
+      count = recipes
+        ? countRecipesByCategory(recipes, selectedCategory.id)
+        : 0;
       return `${selectedCategory.name} (${count})`;
     }
 
@@ -149,9 +164,14 @@ export const Home = () => {
           <SearchBar search={search} setSearch={setSearch} />
         </div>
 
-        <Wrap gap='0.5rem 1rem' justify='space-between' align='center' className={css({
-          m: { base: '1.875rem 0 1.125rem', sm: '4rem 0 0.95rem' },
-        })}>
+        <Wrap
+          gap='0.5rem 1rem'
+          justify='space-between'
+          align='center'
+          className={css({
+            m: { base: '1.875rem 0 1.125rem', sm: '4rem 0 0.95rem' },
+          })}
+        >
           <h2
             className={css({
               fontSize: { base: '2.5rem', md: '3.05rem' },
@@ -159,11 +179,15 @@ export const Home = () => {
               color: 'text',
             })}
           >
-            { getTitle() }
+            {getTitle()}
           </h2>
           {user && (
             <Link
-              className={button({ visual: 'outline', color: 'primary', size: 'sm' })}
+              className={button({
+                visual: 'outline',
+                color: 'primary',
+                size: 'sm',
+              })}
               to={ROUTES.ADD_RECIPE}
               state={{ hasClickedLink: true }}
             >
@@ -178,14 +202,14 @@ export const Home = () => {
           recipes={recipes}
         />
 
-        { noSearchResult &&
+        {noSearchResult && (
           <NothingToShow
             src={noResultFoundImg}
             message='Aucun résultat ne correspond à votre recherche'
             alt='no result illustration'
             className={nothingToShowStyles}
           />
-        }
+        )}
 
         {noRecipes && (
           <NothingToShow
@@ -202,18 +226,13 @@ export const Home = () => {
             gap: '2.19rem',
           })}
         >
-          { recipesToShow && Object.keys(recipesToShow).map(key => {
-            const recipe = recipesToShow[key];
-            if (!recipe) return null;
+          {recipesToShow &&
+            Object.keys(recipesToShow).map(key => {
+              const recipe = recipesToShow[key];
+              if (!recipe) return null;
 
-            return (
-              <RecipeCard
-                key={key}
-                id={key}
-                {...recipe}
-              />
-            );
-          })}
+              return <RecipeCard key={key} id={key} {...recipe} />;
+            })}
         </div>
 
         <Overlay
