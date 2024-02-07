@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { css } from '../../../styled-system/css';
 import { flex, grid, hstack, stack } from '../../../styled-system/patterns';
 import { useCategories } from '../../contexts/CategoriesContext';
@@ -47,6 +47,8 @@ const nothingToShowStyles = flex({
   },
 });
 
+const DEFAULT_LIMIT = 10;
+
 export const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
   const [search, setSearch] = useState('');
@@ -54,6 +56,9 @@ export const Home = () => {
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryWithId | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
+  const [limit, setLimit] = useState(DEFAULT_LIMIT);
+
+  const recipesContainerRef = useRef<HTMLDivElement | null>(null);
 
   const { user } = useUser();
   const { recipes } = useRecipes();
@@ -109,6 +114,35 @@ export const Home = () => {
     setNoSearchResult(noResult);
     setRecipesToShow(matchingRecipes);
   }, [recipes, search, selectedCategory]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (!recipesToShow) {
+        return;
+      }
+      const max = Object.keys(recipesToShow).length;
+      if (limit >= max) {
+        return;
+      }
+
+      if (!recipesContainerRef.current) {
+        return;
+      }
+
+      const triggerMoreRecipesInPx =
+        recipesContainerRef.current.offsetTop +
+        recipesContainerRef.current.offsetHeight -
+        900;
+
+      if (window.scrollY + window.innerHeight > triggerMoreRecipesInPx) {
+        setLimit(current => current + DEFAULT_LIMIT);
+      }
+    };
+    window.addEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [limit, recipesToShow]);
 
   const getTitle = () => {
     if (searchMode) {
@@ -225,14 +259,17 @@ export const Home = () => {
             minChildWidth: { base: '12rem', xsm: '17.5rem' },
             gap: '2.19rem',
           })}
+          ref={recipesContainerRef}
         >
           {recipesToShow &&
-            Object.keys(recipesToShow).map(key => {
-              const recipe = recipesToShow[key];
-              if (!recipe) return null;
+            Object.keys(recipesToShow)
+              .slice(0, limit)
+              .map(key => {
+                const recipe = recipesToShow[key];
+                if (!recipe) return null;
 
-              return <RecipeCard key={key} id={key} {...recipe} />;
-            })}
+                return <RecipeCard key={key} id={key} {...recipe} />;
+              })}
         </div>
 
         <Overlay
