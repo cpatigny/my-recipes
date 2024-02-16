@@ -48,6 +48,7 @@ const nothingToShowStyles = flex({
 });
 
 const DEFAULT_LIMIT = 10;
+export const SAVED_LIMIT_STORAGE_KEY = 'saved-recipe-nb-limit';
 
 export const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
@@ -56,7 +57,10 @@ export const Home = () => {
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryWithId | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
-  const [limit, setLimit] = useState(DEFAULT_LIMIT);
+  const [limit, setLimit] = useState(() => {
+    const savedLimit = sessionStorage.getItem(SAVED_LIMIT_STORAGE_KEY);
+    return savedLimit ? Number(savedLimit) : DEFAULT_LIMIT;
+  });
 
   const recipesContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -135,7 +139,11 @@ export const Home = () => {
         900;
 
       if (window.scrollY + window.innerHeight > triggerMoreRecipesInPx) {
-        setLimit(current => current + DEFAULT_LIMIT);
+        setLimit(current => {
+          const newLimit = current + DEFAULT_LIMIT;
+          sessionStorage.setItem(SAVED_LIMIT_STORAGE_KEY, newLimit.toString());
+          return newLimit;
+        });
       }
     };
     window.addEventListener('scroll', onScroll);
