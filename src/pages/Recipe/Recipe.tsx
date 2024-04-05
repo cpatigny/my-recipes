@@ -1,29 +1,29 @@
 import { useEffect, useState } from 'react';
-import remarkGfm from 'remark-gfm';
 import { Navigate } from 'react-router-dom';
-import { useUser } from '../../contexts/UserContext';
-import { useScrollRestoration } from '../../hooks/useScrollRestoration';
-import { useCategories } from '../../contexts/CategoriesContext';
-import { ROUTES } from '../../routes';
-import { useRecipeBySlug } from '../../hooks/useRecipeBySlug';
-import { formatDate } from '../../utils/utils';
-import { getCookTimeText } from '../../helpers/recipe.helpers';
+import remarkGfm from 'remark-gfm';
 import { css, cx } from '../../../styled-system/css';
 import { flex, vstack } from '../../../styled-system/patterns';
-import { button } from '../../recipes/button';
+import { useCategories } from '../../contexts/CategoriesContext';
 import { useShoppingList } from '../../contexts/ShoppingListContext';
+import { useUser } from '../../contexts/UserContext';
+import { getCookTimeText } from '../../helpers/recipe.helpers';
+import { useRecipeBySlug } from '../../hooks/useRecipeBySlug';
+import { useScrollRestoration } from '../../hooks/useScrollRestoration';
+import { button } from '../../recipes/button';
+import { ROUTES } from '../../routes';
 import { ShoppingListItem } from '../../types/shoppingList';
+import { formatDate } from '../../utils/utils';
 
-import { Loading } from '../../components/Loading';
-import { RecipeActions } from './RecipeActions';
 import ReactMarkdown from 'react-markdown';
-import { RecipeImage } from './RecipeImage';
+import { Button } from '../../components/Button';
+import { Container } from '../../components/Container';
 import { GoBack } from '../../components/GoBack';
+import { Icon } from '../../components/Icon';
+import { Loading } from '../../components/Loading';
 import { Category } from '../home/Category';
 import { IngredientsSection } from './IngredientsSection';
-import { Container } from '../../components/Container';
-import { Button } from '../../components/Button';
-import { Icon } from '../../components/Icon';
+import { RecipeActions } from './RecipeActions';
+import { RecipeImage } from './RecipeImage';
 
 export const Recipe = () => {
   const [numberOfServings, setNumberOfServings] = useState(0);
@@ -51,13 +51,21 @@ export const Recipe = () => {
     restoreScroll();
   }, [restoreScroll]);
 
+  useEffect(() => {
+    // to avoid overflow being hidden when clicking on a recipe in shopping list on home page
+    document.body.style.overflow = 'auto';
+  }, []);
+
   if (noMatch) return <Navigate to={ROUTES.NOT_FOUND} replace />;
   if (!recipe || !categories) return <Loading />;
 
   const recipeCategory = recipe.categoryId && categories[recipe.categoryId];
   const { cookTimeInMins } = recipe;
   const isRecipeInShoppingList = shoppingListContainsRecipe(recipe.id);
-  const item: ShoppingListItem = { id: recipe.id, servingsNb: numberOfServings };
+  const item: ShoppingListItem = {
+    id: recipe.id,
+    servingsNb: numberOfServings,
+  };
 
   return (
     <Container>
@@ -82,7 +90,7 @@ export const Recipe = () => {
               p: { base: '0 3rem', xsm: '0 3.5rem', md: '0 4rem' },
             })}
           >
-            { recipe.title }
+            {recipe.title}
           </h1>
           {recipeCategory && (
             <Category
@@ -110,10 +118,12 @@ export const Recipe = () => {
         })}
       >
         <div>
-          <span>Ajouté le <b>{ formatDate(recipe.createdAt) }</b></span>
+          <span>
+            Ajouté le <b>{formatDate(recipe.createdAt)}</b>
+          </span>
         </div>
 
-        { user && <RecipeActions recipe={recipe} /> }
+        {user && <RecipeActions recipe={recipe} />}
       </div>
 
       <RecipeImage recipe={recipe} />
@@ -140,7 +150,7 @@ export const Recipe = () => {
 
       {cookTimeInMins && (
         <p className={css({ mt: '1.5rem' })}>
-          Temps de cuisson : <b>{ getCookTimeText(cookTimeInMins) }</b>
+          Temps de cuisson : <b>{getCookTimeText(cookTimeInMins)}</b>
         </p>
       )}
 
@@ -151,7 +161,11 @@ export const Recipe = () => {
       />
 
       <section>
-        <h2 className={css({ fontSize: 'clamp(2rem, 1.6295rem + 1.8526vw, 2.44rem)' })}>
+        <h2
+          className={css({
+            fontSize: 'clamp(2rem, 1.6295rem + 1.8526vw, 2.44rem)',
+          })}
+        >
           Préparation
         </h2>
         <ReactMarkdown
@@ -171,7 +185,7 @@ export const Recipe = () => {
             },
           })}
         >
-          { recipe.content }
+          {recipe.content}
         </ReactMarkdown>
       </section>
     </Container>
