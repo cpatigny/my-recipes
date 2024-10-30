@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { cva, RecipeVariantProps } from '../../styled-system/css';
 
 const primaryColor = 'colors.orange.450';

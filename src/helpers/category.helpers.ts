@@ -1,39 +1,44 @@
-import { getDatabase, ref, push, update, remove, set } from 'firebase/database';
+import { getDatabase, push, ref, remove, set, update } from 'firebase/database';
 import { DEFAULT_RECIPE_CATEGORY } from '../constants';
 import { Categories, Category, CategoryWithId } from '../types/category';
 import { Recipes } from '../types/recipe';
 
-export const countRecipesByCategory = (recipes: Recipes, categoryId: string) => {
+export const countRecipesByCategory = (
+  recipes: Recipes,
+  categoryId: string,
+) => {
   let count = 0;
 
-  Object
-    .keys(recipes)
-    .forEach(key => {
-      const recipe = recipes[key];
-      if (recipe?.categoryId === categoryId) count++;
-    });
+  Object.keys(recipes).forEach(key => {
+    const recipe = recipes[key];
+    if (recipe?.categoryId === categoryId) count++;
+  });
 
   return count;
 };
 
-export const getCategoriesOrderByRecipeCount = (categories: Categories, recipes: Recipes) => {
-  const categoriesOrderByRecipeCount: CategoryWithId[] = Object
-    .keys(categories)
+export const getCategoriesOrderByRecipeCount = (
+  categories: Categories,
+  recipes: Recipes,
+) => {
+  const categoriesOrderByRecipeCount: CategoryWithId[] = Object.keys(categories)
     .sort((keyA, keyB) => {
       const a = countRecipesByCategory(recipes, keyA);
       const b = countRecipesByCategory(recipes, keyB);
       return b - a;
     })
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     .map(key => ({ id: key, ...categories[key]! }));
 
   return categoriesOrderByRecipeCount;
 };
 
-export const getCategoryBySlug = (categories: Categories, slug: string): CategoryWithId | null => {
-  const matchingCategoryKey = Object
-    .keys(categories)
-    .find(key => categories[key]?.slug === slug);
+export const getCategoryBySlug = (
+  categories: Categories,
+  slug: string,
+): CategoryWithId | null => {
+  const matchingCategoryKey = Object.keys(categories).find(
+    key => categories[key]?.slug === slug,
+  );
 
   if (!matchingCategoryKey) return null;
 
@@ -47,7 +52,10 @@ export const getCategoryBySlug = (categories: Categories, slug: string): Categor
   };
 };
 
-export const getCategoryName = (categoryId: string | false, categories: Categories | null) => {
+export const getCategoryName = (
+  categoryId: string | false,
+  categories: Categories | null,
+) => {
   if (!categories || !categoryId) {
     return DEFAULT_RECIPE_CATEGORY.name;
   }
@@ -74,14 +82,16 @@ export const createCategory = (category: Category) => {
   return push(categoriesRef, category);
 };
 
-export const deleteCategory = async ({ recipes, category }: DeleteCategoryParams) => {
+export const deleteCategory = async ({
+  recipes,
+  category,
+}: DeleteCategoryParams) => {
   const db = getDatabase();
 
   // remove the category from all recipes that have it
   const recipesToUpdate: Recipes = {};
 
-  Object
-    .keys(recipes)
+  Object.keys(recipes)
     .filter(key => recipes[key]?.categoryId === category.id)
     .forEach(key => {
       const recipe = recipes[key];
