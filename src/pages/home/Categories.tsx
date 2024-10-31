@@ -1,13 +1,19 @@
 import { useState } from 'react';
-import { Categories as CategoriesType, CategoryWithId } from '../../types/category';
-import { Recipes } from '../../types/recipe';
-import { ROUTES } from '../../routes';
-import { getCategoriesOrderByRecipeCount, countRecipesByCategory } from '../../helpers/category.helpers';
 import { css } from '../../../styled-system/css';
 import { wrap } from '../../../styled-system/patterns';
+import {
+  countRecipesByCategory,
+  getCategoriesOrderByRecipeCount,
+} from '../../helpers/category.helpers';
+import { ROUTES } from '../../routes';
+import {
+  Categories as CategoriesType,
+  CategoryWithId,
+} from '../../types/category';
+import { Recipes } from '../../types/recipe';
 
-import { Category } from './Category';
 import { Link } from 'react-router-dom';
+import { Category } from './Category';
 
 const categoryStyles = css({
   bg: 'white',
@@ -41,7 +47,11 @@ const DEFAULT_HOME_CATEGORY = {
   name: 'Tout',
 };
 
-export const Categories = ({ categories, selectedCategory, recipes }: CategoriesProps) => {
+export const Categories = ({
+  categories,
+  selectedCategory,
+  recipes,
+}: CategoriesProps) => {
   const [isMaxScroll, setIsMaxScroll] = useState(false);
 
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
@@ -52,7 +62,10 @@ export const Categories = ({ categories, selectedCategory, recipes }: Categories
 
   if (!categories || !recipes) return null;
 
-  const categoriesOrderByRecipeCount = getCategoriesOrderByRecipeCount(categories, recipes);
+  const categoriesOrderByRecipeCount = getCategoriesOrderByRecipeCount(
+    categories,
+    recipes,
+  );
   const noCategroySelected = selectedCategory === null;
 
   return (
@@ -70,7 +83,6 @@ export const Categories = ({ categories, selectedCategory, recipes }: Categories
           '@media (hover: none) and (pointer: coarse)': {
             flexWrap: 'nowrap',
             overflowX: 'auto',
-            MsOverflowStyle: 'none', // IE and Edge
             scrollbarWidth: 'none', // Firefox
 
             // Chrome, Safari and Opera
@@ -98,10 +110,10 @@ export const Categories = ({ categories, selectedCategory, recipes }: Categories
           className={categoryStyles}
           data-selected={noCategroySelected}
         >
-          { DEFAULT_HOME_CATEGORY.name }
+          {DEFAULT_HOME_CATEGORY.name}
         </Link>
 
-        { categoriesOrderByRecipeCount.map(category => {
+        {categoriesOrderByRecipeCount.map(category => {
           if (countRecipesByCategory(recipes, category.id) === 0) return null;
           return (
             <Category
