@@ -39,6 +39,21 @@ export const Recipe = () => {
   } = useShoppingList();
 
   useEffect(() => {
+    if (!('wakeLock' in navigator)) return;
+
+    const requestWakeLock = async () => {
+      try {
+        await navigator.wakeLock.request('screen');
+      } catch (error) {
+        // the wake lock request fails - usually system related, such being low on battery
+        console.log(`Wake lock request failed`);
+      }
+    };
+
+    requestWakeLock();
+  }, []);
+
+  useEffect(() => {
     if (!recipe) return undefined;
     document.title = recipe.title;
 
