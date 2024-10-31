@@ -11,7 +11,7 @@
     "prepare": "husky && panda codegen",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"app/**/*.{ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
