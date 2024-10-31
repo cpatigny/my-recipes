@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
+import { css, cx } from '../../../../styled-system/css';
+import { DEFAULT_RECIPE_CATEGORY } from '../../../constants';
 import { useCategories } from '../../../contexts/CategoriesContext';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
-import { DEFAULT_RECIPE_CATEGORY } from '../../../constants';
 import { slugify } from '../../../utils/utils';
-import { css } from '../../../../styled-system/css';
 
-import { Icon } from '../../Icon';
 import { Button } from '../../Button';
+import { Icon } from '../../Icon';
 
 const inputStyles = css({
   bg: 'white',
@@ -74,7 +74,8 @@ export const InformationForm = () => {
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.currentTarget;
-    const newCategoryId = value === DEFAULT_RECIPE_CATEGORY.value ? false : value;
+    const newCategoryId =
+      value === DEFAULT_RECIPE_CATEGORY.value ? false : value;
     setRecipeFormData({ ...recipeFormData, categoryId: newCategoryId });
   };
 
@@ -138,15 +139,36 @@ export const InformationForm = () => {
           onChange={handleChange}
           className={inputStyles}
         />
-        {formErrors.slug && <span>{ formErrors.slug }</span>}
+        {formErrors.slug && <span>{formErrors.slug}</span>}
       </div>
 
       <div className={css({ mt: '1.56rem' })}>
         <label htmlFor='image'>Sélectionner une image pour la recette</label>
-        <input type='file' ref={fileInputRef} name='image' onChange={handleImageChange} />
+        <input
+          type='file'
+          ref={fileInputRef}
+          name='image'
+          onChange={handleImageChange}
+          className={cx(
+            inputStyles,
+            css({
+              '&::file-selector-button': {
+                bg: '#f0f0f0',
+                mr: '0.6rem',
+                p: '0.2rem 1rem',
+                rounded: 'sm',
+                cursor: 'pointer',
+
+                _hover: {
+                  bg: '#e3e3e3',
+                },
+              },
+            }),
+          )}
+        />
       </div>
 
-      { previewImageSrc && imageName &&
+      {previewImageSrc && imageName && (
         <div
           className={css({
             maxW: '25rem',
@@ -173,7 +195,7 @@ export const InformationForm = () => {
             className={css({ w: '100%' })}
           />
         </div>
-      }
+      )}
 
       <div className={css({ mt: marginTop })}>
         <label htmlFor='category'>Choisissez une catégorie</label>
@@ -190,13 +212,18 @@ export const InformationForm = () => {
             maxW: '100%',
           })}
         >
-          <option value={DEFAULT_RECIPE_CATEGORY.value}>{ DEFAULT_RECIPE_CATEGORY.name }</option>
-          {categories && Object.keys(categories).map(key => {
-            const categoryObj = categories[key];
-            return categoryObj ? (
-              <option key={key} value={key}>{categoryObj.name}</option>
-            ) : null;
-          })}
+          <option value={DEFAULT_RECIPE_CATEGORY.value}>
+            {DEFAULT_RECIPE_CATEGORY.name}
+          </option>
+          {categories &&
+            Object.keys(categories).map(key => {
+              const categoryObj = categories[key];
+              return categoryObj ? (
+                <option key={key} value={key}>
+                  {categoryObj.name}
+                </option>
+              ) : null;
+            })}
         </select>
       </div>
 

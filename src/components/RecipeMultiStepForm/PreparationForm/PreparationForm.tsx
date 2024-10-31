@@ -1,5 +1,5 @@
-import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 import { css } from '../../../../styled-system/css';
+import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 
 export const PreparationForm = () => {
   const { step, recipeFormData, handleChange, next } = useRecipeMultiStepForm();
@@ -19,6 +19,7 @@ export const PreparationForm = () => {
           value={recipeFormData.content}
           onChange={handleChange}
           className={css({
+            bg: 'white',
             w: '100%',
             h: '37.5rem',
             rounded: '0.5rem',
