@@ -1,22 +1,38 @@
 import { createContext, useContext, useState } from 'react';
-import { addToShoppingList, clearShoppingList, deleteRecipeFromShoppingList, getShoppingList, updateShoppingListItem } from '../helpers/shoppingList.helpers';
+import {
+  addToShoppingList,
+  clearShoppingList,
+  deleteRecipeFromShoppingList,
+  getShoppingList,
+  updateShoppingListItem,
+} from '../helpers/shoppingList.helpers';
 import { useRecipes } from './RecipesContext';
 import { useToast } from './ToastContext';
-import { ShoppingList, ShoppingListItem, ShoppingListRecipeWithId } from '../types/shoppingList';
+import {
+  ShoppingList,
+  ShoppingListItem,
+  ShoppingListRecipeWithId,
+} from '../types/shoppingList';
 
 interface ShoppingListContextValues {
   shoppingList: ShoppingList;
   setShoppingList: React.Dispatch<React.SetStateAction<ShoppingList>>;
 }
 
-const ShoppingListContext = createContext<ShoppingListContextValues | null>(null);
+const ShoppingListContext = createContext<ShoppingListContextValues | null>(
+  null,
+);
 
-export const ShoppingListProvider = ({ children }: { children: React.ReactNode }) => {
+export const ShoppingListProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [shoppingList, setShoppingList] = useState(getShoppingList());
 
   return (
     <ShoppingListContext.Provider value={{ shoppingList, setShoppingList }}>
-      { children }
+      {children}
     </ShoppingListContext.Provider>
   );
 };
@@ -25,7 +41,9 @@ export const useShoppingList = () => {
   const context = useContext(ShoppingListContext);
 
   if (!context) {
-    throw new Error('useShoppingList must be used within a ShoppingListProvider');
+    throw new Error(
+      'useShoppingList must be used within a ShoppingListProvider',
+    );
   }
 
   const { shoppingList, setShoppingList } = context;

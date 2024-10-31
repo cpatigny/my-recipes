@@ -13,7 +13,7 @@ export const AdminListItem = ({ children }: { children: React.ReactNode }) => {
         },
       })}
     >
-      { children }
+      {children}
     </li>
   );
 };

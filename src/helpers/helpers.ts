@@ -13,15 +13,13 @@ export const getNewItemPosition = (items: Items) => {
 
   let maxPosition = 0;
 
-  Object
-    .keys(items)
-    .forEach(key => {
-      const item = items[key];
-      if (!item) return;
-      if (item.position > maxPosition) {
-        maxPosition = item.position;
-      }
-    });
+  Object.keys(items).forEach(key => {
+    const item = items[key];
+    if (!item) return;
+    if (item.position > maxPosition) {
+      maxPosition = item.position;
+    }
+  });
 
   return maxPosition + 1;
 };
@@ -30,6 +28,8 @@ interface ItemWithPosition {
   position: number;
 }
 
-export const sortItemsByPosition = <T extends ItemWithPosition>(items: T[]): T[] => {
+export const sortItemsByPosition = <T extends ItemWithPosition>(
+  items: T[],
+): T[] => {
   return items.sort((itemA, itemB) => itemA.position - itemB.position);
 };

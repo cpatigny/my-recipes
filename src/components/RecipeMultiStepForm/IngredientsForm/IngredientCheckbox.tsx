@@ -14,7 +14,11 @@ interface IngredientCheckboxProps {
 }
 
 export const IngredientCheckbox = ({
-  ingredient, checked, ingredientsDetails, units, handleCheck,
+  ingredient,
+  checked,
+  ingredientsDetails,
+  units,
+  handleCheck,
 }: IngredientCheckboxProps) => (
   <label className={css({ mt: '0.2rem' })}>
     <input

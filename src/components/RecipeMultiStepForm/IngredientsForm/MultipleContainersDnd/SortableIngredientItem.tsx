@@ -12,7 +12,10 @@ interface SortableIngredientItemProps {
 }
 
 export const SortableIngredientItem = ({
-  disabled, ingredient, deleteIngredient, showEditIngredientForm,
+  disabled,
+  ingredient,
+  deleteIngredient,
+  showEditIngredientForm,
 }: SortableIngredientItemProps) => {
   const {
     setNodeRef,

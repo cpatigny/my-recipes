@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { IngredientDetailsWithId } from '../../types/ingredientDetails';
-import { updateIngredientDetails, createIngredientDetails } from '../../helpers/ingredientDetails.helpers';
+import {
+  updateIngredientDetails,
+  createIngredientDetails,
+} from '../../helpers/ingredientDetails.helpers';
 import { css } from '../../../styled-system/css';
 import { wrap } from '../../../styled-system/patterns';
 
@@ -14,7 +17,10 @@ interface IngredientFormProps {
   close?: () => void;
 }
 
-export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFormProps) => {
+export const IngredientDetailsForm = ({
+  ingredientToEdit,
+  close,
+}: IngredientFormProps) => {
   const [name, setName] = useState('');
   const [plural, setPlural] = useState('');
 
@@ -77,7 +83,9 @@ export const IngredientDetailsForm = ({ ingredientToEdit, close }: IngredientFor
           {close && <CancelBtn onClick={close} text='Annuler' />}
         </ModalActions>
       ) : (
-        <Button fullWidth={true} mt='1.1rem'>Créer un ingrédient</Button>
+        <Button fullWidth={true} mt='1.1rem'>
+          Créer un ingrédient
+        </Button>
       )}
     </form>
   );

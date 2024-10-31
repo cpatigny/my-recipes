@@ -1,7 +1,13 @@
 import { css } from '../../../../../styled-system/css';
 
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { GroupWithIngredients, RecipeIngredientWithId } from '../../../../types/recipe';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import {
+  GroupWithIngredients,
+  RecipeIngredientWithId,
+} from '../../../../types/recipe';
 import { SortableIngredientItem } from './SortableIngredientItem';
 
 interface DefaultGroupProps {
@@ -24,7 +30,9 @@ export const DEFAULT_INGREDIENT: RecipeIngredientWithId = {
 };
 
 export const DefaultGroup = ({
-  group, deleteIngredient, showEditIngredientForm,
+  group,
+  deleteIngredient,
+  showEditIngredientForm,
 }: DefaultGroupProps) => {
   const noIngredients = group.ingredients.length === 0;
   const ingredients = noIngredients ? [DEFAULT_INGREDIENT] : group.ingredients;
@@ -39,7 +47,10 @@ export const DefaultGroup = ({
         },
       })}
     >
-      <SortableContext items={ingredients} strategy={verticalListSortingStrategy}>
+      <SortableContext
+        items={ingredients}
+        strategy={verticalListSortingStrategy}
+      >
         {ingredients.map(ingredient => (
           <SortableIngredientItem
             key={ingredient.id}

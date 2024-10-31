@@ -25,7 +25,7 @@ export const ArrowBackWithTitle = ({ title }: { title: string }) => {
           justifySelf: 'center',
         })}
       >
-        { title }
+        {title}
       </h1>
     </div>
   );

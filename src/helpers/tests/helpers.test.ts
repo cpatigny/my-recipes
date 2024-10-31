@@ -11,7 +11,7 @@ describe('getNewItemPosition', () => {
     expect(getNewItemPosition(items)).toBe(4);
   });
 
-  test('should return the next item position even if position properties aren\'t consecutive', () => {
+  test("should return the next item position even if position properties aren't consecutive", () => {
     const items = {
       item1: { position: 1 },
       item2: { position: 25 },
@@ -24,11 +24,7 @@ describe('getNewItemPosition', () => {
 
 describe('sortItemsByPosition', () => {
   test('should sort items according to their position', () => {
-    const items = [
-      { position: 16 },
-      { position: 25 },
-      { position: 8 },
-    ];
+    const items = [{ position: 16 }, { position: 25 }, { position: 8 }];
 
     const sortedItems = sortItemsByPosition(items);
 

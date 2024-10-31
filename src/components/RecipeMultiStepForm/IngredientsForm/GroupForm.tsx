@@ -33,7 +33,11 @@ export interface GroupFormData {
   ingredients: string[];
 }
 
-export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) => {
+export const GroupForm = ({
+  group,
+  ingredients,
+  closeModal,
+}: GroupFormProps) => {
   const [groupData, setGroupData] = useState<GroupFormData>({
     name: '',
     ingredients: [],
@@ -48,7 +52,9 @@ export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) =>
     if (!group) return;
 
     const groupIngredients = getIngredientsByGroup(group.id, ingredients);
-    const groupIngredientsId = groupIngredients.map(ingredient => ingredient.id);
+    const groupIngredientsId = groupIngredients.map(
+      ingredient => ingredient.id,
+    );
 
     setGroupData({
       name: group.name,
@@ -86,7 +92,9 @@ export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) =>
     });
 
     const groupedIngredients = addGroupIdToIngredients(
-      newGroupId, groupData.ingredients, ingredients,
+      newGroupId,
+      groupData.ingredients,
+      ingredients,
     );
 
     // update recipeFormData with edited ingredients (with goupId)
@@ -106,13 +114,22 @@ export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) =>
     });
 
     const groupedIngredients = addGroupIdToIngredients(
-      group.id, groupData.ingredients, ingredients,
+      group.id,
+      groupData.ingredients,
+      ingredients,
     );
 
-    let excludedIngredients = getExcludedIngredients(group, groupData.ingredients, ingredients);
+    let excludedIngredients = getExcludedIngredients(
+      group,
+      groupData.ingredients,
+      ingredients,
+    );
     excludedIngredients = removeGroupId(excludedIngredients);
 
-    const updatedIngredients = { ...groupedIngredients, ...excludedIngredients };
+    const updatedIngredients = {
+      ...groupedIngredients,
+      ...excludedIngredients,
+    };
 
     updateIngredientsFormData(updatedIngredients);
   };
@@ -180,9 +197,9 @@ export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) =>
       <p className={css({ m: '0.7rem 0 .5rem' })}>
         <b>Ingrédients dans le groupe :</b>
       </p>
-      { groupErrors.ingredients && (
+      {groupErrors.ingredients && (
         <p className={css({ color: 'danger', fontSize: '1rem' })}>
-          { groupErrors.ingredients }
+          {groupErrors.ingredients}
         </p>
       )}
       <div>
@@ -199,9 +216,7 @@ export const GroupForm = ({ group, ingredients, closeModal }: GroupFormProps) =>
       </div>
 
       <ModalActions>
-        <Button size='smd'>
-          { group ? 'Modifier' : 'Créer' }
-        </Button>
+        <Button size='smd'>{group ? 'Modifier' : 'Créer'}</Button>
         <CancelBtn onClick={closeModal} text='Annuler' />
       </ModalActions>
     </form>

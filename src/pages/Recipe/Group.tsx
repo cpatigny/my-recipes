@@ -11,7 +11,7 @@ interface GroupProps {
 
 export const Group = ({ name, ingredients, servingRatio }: GroupProps) => (
   <>
-    <p className={css({ mt: '1.6rem' })}>{ name } :</p>
+    <p className={css({ mt: '1.6rem' })}>{name} :</p>
     <ul>
       <IngredientList ingredients={ingredients} servingRatio={servingRatio} />
     </ul>

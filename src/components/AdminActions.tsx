@@ -9,7 +9,7 @@ export const AdminActions = ({ children }: { children: React.ReactNode }) => {
         ml: '1rem',
       })}
     >
-      { children }
+      {children}
     </div>
   );
 };

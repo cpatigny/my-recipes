@@ -9,7 +9,11 @@ interface CategoriesContextValues {
 
 const CategoriesContext = createContext<CategoriesContextValues | null>(null);
 
-export const CategoriesProvider = ({ children }: { children: React.ReactNode }) => {
+export const CategoriesProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [categories, setCategories] = useState<Categories | null>(null);
   const [categoriesLoading, setCategoriesLoading] = useState<boolean>(true);
 

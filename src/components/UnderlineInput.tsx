@@ -7,7 +7,8 @@ const onFocus = {
   top: '0',
 };
 
-interface UnderlineInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface UnderlineInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText: string;
   error?: boolean;
   name: string;
@@ -16,65 +17,67 @@ interface UnderlineInputProps extends React.InputHTMLAttributes<HTMLInputElement
 
 type RefType = HTMLInputElement | null;
 
-const UnderlineInput = forwardRef<RefType, UnderlineInputProps>((props, ref) => {
-  const { labelText, error, name, className, ...inputProps } = props;
+const UnderlineInput = forwardRef<RefType, UnderlineInputProps>(
+  (props, ref) => {
+    const { labelText, error, name, className, ...inputProps } = props;
 
-  return (
-    <label
-      data-error={!!error}
-      className={cx(
-        'group',
-        className,
-        css({ pos: 'relative', m: '0.7rem 0 0.2rem' }),
-      )}
-    >
-      <input
-        {...inputProps}
-        ref={ref}
-        name={name}
-        placeholder=' '
+    return (
+      <label
+        data-error={!!error}
         className={cx(
-          'peer',
-          css({
-            p: '0.375rem 0',
-            borderBottom: '1px solid #dadce0',
-            outline: 'none',
-            transitionDuration,
-            '[data-error=true] &': {
-              borderColor: 'danger',
-            },
-            _focus: {
-              borderColor: 'primary',
-            },
-            '&:not(:placeholder-shown) + span': onFocus,
-          }),
+          'group',
+          className,
+          css({ pos: 'relative', m: '0.7rem 0 0.2rem' }),
         )}
-      />
-      <span
-        className={css({
-          pos: 'absolute',
-          left: '0',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          color: '#6D6D6D',
-          pointerEvents: 'none',
-          transformOrigin: 'left',
-          transitionDuration,
-          fontSize: '1rem',
-          '[data-error=true] &': {
-            color: 'danger',
-          },
-          _peerFocus: {
-            color: 'primary',
-            ...onFocus,
-          },
-        })}
       >
-        { labelText }
-      </span>
-    </label>
-  );
-});
+        <input
+          {...inputProps}
+          ref={ref}
+          name={name}
+          placeholder=' '
+          className={cx(
+            'peer',
+            css({
+              p: '0.375rem 0',
+              borderBottom: '1px solid #dadce0',
+              outline: 'none',
+              transitionDuration,
+              '[data-error=true] &': {
+                borderColor: 'danger',
+              },
+              _focus: {
+                borderColor: 'primary',
+              },
+              '&:not(:placeholder-shown) + span': onFocus,
+            }),
+          )}
+        />
+        <span
+          className={css({
+            pos: 'absolute',
+            left: '0',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            color: '#6D6D6D',
+            pointerEvents: 'none',
+            transformOrigin: 'left',
+            transitionDuration,
+            fontSize: '1rem',
+            '[data-error=true] &': {
+              color: 'danger',
+            },
+            _peerFocus: {
+              color: 'primary',
+              ...onFocus,
+            },
+          })}
+        >
+          {labelText}
+        </span>
+      </label>
+    );
+  },
+);
 
 UnderlineInput.displayName = 'UnderlineInput';
 

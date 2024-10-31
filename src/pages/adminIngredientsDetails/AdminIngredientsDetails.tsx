@@ -14,7 +14,8 @@ import { IngredientDetailsForm } from './IngredientDetailsForm';
 import { Block } from '../../components/Block';
 
 export const AdminIngredientsDetails = () => {
-  const [ingredientToEdit, setIngredientToEdit] = useState<IngredientDetailsWithId | null>(null);
+  const [ingredientToEdit, setIngredientToEdit] =
+    useState<IngredientDetailsWithId | null>(null);
 
   const { recipes } = useRecipes();
   const { ingredientsDetails } = useIngredientsDetails();
@@ -45,7 +46,9 @@ export const AdminIngredientsDetails = () => {
       </Block>
 
       <Block>
-        <h2 className={blockTitle()}>Liste des ingrédients ({ nbOfIngredients })</h2>
+        <h2 className={blockTitle()}>
+          Liste des ingrédients ({nbOfIngredients})
+        </h2>
         {ingredientsDetails && (
           <IngredientsDetails
             ingredients={reverseObject(ingredientsDetails)}
@@ -55,9 +58,16 @@ export const AdminIngredientsDetails = () => {
         )}
       </Block>
 
-      <Modal isShow={!!ingredientToEdit} onClose={closeEditForm} title='Modifier ingrédient'>
+      <Modal
+        isShow={!!ingredientToEdit}
+        onClose={closeEditForm}
+        title='Modifier ingrédient'
+      >
         {ingredientToEdit && (
-          <IngredientDetailsForm ingredientToEdit={ingredientToEdit} close={closeEditForm} />
+          <IngredientDetailsForm
+            ingredientToEdit={ingredientToEdit}
+            close={closeEditForm}
+          />
         )}
       </Modal>
     </AdminContainer>

@@ -1,5 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useMultiStepForm, Step, useMultiStepFormReturn } from '../hooks/useMultiStepForm';
+import {
+  useMultiStepForm,
+  Step,
+  useMultiStepFormReturn,
+} from '../hooks/useMultiStepForm';
 import { Updater, useImmer } from 'use-immer';
 import { RecipeFormData, RecipeWithId } from '../types/recipe';
 import { generateRecipeKey } from '../helpers/recipe.helpers';
@@ -10,7 +14,10 @@ import { IngredientsForm } from '../components/RecipeMultiStepForm/IngredientsFo
 import { PreparationForm } from '../components/RecipeMultiStepForm/PreparationForm/PreparationForm';
 import { Preview } from '../components/RecipeMultiStepForm/Preview/Preview';
 
-export type FormElements = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+export type FormElements =
+  | HTMLInputElement
+  | HTMLTextAreaElement
+  | HTMLSelectElement;
 
 interface RecipeMultiStepFormContextValues extends useMultiStepFormReturn {
   recipeFormData: RecipeFormData;
@@ -26,14 +33,18 @@ interface RecipeMultiStepFormContextValues extends useMultiStepFormReturn {
   recipe?: RecipeWithId | null;
 }
 
-const RecipeMultiStepFormContext = createContext<RecipeMultiStepFormContextValues | null>(null);
+const RecipeMultiStepFormContext =
+  createContext<RecipeMultiStepFormContextValues | null>(null);
 
 interface ProviderProps {
   recipe?: RecipeWithId | null;
   children: React.ReactNode;
 }
 
-export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps) => {
+export const RecipeMultiStepFormProvider = ({
+  recipe,
+  children,
+}: ProviderProps) => {
   const DEFAULT_DATA: RecipeFormData = {
     title: '',
     slug: '',
@@ -48,7 +59,8 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
     createdAt: false,
   };
 
-  const [recipeFormData, setRecipeFormData] = useImmer<RecipeFormData>(DEFAULT_DATA);
+  const [recipeFormData, setRecipeFormData] =
+    useImmer<RecipeFormData>(DEFAULT_DATA);
   const [oldImageName, setOldImageName] = useState<string | false>(false);
   const [previewImageSrc, setPreviewImageSrc] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -126,7 +138,7 @@ export const RecipeMultiStepFormProvider = ({ recipe, children }: ProviderProps)
 
   return (
     <RecipeMultiStepFormContext.Provider value={providerValue}>
-      { children }
+      {children}
     </RecipeMultiStepFormContext.Provider>
   );
 };
@@ -135,7 +147,9 @@ export const useRecipeMultiStepForm = () => {
   const context = useContext(RecipeMultiStepFormContext);
 
   if (!context) {
-    throw new Error('useRecipeMultiStepForm must be used within a RecipeMultiStepFormProvider');
+    throw new Error(
+      'useRecipeMultiStepForm must be used within a RecipeMultiStepFormProvider',
+    );
   }
 
   return context;

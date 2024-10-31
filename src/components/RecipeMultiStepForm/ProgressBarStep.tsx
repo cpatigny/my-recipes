@@ -16,12 +16,18 @@ interface ProgressBarStepProps {
 }
 
 export const ProgressBarStep = ({
-  step, currentStepIndex, index, completedStepIndexes, goTo, lastCompletedStepIndex,
+  step,
+  currentStepIndex,
+  index,
+  completedStepIndexes,
+  goTo,
+  lastCompletedStepIndex,
 }: ProgressBarStepProps) => {
   const isCurrentStep = index === currentStepIndex;
   const stepIsCompleted = completedStepIndexes.includes(index);
   const isNextStepToComplete = index === lastCompletedStepIndex + 1;
-  const isClickEnabled = (stepIsCompleted || isNextStepToComplete) && !isCurrentStep;
+  const isClickEnabled =
+    (stepIsCompleted || isNextStepToComplete) && !isCurrentStep;
 
   const handleClick = () => goTo(index);
 
@@ -90,7 +96,7 @@ export const ProgressBarStep = ({
               },
             })}
           >
-            { index + 1 }
+            {index + 1}
           </span>
         </button>
         <span
@@ -102,7 +108,7 @@ export const ProgressBarStep = ({
             transform: 'translate(-50%, calc(100% + 0.6rem))',
           })}
         >
-          { step.title }
+          {step.title}
         </span>
       </div>
     </div>

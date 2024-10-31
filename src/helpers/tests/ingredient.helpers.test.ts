@@ -1,10 +1,24 @@
 import { getMockCategories } from '../../tests-utils/mocks/categories.mock';
 import { getMockIngredientsDetails } from '../../tests-utils/mocks/ingredientsDetails.mock';
-import { getMockRecipeIngredientsWithId, getOneMockRecipe } from '../../tests-utils/mocks/recipes.mock';
+import {
+  getMockRecipeIngredientsWithId,
+  getOneMockRecipe,
+} from '../../tests-utils/mocks/recipes.mock';
 import { getMockUnits } from '../../tests-utils/mocks/units.mock';
 import { IngredientDetails } from '../../types/ingredientDetails';
 import { RecipeIngredient } from '../../types/recipe';
-import { addGroupIdToIngredients, convertIngredientsArrayToObject, convertIngredientsObjectToArray, getIngredientName, getIngredientsByGroup, getIngredientsWithoutGroup, getPrepositionText, getQuantityText, removeGroupId, roundQuantity } from '../ingredient.helpers';
+import {
+  addGroupIdToIngredients,
+  convertIngredientsArrayToObject,
+  convertIngredientsObjectToArray,
+  getIngredientName,
+  getIngredientsByGroup,
+  getIngredientsWithoutGroup,
+  getPrepositionText,
+  getQuantityText,
+  removeGroupId,
+  roundQuantity,
+} from '../ingredient.helpers';
 
 const categories = getMockCategories();
 const ingredientsDetails = getMockIngredientsDetails();
@@ -25,14 +39,18 @@ describe('addGroupIdToIngredients', () => {
     const ingredients = getOneMockRecipe(idList).ingredients;
     const ingredientsIds = Object.keys(ingredients);
     const groupId = 'group-123456';
-    const groupedIngredients = addGroupIdToIngredients(groupId, ingredientsIds, ingredients);
-    const allIngredientsHaveNewGroupId = Object
-      .keys(groupedIngredients)
-      .every(key => {
+    const groupedIngredients = addGroupIdToIngredients(
+      groupId,
+      ingredientsIds,
+      ingredients,
+    );
+    const allIngredientsHaveNewGroupId = Object.keys(groupedIngredients).every(
+      key => {
         const ing = groupedIngredients[key];
         if (!ing) return false;
         return ing.groupId === groupId;
-      });
+      },
+    );
     expect(allIngredientsHaveNewGroupId).toBe(true);
   });
 });
@@ -41,7 +59,8 @@ describe('convertIngredientsArrayToObject', () => {
   test('should return an object', () => {
     const ingredientsWithId = getMockRecipeIngredientsWithId(idList);
     const convertedItems = convertIngredientsArrayToObject(ingredientsWithId);
-    const isObject = (item: unknown) => typeof item === 'object' && !Array.isArray(item) && item !== null;
+    const isObject = (item: unknown) =>
+      typeof item === 'object' && !Array.isArray(item) && item !== null;
     expect(isObject(convertedItems)).toBe(true);
   });
 });
@@ -69,7 +88,9 @@ describe('getIngredientsByGroup', () => {
     const groupId = item.groupId;
 
     if (!groupId) {
-      throw new Error('Ingredient item must have a groupId in order for the test to work');
+      throw new Error(
+        'Ingredient item must have a groupId in order for the test to work',
+      );
     }
 
     const ingredientsByGroup = getIngredientsByGroup(groupId, ingredients);
@@ -88,8 +109,12 @@ describe('getIngredientName', () => {
     expect(name).toBe('');
   });
 
-  test('should return an empty string if ingredient detailsId doesn\'t match', () => {
-    const name = getIngredientName({ ...ingredient, detailsId: 'azerty123456' }, 1, null);
+  test("should return an empty string if ingredient detailsId doesn't match", () => {
+    const name = getIngredientName(
+      { ...ingredient, detailsId: 'azerty123456' },
+      1,
+      null,
+    );
     expect(name).toBe('');
   });
 
@@ -109,8 +134,16 @@ describe('getIngredientName', () => {
     // we create a recipe ingredient that uses the previously created ingredient details
     const recipeIngredient: RecipeIngredient = { ...ingredient, detailsId };
 
-    const nameOne = getIngredientName(recipeIngredient, 1, ingredientsDetailsWithoutPlural);
-    const nameTwo = getIngredientName(recipeIngredient, 2, ingredientsDetailsWithoutPlural);
+    const nameOne = getIngredientName(
+      recipeIngredient,
+      1,
+      ingredientsDetailsWithoutPlural,
+    );
+    const nameTwo = getIngredientName(
+      recipeIngredient,
+      2,
+      ingredientsDetailsWithoutPlural,
+    );
 
     expect(nameOne).toBe(noPluralIngredientDetails.name);
     expect(nameTwo).toBe(noPluralIngredientDetails.name);
@@ -131,13 +164,11 @@ describe('removeGroupId', () => {
   test('should return ingredients with groupId removed', () => {
     const ingredients = getOneMockRecipe(idList, 200).ingredients;
     const groupIdRemovedIngredients = removeGroupId(ingredients);
-    const noGroupId = Object
-      .keys(groupIdRemovedIngredients)
-      .every(key => {
-        const ing = groupIdRemovedIngredients[key];
-        if (!ing) return false;
-        return ing.groupId === false;
-      });
+    const noGroupId = Object.keys(groupIdRemovedIngredients).every(key => {
+      const ing = groupIdRemovedIngredients[key];
+      if (!ing) return false;
+      return ing.groupId === false;
+    });
     expect(noGroupId).toBe(true);
   });
 });

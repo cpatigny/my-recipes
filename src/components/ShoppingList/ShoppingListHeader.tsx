@@ -11,7 +11,9 @@ interface ShoppingListHeaderProps {
   closeShoppingList: () => void;
 }
 
-export const ShoppingListHeader = ({ closeShoppingList }: ShoppingListHeaderProps) => {
+export const ShoppingListHeader = ({
+  closeShoppingList,
+}: ShoppingListHeaderProps) => {
   return (
     <div
       className={cx(

@@ -9,7 +9,12 @@ interface OverlayProps {
   children: React.ReactNode;
 }
 
-export const Overlay = ({ isShow, close, className, children }: OverlayProps) => {
+export const Overlay = ({
+  isShow,
+  close,
+  className,
+  children,
+}: OverlayProps) => {
   const [shouldCloseModal, setShouldCloseModal] = useState(true);
 
   useEffect(() => {
@@ -40,28 +45,31 @@ export const Overlay = ({ isShow, close, className, children }: OverlayProps) =>
     config: { tension: 360, friction: 42 },
   });
 
-  return overlayTransitions((style, item) => item && (
-    <animated.div
-      onMouseUp={handleMouseUp}
-      onMouseDown={handleMouseDown}
-      style={style}
-      className={cx(
-        className,
-        css({
-          pos: 'fixed',
-          top: '0',
-          right: '0',
-          bottom: '0',
-          left: '0',
-          bg: 'rgba(0, 0, 0, 0.6)',
-          overflowX: 'hidden',
-          overflowY: 'auto',
-          zIndex: '9999',
-          backdropFilter: 'blur(3px)',
-        }),
-      )}
-    >
-      {children}
-    </animated.div>
-  ));
+  return overlayTransitions(
+    (style, item) =>
+      item && (
+        <animated.div
+          onMouseUp={handleMouseUp}
+          onMouseDown={handleMouseDown}
+          style={style}
+          className={cx(
+            className,
+            css({
+              pos: 'fixed',
+              top: '0',
+              right: '0',
+              bottom: '0',
+              left: '0',
+              bg: 'rgba(0, 0, 0, 0.6)',
+              overflowX: 'hidden',
+              overflowY: 'auto',
+              zIndex: '9999',
+              backdropFilter: 'blur(3px)',
+            }),
+          )}
+        >
+          {children}
+        </animated.div>
+      ),
+  );
 };

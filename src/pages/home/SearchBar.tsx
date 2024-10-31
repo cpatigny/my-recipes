@@ -49,7 +49,10 @@ export const SearchBar = ({ search, setSearch }: SearchBarProps) => {
         className={css({
           display: 'block',
           w: '100%',
-          p: { base: '0.55rem 1.25rem 0.55rem 3.125rem', sm: '0.7rem 1.25rem 0.7rem 3.125rem' },
+          p: {
+            base: '0.55rem 1.25rem 0.55rem 3.125rem',
+            sm: '0.7rem 1.25rem 0.7rem 3.125rem',
+          },
           borderRadius: 'full',
           fontSize: 'md',
           color: 'text',
@@ -73,18 +76,15 @@ export const SearchBar = ({ search, setSearch }: SearchBarProps) => {
         )}
       />
 
-      { search &&
+      {search && (
         <button
           aria-label='effacer la recherche'
           onClick={reset}
-          className={cx(
-            iconStyles,
-            css({ right: '0.7rem' }),
-          )}
+          className={cx(iconStyles, css({ right: '0.7rem' }))}
         >
           <Icon name='clear' />
         </button>
-      }
+      )}
     </div>
   );
 };

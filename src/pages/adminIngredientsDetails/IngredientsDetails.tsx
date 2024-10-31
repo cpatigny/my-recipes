@@ -1,5 +1,6 @@
 import {
-  IngredientDetailsWithId, IngredientsDetails as IngredientsDetailsType,
+  IngredientDetailsWithId,
+  IngredientsDetails as IngredientsDetailsType,
 } from '../../types/ingredientDetails';
 
 import { Icon } from '../../components/Icon';
@@ -10,12 +11,16 @@ import { Button } from '../../components/Button';
 
 interface IngredientsDetailsProps {
   ingredients: IngredientsDetailsType;
-  setIngredientToEdit: React.Dispatch<React.SetStateAction<IngredientDetailsWithId | null>>;
+  setIngredientToEdit: React.Dispatch<
+    React.SetStateAction<IngredientDetailsWithId | null>
+  >;
   handleDelete: (ingredientDetails: IngredientDetailsWithId) => void;
 }
 
 export const IngredientsDetails = ({
-  ingredients, setIngredientToEdit, handleDelete,
+  ingredients,
+  setIngredientToEdit,
+  handleDelete,
 }: IngredientsDetailsProps) => (
   <AdminList>
     {Object.keys(ingredients).map(key => {
@@ -24,9 +29,13 @@ export const IngredientsDetails = ({
       return (
         <AdminListItem key={key}>
           <div>
-            <p>nom : <b>{ ingredient.name }</b></p>
+            <p>
+              nom : <b>{ingredient.name}</b>
+            </p>
             {ingredient.plural && (
-              <p>pluriel : <b>{ ingredient.plural }</b></p>
+              <p>
+                pluriel : <b>{ingredient.plural}</b>
+              </p>
             )}
           </div>
           <AdminActions>

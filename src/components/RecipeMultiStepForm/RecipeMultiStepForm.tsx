@@ -2,7 +2,10 @@ import { useRecipeMultiStepForm } from '../../contexts/RecipeMultiStepFormContex
 import { getRecipePath } from '../../routes';
 import { useNavigate } from 'react-router-dom';
 import { RecipeFormData } from '../../types/recipe';
-import { deleteRecipeImage, uploadRecipeImage } from '../../helpers/firebase.helpers';
+import {
+  deleteRecipeImage,
+  uploadRecipeImage,
+} from '../../helpers/firebase.helpers';
 import { updateRecipe, createRecipe } from '../../helpers/recipe.helpers';
 import { useToast } from '../../contexts/ToastContext';
 import { css } from '../../../styled-system/css';
@@ -18,7 +21,12 @@ export const RecipeMultiStepForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const {
-    step, recipeFormData, setRecipeFormData, imageFile, oldImageName, recipe,
+    step,
+    recipeFormData,
+    setRecipeFormData,
+    imageFile,
+    oldImageName,
+    recipe,
   } = useRecipeMultiStepForm();
 
   const submitRecipe = async () => {
@@ -42,7 +50,10 @@ export const RecipeMultiStepForm = () => {
       }
 
       const snapshot = await uploadRecipeImage(imageFile);
-      setRecipeFormData({ ...recipeFormData, imageName: snapshot.metadata.name });
+      setRecipeFormData({
+        ...recipeFormData,
+        imageName: snapshot.metadata.name,
+      });
     }
 
     const redirect = () => navigate(getRecipePath(recipeFormData.slug));
@@ -53,7 +64,10 @@ export const RecipeMultiStepForm = () => {
       return;
     }
 
-    const newRecipe: RecipeFormData = { ...recipeFormData, createdAt: Date.now() };
+    const newRecipe: RecipeFormData = {
+      ...recipeFormData,
+      createdAt: Date.now(),
+    };
     await createRecipe(newRecipe);
     redirect();
   };
@@ -62,9 +76,11 @@ export const RecipeMultiStepForm = () => {
     <div>
       <ProgressBar />
 
-      <h2 className={css({ fontSize: 'pageTitle', m: '2rem 0 1rem' })}>{ step.title }</h2>
+      <h2 className={css({ fontSize: 'pageTitle', m: '2rem 0 1rem' })}>
+        {step.title}
+      </h2>
 
-      { step.element }
+      {step.element}
 
       <MultiStepFormActions submitForm={submitRecipe} />
     </div>

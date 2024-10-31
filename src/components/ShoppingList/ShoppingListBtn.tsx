@@ -7,7 +7,9 @@ interface ShoppingListBtnProps {
   setShowShoppingList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ShoppingListBtn = ({ setShowShoppingList }: ShoppingListBtnProps) => {
+export const ShoppingListBtn = ({
+  setShowShoppingList,
+}: ShoppingListBtnProps) => {
   return (
     <Button
       onClick={() => setShowShoppingList(true)}

@@ -14,14 +14,23 @@ export const AddGroup = ({ ingredients, showGroupForm }: AddGroupProps) => {
 
   return (
     <Block>
-      <p><b>Créer un groupe d&apos;ingrédients :</b></p>
-      { atLeastTwoIngredients ? (
-        <Button size='md' py='0.6rem' mt='1.3rem' type='button' onClick={showGroupForm}>
+      <p>
+        <b>Créer un groupe d&apos;ingrédients :</b>
+      </p>
+      {atLeastTwoIngredients ? (
+        <Button
+          size='md'
+          py='0.6rem'
+          mt='1.3rem'
+          type='button'
+          onClick={showGroupForm}
+        >
           Créer un groupe
         </Button>
       ) : (
         <SecondaryText>
-          Vous devez ajouter au moins <b>2 ingrédients</b> pour pouvoir créer un groupe
+          Vous devez ajouter au moins <b>2 ingrédients</b> pour pouvoir créer un
+          groupe
         </SecondaryText>
       )}
     </Block>

@@ -34,7 +34,10 @@ export const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
   useEffect(() => {
     if (!unitToEdit) return;
 
-    setUnitFormData({ ...unitToEdit, symbol: unitToEdit.symbol ? unitToEdit.symbol : '' });
+    setUnitFormData({
+      ...unitToEdit,
+      symbol: unitToEdit.symbol ? unitToEdit.symbol : '',
+    });
   }, [unitToEdit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +111,9 @@ export const UnitForm = ({ unitToEdit, close }: UnitFormProps) => {
           {close && <CancelBtn onClick={close} text='Annuler' />}
         </ModalActions>
       ) : (
-        <Button fullWidth={true} mt='1.1rem'>Ajouter une unité</Button>
+        <Button fullWidth={true} mt='1.1rem'>
+          Ajouter une unité
+        </Button>
       )}
     </form>
   );

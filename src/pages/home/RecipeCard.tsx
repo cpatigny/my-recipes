@@ -27,16 +27,25 @@ interface RecipeCardProps extends Recipe {
   id: string;
 }
 
-export const RecipeCard = ({ id, title, imageName, slug, nbServings }: RecipeCardProps) => {
+export const RecipeCard = ({
+  id,
+  title,
+  imageName,
+  slug,
+  nbServings,
+}: RecipeCardProps) => {
   const {
     addToShoppingListAndNotify,
     shoppingListContainsRecipe,
     deleteFromShoppingListAndNotify,
   } = useShoppingList();
 
-  const gradient = 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.7))';
+  const gradient =
+    'linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.7))';
   const imageUrl = imageName && getRecipeImgUrl(imageName);
-  const backgroundImage = imageName ? `${gradient}, url(${imageUrl})` : gradient;
+  const backgroundImage = imageName
+    ? `${gradient}, url(${imageUrl})`
+    : gradient;
   const noImage = !imageName;
   const isRecipeInShoppingList = shoppingListContainsRecipe(id);
   const item: ShoppingListItem = { id, servingsNb: Number(nbServings) };
@@ -68,7 +77,8 @@ export const RecipeCard = ({ id, title, imageName, slug, nbServings }: RecipeCar
           grid({
             placeItems: 'end center',
             h: { base: '15.625rem', xsm: '21.875rem' },
-            shadow: 'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
+            shadow:
+              'rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
             rounded: '2xl',
             pos: 'relative',
             bg: '#f5f5f5',
@@ -114,7 +124,7 @@ export const RecipeCard = ({ id, title, imageName, slug, nbServings }: RecipeCar
             fontSize: { base: '1.5rem', xsm: '1.95rem' },
           })}
         >
-          { title }
+          {title}
         </p>
       </Link>
     </div>

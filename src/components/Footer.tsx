@@ -18,7 +18,11 @@ export const Footer = ({ user }: FooterProps) => (
       bg: 'orange.450',
       p: { base: '1rem 2rem', xsm: '1.4rem 2.4rem', md: '1.95rem 3.25rem' },
       rounded: '2xl',
-      m: { base: '1.5rem 0 0.625rem', xsm: '1.5rem 0 2rem', sm: '3.125rem 0 2rem' },
+      m: {
+        base: '1.5rem 0 0.625rem',
+        xsm: '1.5rem 0 2rem',
+        sm: '3.125rem 0 2rem',
+      },
       fontSize: 'text',
     })}
   >
@@ -26,10 +30,15 @@ export const Footer = ({ user }: FooterProps) => (
       Made by <span>Clément</span>
     </p>
     <div>
-      { user
-        ? <button className={css({ color: 'white' })} onClick={() => logOut()}>Déconnexion</button>
-        : <Link to={ROUTES.ADMIN} className={css({ color: 'white' })}>Admin</Link>
-      }
+      {user ? (
+        <button className={css({ color: 'white' })} onClick={() => logOut()}>
+          Déconnexion
+        </button>
+      ) : (
+        <Link to={ROUTES.ADMIN} className={css({ color: 'white' })}>
+          Admin
+        </Link>
+      )}
     </div>
   </footer>
 );

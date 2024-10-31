@@ -10,7 +10,10 @@ interface AdminContainerProps {
   children: React.ReactNode;
 }
 
-export const AdminContainer = ({ className, children }: AdminContainerProps) => {
+export const AdminContainer = ({
+  className,
+  children,
+}: AdminContainerProps) => {
   const { user, userLoading } = useUser();
 
   if (!user && !userLoading) return <Navigate to={ROUTES.HOME} />;
@@ -18,7 +21,7 @@ export const AdminContainer = ({ className, children }: AdminContainerProps) => 
   return (
     <Container type='admin' className={className || ''}>
       <Menu />
-      { children }
+      {children}
     </Container>
   );
 };

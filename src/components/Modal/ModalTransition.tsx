@@ -8,7 +8,9 @@ interface ModalContentProps {
 }
 
 export const ModalTransition = ({
-  isShow, afterLeave, children,
+  isShow,
+  afterLeave,
+  children,
 }: ModalContentProps) => {
   const modalTransitions = useTransition(isShow, {
     from: { transform: 'translateY(-100px)', opacity: 0 },
@@ -22,20 +24,23 @@ export const ModalTransition = ({
     config: { tension: 360, friction: 42 },
   });
 
-  return modalTransitions((style, item) => item && (
-    <animated.div
-      style={style}
-      className={css({
-        pos: 'fixed',
-        top: '0',
-        bottom: '0',
-        left: '0',
-        right: '0',
-        zIndex: '999',
-        overflowY: 'auto',
-      })}
-    >
-      { children }
-    </animated.div>
-  ));
+  return modalTransitions(
+    (style, item) =>
+      item && (
+        <animated.div
+          style={style}
+          className={css({
+            pos: 'fixed',
+            top: '0',
+            bottom: '0',
+            left: '0',
+            right: '0',
+            zIndex: '999',
+            overflowY: 'auto',
+          })}
+        >
+          {children}
+        </animated.div>
+      ),
+  );
 };

@@ -11,7 +11,9 @@ import { Block } from '../../components/Block';
 import { Modal } from '../../components/Modal/Modal';
 
 export const AdminCategories = () => {
-  const [categoryToEdit, setCategoryToEdit] = useState<CategoryWithId | null>(null);
+  const [categoryToEdit, setCategoryToEdit] = useState<CategoryWithId | null>(
+    null,
+  );
 
   const { categories } = useCategories();
 
@@ -28,12 +30,22 @@ export const AdminCategories = () => {
 
       <Block>
         <h2 className={blockTitle()}>Liste des catégories</h2>
-        <AdminCategoryList categories={categories} setCategoryToEdit={setCategoryToEdit} />
+        <AdminCategoryList
+          categories={categories}
+          setCategoryToEdit={setCategoryToEdit}
+        />
       </Block>
 
-      <Modal isShow={!!categoryToEdit} title='Modifier catégorie' onClose={closeModal}>
+      <Modal
+        isShow={!!categoryToEdit}
+        title='Modifier catégorie'
+        onClose={closeModal}
+      >
         {categoryToEdit && (
-          <CategoryForm categoryToEdit={categoryToEdit} closeModal={closeModal} />
+          <CategoryForm
+            categoryToEdit={categoryToEdit}
+            closeModal={closeModal}
+          />
         )}
       </Modal>
     </AdminContainer>

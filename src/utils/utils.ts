@@ -1,4 +1,5 @@
-export const removeAccents = (str: string) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+export const removeAccents = (str: string) =>
+  str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
 export const replaceSpecialCharsWithDash = (str: string): string => {
   // we remove accents first to avoid letters with accent being replaced by a dash
@@ -35,8 +36,11 @@ export const slugify = (str: string): string => {
 
 export const strContains = (str: string, strToContain: string): boolean => {
   const strWithoutAccentsUppercase = removeAccents(str).toUpperCase();
-  const strToContainWithoutAccentsUppercase = removeAccents(strToContain).toUpperCase();
-  return strWithoutAccentsUppercase.includes(strToContainWithoutAccentsUppercase);
+  const strToContainWithoutAccentsUppercase =
+    removeAccents(strToContain).toUpperCase();
+  return strWithoutAccentsUppercase.includes(
+    strToContainWithoutAccentsUppercase,
+  );
 };
 
 /**
@@ -44,7 +48,11 @@ export const strContains = (str: string, strToContain: string): boolean => {
  * @param {string} wordToEnter word that must be write to confirmText
  * @param {function} onConfirm function that will be executed on confirm
  */
-export const confirm = (confirmText: string, wordToEnter: string, onConfirm: () => void): void => {
+export const confirm = (
+  confirmText: string,
+  wordToEnter: string,
+  onConfirm: () => void,
+): void => {
   let text;
   let quit = false;
 
@@ -78,11 +86,12 @@ interface ReversableObject<T> {
   [key: string]: T;
 }
 
-export const reverseObject = <T>(objectToReverse: ReversableObject<T>): ReversableObject<T> => {
+export const reverseObject = <T>(
+  objectToReverse: ReversableObject<T>,
+): ReversableObject<T> => {
   const reversedObject = {} as ReversableObject<T>;
 
-  Object
-    .keys(objectToReverse)
+  Object.keys(objectToReverse)
     .reverse()
     .forEach(key => {
       const object = objectToReverse[key];

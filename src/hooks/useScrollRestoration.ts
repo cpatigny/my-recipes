@@ -25,7 +25,10 @@ export const useScrollRestoration = (shouldSaveScrollPos = true) => {
 
       const scrollPositions = getScrollPositions();
       scrollPositions[key] = window.scrollY.toString();
-      sessionStorage.setItem(SCROLL_STORAGE_KEY, JSON.stringify(scrollPositions));
+      sessionStorage.setItem(
+        SCROLL_STORAGE_KEY,
+        JSON.stringify(scrollPositions),
+      );
     };
 
     window.addEventListener('scroll', saveScrollPosition);

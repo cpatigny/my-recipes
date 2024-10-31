@@ -31,7 +31,11 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { useRecipeMultiStepForm } from '../../../../contexts/RecipeMultiStepFormContext';
-import { DEFAULT_GROUP, getGroupItems, sortGroupIdsByPosition } from '../../../../helpers/group.helpers';
+import {
+  DEFAULT_GROUP,
+  getGroupItems,
+  sortGroupIdsByPosition,
+} from '../../../../helpers/group.helpers';
 import { IngredientAndGroupListProps } from '../IngredientAndGroupList';
 
 import { GroupItem } from './GroupItem';
@@ -49,7 +53,11 @@ const dropAnimation: DropAnimation = {
   }),
 };
 
-const IngredientDragOverlay = ({ ingredient }: { ingredient: RecipeIngredientWithId | null }) => {
+const IngredientDragOverlay = ({
+  ingredient,
+}: {
+  ingredient: RecipeIngredientWithId | null;
+}) => {
   if (!ingredient) {
     return null;
   }
@@ -66,7 +74,11 @@ const IngredientDragOverlay = ({ ingredient }: { ingredient: RecipeIngredientWit
   );
 };
 
-const GroupDragOverlay = ({ group }: { group: GroupWithIngredients | null }) => {
+const GroupDragOverlay = ({
+  group,
+}: {
+  group: GroupWithIngredients | null;
+}) => {
   if (!group) {
     return null;
   }
@@ -91,7 +103,10 @@ const GroupDragOverlay = ({ group }: { group: GroupWithIngredients | null }) => 
 };
 
 export const GroupsContainers = ({
-  deleteIngredient, deleteGroup, showEditIngredientForm, showEditGroupForm,
+  deleteIngredient,
+  deleteGroup,
+  showEditIngredientForm,
+  showEditGroupForm,
 }: IngredientAndGroupListProps) => {
   const [groupsIds, setGroupsIds] = useState<UniqueIdentifier[]>([]);
   const [clonedItems, setClonedItems] = useState<RecipeFormData | null>(null);
@@ -111,12 +126,17 @@ export const GroupsContainers = ({
     }),
   );
 
-  const findGroupById = useCallback((id: UniqueIdentifier) => {
-    const matchingGroup = groupItems.find(group => group.id === id);
-    return matchingGroup ?? null;
-  }, [groupItems]);
+  const findGroupById = useCallback(
+    (id: UniqueIdentifier) => {
+      const matchingGroup = groupItems.find(group => group.id === id);
+      return matchingGroup ?? null;
+    },
+    [groupItems],
+  );
 
-  const findIngredientById = (id: UniqueIdentifier): RecipeIngredientWithId | null => {
+  const findIngredientById = (
+    id: UniqueIdentifier,
+  ): RecipeIngredientWithId | null => {
     let matchingIngredient: RecipeIngredientWithId | null = null;
 
     groupItems.forEach(group => {
@@ -145,7 +165,9 @@ export const GroupsContainers = ({
 
     // if it is the id of an ingredient
     // so return the group that has the ingredient (the container)
-    return groupItems.find(group => group.ingredients.some(ingredient => ingredient.id === id));
+    return groupItems.find(group =>
+      group.ingredients.some(ingredient => ingredient.id === id),
+    );
   };
 
   const onDragCancel = () => {
@@ -160,7 +182,10 @@ export const GroupsContainers = ({
   };
 
   const getNewIndexOnDragOver = (
-    overContainer: GroupWithIngredients, overId: UniqueIdentifier, over: Over, active: Active,
+    overContainer: GroupWithIngredients,
+    overId: UniqueIdentifier,
+    over: Over,
+    active: Active,
   ) => {
     const overItems = overContainer.ingredients;
     const overIndex = overItems.findIndex(ing => ing.id === overId);
@@ -170,10 +195,10 @@ export const GroupsContainers = ({
     if (findGroupById(overId)) {
       newIndex = overItems.length + 1;
     } else {
-      const isBelowOverItem = over
-        && active.rect.current.translated
-        && active.rect.current.translated.top
-        > over.rect.top + over.rect.height;
+      const isBelowOverItem =
+        over &&
+        active.rect.current.translated &&
+        active.rect.current.translated.top > over.rect.top + over.rect.height;
 
       const modifier = isBelowOverItem ? 1 : 0;
 
@@ -217,15 +242,16 @@ export const GroupsContainers = ({
         const ingredientsWithPosToUpdate = newIngredients
           .filter(ing => {
             // because ingredients from default group have groupId set to false
-            const overId = overContainer.id === DEFAULT_GROUP.id ? false : overContainer.id;
+            const overId =
+              overContainer.id === DEFAULT_GROUP.id ? false : overContainer.id;
             return ing.groupId === overId;
           })
           .map((ing, index) => ({ ...ing, position: index }));
 
         // update position for ingredients in the new group
-        const ingredientsWithoutPosToUpdate = newIngredients.filter(ing => (
-          ing.groupId !== overContainer.id
-        ));
+        const ingredientsWithoutPosToUpdate = newIngredients.filter(
+          ing => ing.groupId !== overContainer.id,
+        );
 
         newIngredients = [
           ...ingredientsWithoutPosToUpdate,
@@ -273,15 +299,28 @@ export const GroupsContainers = ({
         return;
       }
 
-      const newIndex = getNewIndexOnDragOver(overContainer, overId, over, active);
+      const newIndex = getNewIndexOnDragOver(
+        overContainer,
+        overId,
+        over,
+        active,
+      );
       recentlyMovedToNewContainer.current = true;
       draft.ingredients = updateIngredients(
-        groupItems, newIndex, activeIngredient, overContainer, active,
+        groupItems,
+        newIndex,
+        activeIngredient,
+        overContainer,
+        active,
       );
     });
   };
 
-  const updateGroupsPosition = (groupsToUpdate: Groups | null, active: Active, over: Over) => {
+  const updateGroupsPosition = (
+    groupsToUpdate: Groups | null,
+    active: Active,
+    over: Over,
+  ) => {
     if (!groupsToUpdate) {
       return null;
     }
@@ -353,7 +392,11 @@ export const GroupsContainers = ({
         const activeIngredient = activeItems[activeIndex];
         if (!activeIngredient) return;
         draft.ingredients = updateIngredients(
-          groupItems, overIndex, activeIngredient, overContainer, active,
+          groupItems,
+          overIndex,
+          activeIngredient,
+          overContainer,
+          active,
         );
       });
     }

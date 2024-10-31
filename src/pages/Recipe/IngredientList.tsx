@@ -10,7 +10,10 @@ interface IngredientListProps {
   servingRatio?: number;
 }
 
-export const IngredientList = ({ ingredients, servingRatio }: IngredientListProps) => {
+export const IngredientList = ({
+  ingredients,
+  servingRatio,
+}: IngredientListProps) => {
   const { ingredientsDetails } = useIngredientsDetails();
   const { units } = useUnits();
 

@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
-import { RecipeIngredientWithId, GroupWithId, GroupWithIngredients, RecipeIngredients } from '../../../types/recipe';
+import {
+  RecipeIngredientWithId,
+  GroupWithId,
+  GroupWithIngredients,
+  RecipeIngredients,
+} from '../../../types/recipe';
 import { useToast } from '../../../contexts/ToastContext';
 
 import { Modal } from '../../Modal/Modal';
@@ -12,7 +17,8 @@ import { NbOfServings } from './NbOfServings';
 import { Block } from '../../Block';
 
 export const IngredientsForm = () => {
-  const [ingredientToEdit, setIngredientToEdit] = useState<RecipeIngredientWithId | null>(null);
+  const [ingredientToEdit, setIngredientToEdit] =
+    useState<RecipeIngredientWithId | null>(null);
   const [groupToEdit, setGroupToEdit] = useState<GroupWithId | null>(null);
   const [showGroupForm, setShowGroupForm] = useState(false);
 
@@ -49,8 +55,7 @@ export const IngredientsForm = () => {
       // all ingredients but the ones from the group we're deleting
       const nonGroupIngredients: RecipeIngredients = {};
 
-      Object
-        .keys(draft.ingredients)
+      Object.keys(draft.ingredients)
         .filter(key => !groupIngredientsIds.includes(key))
         .forEach(key => {
           const ingredient = draft.ingredients[key];
@@ -85,7 +90,10 @@ export const IngredientsForm = () => {
       <Block>
         <IngredientForm />
       </Block>
-      <AddGroup ingredients={ingredients} showGroupForm={() => setShowGroupForm(true)} />
+      <AddGroup
+        ingredients={ingredients}
+        showGroupForm={() => setShowGroupForm(true)}
+      />
       <IngredientAndGroupList
         deleteIngredient={deleteIngredient}
         showEditIngredientForm={showEditIngredientForm}

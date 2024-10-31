@@ -11,7 +11,8 @@ import { Icon } from '../../../Icon';
 import { DEFAULT_INGREDIENT } from './DefaultGroup';
 import { Button } from '../../../Button';
 
-export interface IngredientItemProps extends React.HTMLAttributes<HTMLLIElement> {
+export interface IngredientItemProps
+  extends React.HTMLAttributes<HTMLLIElement> {
   listeners?: DraggableSyntheticListeners;
   style?: React.CSSProperties;
   ingredient: RecipeIngredientWithId;
@@ -58,10 +59,7 @@ export const IngredientItem = memo(
 
       if (ingredient.id === DEFAULT_INGREDIENT.id) {
         return (
-          <li
-            ref={ref}
-            className={css({ visibility: 'hidden', h: '0' })}
-          >
+          <li ref={ref} className={css({ visibility: 'hidden', h: '0' })}>
             Ingrédient par défaut, ne peut pas être déplacé
           </li>
         );
@@ -79,7 +77,8 @@ export const IngredientItem = memo(
             bg: 'white',
             pr: '1.1rem',
             rounded: '0.8rem',
-            shadow: '0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(34, 33, 81, 0.15)',
+            shadow:
+              '0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(34, 33, 81, 0.15)',
             w: '100%',
             '&:not(:last-child)': {
               mb: '1rem',
@@ -108,7 +107,9 @@ export const IngredientItem = memo(
                 visual='grey'
                 color='edit'
                 type='button'
-                onClick={() => showEditIngredientForm({ ...ingredient, id: ingredient.id })}
+                onClick={() =>
+                  showEditIngredientForm({ ...ingredient, id: ingredient.id })
+                }
               >
                 <Icon name='edit' fontSize='1.2rem' />
               </Button>

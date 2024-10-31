@@ -11,23 +11,21 @@ export const getMatchingUnits = (search: string, units: Units | null) => {
 
   const matchingUnits: UnitWithId[] = [];
 
-  Object
-    .keys(units)
-    .forEach(key => {
-      const unit = units[key];
-      if (!unit) return;
-      const singularContainsSearch = strContains(unit.singular, search);
-      const pluralContainsSearch = strContains(unit.plural, search);
+  Object.keys(units).forEach(key => {
+    const unit = units[key];
+    if (!unit) return;
+    const singularContainsSearch = strContains(unit.singular, search);
+    const pluralContainsSearch = strContains(unit.plural, search);
 
-      let unitMatchesSearch = false;
-      if (unit.symbol) {
-        unitMatchesSearch = strContains(unit.symbol, search);
-      }
+    let unitMatchesSearch = false;
+    if (unit.symbol) {
+      unitMatchesSearch = strContains(unit.symbol, search);
+    }
 
-      if (singularContainsSearch || pluralContainsSearch || unitMatchesSearch) {
-        matchingUnits.push({ id: key, ...unit });
-      }
-    });
+    if (singularContainsSearch || pluralContainsSearch || unitMatchesSearch) {
+      matchingUnits.push({ id: key, ...unit });
+    }
+  });
 
   return matchingUnits;
 };
@@ -36,7 +34,10 @@ export const getMatchingUnits = (search: string, units: Units | null) => {
  * returns a unit object which properties all have a defined value
  * it'll return the default unit if no unitId is passed
  */
-export const getUnitDetails = (units: Units | null, unitId?: RecipeIngredient['unitId']) => {
+export const getUnitDetails = (
+  units: Units | null,
+  unitId?: RecipeIngredient['unitId'],
+) => {
   const defaultUnit: Unit = {
     singular: '',
     plural: '',
@@ -104,16 +105,18 @@ export const deleteUnit = async (unitId: string, recipes: Recipes) => {
   const db = getDatabase();
   const recipesToUpdate: Recipes = {};
 
-  Object
-    .keys(recipes)
-    .forEach(key => {
-      const recipe = recipes[key];
-      if (!recipe) return;
-      if (recipeUses(recipe, unitId, 'unitId')) {
-        const updatedRecipe = removeValuefromRecipeIngredients(recipe, 'unitId', unitId);
-        recipesToUpdate[key] = updatedRecipe;
-      }
-    });
+  Object.keys(recipes).forEach(key => {
+    const recipe = recipes[key];
+    if (!recipe) return;
+    if (recipeUses(recipe, unitId, 'unitId')) {
+      const updatedRecipe = removeValuefromRecipeIngredients(
+        recipe,
+        'unitId',
+        unitId,
+      );
+      recipesToUpdate[key] = updatedRecipe;
+    }
+  });
 
   const recipesRef = ref(db, 'recipes');
   await update(recipesRef, recipesToUpdate);

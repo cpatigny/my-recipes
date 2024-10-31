@@ -9,7 +9,9 @@ interface PreviewIngredientListProps {
   ingredients: RecipeIngredientWithId[];
 }
 
-export const PreviewIngredientList = ({ ingredients }: PreviewIngredientListProps) => {
+export const PreviewIngredientList = ({
+  ingredients,
+}: PreviewIngredientListProps) => {
   const { ingredientsDetails } = useIngredientsDetails();
   const { units } = useUnits();
 

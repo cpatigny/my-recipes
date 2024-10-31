@@ -5,7 +5,11 @@ import { ProgressBarStep } from './ProgressBarStep';
 
 export const ProgressBar = () => {
   const {
-    steps, currentStepIndex, completedStepIndexes, goTo, lastCompletedStepIndex,
+    steps,
+    currentStepIndex,
+    completedStepIndexes,
+    goTo,
+    lastCompletedStepIndex,
   } = useRecipeMultiStepForm();
 
   return (

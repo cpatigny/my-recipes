@@ -34,32 +34,45 @@ export const Preview = () => {
   return (
     <div>
       <Block>
-        <h2 className={css({ fontSize: 'pageTitle', mb: '0.2rem' })}>{ recipeFormData.title }</h2>
+        <h2 className={css({ fontSize: 'pageTitle', mb: '0.2rem' })}>
+          {recipeFormData.title}
+        </h2>
         {previewImageSrc && recipeFormData.imageName && (
-          <img src={previewImageSrc} alt={recipeFormData.imageName} className={css({ mb: '0.6rem' })} />
+          <img
+            src={previewImageSrc}
+            alt={recipeFormData.imageName}
+            className={css({ mb: '0.6rem' })}
+          />
         )}
 
         {cookTimeInMins && (
-          <p>Temps de cuisson : <b>{ getCookTimeText(cookTimeInMins) }</b></p>
+          <p>
+            Temps de cuisson : <b>{getCookTimeText(cookTimeInMins)}</b>
+          </p>
         )}
 
-        <p>Catégorie : { categoryName }</p>
+        <p>Catégorie : {categoryName}</p>
 
         <h3 className={css({ fontSize: h3Size, my: '1.9rem' })}>Ingrédients</h3>
-        <p>{ recipeFormData.nbServings } { recipeFormData.servingsUnit } :</p>
+        <p>
+          {recipeFormData.nbServings} {recipeFormData.servingsUnit} :
+        </p>
 
-        { noIngredients && (
-          <SecondaryText>Vous n&apos;avez ajouté aucun ingrédient</SecondaryText>
+        {noIngredients && (
+          <SecondaryText>
+            Vous n&apos;avez ajouté aucun ingrédient
+          </SecondaryText>
         )}
 
         <PreviewIngredientList ingredients={ingredientsWithoutGroup} />
 
-        {groupsWithIngredients && groupsWithIngredients.map(group => (
-          <div key={group.id}>
-            <p>{ group.name } :</p>
-            <PreviewIngredientList ingredients={group.ingredients} />
-          </div>
-        ))}
+        {groupsWithIngredients &&
+          groupsWithIngredients.map(group => (
+            <div key={group.id}>
+              <p>{group.name} :</p>
+              <PreviewIngredientList ingredients={group.ingredients} />
+            </div>
+          ))}
 
         <h3 className={css({ fontSize: h3Size, my: '1.9rem' })}>Préparation</h3>
         <ReactMarkdown
@@ -78,7 +91,7 @@ export const Preview = () => {
             },
           })}
         >
-          { recipeFormData.content }
+          {recipeFormData.content}
         </ReactMarkdown>
       </Block>
     </div>

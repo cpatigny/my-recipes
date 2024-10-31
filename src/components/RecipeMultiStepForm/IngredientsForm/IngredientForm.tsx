@@ -2,9 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { getNewItemPosition } from '../../../helpers/helpers';
 import { generateIngredientKey } from '../../../helpers/ingredient.helpers';
 import { useIngredientsDetails } from '../../../contexts/IngredientsDetailsContext';
-import { useRecipeMultiStepForm, FormElements } from '../../../contexts/RecipeMultiStepFormContext';
+import {
+  useRecipeMultiStepForm,
+  FormElements,
+} from '../../../contexts/RecipeMultiStepFormContext';
 import { useUnits } from '../../../contexts/UnitsContext';
-import { RecipeIngredientWithId, RecipeIngredientFormData } from '../../../types/recipe';
+import {
+  RecipeIngredientWithId,
+  RecipeIngredientFormData,
+} from '../../../types/recipe';
 import { FormErrors } from '../RecipeMultiStepForm';
 import { wrap } from '../../../../styled-system/patterns';
 import { css } from '../../../../styled-system/css';
@@ -24,7 +30,10 @@ interface IngredientFormProps {
   closeModal?: () => void;
 }
 
-export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) => {
+export const IngredientForm = ({
+  ingredient,
+  closeModal,
+}: IngredientFormProps) => {
   const DEFAULT_INGREDIENT_DATA = {
     quantity: '',
     unitId: '',
@@ -33,10 +42,8 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
     additionalInfo: '',
   };
 
-  const [
-    ingredientData,
-    setIngredientData,
-  ] = useState<RecipeIngredientFormData>(DEFAULT_INGREDIENT_DATA);
+  const [ingredientData, setIngredientData] =
+    useState<RecipeIngredientFormData>(DEFAULT_INGREDIENT_DATA);
   const [ingredientErrors, setIngredientErrors] = useState<FormErrors>({});
 
   const { ingredientsDetails } = useIngredientsDetails();
@@ -55,7 +62,9 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
       unitId: ingredient.unitId ? ingredient.unitId : '',
       detailsId: ingredient.detailsId,
       preposition: ingredient.preposition ? ingredient.preposition : '',
-      additionalInfo: ingredient.additionalInfo ? ingredient.additionalInfo : '',
+      additionalInfo: ingredient.additionalInfo
+        ? ingredient.additionalInfo
+        : '',
     });
   }, [ingredient, ingredientsDetails, units]);
 
@@ -79,7 +88,9 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
     }
   };
 
-  const validateIngredient = (ingredientToValidate: RecipeIngredientFormData) => {
+  const validateIngredient = (
+    ingredientToValidate: RecipeIngredientFormData,
+  ) => {
     const errors: FormErrors = {};
 
     if (!ingredientToValidate.detailsId) {
@@ -110,7 +121,9 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
     setRecipeFormData(draft => {
       draft.ingredients[newIngredientKey] = {
         ...ingredientData,
-        quantity: ingredientData.quantity ? Number(ingredientData.quantity) : false,
+        quantity: ingredientData.quantity
+          ? Number(ingredientData.quantity)
+          : false,
         position: getNewItemPosition(draft.ingredients),
         groupId: false,
         unitId: ingredientData.unitId ? ingredientData.unitId : false,
@@ -142,12 +155,16 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
         ...ingredientToEdit,
         ...ingredientData,
         unitId: ingredientData.unitId ? ingredientData.unitId : false,
-        quantity: ingredientData.quantity ? Number(ingredientData.quantity) : false,
+        quantity: ingredientData.quantity
+          ? Number(ingredientData.quantity)
+          : false,
       };
     });
 
     if (!closeModal) {
-      throw new Error('closeModal function must be passed when editing an ingredient');
+      throw new Error(
+        'closeModal function must be passed when editing an ingredient',
+      );
     }
 
     resetForm();
@@ -168,7 +185,9 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
   return (
     <div data-editing={editMode}>
       {!editMode && (
-        <p className={css({ mb: '0.5rem' })}><b>Ajout d&apos;ingrédients :</b></p>
+        <p className={css({ mb: '0.5rem' })}>
+          <b>Ajout d&apos;ingrédients :</b>
+        </p>
       )}
       <form onSubmit={handleSubmit}>
         <div className={wrap({ gap: '1rem', alignItems: 'flex-end' })}>
@@ -190,7 +209,11 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             setIngredientData={setIngredientData}
             units={units}
             error={!!ingredientErrors.unit}
-            className={css({ flex: 2, minW: '12.5rem', m: underlineInputMargin })}
+            className={css({
+              flex: 2,
+              minW: '12.5rem',
+              m: underlineInputMargin,
+            })}
           />
 
           <UnderlineInput
@@ -207,7 +230,11 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             setIngredientData={setIngredientData}
             ingredientsDetails={ingredientsDetails}
             error={!!ingredientErrors.name}
-            className={css({ flex: '100% 1', minW: '12.5rem', m: underlineInputMargin })}
+            className={css({
+              flex: '100% 1',
+              minW: '12.5rem',
+              m: underlineInputMargin,
+            })}
           />
 
           <UnderlineInput
@@ -219,9 +246,9 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
             className={css({ flex: 1, minW: '12.5rem' })}
           />
         </div>
-        { hasErrors && (
+        {hasErrors && (
           <ul className={css({ my: '1rem' })}>
-            { Object.keys(ingredientErrors).map(key => (
+            {Object.keys(ingredientErrors).map(key => (
               <li
                 key={key}
                 className={css({
@@ -231,7 +258,7 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
                   listStyleType: 'disc',
                 })}
               >
-                { ingredientErrors[key] }
+                {ingredientErrors[key]}
               </li>
             ))}
           </ul>
@@ -239,14 +266,19 @@ export const IngredientForm = ({ ingredient, closeModal }: IngredientFormProps) 
         {editMode ? (
           <ModalActions>
             <Button size='smd'>
-              <Icon name={ editMode ? 'edit' : 'add' } />
+              <Icon name={editMode ? 'edit' : 'add'} />
               Modifier
             </Button>
-            {closeModal && <CancelBtn onClick={closeModal} text='Annuler' icon={true} />}
+            {closeModal && (
+              <CancelBtn onClick={closeModal} text='Annuler' icon={true} />
+            )}
           </ModalActions>
         ) : (
           <Button fullWidth={true} mt='1.6rem'>
-            <Icon name={ editMode ? 'edit' : 'add' } className={css({ mr: '0.3rem' })} />
+            <Icon
+              name={editMode ? 'edit' : 'add'}
+              className={css({ mr: '0.3rem' })}
+            />
             Ajouter ingrédient
           </Button>
         )}

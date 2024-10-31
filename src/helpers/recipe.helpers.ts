@@ -1,17 +1,30 @@
 import { getDatabase, ref, remove, update, push } from 'firebase/database';
 import { ref as storageRef, getStorage, deleteObject } from 'firebase/storage';
-import { Recipe, RecipeFormData, RecipeIngredient, RecipeIngredientWithId, Recipes, RecipeWithId } from '../types/recipe';
+import {
+  Recipe,
+  RecipeFormData,
+  RecipeIngredient,
+  RecipeIngredientWithId,
+  Recipes,
+  RecipeWithId,
+} from '../types/recipe';
 import { strContains } from '../utils/utils';
 import { generateKey } from './firebase.helpers';
-import { mergeDuplicateIngredients, orderIngredientsByDetailsId } from './ingredient.helpers';
+import {
+  mergeDuplicateIngredients,
+  orderIngredientsByDetailsId,
+} from './ingredient.helpers';
 import { ShoppingListRecipeWithId } from '../types/shoppingList';
 
-export const getRecipeBySlug = (slug: string, recipes: Recipes): RecipeWithId | null => {
+export const getRecipeBySlug = (
+  slug: string,
+  recipes: Recipes,
+): RecipeWithId | null => {
   if (!recipes) return null;
 
-  const recipeKey = Object
-    .keys(recipes)
-    .find(key => recipes[key]?.slug === slug);
+  const recipeKey = Object.keys(recipes).find(
+    key => recipes[key]?.slug === slug,
+  );
 
   // no match, the list doesn't exist
   if (!recipeKey) return null;
@@ -27,11 +40,13 @@ export const getRecipeBySlug = (slug: string, recipes: Recipes): RecipeWithId | 
   };
 };
 
-export const getRecipesByCategory = (recipes: Recipes, categoryId: string): Recipes | null => {
+export const getRecipesByCategory = (
+  recipes: Recipes,
+  categoryId: string,
+): Recipes | null => {
   const recipesWithCategory: Recipes = {};
 
-  Object
-    .keys(recipes)
+  Object.keys(recipes)
     .filter(key => recipes[key]?.categoryId === categoryId)
     .forEach(key => {
       const recipe = recipes[key];
@@ -43,34 +58,36 @@ export const getRecipesByCategory = (recipes: Recipes, categoryId: string): Reci
   return noMatch ? null : recipesWithCategory;
 };
 
-export const recipeUses = (recipe: Recipe, id: string, property: keyof RecipeIngredient) => {
+export const recipeUses = (
+  recipe: Recipe,
+  id: string,
+  property: keyof RecipeIngredient,
+) => {
   const ingredients = recipe.ingredients;
 
-  return Object
-    .keys(ingredients)
-    .some(key => {
-      const ingredient = ingredients[key];
-      if (!ingredient) return false;
-      return ingredient[property] === id;
-    });
+  return Object.keys(ingredients).some(key => {
+    const ingredient = ingredients[key];
+    if (!ingredient) return false;
+    return ingredient[property] === id;
+  });
 };
 
 export const removeValuefromRecipeIngredients = (
-  recipe: Recipe, property: keyof RecipeIngredient, id: string,
+  recipe: Recipe,
+  property: keyof RecipeIngredient,
+  id: string,
 ) => {
   const updatedRecipe: Recipe = { ...recipe };
   const updatedIngredients = { ...recipe.ingredients };
 
-  Object
-    .keys(updatedIngredients)
-    .forEach(key => {
-      const ingredient = updatedIngredients[key];
-      if (!ingredient) return;
+  Object.keys(updatedIngredients).forEach(key => {
+    const ingredient = updatedIngredients[key];
+    if (!ingredient) return;
 
-      if (ingredient[property] === id) {
-        delete updatedIngredients[key];
-      }
-    });
+    if (ingredient[property] === id) {
+      delete updatedIngredients[key];
+    }
+  });
 
   updatedRecipe.ingredients = { ...updatedIngredients };
 
@@ -83,8 +100,7 @@ export const removeValuefromRecipeIngredients = (
 export const reverseRecipes = (recipes: Recipes): Recipes => {
   const reversedObject: Recipes = {};
 
-  Object
-    .keys(recipes)
+  Object.keys(recipes)
     .reverse()
     .forEach(key => {
       const object = recipes[key];
@@ -97,18 +113,19 @@ export const reverseRecipes = (recipes: Recipes): Recipes => {
   return reversedObject;
 };
 
-export const searchMatchingRecipes = (search: string, recipes: Recipes): Recipes | null => {
+export const searchMatchingRecipes = (
+  search: string,
+  recipes: Recipes,
+): Recipes | null => {
   const matchingRecipes: Recipes = {};
 
-  Object
-    .keys(recipes)
-    .forEach(key => {
-      const recipe = recipes[key];
-      if (!recipe) return;
-      if (strContains(recipe.title, search)) {
-        matchingRecipes[key] = recipe;
-      }
-    });
+  Object.keys(recipes).forEach(key => {
+    const recipe = recipes[key];
+    if (!recipe) return;
+    if (strContains(recipe.title, search)) {
+      matchingRecipes[key] = recipe;
+    }
+  });
 
   const noMatch = Object.keys(matchingRecipes).length === 0;
 
@@ -131,7 +148,10 @@ export const deleteRecipe = async (recipe: RecipeWithId) => {
   return remove(recipeRef);
 };
 
-export const updateRecipe = (recipe: RecipeWithId, recipeFormData: RecipeFormData) => {
+export const updateRecipe = (
+  recipe: RecipeWithId,
+  recipeFormData: RecipeFormData,
+) => {
   const db = getDatabase();
   const recipeRef = ref(db, `recipes/${recipe.id}`);
   return update(recipeRef, recipeFormData);
@@ -148,7 +168,10 @@ export const generateRecipeKey = () => {
   return generateKey(path);
 };
 
-export const getServingRatio = (numberOfServings: number, recipeServings?: string) => {
+export const getServingRatio = (
+  numberOfServings: number,
+  recipeServings?: string,
+) => {
   if (!recipeServings) {
     return undefined;
   }
@@ -174,19 +197,20 @@ export const getIngredientList = (recipes: ShoppingListRecipeWithId[]) => {
 
   recipes.forEach(recipe => {
     const recipeIngredients: RecipeIngredientWithId[] = [];
-    Object
-      .keys(recipe.ingredients)
-      .forEach(key => {
-        const ingredient = recipe.ingredients[key];
-        if (!ingredient) return;
-        let quantity: boolean | number = false;
-        if (ingredient.quantity) {
-          const servingRatio = getServingRatio(recipe.shoppingListServingsNb, recipe.nbServings);
-          if (!servingRatio) return;
-          quantity = ingredient.quantity * servingRatio;
-        }
-        recipeIngredients.push({ ...ingredient, quantity, id: key });
-      });
+    Object.keys(recipe.ingredients).forEach(key => {
+      const ingredient = recipe.ingredients[key];
+      if (!ingredient) return;
+      let quantity: boolean | number = false;
+      if (ingredient.quantity) {
+        const servingRatio = getServingRatio(
+          recipe.shoppingListServingsNb,
+          recipe.nbServings,
+        );
+        if (!servingRatio) return;
+        quantity = ingredient.quantity * servingRatio;
+      }
+      recipeIngredients.push({ ...ingredient, quantity, id: key });
+    });
     allIngredients.push(...recipeIngredients);
   });
   const mergedIngredients = mergeDuplicateIngredients(allIngredients);

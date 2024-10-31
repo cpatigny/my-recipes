@@ -15,7 +15,9 @@ interface IngredientsSectionProps {
 }
 
 export const IngredientsSection = ({
-  recipe, numberOfServings, setNumberOfServings,
+  recipe,
+  numberOfServings,
+  setNumberOfServings,
 }: IngredientsSectionProps) => {
   const { ingredients, groups } = recipe;
 
@@ -30,13 +32,22 @@ export const IngredientsSection = ({
 
   return (
     <section className={css({ mt: '2.2rem' })}>
-      <h2 className={css({ fontSize: 'clamp(2rem, 1.6295rem + 1.8526vw, 2.44rem)' })}>Ingrédients</h2>
+      <h2
+        className={css({
+          fontSize: 'clamp(2rem, 1.6295rem + 1.8526vw, 2.44rem)',
+        })}
+      >
+        Ingrédients
+      </h2>
       <Servings
         numberOfServings={numberOfServings}
         setNumberOfServings={setNumberOfServings}
         recipe={recipe}
       />
-      <IngredientList ingredients={ingredientsWithoutGroup} servingRatio={servingRatio} />
+      <IngredientList
+        ingredients={ingredientsWithoutGroup}
+        servingRatio={servingRatio}
+      />
       {groupsWithIngredients && (
         <GroupList groups={groupsWithIngredients} servingRatio={servingRatio} />
       )}

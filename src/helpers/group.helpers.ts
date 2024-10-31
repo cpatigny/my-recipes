@@ -1,7 +1,14 @@
-import { Groups, RecipeIngredients, GroupWithIngredients } from '../types/recipe';
+import {
+  Groups,
+  RecipeIngredients,
+  GroupWithIngredients,
+} from '../types/recipe';
 import { generateKey } from './firebase.helpers';
 import { sortItemsByPosition } from './helpers';
-import { getIngredientsByGroup, getIngredientsWithoutGroup } from './ingredient.helpers';
+import {
+  getIngredientsByGroup,
+  getIngredientsWithoutGroup,
+} from './ingredient.helpers';
 
 export const DEFAULT_GROUP = {
   id: '0',
@@ -10,7 +17,8 @@ export const DEFAULT_GROUP = {
 } as const;
 
 export const getGroupsWithTheirIngredients = (
-  groups: Groups | null, ingredients: RecipeIngredients,
+  groups: Groups | null,
+  ingredients: RecipeIngredients,
 ) => {
   if (!groups) {
     return [];
@@ -18,22 +26,20 @@ export const getGroupsWithTheirIngredients = (
 
   const groupsWithIngredients: GroupWithIngredients[] = [];
 
-  Object
-    .keys(groups)
-    .forEach(key => {
-      const group = groups[key];
-      if (!group) return;
+  Object.keys(groups).forEach(key => {
+    const group = groups[key];
+    if (!group) return;
 
-      const groupIngredients = getIngredientsByGroup(key, ingredients);
+    const groupIngredients = getIngredientsByGroup(key, ingredients);
 
-      const groupWithIngredients: GroupWithIngredients = {
-        id: key,
-        ...group,
-        ingredients: sortItemsByPosition(groupIngredients),
-      };
+    const groupWithIngredients: GroupWithIngredients = {
+      id: key,
+      ...group,
+      ingredients: sortItemsByPosition(groupIngredients),
+    };
 
-      groupsWithIngredients.push(groupWithIngredients);
-    });
+    groupsWithIngredients.push(groupWithIngredients);
+  });
 
   return sortItemsByPosition(groupsWithIngredients);
 };
@@ -43,7 +49,10 @@ export const generateGroupKey = (recipeId: string) => {
   return generateKey(path);
 };
 
-export const getGroupItems = (groups: Groups | null, ingredients: RecipeIngredients) => {
+export const getGroupItems = (
+  groups: Groups | null,
+  ingredients: RecipeIngredients,
+) => {
   let groupItems: GroupWithIngredients[] = [];
 
   groupItems.push({
@@ -73,16 +82,14 @@ export const sortGroupIdsByPosition = (groups: Groups | null) => {
     return [];
   }
 
-  return Object
-    .keys(groups)
-    .sort((keyA, keyB) => {
-      const groupA = groups[keyA];
-      const groupB = groups[keyB];
+  return Object.keys(groups).sort((keyA, keyB) => {
+    const groupA = groups[keyA];
+    const groupB = groups[keyB];
 
-      if (!groupA || !groupB) {
-        return 0;
-      }
+    if (!groupA || !groupB) {
+      return 0;
+    }
 
-      return groupA.position - groupB.position;
-    });
+    return groupA.position - groupB.position;
+  });
 };

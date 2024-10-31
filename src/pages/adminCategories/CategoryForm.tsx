@@ -16,7 +16,10 @@ interface CategoryFormProps {
   closeModal?: () => void;
 }
 
-export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) => {
+export const CategoryForm = ({
+  categoryToEdit,
+  closeModal,
+}: CategoryFormProps) => {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
 
@@ -88,7 +91,9 @@ export const CategoryForm = ({ categoryToEdit, closeModal }: CategoryFormProps) 
           {closeModal && <CancelBtn onClick={closeModal} text='Annuler' />}
         </ModalActions>
       ) : (
-        <Button fullWidth={true} mt='1.1rem'>Ajouter</Button>
+        <Button fullWidth={true} mt='1.1rem'>
+          Ajouter
+        </Button>
       )}
     </form>
   );

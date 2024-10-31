@@ -4,10 +4,15 @@ import { CssProperties } from '../../styled-system/types/system-types';
 interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
   name: string;
   className?: string;
-  fontSize?: CssProperties['fontSize'],
+  fontSize?: CssProperties['fontSize'];
 }
 
-export const Icon = ({ name, className = '', fontSize, ...props }: IconProps) => (
+export const Icon = ({
+  name,
+  className = '',
+  fontSize,
+  ...props
+}: IconProps) => (
   <span
     {...props}
     className={cx(
@@ -15,8 +20,8 @@ export const Icon = ({ name, className = '', fontSize, ...props }: IconProps) =>
       className,
       css({ fontSize: `var(--fontSize)!` }),
     )}
-    style={{ '--fontSize': fontSize || '1.5rem' } as React.CSSProperties }
+    style={{ '--fontSize': fontSize || '1.5rem' } as React.CSSProperties}
   >
-    { name }
+    {name}
   </span>
 );

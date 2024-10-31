@@ -38,8 +38,18 @@ export const Menu = () => {
 
   const links: Link[] = [
     { id: 0, path: ROUTES.HOME, name: 'Accueil', iconName: 'home' },
-    { id: 1, path: ROUTES.CATEGORIES, name: 'Catégories', iconName: 'category' },
-    { id: 2, path: ROUTES.INGREDIENTS, name: 'Ingrédients', iconName: 'restaurant_menu' },
+    {
+      id: 1,
+      path: ROUTES.CATEGORIES,
+      name: 'Catégories',
+      iconName: 'category',
+    },
+    {
+      id: 2,
+      path: ROUTES.INGREDIENTS,
+      name: 'Ingrédients',
+      iconName: 'restaurant_menu',
+    },
     { id: 3, path: ROUTES.UNITS, name: 'Unités', iconName: 'straighten' },
   ];
 
@@ -85,14 +95,17 @@ export const Menu = () => {
                   };
                 }}
               >
-                { link.name }
+                {link.name}
               </NavLink>
             ))}
           </nav>
           <button
             className={cx(
               menuItemStyles,
-              hstack({ gap: '0 0.4rem', display: { base: 'none', md: 'flex' } }),
+              hstack({
+                gap: '0 0.4rem',
+                display: { base: 'none', md: 'flex' },
+              }),
             )}
             onClick={() => logOut()}
           >
@@ -114,7 +127,11 @@ export const Menu = () => {
         </Container>
       </header>
       <Overlay isShow={showMenu} close={() => setShowMenu(false)}>
-        <MobileMenu isShow={showMenu} close={() => setShowMenu(false)} links={links} />
+        <MobileMenu
+          isShow={showMenu}
+          close={() => setShowMenu(false)}
+          links={links}
+        />
       </Overlay>
     </>
   );

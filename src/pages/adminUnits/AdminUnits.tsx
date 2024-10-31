@@ -39,7 +39,9 @@ export const AdminUnits = () => {
       </Block>
 
       <Block>
-        <h2 className={blockTitle()}>Unités ({ units ? Object.keys(units).length : 0 })</h2>
+        <h2 className={blockTitle()}>
+          Unités ({units ? Object.keys(units).length : 0})
+        </h2>
         {units && (
           <Units
             units={reverseObject(units)}
@@ -49,7 +51,11 @@ export const AdminUnits = () => {
         )}
       </Block>
 
-      <Modal isShow={unitToEdit !== null} onClose={closeEditForm} title='Modifier unité'>
+      <Modal
+        isShow={unitToEdit !== null}
+        onClose={closeEditForm}
+        title='Modifier unité'
+      >
         <UnitForm unitToEdit={unitToEdit} close={closeEditForm} />
       </Modal>
     </AdminContainer>

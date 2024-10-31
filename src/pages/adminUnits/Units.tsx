@@ -20,10 +20,16 @@ export const Units = ({ units, setUnitToEdit, handleDelete }: UnitsProps) => (
       return (
         <AdminListItem key={key}>
           <div>
-            <p>singulier : <b>{ unit.singular }</b></p>
-            <p>pluriel : <b>{ unit.plural }</b></p>
+            <p>
+              singulier : <b>{unit.singular}</b>
+            </p>
+            <p>
+              pluriel : <b>{unit.plural}</b>
+            </p>
             {unit.symbol && (
-              <p>symbole : <b>{ unit.symbol }</b></p>
+              <p>
+                symbole : <b>{unit.symbol}</b>
+              </p>
             )}
           </div>
           <AdminActions>

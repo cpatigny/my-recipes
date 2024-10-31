@@ -28,7 +28,9 @@ export const ShoppingListRecipe = ({
   incrementServingsNb,
   decrementServingsNb,
 }: ShoppingListRecipeProps) => {
-  const [numberOfServings, setNumberOfServings] = useState(recipe.shoppingListServingsNb);
+  const [numberOfServings, setNumberOfServings] = useState(
+    recipe.shoppingListServingsNb,
+  );
 
   useEffect(() => {
     updateShoppingListItem(recipe.id, numberOfServings);
@@ -76,7 +78,7 @@ export const ShoppingListRecipe = ({
             },
           })}
         >
-          { recipe.title }
+          {recipe.title}
         </Link>
         <Servings
           recipe={recipe}

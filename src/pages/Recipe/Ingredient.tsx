@@ -15,10 +15,15 @@ interface IngredientProps {
 }
 
 export const Ingredient = ({
-  ingredient, ingredientsDetails, units, servingRatio,
+  ingredient,
+  ingredientsDetails,
+  units,
+  servingRatio,
 }: IngredientProps) => {
   return (
-    <li className={flex({ align: 'center', mb: '1.25rem', fontSize: '1.2rem' })}>
+    <li
+      className={flex({ align: 'center', mb: '1.25rem', fontSize: '1.2rem' })}
+    >
       <Checkbox.Root
         id={ingredient.id}
         className={square({

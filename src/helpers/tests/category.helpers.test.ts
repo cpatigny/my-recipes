@@ -1,11 +1,19 @@
 import { getDatabase, ref, onValue, get } from 'firebase/database';
 import { signInWithMockedAdmin } from '../../tests-utils/mocks/auth.mock';
-import { getOneMockCategory, getOneMockCategoryWithId } from '../../tests-utils/mocks/categories.mock';
+import {
+  getOneMockCategory,
+  getOneMockCategoryWithId,
+} from '../../tests-utils/mocks/categories.mock';
 import { getMockIngredientsDetails } from '../../tests-utils/mocks/ingredientsDetails.mock';
 import { getOneMockRecipe } from '../../tests-utils/mocks/recipes.mock';
 import { getMockUnits } from '../../tests-utils/mocks/units.mock';
 import { RecipeFormData, Recipes } from '../../types/recipe';
-import { countRecipesByCategory, createCategory, deleteCategory, updateCategory } from '../category.helpers';
+import {
+  countRecipesByCategory,
+  createCategory,
+  deleteCategory,
+  updateCategory,
+} from '../category.helpers';
 import { createRecipe, deleteRecipe } from '../recipe.helpers';
 
 let recipes: Recipes = {};
@@ -46,7 +54,10 @@ test('createCategory should create a new category', async () => {
 
   // clean up added category
   if (newCategoryKey) {
-    await deleteCategory({ recipes, category: { ...newCategory, id: newCategoryKey } });
+    await deleteCategory({
+      recipes,
+      category: { ...newCategory, id: newCategoryKey },
+    });
   }
 });
 
@@ -57,7 +68,10 @@ describe('deleteCategory', () => {
     const newCategoryRef = await createCategory(newCategory);
     const newCategoryKey = newCategoryRef.key;
     if (newCategoryKey) {
-      await deleteCategory({ recipes, category: { ...newCategory, id: newCategoryKey } });
+      await deleteCategory({
+        recipes,
+        category: { ...newCategory, id: newCategoryKey },
+      });
     }
     const snapshot = await get(newCategoryRef);
     expect(snapshot.exists()).toBe(false);
@@ -71,7 +85,9 @@ describe('deleteCategory', () => {
     const newCategoryKey = newCategoryRef.key;
 
     if (!newCategoryKey) {
-      throw new Error('Expected newCategoryKey to be a string but got null instead');
+      throw new Error(
+        'Expected newCategoryKey to be a string but got null instead',
+      );
     }
 
     // create a recipe with the new category
@@ -86,10 +102,15 @@ describe('deleteCategory', () => {
     const newRecipeRef = await createRecipe(recipeWithCategory);
     const newRecipeKey = newRecipeRef.key;
     if (!newRecipeKey) {
-      throw new Error('Expected newRecipeKey to be a string but got null instead');
+      throw new Error(
+        'Expected newRecipeKey to be a string but got null instead',
+      );
     }
 
-    await deleteCategory({ recipes, category: { ...newCategory, id: newCategoryKey } });
+    await deleteCategory({
+      recipes,
+      category: { ...newCategory, id: newCategoryKey },
+    });
     const snapshot = await get(newRecipeRef);
     const newRecipe = snapshot.val();
 
@@ -107,11 +128,17 @@ test('updateCategory should update category', async () => {
   const newCategoryKey = newCategoryRef.key;
 
   if (!newCategoryKey) {
-    throw new Error('Expected newCategoryKey to be a string but got null instead');
+    throw new Error(
+      'Expected newCategoryKey to be a string but got null instead',
+    );
   }
 
   const newCategoryName = 'new name';
-  await updateCategory({ ...newCategory, name: newCategoryName, id: newCategoryKey });
+  await updateCategory({
+    ...newCategory,
+    name: newCategoryName,
+    id: newCategoryKey,
+  });
 
   const snapshot = await get(newCategoryRef);
   const updatedCategory = snapshot.val();
@@ -119,6 +146,9 @@ test('updateCategory should update category', async () => {
 
   // clean up added category
   if (newCategoryKey) {
-    await deleteCategory({ recipes, category: { ...newCategory, id: newCategoryKey } });
+    await deleteCategory({
+      recipes,
+      category: { ...newCategory, id: newCategoryKey },
+    });
   }
 });

@@ -1,11 +1,16 @@
-import { getIngredientName, getPrepositionText, getQuantityText } from '../helpers/ingredient.helpers';
+import {
+  getIngredientName,
+  getPrepositionText,
+  getQuantityText,
+} from '../helpers/ingredient.helpers';
 import { getUnitDetails, getUnitName } from '../helpers/units.helpers';
 import { IngredientsDetails } from '../types/ingredientDetails';
 import { RecipeIngredientWithId, RecipeIngredient } from '../types/recipe';
 import { Units } from '../types/unit';
 import { css } from '../../styled-system/css';
 
-interface IngredientTextProps extends React.InputHTMLAttributes<HTMLSpanElement> {
+interface IngredientTextProps
+  extends React.InputHTMLAttributes<HTMLSpanElement> {
   ingredient: RecipeIngredientWithId | RecipeIngredient;
   ingredientsDetails: IngredientsDetails | null;
   units: Units | null;
@@ -15,7 +20,13 @@ interface IngredientTextProps extends React.InputHTMLAttributes<HTMLSpanElement>
 }
 
 export const IngredientText = ({
-  ingredient, ingredientsDetails, units, amountIsBold = true, servingRatio, fontSize = '1.1rem', ...props
+  ingredient,
+  ingredientsDetails,
+  units,
+  amountIsBold = true,
+  servingRatio,
+  fontSize = '1.1rem',
+  ...props
 }: IngredientTextProps) => {
   if (!ingredientsDetails || !units) {
     return null;
@@ -26,12 +37,18 @@ export const IngredientText = ({
     quantity *= servingRatio;
   }
 
-  const ingredientName = getIngredientName(ingredient, quantity, ingredientsDetails);
+  const ingredientName = getIngredientName(
+    ingredient,
+    quantity,
+    ingredientsDetails,
+  );
   const unit = getUnitDetails(units, ingredient.unitId);
   const unitName = getUnitName(unit, quantity);
   const quantityText = getQuantityText(quantity);
   const prepositionText = getPrepositionText(ingredient.preposition);
-  const additionalInfo = ingredient.additionalInfo ? ingredient.additionalInfo : '';
+  const additionalInfo = ingredient.additionalInfo
+    ? ingredient.additionalInfo
+    : '';
 
   let ingredientAmount = quantityText;
   ingredientAmount += ingredientAmount.length > 0 ? ` ${unitName}` : '';
@@ -46,7 +63,7 @@ export const IngredientText = ({
 
   return (
     <span {...props} className={css({ fontSize })}>
-      {amountIsBold ? <b>{ ingredientAmount }</b> : ingredientAmount}
+      {amountIsBold ? <b>{ingredientAmount}</b> : ingredientAmount}
       {` ${prepositionText}${ingredientName} ${additionalInfo}`}
     </span>
   );

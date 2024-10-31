@@ -12,7 +12,9 @@ interface PreviewIngredientItemProps {
 }
 
 export const PreviewIngredientItem = ({
-  ingredient, ingredientsDetails, units,
+  ingredient,
+  ingredientsDetails,
+  units,
 }: PreviewIngredientItemProps) => (
   <li className={css({ listStyleType: 'disc' })}>
     <IngredientText

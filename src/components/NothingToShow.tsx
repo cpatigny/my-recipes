@@ -7,11 +7,15 @@ interface NothingToShowProps {
 }
 
 export const NothingToShow = ({
-  message, src, alt, className = '', children,
+  message,
+  src,
+  alt,
+  className = '',
+  children,
 }: NothingToShowProps) => (
   <div className={className}>
-    <img src={src} alt={alt}/>
-    <p>{ message }</p>
-    { children }
+    <img src={src} alt={alt} />
+    <p>{message}</p>
+    {children}
   </div>
 );

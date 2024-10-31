@@ -13,12 +13,16 @@ interface ShoppingListIngredientsTabProps {
   recipes: ShoppingListRecipeWithId[];
 }
 
-export const ShoppingListIngredientsTab = ({ recipes }: ShoppingListIngredientsTabProps) => {
+export const ShoppingListIngredientsTab = ({
+  recipes,
+}: ShoppingListIngredientsTabProps) => {
   const ingredientList = getIngredientList(recipes);
 
   return (
     <>
-      <h3 className={css({ fontSize: '3xl', my: '1rem' })}>Liste des ingrédients</h3>
+      <h3 className={css({ fontSize: '3xl', my: '1rem' })}>
+        Liste des ingrédients
+      </h3>
       {ingredientList.length > 0 ? (
         <IngredientList ingredients={ingredientList} />
       ) : (

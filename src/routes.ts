@@ -20,5 +20,6 @@ export const ROUTES_WITH_PARAMS = {
 } as const;
 
 export const getRecipePath = (slug: string) => `${ROUTES.RECIPE}/${slug}`;
-export const getEditRecipePath = (slug: string) => `${ROUTES.EDIT_RECIPE}/${slug}`;
+export const getEditRecipePath = (slug: string) =>
+  `${ROUTES.EDIT_RECIPE}/${slug}`;
 export const getCategoryPath = (slug: string) => `${ROUTES.CATEGORY}/${slug}`;

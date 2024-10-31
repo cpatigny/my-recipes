@@ -62,7 +62,9 @@ describe('deleteRecipeFromShoppingList', () => {
     clearShoppingList();
     addToShoppingList(shoppingListItem);
     deleteRecipeFromShoppingList(shoppingListItem.id);
-    const storageContainsRecipe = getShoppingList().some(item => item.id === shoppingListItem.id);
+    const storageContainsRecipe = getShoppingList().some(
+      item => item.id === shoppingListItem.id,
+    );
     expect(storageContainsRecipe).toBe(false);
   });
 });
@@ -73,7 +75,9 @@ describe('updateShoppingListItem', () => {
     addToShoppingList(shoppingListItem);
     const newValue = 15;
     updateShoppingListItem(shoppingListItem.id, newValue);
-    const updatedItem = getShoppingList().find(item => item.id === shoppingListItem.id);
+    const updatedItem = getShoppingList().find(
+      item => item.id === shoppingListItem.id,
+    );
     expect(updatedItem).toBeDefined();
     expect(updatedItem?.servingsNb).toBe(newValue);
   });

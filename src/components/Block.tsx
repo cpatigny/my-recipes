@@ -21,7 +21,7 @@ export const Block = ({ className, children }: BlockProps) => {
         }),
       )}
     >
-      { children }
+      {children}
     </div>
   );
 };

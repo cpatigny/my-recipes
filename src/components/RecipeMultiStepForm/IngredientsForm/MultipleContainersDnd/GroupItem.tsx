@@ -80,7 +80,7 @@ const GroupItem = forwardRef<HTMLDivElement, GroupItemProps>(
             fontSize: '1.1rem',
           })}
         >
-          <span>{ group.name }</span>
+          <span>{group.name}</span>
           <div className={flex({ align: 'center' })}>
             {showEditGroupForm && (
               <Button
@@ -93,7 +93,12 @@ const GroupItem = forwardRef<HTMLDivElement, GroupItemProps>(
               </Button>
             )}
             {/* handleDelete will be undefined when using Container for DragOverlay */}
-            {handleDelete && <Delete onClick={handleDelete} className={css({ ml: '0.7rem' })} />}
+            {handleDelete && (
+              <Delete
+                onClick={handleDelete}
+                className={css({ ml: '0.7rem' })}
+              />
+            )}
             <Handle {...handleProps} className={css({ ml: '0.7rem' })} />
           </div>
         </div>
@@ -111,9 +116,11 @@ const GroupItem = forwardRef<HTMLDivElement, GroupItemProps>(
           })}
         >
           {noIngredients ? (
-            <SecondaryText>Ce groupe ne contient aucun ingrédient</SecondaryText>
+            <SecondaryText>
+              Ce groupe ne contient aucun ingrédient
+            </SecondaryText>
           ) : (
-            <ul>{ children }</ul>
+            <ul>{children}</ul>
           )}
         </div>
       </div>

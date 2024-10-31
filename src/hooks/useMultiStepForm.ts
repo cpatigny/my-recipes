@@ -19,10 +19,15 @@ export interface useMultiStepFormReturn {
   lastCompletedStepIndex: number;
 }
 
-export const useMultiStepForm = (steps: Step[], isEditMode: boolean): useMultiStepFormReturn => {
+export const useMultiStepForm = (
+  steps: Step[],
+  isEditMode: boolean,
+): useMultiStepFormReturn => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [stepIndexes] = useState(steps.map((step, i) => i));
-  const [completedStepIndexes, setCompletedStepIndexes] = useState<number[]>([]);
+  const [completedStepIndexes, setCompletedStepIndexes] = useState<number[]>(
+    [],
+  );
 
   useEffect(() => {
     if (!isEditMode) return;
@@ -56,7 +61,9 @@ export const useMultiStepForm = (steps: Step[], isEditMode: boolean): useMultiSt
 
   const goTo = (index: number) => {
     if (index < 0 || index > steps.length - 1) {
-      throw new Error(`Invalid index. Index must between 0 and ${steps.length} (the number of steps of your form)`);
+      throw new Error(
+        `Invalid index. Index must between 0 and ${steps.length} (the number of steps of your form)`,
+      );
     }
 
     setCurrentStepIndex(index);

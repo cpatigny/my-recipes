@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from 'react-router-dom';
 import { ROUTES_WITH_PARAMS } from './routes';
 
 import { CategoriesProvider } from './contexts/CategoriesContext';

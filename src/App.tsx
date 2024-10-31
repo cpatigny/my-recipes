@@ -16,12 +16,14 @@ export const App = () => {
   const { unitsLoading } = useUnits();
 
   const loadings = [
-    userLoading, recipesLoading, categoriesLoading, ingredientsDetailsLoading, unitsLoading,
+    userLoading,
+    recipesLoading,
+    categoriesLoading,
+    ingredientsDetailsLoading,
+    unitsLoading,
   ];
 
   if (loadings.includes(true)) return <Loading />;
 
-  return (
-    <Outlet />
-  );
+  return <Outlet />;
 };

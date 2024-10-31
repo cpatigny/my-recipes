@@ -25,7 +25,9 @@ export const Servings = ({
 }: ServingsProps) => {
   useEffect(() => {
     setNumberOfServings(
-      'shoppingListServingsNb' in recipe ? recipe.shoppingListServingsNb : Number(recipe.nbServings),
+      'shoppingListServingsNb' in recipe
+        ? recipe.shoppingListServingsNb
+        : Number(recipe.nbServings),
     );
   }, [recipe, recipe.nbServings, setNumberOfServings]);
 
@@ -60,23 +62,17 @@ export const Servings = ({
       <button
         onClick={decrementNumberOfServings}
         data-disabled={numberOfServings <= 1}
-        className={cx(
-          button({ circle: true }),
-          css({ bg: 'orange.400' }),
-        )}
+        className={cx(button({ circle: true }), css({ bg: 'orange.400' }))}
       >
         <Icon name='remove' fontSize='1.4rem' />
       </button>
       <p className={css({ mx: '0.3rem', px: '0.6rem', fontSize: '1.2rem' })}>
-        <b>{ numberOfServings } </b>
-        <b>{ recipe.servingsUnit }</b>
+        <b>{numberOfServings} </b>
+        <b>{recipe.servingsUnit}</b>
       </p>
       <button
         onClick={incrementNumberOfServings}
-        className={cx(
-          button({ circle: true }),
-          css({ bg: 'orange.400' }),
-        )}
+        className={cx(button({ circle: true }), css({ bg: 'orange.400' }))}
       >
         <Icon name='add' fontSize='1.4rem' />
       </button>

@@ -1,7 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { getMockUnits } from '../../tests-utils/mocks/units.mock';
 import { Unit } from '../../types/unit';
-import { getMatchingUnits, getUnitName, getUnitNameById } from '../units.helpers';
+import {
+  getMatchingUnits,
+  getUnitName,
+  getUnitNameById,
+} from '../units.helpers';
 
 describe('getMatchingUnits', () => {
   const units = getMockUnits(50);
@@ -73,7 +77,7 @@ describe('getUnitNameById', () => {
     expect(name).toBe('');
   });
 
-  test('should return an empty string if id parameter doesn\'t match a unit', () => {
+  test("should return an empty string if id parameter doesn't match a unit", () => {
     const name = getUnitNameById(units, 'randomId123');
     expect(name).toBe('');
   });

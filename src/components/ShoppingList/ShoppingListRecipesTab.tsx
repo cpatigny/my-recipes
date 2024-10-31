@@ -8,7 +8,11 @@ import { Button } from '../Button';
 import { SecondaryText } from '../SecondaryText';
 import { ShoppingListRecipe } from './ShoppingListRecipe';
 
-export const ShoppingListRecipesTab = ({ recipes }: { recipes: ShoppingListRecipeWithId[] }) => {
+export const ShoppingListRecipesTab = ({
+  recipes,
+}: {
+  recipes: ShoppingListRecipeWithId[];
+}) => {
   const {
     deleteFromShoppingListAndNotify,
     clearShoppingListItems,
@@ -27,16 +31,22 @@ export const ShoppingListRecipesTab = ({ recipes }: { recipes: ShoppingListRecip
         })}
       >
         <h3 className={css({ fontSize: '3xl' })}>
-          { recipes.length } { recipes.length > 1 ? 'recettes' : 'recette' }
+          {recipes.length} {recipes.length > 1 ? 'recettes' : 'recette'}
         </h3>
         {recipes.length > 0 && (
-          <Button visual='outline' fontSize='1rem' onClick={clearShoppingListItems}>
+          <Button
+            visual='outline'
+            fontSize='1rem'
+            onClick={clearShoppingListItems}
+          >
             Vider la liste
           </Button>
         )}
       </div>
       {recipes.length === 0 && (
-        <SecondaryText>Vous n&apos;avez aucune recette dans votre liste de courses</SecondaryText>
+        <SecondaryText>
+          Vous n&apos;avez aucune recette dans votre liste de courses
+        </SecondaryText>
       )}
       {recipes.map(recipe => (
         <ShoppingListRecipe

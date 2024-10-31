@@ -14,7 +14,7 @@ export const ModalActions = ({ children }: { children: React.ReactNode }) => {
         },
       })}
     >
-      { children }
+      {children}
     </div>
   );
 };

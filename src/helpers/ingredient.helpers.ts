@@ -1,11 +1,18 @@
 import { IngredientsDetails } from '../types/ingredientDetails';
-import { GroupWithId, RecipeIngredient, RecipeIngredientWithId, RecipeIngredients } from '../types/recipe';
+import {
+  GroupWithId,
+  RecipeIngredient,
+  RecipeIngredientWithId,
+  RecipeIngredients,
+} from '../types/recipe';
 import { lastCharIs } from '../utils/utils';
 import { generateKey } from './firebase.helpers';
 import { sortItemsByPosition } from './helpers';
 
 export const addGroupIdToIngredients = (
-  groupId: string, ingredientsId: string[], ingredients: RecipeIngredients,
+  groupId: string,
+  ingredientsId: string[],
+  ingredients: RecipeIngredients,
 ) => {
   const groupedIngredients: RecipeIngredients = {};
 
@@ -21,7 +28,9 @@ export const addGroupIdToIngredients = (
   return groupedIngredients;
 };
 
-export const convertIngredientsArrayToObject = (ingredients: RecipeIngredientWithId[]) => {
+export const convertIngredientsArrayToObject = (
+  ingredients: RecipeIngredientWithId[],
+) => {
   const ingredientsObject: RecipeIngredients = {};
 
   ingredients.forEach(i => {
@@ -32,25 +41,27 @@ export const convertIngredientsArrayToObject = (ingredients: RecipeIngredientWit
   return ingredientsObject;
 };
 
-export const convertIngredientsObjectToArray = (ingredients: RecipeIngredients) => {
+export const convertIngredientsObjectToArray = (
+  ingredients: RecipeIngredients,
+) => {
   const ingredientsArray: RecipeIngredientWithId[] = [];
 
-  Object
-    .keys(ingredients)
-    .forEach(key => {
-      const ingredient = ingredients[key];
-      if (!ingredient) return;
-      ingredientsArray.push({ id: key, ...ingredient });
-    });
+  Object.keys(ingredients).forEach(key => {
+    const ingredient = ingredients[key];
+    if (!ingredient) return;
+    ingredientsArray.push({ id: key, ...ingredient });
+  });
 
   return ingredientsArray;
 };
 
-export const getIngredientsByGroup = (groupId: string, ingredients: RecipeIngredients) => {
+export const getIngredientsByGroup = (
+  groupId: string,
+  ingredients: RecipeIngredients,
+) => {
   const matchingIngredients: RecipeIngredientWithId[] = [];
 
-  Object
-    .keys(ingredients)
+  Object.keys(ingredients)
     .filter(key => ingredients[key]?.groupId === groupId)
     .forEach(key => {
       const ingredient = ingredients[key];
@@ -68,7 +79,9 @@ export const getIngredientsByGroup = (groupId: string, ingredients: RecipeIngred
  * @returns the list of ingredients that got removed from a group
  */
 export const getExcludedIngredients = (
-  group: GroupWithId, selectedIngredientsId: string[], ingredients: RecipeIngredients,
+  group: GroupWithId,
+  selectedIngredientsId: string[],
+  ingredients: RecipeIngredients,
 ) => {
   const excludedIngredients: RecipeIngredients = {};
   const groupIngredients = getIngredientsByGroup(group.id, ingredients);
@@ -103,8 +116,7 @@ export const getIngredientName = (
 export const getIngredientsWithoutGroup = (ingredients: RecipeIngredients) => {
   const ingredientsWithoutGroup: RecipeIngredientWithId[] = [];
 
-  Object
-    .keys(ingredients)
+  Object.keys(ingredients)
     .filter(key => typeof ingredients[key]?.groupId !== 'string')
     .forEach(key => {
       const ingredient = ingredients[key];
@@ -118,13 +130,11 @@ export const getIngredientsWithoutGroup = (ingredients: RecipeIngredients) => {
 export const removeGroupId = (ingredients: RecipeIngredients) => {
   const updatedIngredients: RecipeIngredients = {};
 
-  Object
-    .keys(ingredients)
-    .forEach(key => {
-      const ingredient = ingredients[key];
-      if (!ingredient) return;
-      updatedIngredients[key] = { ...ingredient, groupId: false };
-    });
+  Object.keys(ingredients).forEach(key => {
+    const ingredient = ingredients[key];
+    if (!ingredient) return;
+    updatedIngredients[key] = { ...ingredient, groupId: false };
+  });
 
   return updatedIngredients;
 };
@@ -182,7 +192,9 @@ export const getPrepositionText = (preposition: string | false) => {
   return prepositionText;
 };
 
-export const mergeDuplicateIngredients = (ingredients: RecipeIngredientWithId[]) => {
+export const mergeDuplicateIngredients = (
+  ingredients: RecipeIngredientWithId[],
+) => {
   const mergedIngredients: RecipeIngredientWithId[] = [];
   ingredients.forEach(ing => {
     // all ingredients except the one we're looping on
@@ -195,7 +207,9 @@ export const mergeDuplicateIngredients = (ingredients: RecipeIngredientWithId[])
       mergedIngredients.push(ing);
       return;
     }
-    const sameUnitIngredients = sameIngredientDetails.filter(i => i.unitId === ing.unitId);
+    const sameUnitIngredients = sameIngredientDetails.filter(
+      i => i.unitId === ing.unitId,
+    );
     if (sameUnitIngredients.length === 0) {
       mergedIngredients.push(ing);
       return;
@@ -220,7 +234,10 @@ export const mergeDuplicateIngredients = (ingredients: RecipeIngredientWithId[])
     if (!ingToMerge) {
       return;
     }
-    if (typeof ingToMerge.quantity === 'number' && typeof ing.quantity === 'number') {
+    if (
+      typeof ingToMerge.quantity === 'number' &&
+      typeof ing.quantity === 'number'
+    ) {
       ingToMerge.quantity += ing.quantity;
     }
   });
@@ -228,7 +245,9 @@ export const mergeDuplicateIngredients = (ingredients: RecipeIngredientWithId[])
   return mergedIngredients;
 };
 
-export const orderIngredientsByDetailsId = (ingredients: RecipeIngredientWithId[]) => {
+export const orderIngredientsByDetailsId = (
+  ingredients: RecipeIngredientWithId[],
+) => {
   const orderedIngredients: RecipeIngredientWithId[] = [];
   ingredients.forEach(ing => {
     const sameDetailsIdIngIndex = orderedIngredients.findIndex(

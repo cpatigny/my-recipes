@@ -23,11 +23,8 @@ export const NotFound = () => (
     >
       La page recherchée n&apos;existe pas
     </p>
-    <Link
-      to={ROUTES.HOME}
-      className={button({ size: 'md' })}
-    >
-        Page d&apos;accueil
+    <Link to={ROUTES.HOME} className={button({ size: 'md' })}>
+      Page d&apos;accueil
     </Link>
   </Container>
 );

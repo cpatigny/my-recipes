@@ -33,13 +33,23 @@ export const RecipeActions = ({ recipe }: RecipeActionsProps) => {
       <Link
         to={getEditRecipePath(recipe.slug)}
         state={{ hasClickedLink: true }}
-        className={button({ visual: 'semiTransparent', size: 'lg', circle: true, color: 'edit' })}
+        className={button({
+          visual: 'semiTransparent',
+          size: 'lg',
+          circle: true,
+          color: 'edit',
+        })}
       >
         <Icon name='edit' />
       </Link>
       <button
         onClick={onClickHandler}
-        className={button({ visual: 'semiTransparent', size: 'lg', circle: true, color: 'danger' })}
+        className={button({
+          visual: 'semiTransparent',
+          size: 'lg',
+          circle: true,
+          color: 'danger',
+        })}
       >
         <Icon name='delete' />
       </button>

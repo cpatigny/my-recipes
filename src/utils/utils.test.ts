@@ -1,4 +1,12 @@
-import { formatDate, lastCharIs, removeAccents, replaceSpecialCharsWithDash, reverseObject, slugify, strContains } from './utils';
+import {
+  formatDate,
+  lastCharIs,
+  removeAccents,
+  replaceSpecialCharsWithDash,
+  reverseObject,
+  slugify,
+  strContains,
+} from './utils';
 
 describe('removeAccents', () => {
   test('should remove accent on letters', () => {
@@ -10,7 +18,9 @@ describe('removeAccents', () => {
 describe('replaceSpecialCharsWithDash', () => {
   test('should replace special chars by dash', () => {
     const strWithSpecialChars = 'I like chocolate!';
-    expect(replaceSpecialCharsWithDash(strWithSpecialChars)).toBe('I-like-chocolate-');
+    expect(replaceSpecialCharsWithDash(strWithSpecialChars)).toBe(
+      'I-like-chocolate-',
+    );
   });
 });
 
@@ -41,7 +51,7 @@ describe('strContains', () => {
     expect(strContains(str, strToContain)).toBe(true);
   });
 
-  test('should be false when string doesn\'t match', () => {
+  test("should be false when string doesn't match", () => {
     const strToContain = 'Something';
     expect(strContains(str, strToContain)).toBe(false);
   });
@@ -72,7 +82,7 @@ describe('lastCharIs', () => {
     expect(lastCharIs(str, 't')).toBe(true);
   });
 
-  test('should be false if char doesn\'t match', () => {
+  test("should be false if char doesn't match", () => {
     expect(lastCharIs(str, 'a')).toBe(false);
   });
 

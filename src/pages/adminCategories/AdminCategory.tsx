@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRecipes } from '../../contexts/RecipesContext';
 import { CategoryWithId } from '../../types/category';
-import { countRecipesByCategory, deleteCategory } from '../../helpers/category.helpers';
+import {
+  countRecipesByCategory,
+  deleteCategory,
+} from '../../helpers/category.helpers';
 import { confirm } from '../../utils/utils';
 import { useToast } from '../../contexts/ToastContext';
 import { css } from '../../../styled-system/css';
@@ -13,10 +16,15 @@ import { AdminActions } from '../../components/AdminActions';
 
 interface AdminCategoryProps {
   category: CategoryWithId;
-  setCategoryToEdit: React.Dispatch<React.SetStateAction<CategoryWithId | null>>;
+  setCategoryToEdit: React.Dispatch<
+    React.SetStateAction<CategoryWithId | null>
+  >;
 }
 
-export const AdminCategory = ({ category, setCategoryToEdit }: AdminCategoryProps) => {
+export const AdminCategory = ({
+  category,
+  setCategoryToEdit,
+}: AdminCategoryProps) => {
   const [nbRecipesWithCategory, setNbRecipesWithCategory] = useState(0);
 
   const { recipes } = useRecipes();
@@ -39,7 +47,9 @@ export const AdminCategory = ({ category, setCategoryToEdit }: AdminCategoryProp
 
   return (
     <AdminListItem>
-      <p>({ nbRecipesWithCategory }) { category.name }</p>
+      <p>
+        ({nbRecipesWithCategory}) {category.name}
+      </p>
 
       <AdminActions>
         <Button

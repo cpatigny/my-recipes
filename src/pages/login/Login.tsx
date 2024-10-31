@@ -87,7 +87,9 @@ export const Login = () => {
         <div>
           <form onSubmit={handleSignIn}>
             <div>
-              <label htmlFor='email' className={labelStyles}>Email</label>
+              <label htmlFor='email' className={labelStyles}>
+                Email
+              </label>
               <input
                 name='email'
                 type='email'
@@ -98,7 +100,9 @@ export const Login = () => {
               />
             </div>
             <div>
-              <label htmlFor='password' className={labelStyles}>Mot de passe</label>
+              <label htmlFor='password' className={labelStyles}>
+                Mot de passe
+              </label>
               <input
                 name='password'
                 type='password'

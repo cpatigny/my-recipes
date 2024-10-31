@@ -26,7 +26,7 @@ export const UnitsProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <UnitsContext.Provider value={{ units, unitsLoading }}>
-      { children }
+      {children}
     </UnitsContext.Provider>
   );
 };

@@ -1,6 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { getMockRecipes } from '../../tests-utils/mocks/recipes.mock';
-import { getCookTimeText, getRecipeBySlug, searchMatchingRecipes } from '../recipe.helpers';
+import {
+  getCookTimeText,
+  getRecipeBySlug,
+  searchMatchingRecipes,
+} from '../recipe.helpers';
 
 describe('getRecipeBySlug', () => {
   test('should return the matching recipe', () => {

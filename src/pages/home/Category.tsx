@@ -10,7 +10,11 @@ interface CategoryProps {
 }
 
 export const Category = ({ category, selected, className }: CategoryProps) => (
-  <Link to={getCategoryPath(category.slug)} className={className} data-selected={selected}>
-    { category.name }
+  <Link
+    to={getCategoryPath(category.slug)}
+    className={className}
+    data-selected={selected}
+  >
+    {category.name}
   </Link>
 );

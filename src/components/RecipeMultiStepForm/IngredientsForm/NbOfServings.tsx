@@ -16,7 +16,9 @@ export const NbOfServings = ({ handleStepSubmit }: NbOfServingsProps) => {
 
   return (
     <Block>
-      <p className={css({ mb: '0.5rem' })}><b>Nombre de portions :</b></p>
+      <p className={css({ mb: '0.5rem' })}>
+        <b>Nombre de portions :</b>
+      </p>
       <form
         id={step.formId}
         onSubmit={handleStepSubmit}

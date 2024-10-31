@@ -7,22 +7,38 @@ interface MultiStepFormActionsProps {
   submitForm: () => void;
 }
 
-export const MultiStepFormActions = ({ submitForm }: MultiStepFormActionsProps) => {
-  const { step, isEditMode, isFirstStep, isLastStep, back } = useRecipeMultiStepForm();
+export const MultiStepFormActions = ({
+  submitForm,
+}: MultiStepFormActionsProps) => {
+  const { step, isEditMode, isFirstStep, isLastStep, back } =
+    useRecipeMultiStepForm();
 
   return (
-    <div className={flex({ justify: 'space-between', gap: '0 0.5rem', m: '1.6rem 0 2rem' })}>
+    <div
+      className={flex({
+        justify: 'space-between',
+        gap: '0 0.5rem',
+        m: '1.6rem 0 2rem',
+      })}
+    >
       {!isFirstStep && (
-        <Button size='md' visual='outline' onClick={back}>Précédent</Button>
+        <Button size='md' visual='outline' onClick={back}>
+          Précédent
+        </Button>
       )}
       {!isLastStep && (
-        <Button size='md' className={css({ ml: 'auto' })} type='submit' form={step.formId}>
+        <Button
+          size='md'
+          className={css({ ml: 'auto' })}
+          type='submit'
+          form={step.formId}
+        >
           Suivant
         </Button>
       )}
       {isLastStep && (
         <Button size='md' type='button' onClick={submitForm}>
-          { isEditMode ? 'Modifier la recette' : 'Créer la recette' }
+          {isEditMode ? 'Modifier la recette' : 'Créer la recette'}
         </Button>
       )}
     </div>
