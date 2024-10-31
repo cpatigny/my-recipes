@@ -22,7 +22,7 @@ export const combobox = cva({
       },
     },
 
-    '& ul': {
+    '& > div': {
       pos: 'absolute',
       zIndex: '999',
       w: '100%',
@@ -34,13 +34,13 @@ export const combobox = cva({
       maxH: '6rem',
 
       // when there is no match
-      '& div': {
+      '& .no-match': {
         p: '0.5rem 0.8rem',
         color: '#989fac',
       },
 
       // combobox option
-      '& li': {
+      '& div': {
         p: '0.3rem 0.8rem',
         w: '100%',
         fontSize: '1.1rem',
@@ -53,23 +53,22 @@ export const combobox = cva({
           pos: 'absolute',
           color: 'orange.450',
           fontSize: '1.2rem!',
-
         },
 
         '&[data-an-option-is-selected=true] span:not(.icon)': {
           pl: '1.5rem',
         },
 
-        '&[data-headlessui-state~=active]': {
+        '&[data-focus]': {
           bg: 'orange.450',
           color: 'white',
         },
 
-        '&[data-headlessui-state~=selected] span': {
+        '&[data-selected] span': {
           fontWeight: '600',
         },
 
-        '&[data-headlessui-state~=active][data-headlessui-state~=selected] .icon': {
+        '&[data-focus][data-selected] .icon': {
           color: 'white',
         },
       },

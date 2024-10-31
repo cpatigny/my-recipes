@@ -1,23 +1,38 @@
-import { RecipeIngredientFormData } from '../../../types/recipe';
 import { useState } from 'react';
-import { getMatchingUnits, getUnitName, getUnitNameById } from '../../../helpers/units.helpers';
-import { Units } from '../../../types/unit';
 import { cx } from '../../../../styled-system/css';
+import {
+  getMatchingUnits,
+  getUnitName,
+  getUnitNameById,
+} from '../../../helpers/units.helpers';
 import { combobox } from '../../../recipes/combobox';
+import { RecipeIngredientFormData } from '../../../types/recipe';
+import { Units } from '../../../types/unit';
 
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxOptions,
+} from '@headlessui/react';
 import { Icon } from '../../Icon';
-import { Combobox } from '@headlessui/react';
 
 interface UnitComboboxProps {
   ingredientData: RecipeIngredientFormData;
-  setIngredientData: React.Dispatch<React.SetStateAction<RecipeIngredientFormData>>;
+  setIngredientData: React.Dispatch<
+    React.SetStateAction<RecipeIngredientFormData>
+  >;
   units: Units | null;
   error: boolean;
   className?: string;
 }
 
 export const UnitCombobox = ({
-  ingredientData, setIngredientData, units, error, className,
+  ingredientData,
+  setIngredientData,
+  units,
+  error,
+  className,
 }: UnitComboboxProps) => {
   const [unitSearch, setUnitSearch] = useState('');
 
@@ -27,14 +42,12 @@ export const UnitCombobox = ({
     <Combobox
       as='div'
       value={ingredientData.unitId}
-      onChange={value => setIngredientData({ ...ingredientData, unitId: value ?? '' })}
-      nullable
-      className={cx(
-        className || '',
-        combobox(),
-      )}
+      onChange={value =>
+        setIngredientData({ ...ingredientData, unitId: value ?? '' })
+      }
+      className={cx(className || '', combobox())}
     >
-      <Combobox.Input
+      <ComboboxInput
         placeholder='Unité'
         data-error={error}
         onChange={e => setUnitSearch(e.currentTarget.value)}
@@ -44,28 +57,26 @@ export const UnitCombobox = ({
           return getUnitName(unit, 1);
         }}
       />
-      <Combobox.Options>
+      <ComboboxOptions>
         {matchingUnits.length === 0 && unitSearch !== '' ? (
-          <div>Aucune unité trouvée</div>
+          <p className='no-match'>Aucune unité trouvée</p>
         ) : (
           matchingUnits.map(unit => (
-            <Combobox.Option
+            <ComboboxOption
               key={unit.id}
               value={unit.id}
               data-an-option-is-selected={!!ingredientData.unitId}
             >
               {({ selected }) => (
                 <>
-                  {selected && (
-                    <Icon name='check' aria-hidden='true' />
-                  )}
-                  <span>{ getUnitNameById(units, unit.id) }</span>
+                  {selected && <Icon name='check' aria-hidden='true' />}
+                  <span>{getUnitNameById(units, unit.id)}</span>
                 </>
               )}
-            </Combobox.Option>
+            </ComboboxOption>
           ))
         )}
-      </Combobox.Options>
+      </ComboboxOptions>
     </Combobox>
   );
 };

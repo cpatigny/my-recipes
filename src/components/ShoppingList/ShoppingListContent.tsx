@@ -1,11 +1,11 @@
 import { css, cx } from '../../../styled-system/css';
 import { flex } from '../../../styled-system/patterns';
-import { shoppingListContainer } from './ShoppingListHeader';
 import { useShoppingList } from '../../contexts/ShoppingListContext';
+import { shoppingListContainer } from './ShoppingListHeader';
 
-import { Tab } from '@headlessui/react';
-import { ShoppingListRecipesTab } from './ShoppingListRecipesTab';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { ShoppingListIngredientsTab } from './ShoppingListIngredientsTab';
+import { ShoppingListRecipesTab } from './ShoppingListRecipesTab';
 
 const tabStyles = css({
   flexGrow: 1,
@@ -14,7 +14,7 @@ const tabStyles = css({
   borderBottom: '2px solid #ddd',
   color: 'text',
 
-  '&[data-headlessui-state=selected]': {
+  '&[data-selected]': {
     borderColor: 'primary',
     color: 'orange.550',
   },
@@ -25,16 +25,16 @@ export const ShoppingListContent = () => {
 
   return (
     <div className={flex({ direction: 'column', h: '100%', bg: 'bg' })}>
-      <Tab.Group>
-        <Tab.List
+      <TabGroup>
+        <TabList
           className={flex({
             justify: 'space-between',
           })}
         >
           <Tab className={tabStyles}>Recettes</Tab>
           <Tab className={tabStyles}>Ingrédients</Tab>
-        </Tab.List>
-        <Tab.Panels
+        </TabList>
+        <TabPanels
           className={cx(
             shoppingListContainer,
             // big padding bottom because ShoppingListHeader isn't take into account
@@ -42,14 +42,14 @@ export const ShoppingListContent = () => {
             css({ py: '1rem 3.5rem', maxH: '100%', overflowY: 'auto' }),
           )}
         >
-          <Tab.Panel>
+          <TabPanel>
             <ShoppingListRecipesTab recipes={shoppingListRecipes} />
-          </Tab.Panel>
-          <Tab.Panel>
+          </TabPanel>
+          <TabPanel>
             <ShoppingListIngredientsTab recipes={shoppingListRecipes} />
-          </Tab.Panel>
-        </Tab.Panels>
-      </Tab.Group>
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>
     </div>
   );
 };

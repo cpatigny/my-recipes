@@ -8,7 +8,12 @@ import { combobox } from '../../../recipes/combobox';
 import { IngredientsDetails } from '../../../types/ingredientDetails';
 import { RecipeIngredientFormData } from '../../../types/recipe';
 
-import { Combobox } from '@headlessui/react';
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxOptions,
+} from '@headlessui/react';
 import { Icon } from '../../Icon';
 
 interface IngredientDetailsComboboxProps {
@@ -44,7 +49,7 @@ export const IngredientDetailsCombobox = ({
       }
       className={cx(className || '', combobox())}
     >
-      <Combobox.Input
+      <ComboboxInput
         placeholder='Ingrédient'
         data-error={error}
         onChange={e => setIngredientSearch(e.currentTarget.value)}
@@ -52,12 +57,12 @@ export const IngredientDetailsCombobox = ({
           getIngredientDetailsName(ingredientsDetails, id)
         }
       />
-      <Combobox.Options>
+      <ComboboxOptions>
         {matchingIngredients.length === 0 && ingredientSearch !== '' ? (
-          <div>Aucun ingrédient trouvé</div>
+          <p className='no-match'>Aucun ingrédient trouvé</p>
         ) : (
           matchingIngredients.map(ing => (
-            <Combobox.Option
+            <ComboboxOption
               key={ing.id}
               value={ing.id}
               data-an-option-is-selected={!!ingredientData.detailsId}
@@ -68,10 +73,10 @@ export const IngredientDetailsCombobox = ({
                   <span>{ing.name}</span>
                 </>
               )}
-            </Combobox.Option>
+            </ComboboxOption>
           ))
         )}
-      </Combobox.Options>
+      </ComboboxOptions>
     </Combobox>
   );
 };

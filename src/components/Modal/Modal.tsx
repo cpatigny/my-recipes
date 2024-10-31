@@ -1,9 +1,9 @@
-import { Dialog } from '@headlessui/react';
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
 import { css, cx } from '../../../styled-system/css';
 import { flex } from '../../../styled-system/patterns';
 
-import { ModalTransition } from './ModalTransition';
 import { ModalOverlay } from './ModalOverlay';
+import { ModalTransition } from './ModalTransition';
 
 interface ModalProps {
   isShow: boolean;
@@ -15,7 +15,12 @@ interface ModalProps {
 }
 
 export const Modal = ({
-  isShow, onClose, className, title, afterLeave, children,
+  isShow,
+  onClose,
+  className,
+  title,
+  afterLeave,
+  children,
 }: ModalProps) => {
   return (
     <Dialog static open={isShow} onClose={onClose}>
@@ -29,7 +34,7 @@ export const Modal = ({
             p: '1.2rem',
           })}
         >
-          <Dialog.Panel
+          <DialogPanel
             className={cx(
               className ?? '',
               css({
@@ -43,11 +48,11 @@ export const Modal = ({
               }),
             )}
           >
-            <Dialog.Title className={css({ mb: '0.5rem', fontSize: '1.7rem' })}>
-              { title }
-            </Dialog.Title>
-            { children }
-          </Dialog.Panel>
+            <DialogTitle className={css({ mb: '0.5rem', fontSize: '1.7rem' })}>
+              {title}
+            </DialogTitle>
+            {children}
+          </DialogPanel>
         </div>
       </ModalTransition>
     </Dialog>
