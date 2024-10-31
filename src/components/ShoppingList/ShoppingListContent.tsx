@@ -24,32 +24,30 @@ export const ShoppingListContent = () => {
   const { shoppingListRecipes } = useShoppingList();
 
   return (
-    <div className={flex({ direction: 'column', h: '100%', bg: 'bg' })}>
-      <TabGroup>
-        <TabList
-          className={flex({
-            justify: 'space-between',
-          })}
-        >
-          <Tab className={tabStyles}>Recettes</Tab>
-          <Tab className={tabStyles}>Ingrédients</Tab>
-        </TabList>
-        <TabPanels
-          className={cx(
-            shoppingListContainer,
-            // big padding bottom because ShoppingListHeader isn't take into account
-            // in the max height 100% so the content at the bottom is cut
-            css({ py: '1rem 3.5rem', maxH: '100%', overflowY: 'auto' }),
-          )}
-        >
-          <TabPanel>
-            <ShoppingListRecipesTab recipes={shoppingListRecipes} />
-          </TabPanel>
-          <TabPanel>
-            <ShoppingListIngredientsTab recipes={shoppingListRecipes} />
-          </TabPanel>
-        </TabPanels>
-      </TabGroup>
-    </div>
+    <TabGroup className={flex({ direction: 'column', h: '100%', bg: 'bg' })}>
+      <TabList
+        className={flex({
+          justify: 'space-between',
+        })}
+      >
+        <Tab className={tabStyles}>Recettes</Tab>
+        <Tab className={tabStyles}>Ingrédients</Tab>
+      </TabList>
+      <TabPanels
+        className={cx(
+          shoppingListContainer,
+          // big padding bottom because ShoppingListHeader isn't take into account
+          // in the max height 100% so the content at the bottom is cut
+          css({ py: '1rem 3.5rem', maxH: '100%', overflowY: 'auto' }),
+        )}
+      >
+        <TabPanel>
+          <ShoppingListRecipesTab recipes={shoppingListRecipes} />
+        </TabPanel>
+        <TabPanel>
+          <ShoppingListIngredientsTab recipes={shoppingListRecipes} />
+        </TabPanel>
+      </TabPanels>
+    </TabGroup>
   );
 };
