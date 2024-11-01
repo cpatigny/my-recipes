@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface Step {
-  element: JSX.Element;
   title: string;
   formId: string;
 }

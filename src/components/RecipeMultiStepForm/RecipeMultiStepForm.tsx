@@ -1,16 +1,20 @@
-import { useRecipeMultiStepForm } from '../../contexts/RecipeMultiStepFormContext';
-import { getRecipePath } from '../../routes';
 import { useNavigate } from 'react-router-dom';
-import { RecipeFormData } from '../../types/recipe';
+import { css } from '../../../styled-system/css';
+import { useRecipeMultiStepForm } from '../../contexts/RecipeMultiStepFormContext';
+import { useToast } from '../../contexts/ToastContext';
 import {
   deleteRecipeImage,
   uploadRecipeImage,
 } from '../../helpers/firebase.helpers';
-import { updateRecipe, createRecipe } from '../../helpers/recipe.helpers';
-import { useToast } from '../../contexts/ToastContext';
-import { css } from '../../../styled-system/css';
+import { createRecipe, updateRecipe } from '../../helpers/recipe.helpers';
+import { getRecipePath } from '../../routes';
+import { RecipeFormData } from '../../types/recipe';
 
 import { MultiStepFormActions } from '../MultiStepFormActions';
+import { InformationForm } from './InformationForm/InformationForm';
+import { IngredientsForm } from './IngredientsForm/IngredientsForm';
+import { PreparationForm } from './PreparationForm/PreparationForm';
+import { Preview } from './Preview/Preview';
 import { ProgressBar } from './ProgressBar';
 
 export interface FormErrors {
@@ -27,6 +31,7 @@ export const RecipeMultiStepForm = () => {
     imageFile,
     oldImageName,
     recipe,
+    currentStepIndex,
   } = useRecipeMultiStepForm();
 
   const submitRecipe = async () => {
@@ -80,7 +85,12 @@ export const RecipeMultiStepForm = () => {
         {step.title}
       </h2>
 
-      {step.element}
+      <>
+        {currentStepIndex === 0 && <InformationForm />}
+        {currentStepIndex === 1 && <IngredientsForm />}
+        {currentStepIndex === 2 && <PreparationForm />}
+        {currentStepIndex === 3 && <Preview />}
+      </>
 
       <MultiStepFormActions submitForm={submitRecipe} />
     </div>

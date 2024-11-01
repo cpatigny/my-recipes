@@ -1,18 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { Updater, useImmer } from 'use-immer';
+import { getRecipeImgUrl } from '../helpers/firebase.helpers';
+import { generateRecipeKey } from '../helpers/recipe.helpers';
 import {
-  useMultiStepForm,
   Step,
+  useMultiStepForm,
   useMultiStepFormReturn,
 } from '../hooks/useMultiStepForm';
-import { Updater, useImmer } from 'use-immer';
 import { RecipeFormData, RecipeWithId } from '../types/recipe';
-import { generateRecipeKey } from '../helpers/recipe.helpers';
-import { getRecipeImgUrl } from '../helpers/firebase.helpers';
-
-import { InformationForm } from '../components/RecipeMultiStepForm/InformationForm/InformationForm';
-import { IngredientsForm } from '../components/RecipeMultiStepForm/IngredientsForm/IngredientsForm';
-import { PreparationForm } from '../components/RecipeMultiStepForm/PreparationForm/PreparationForm';
-import { Preview } from '../components/RecipeMultiStepForm/Preview/Preview';
 
 export type FormElements =
   | HTMLInputElement
@@ -70,22 +65,18 @@ export const RecipeMultiStepFormProvider = ({
 
   const steps: Step[] = [
     {
-      element: <InformationForm />,
       title: 'Informations',
       formId: 'informations',
     },
     {
-      element: <IngredientsForm />,
       title: 'Ingrédients',
       formId: 'ingredients',
     },
     {
-      element: <PreparationForm />,
       title: 'Préparation',
       formId: 'preparation',
     },
     {
-      element: <Preview />,
       title: 'Aperçu',
       formId: 'preview',
     },
