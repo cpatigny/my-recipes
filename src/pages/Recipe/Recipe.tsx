@@ -41,16 +41,30 @@ export const Recipe = () => {
   useEffect(() => {
     if (!('wakeLock' in navigator)) return;
 
+    let wakeLock: WakeLockSentinel | null = null;
+
     const requestWakeLock = async () => {
       try {
-        await navigator.wakeLock.request('screen');
+        wakeLock = await navigator.wakeLock.request('screen');
       } catch (error) {
         // the wake lock request fails - usually system related, such being low on battery
         console.log(`Wake lock request failed`);
       }
     };
 
+    const handleVisibilityChange = () => {
+      if (wakeLock !== null && document.visibilityState === 'visible') {
+        requestWakeLock();
+      }
+    };
+
     requestWakeLock();
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   useEffect(() => {
