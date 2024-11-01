@@ -1,15 +1,17 @@
 import { useState } from 'react';
-import { logOut } from '../../helpers/auth.helpers';
-import { ROUTES } from '../../routes';
 import { css, cx } from '../../../styled-system/css';
 import { flex, hstack } from '../../../styled-system/patterns';
 import { token } from '../../../styled-system/tokens';
+import { logOut } from '../../helpers/auth.helpers';
+import { ROUTES } from '../../routes';
 
 import { NavLink } from 'react-router-dom';
-import { MobileMenu } from './MobileMenu';
-import { Overlay } from '../Overlay';
-import { Icon } from '../Icon';
 import { Container } from '../Container';
+import { Icon } from '../Icon';
+import { Overlay } from '../Overlay';
+import { MobileMenu } from './MobileMenu';
+
+import logo from '../../assets/img/logo.svg';
 
 const menuItemStyles = css({
   bg: 'transparent',
@@ -69,11 +71,29 @@ export const Menu = () => {
       >
         <Container
           className={flex({
-            justify: { base: 'flex-end', md: 'space-between' },
+            justify: 'space-between',
             gap: '0 0.6rem',
             py: { base: '0.6rem', md: '1rem' },
           })}
         >
+          <h1
+            className={hstack({
+              color: 'primary',
+              fontSize: { base: '1.3rem', xsm: '1.6rem', md: '1.8rem' },
+              gap: '0',
+              md: { display: 'none' },
+            })}
+          >
+            <img
+              src={logo}
+              alt='logo'
+              className={css({
+                mr: '1.5',
+                w: { base: '1.8rem', xsm: '2.2rem' },
+              })}
+            />
+            My recipes
+          </h1>
           <nav
             className={hstack({
               gap: '0 1.2rem',

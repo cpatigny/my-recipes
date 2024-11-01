@@ -187,10 +187,14 @@ export const Home = () => {
           })}
         >
           <h1
+            data-is-admin={!!user}
             className={hstack({
               color: 'primary',
               fontSize: { base: '1.5rem', xsm: '2rem', md: '2.3rem' },
               gap: '0',
+              '&[data-is-admin=true]': {
+                display: { base: 'none', md: 'flex' },
+              },
             })}
           >
             <img
@@ -203,7 +207,7 @@ export const Home = () => {
             />
             My recipes
           </h1>
-          <SearchBar search={search} setSearch={setSearch} />
+          <SearchBar search={search} setSearch={setSearch} isAdmin={!!user} />
         </div>
 
         <Wrap

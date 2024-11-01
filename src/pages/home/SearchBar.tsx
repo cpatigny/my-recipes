@@ -18,9 +18,10 @@ const iconStyles = css({
 interface SearchBarProps {
   search: string;
   setSearch: (str: string) => void;
+  isAdmin: boolean;
 }
 
-export const SearchBar = ({ search, setSearch }: SearchBarProps) => {
+export const SearchBar = ({ search, setSearch, isAdmin }: SearchBarProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const wordToSearch = e.currentTarget.value;
     setSearch(wordToSearch);
@@ -30,12 +31,17 @@ export const SearchBar = ({ search, setSearch }: SearchBarProps) => {
 
   return (
     <div
+      data-is-admin={isAdmin}
       className={css({
         flexGrow: '1',
         w: '100%',
         pos: 'relative',
         maxW: { base: '100%', sm: '40%' },
         mt: { base: '0.5rem', sm: '0' },
+        '&[data-is-admin=true]': {
+          ml: 'auto',
+          maxW: { base: '100%', sm: '50%', md: '40%' },
+        },
       })}
     >
       <input
