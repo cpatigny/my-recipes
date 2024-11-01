@@ -176,6 +176,7 @@ export const InformationForm = () => {
           className={css({
             maxW: '25rem',
             pos: 'relative',
+            mt: '2',
           })}
         >
           <Button
