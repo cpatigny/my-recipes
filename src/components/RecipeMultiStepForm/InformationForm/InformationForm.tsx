@@ -120,6 +120,7 @@ export const InformationForm = () => {
       <div>
         <label htmlFor='title'>Titre</label>
         <input
+          id='title'
           name='title'
           type='text'
           required
@@ -132,6 +133,7 @@ export const InformationForm = () => {
       <div data-error={!!formErrors.slug} className={css({ mt: marginTop })}>
         <label htmlFor='slug'>Slug</label>
         <input
+          id='slug'
           type='text'
           name='slug'
           required
@@ -145,6 +147,7 @@ export const InformationForm = () => {
       <div className={css({ mt: '1.56rem' })}>
         <label htmlFor='image'>Sélectionner une image pour la recette</label>
         <input
+          id='image'
           type='file'
           ref={fileInputRef}
           name='image'
@@ -200,6 +203,7 @@ export const InformationForm = () => {
       <div className={css({ mt: marginTop })}>
         <label htmlFor='category'>Choisissez une catégorie</label>
         <select
+          id='category'
           name='category'
           required
           value={categoryId || DEFAULT_RECIPE_CATEGORY.value}
@@ -230,6 +234,7 @@ export const InformationForm = () => {
       <div className={css({ mt: marginTop })}>
         <label htmlFor='cookTime'>Temps de cuisson (en minutes)</label>
         <input
+          id='cookTime'
           name='cookTime'
           type='number'
           value={cookTimeInMins || 0}

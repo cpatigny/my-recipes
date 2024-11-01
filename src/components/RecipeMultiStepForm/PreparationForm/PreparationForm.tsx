@@ -14,6 +14,7 @@ export const PreparationForm = () => {
       <div>
         <label htmlFor='content'>Préparation</label>
         <textarea
+          id='content'
           name='content'
           required
           value={recipeFormData.content}

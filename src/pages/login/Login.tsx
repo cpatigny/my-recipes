@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { useUser } from '../../contexts/UserContext';
-import { ROUTES } from '../../routes';
-import { signIn } from '../../helpers/auth.helpers';
-import { useToast } from '../../contexts/ToastContext';
-import { flex } from '../../../styled-system/patterns';
 import { css } from '../../../styled-system/css';
+import { flex } from '../../../styled-system/patterns';
+import { useToast } from '../../contexts/ToastContext';
+import { useUser } from '../../contexts/UserContext';
+import { signIn } from '../../helpers/auth.helpers';
+import { ROUTES } from '../../routes';
 
-import { Container } from '../../components/Container';
 import { Button } from '../../components/Button';
+import { Container } from '../../components/Container';
 
 const inputStyles = css({
   p: '0.5rem 0.625rem',
@@ -91,6 +91,7 @@ export const Login = () => {
                 Email
               </label>
               <input
+                id='email'
                 name='email'
                 type='email'
                 required
@@ -104,6 +105,7 @@ export const Login = () => {
                 Mot de passe
               </label>
               <input
+                id='password'
                 name='password'
                 type='password'
                 required
