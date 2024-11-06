@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 import { ListBox, ListBoxProps } from 'react-aria-components';
 import { css } from '../../../styled-system/css';
 
@@ -5,6 +6,7 @@ function MyListBox<T extends object>({ children, ...props }: ListBoxProps<T>) {
   return (
     <ListBox
       {...props}
+      autoFocus='first'
       className={css({
         w: 'var(--trigger-width)',
         mt: '0.3rem',
