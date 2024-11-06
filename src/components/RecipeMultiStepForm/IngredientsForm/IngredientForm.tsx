@@ -1,27 +1,29 @@
-import { useState, useEffect, useRef } from 'react';
-import { getNewItemPosition } from '../../../helpers/helpers';
-import { generateIngredientKey } from '../../../helpers/ingredient.helpers';
+import { useEffect, useRef, useState } from 'react';
+import { css } from '../../../../styled-system/css';
+import { wrap } from '../../../../styled-system/patterns';
 import { useIngredientsDetails } from '../../../contexts/IngredientsDetailsContext';
 import {
-  useRecipeMultiStepForm,
   FormElements,
+  useRecipeMultiStepForm,
 } from '../../../contexts/RecipeMultiStepFormContext';
 import { useUnits } from '../../../contexts/UnitsContext';
+import { getNewItemPosition } from '../../../helpers/helpers';
+import { generateIngredientKey } from '../../../helpers/ingredient.helpers';
 import {
-  RecipeIngredientWithId,
   RecipeIngredientFormData,
+  RecipeIngredientWithId,
 } from '../../../types/recipe';
 import { FormErrors } from '../RecipeMultiStepForm';
-import { wrap } from '../../../../styled-system/patterns';
-import { css } from '../../../../styled-system/css';
 
+import { getIngredientDetailsName } from '../../../helpers/ingredientDetails.helpers';
+import { getUnitName } from '../../../helpers/units.helpers';
+import { Button } from '../../Button';
+import { CancelBtn } from '../../CancelBtn';
 import { Icon } from '../../Icon';
+import { ModalActions } from '../../Modal/ModalActions';
 import { UnderlineInput } from '../../UnderlineInput';
 import { IngredientDetailsCombobox } from './IngredientDetailsCombobox';
 import { UnitCombobox } from './UnitCombobox';
-import { CancelBtn } from '../../CancelBtn';
-import { Button } from '../../Button';
-import { ModalActions } from '../../Modal/ModalActions';
 
 const underlineInputMargin = '0.7rem 0 0.2rem';
 
@@ -45,6 +47,8 @@ export const IngredientForm = ({
   const [ingredientData, setIngredientData] =
     useState<RecipeIngredientFormData>(DEFAULT_INGREDIENT_DATA);
   const [ingredientErrors, setIngredientErrors] = useState<FormErrors>({});
+  const [ingredientSearch, setIngredientSearch] = useState('');
+  const [unitSearch, setUnitSearch] = useState('');
 
   const { ingredientsDetails } = useIngredientsDetails();
   const { units } = useUnits();
@@ -66,6 +70,20 @@ export const IngredientForm = ({
         ? ingredient.additionalInfo
         : '',
     });
+
+    setIngredientSearch(
+      getIngredientDetailsName(ingredientsDetails, ingredient.detailsId),
+    );
+
+    const unitId = ingredient.unitId;
+    if (!unitId) {
+      return;
+    }
+    const unit = units[unitId];
+    if (!unit) {
+      return;
+    }
+    setUnitSearch(getUnitName(unit, 1));
   }, [ingredient, ingredientsDetails, units]);
 
   const handleIngredientChange = (e: React.ChangeEvent<FormElements>) => {
@@ -80,6 +98,8 @@ export const IngredientForm = ({
   const resetForm = () => {
     setIngredientData(DEFAULT_INGREDIENT_DATA);
     setIngredientErrors({});
+    setIngredientSearch('');
+    setUnitSearch('');
   };
 
   const resetFocus = () => {
@@ -130,8 +150,8 @@ export const IngredientForm = ({
       };
     });
 
+    resetFocus(); // reset focus before reset form otherwise combobox input will not be cleared
     resetForm();
-    resetFocus();
   };
 
   const editIngredient = () => {
@@ -208,6 +228,8 @@ export const IngredientForm = ({
             ingredientData={ingredientData}
             setIngredientData={setIngredientData}
             units={units}
+            unitSearch={unitSearch}
+            setUnitSearch={setUnitSearch}
             error={!!ingredientErrors.unit}
             className={css({
               flex: 2,
@@ -229,6 +251,8 @@ export const IngredientForm = ({
             ingredientData={ingredientData}
             setIngredientData={setIngredientData}
             ingredientsDetails={ingredientsDetails}
+            ingredientSearch={ingredientSearch}
+            setIngredientSearch={setIngredientSearch}
             error={!!ingredientErrors.name}
             className={css({
               flex: '100% 1',
