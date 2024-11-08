@@ -1,14 +1,17 @@
 import { useState } from 'react';
-import { useCategories } from '../../contexts/CategoriesContext';
-import { CategoryWithId } from '../../types/category';
-import { blockTitle } from '../../recipes/blockTitle';
 import { css } from '../../../styled-system/css';
+import { useCategories } from '../../contexts/CategoriesContext';
+import { blockTitle } from '../../recipes/blockTitle';
+import { CategoryWithId } from '../../types/category';
 
-import { AdminCategoryList } from './AdminCategoryList';
 import { AdminContainer } from '../../components/AdminContainer';
-import { CategoryForm } from './CategoryForm';
 import { Block } from '../../components/Block';
-import { Modal } from '../../components/Modal/Modal';
+import { MyDialog } from '../../components/Modal/MyDialog';
+import { MyModal } from '../../components/Modal/MyModal';
+import { MyModalHeading } from '../../components/Modal/MyModalHeading';
+import { MyModalOverlay } from '../../components/Modal/MyModalOverlay';
+import { AdminCategoryList } from './AdminCategoryList';
+import { CategoryForm } from './CategoryForm';
 
 export const AdminCategories = () => {
   const [categoryToEdit, setCategoryToEdit] = useState<CategoryWithId | null>(
@@ -36,18 +39,31 @@ export const AdminCategories = () => {
         />
       </Block>
 
-      <Modal
-        isShow={!!categoryToEdit}
-        title='Modifier catégorie'
-        onClose={closeModal}
+      <MyModalOverlay
+        isOpen={!!categoryToEdit}
+        onOpenChange={isOpen => {
+          if (!isOpen) closeModal();
+        }}
       >
-        {categoryToEdit && (
-          <CategoryForm
-            categoryToEdit={categoryToEdit}
-            closeModal={closeModal}
-          />
-        )}
-      </Modal>
+        <MyModal>
+          <MyDialog>
+            {({ close }) => (
+              <>
+                <MyModalHeading>Modifier catégorie</MyModalHeading>
+                {categoryToEdit && (
+                  <CategoryForm
+                    categoryToEdit={categoryToEdit}
+                    closeModal={() => {
+                      closeModal();
+                      close();
+                    }}
+                  />
+                )}
+              </>
+            )}
+          </MyDialog>
+        </MyModal>
+      </MyModalOverlay>
     </AdminContainer>
   );
 };

@@ -1,17 +1,20 @@
 import { useState } from 'react';
-import { useUnits } from '../../contexts/UnitsContext';
-import { UnitWithId } from '../../types/unit';
-import { useRecipes } from '../../contexts/RecipesContext';
-import { deleteUnit } from '../../helpers/units.helpers';
-import { reverseObject } from '../../utils/utils';
 import { css } from '../../../styled-system/css';
+import { useRecipes } from '../../contexts/RecipesContext';
+import { useUnits } from '../../contexts/UnitsContext';
+import { deleteUnit } from '../../helpers/units.helpers';
 import { blockTitle } from '../../recipes/blockTitle';
+import { UnitWithId } from '../../types/unit';
+import { reverseObject } from '../../utils/utils';
 
 import { AdminContainer } from '../../components/AdminContainer';
+import { Block } from '../../components/Block';
+import { MyDialog } from '../../components/Modal/MyDialog';
+import { MyModal } from '../../components/Modal/MyModal';
+import { MyModalHeading } from '../../components/Modal/MyModalHeading';
+import { MyModalOverlay } from '../../components/Modal/MyModalOverlay';
 import { UnitForm } from './UnitForm';
 import { Units } from './Units';
-import { Modal } from '../../components/Modal/Modal';
-import { Block } from '../../components/Block';
 
 export const AdminUnits = () => {
   const [unitToEdit, setUnitToEdit] = useState<UnitWithId | null>(null);
@@ -51,13 +54,37 @@ export const AdminUnits = () => {
         )}
       </Block>
 
-      <Modal
+      <MyModalOverlay
+        isOpen={unitToEdit !== null}
+        onOpenChange={isOpen => {
+          if (!isOpen) closeEditForm();
+        }}
+      >
+        <MyModal>
+          <MyDialog>
+            {({ close }) => (
+              <>
+                <MyModalHeading>Modifier unité</MyModalHeading>
+                <UnitForm
+                  unitToEdit={unitToEdit}
+                  close={() => {
+                    closeEditForm();
+                    close();
+                  }}
+                />
+              </>
+            )}
+          </MyDialog>
+        </MyModal>
+      </MyModalOverlay>
+
+      {/* <Modal
         isShow={unitToEdit !== null}
         onClose={closeEditForm}
         title='Modifier unité'
       >
         <UnitForm unitToEdit={unitToEdit} close={closeEditForm} />
-      </Modal>
+      </Modal> */}
     </AdminContainer>
   );
 };

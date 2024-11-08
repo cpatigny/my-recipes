@@ -1,17 +1,20 @@
 import { useState } from 'react';
+import { css } from '../../../styled-system/css';
 import { useIngredientsDetails } from '../../contexts/IngredientsDetailsContext';
-import { IngredientDetailsWithId } from '../../types/ingredientDetails';
 import { useRecipes } from '../../contexts/RecipesContext';
 import { deleteIngredientDetails } from '../../helpers/ingredientDetails.helpers';
-import { reverseObject } from '../../utils/utils';
-import { css } from '../../../styled-system/css';
 import { blockTitle } from '../../recipes/blockTitle';
+import { IngredientDetailsWithId } from '../../types/ingredientDetails';
+import { reverseObject } from '../../utils/utils';
 
 import { AdminContainer } from '../../components/AdminContainer';
-import { IngredientsDetails } from './IngredientsDetails';
-import { Modal } from '../../components/Modal/Modal';
-import { IngredientDetailsForm } from './IngredientDetailsForm';
 import { Block } from '../../components/Block';
+import { MyDialog } from '../../components/Modal/MyDialog';
+import { MyModal } from '../../components/Modal/MyModal';
+import { MyModalHeading } from '../../components/Modal/MyModalHeading';
+import { MyModalOverlay } from '../../components/Modal/MyModalOverlay';
+import { IngredientDetailsForm } from './IngredientDetailsForm';
+import { IngredientsDetails } from './IngredientsDetails';
 
 export const AdminIngredientsDetails = () => {
   const [ingredientToEdit, setIngredientToEdit] =
@@ -58,7 +61,33 @@ export const AdminIngredientsDetails = () => {
         )}
       </Block>
 
-      <Modal
+      <MyModalOverlay
+        isOpen={!!ingredientToEdit}
+        onOpenChange={isOpen => {
+          if (!isOpen) closeEditForm();
+        }}
+      >
+        <MyModal>
+          <MyDialog>
+            {({ close }) => (
+              <>
+                <MyModalHeading>Modifier ingrédient</MyModalHeading>
+                {ingredientToEdit && (
+                  <IngredientDetailsForm
+                    ingredientToEdit={ingredientToEdit}
+                    close={() => {
+                      closeEditForm();
+                      close();
+                    }}
+                  />
+                )}
+              </>
+            )}
+          </MyDialog>
+        </MyModal>
+      </MyModalOverlay>
+
+      {/* <Modal
         isShow={!!ingredientToEdit}
         onClose={closeEditForm}
         title='Modifier ingrédient'
@@ -69,7 +98,7 @@ export const AdminIngredientsDetails = () => {
             close={closeEditForm}
           />
         )}
-      </Modal>
+      </Modal> */}
     </AdminContainer>
   );
 };

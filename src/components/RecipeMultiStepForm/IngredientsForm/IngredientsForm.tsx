@@ -1,20 +1,23 @@
 import { useState } from 'react';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
+import { useToast } from '../../../contexts/ToastContext';
 import {
-  RecipeIngredientWithId,
   GroupWithId,
   GroupWithIngredients,
   RecipeIngredients,
+  RecipeIngredientWithId,
 } from '../../../types/recipe';
-import { useToast } from '../../../contexts/ToastContext';
 
-import { Modal } from '../../Modal/Modal';
+import { Block } from '../../Block';
+import { MyDialog } from '../../Modal/MyDialog';
+import { MyModal } from '../../Modal/MyModal';
+import { MyModalHeading } from '../../Modal/MyModalHeading';
+import { MyModalOverlay } from '../../Modal/MyModalOverlay';
 import { AddGroup } from './AddGroup';
 import { GroupForm } from './GroupForm';
 import { IngredientAndGroupList } from './IngredientAndGroupList';
 import { IngredientForm } from './IngredientForm';
 import { NbOfServings } from './NbOfServings';
-import { Block } from '../../Block';
 
 export const IngredientsForm = () => {
   const [ingredientToEdit, setIngredientToEdit] =
@@ -100,28 +103,53 @@ export const IngredientsForm = () => {
         showEditGroupForm={showEditGroupForm}
         deleteGroup={deleteGroup}
       />
-      <Modal
-        isShow={!!ingredientToEdit}
-        onClose={() => setIngredientToEdit(null)}
-        title='Modifier ingrédient'
+      <MyModalOverlay
+        isOpen={!!ingredientToEdit}
+        onOpenChange={isOpen => {
+          if (!isOpen) setIngredientToEdit(null);
+        }}
       >
-        <IngredientForm
-          ingredient={ingredientToEdit ?? undefined}
-          closeModal={() => setIngredientToEdit(null)}
-        />
-      </Modal>
-      <Modal
-        isShow={showGroupForm}
-        onClose={closeGroupForm}
-        title={title}
-        afterLeave={() => setGroupToEdit(null)}
+        <MyModal>
+          <MyDialog>
+            {({ close }) => (
+              <>
+                <MyModalHeading>Modifier ingrédient</MyModalHeading>
+                <IngredientForm
+                  ingredient={ingredientToEdit ?? undefined}
+                  closeModal={() => {
+                    setIngredientToEdit(null);
+                    close();
+                  }}
+                />
+              </>
+            )}
+          </MyDialog>
+        </MyModal>
+      </MyModalOverlay>
+      <MyModalOverlay
+        isOpen={showGroupForm}
+        onOpenChange={isOpen => {
+          if (!isOpen) closeGroupForm();
+        }}
       >
-        <GroupForm
-          group={groupToEdit ?? undefined}
-          ingredients={ingredients}
-          closeModal={closeGroupForm}
-        />
-      </Modal>
+        <MyModal>
+          <MyDialog>
+            {({ close }) => (
+              <>
+                <MyModalHeading>{title}</MyModalHeading>
+                <GroupForm
+                  group={groupToEdit ?? undefined}
+                  ingredients={ingredients}
+                  closeModal={() => {
+                    closeGroupForm();
+                    close();
+                  }}
+                />
+              </>
+            )}
+          </MyDialog>
+        </MyModal>
+      </MyModalOverlay>
     </div>
   );
 };
