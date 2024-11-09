@@ -9,7 +9,7 @@ import { Block } from '../../components/Block';
 import { MyDialog } from '../../components/Modal/MyDialog';
 import { MyModal } from '../../components/Modal/MyModal';
 import { MyModalHeading } from '../../components/Modal/MyModalHeading';
-import { MyMotionModalOverlay } from '../../components/Modal/MyModalOverlay';
+import { MyMotionModalOverlay } from '../../components/Modal/MyMotionModalOverlay';
 import { AdminCategoryList } from './AdminCategoryList';
 import { CategoryForm } from './CategoryForm';
 

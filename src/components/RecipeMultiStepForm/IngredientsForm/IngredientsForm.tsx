@@ -12,7 +12,7 @@ import { Block } from '../../Block';
 import { MyDialog } from '../../Modal/MyDialog';
 import { MyModal } from '../../Modal/MyModal';
 import { MyModalHeading } from '../../Modal/MyModalHeading';
-import { MyMotionModalOverlay } from '../../Modal/MyModalOverlay';
+import { MyMotionModalOverlay } from '../../Modal/MyMotionModalOverlay';
 import { AddGroup } from './AddGroup';
 import { GroupForm } from './GroupForm';
 import { IngredientAndGroupList } from './IngredientAndGroupList';
