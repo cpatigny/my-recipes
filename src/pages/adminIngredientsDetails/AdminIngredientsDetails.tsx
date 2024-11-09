@@ -12,7 +12,7 @@ import { Block } from '../../components/Block';
 import { MyDialog } from '../../components/Modal/MyDialog';
 import { MyModal } from '../../components/Modal/MyModal';
 import { MyModalHeading } from '../../components/Modal/MyModalHeading';
-import { MyModalOverlay } from '../../components/Modal/MyModalOverlay';
+import { MyMotionModalOverlay } from '../../components/Modal/MyModalOverlay';
 import { IngredientDetailsForm } from './IngredientDetailsForm';
 import { IngredientsDetails } from './IngredientsDetails';
 
@@ -61,7 +61,7 @@ export const AdminIngredientsDetails = () => {
         )}
       </Block>
 
-      <MyModalOverlay
+      <MyMotionModalOverlay
         isOpen={!!ingredientToEdit}
         onOpenChange={isOpen => {
           if (!isOpen) closeEditForm();
@@ -85,7 +85,7 @@ export const AdminIngredientsDetails = () => {
             )}
           </MyDialog>
         </MyModal>
-      </MyModalOverlay>
+      </MyMotionModalOverlay>
 
       {/* <Modal
         isShow={!!ingredientToEdit}

@@ -12,7 +12,7 @@ import { Block } from '../../Block';
 import { MyDialog } from '../../Modal/MyDialog';
 import { MyModal } from '../../Modal/MyModal';
 import { MyModalHeading } from '../../Modal/MyModalHeading';
-import { MyModalOverlay } from '../../Modal/MyModalOverlay';
+import { MyMotionModalOverlay } from '../../Modal/MyModalOverlay';
 import { AddGroup } from './AddGroup';
 import { GroupForm } from './GroupForm';
 import { IngredientAndGroupList } from './IngredientAndGroupList';
@@ -103,7 +103,7 @@ export const IngredientsForm = () => {
         showEditGroupForm={showEditGroupForm}
         deleteGroup={deleteGroup}
       />
-      <MyModalOverlay
+      <MyMotionModalOverlay
         isOpen={!!ingredientToEdit}
         onOpenChange={isOpen => {
           if (!isOpen) setIngredientToEdit(null);
@@ -125,8 +125,8 @@ export const IngredientsForm = () => {
             )}
           </MyDialog>
         </MyModal>
-      </MyModalOverlay>
-      <MyModalOverlay
+      </MyMotionModalOverlay>
+      <MyMotionModalOverlay
         isOpen={showGroupForm}
         onOpenChange={isOpen => {
           if (!isOpen) closeGroupForm();
@@ -149,7 +149,7 @@ export const IngredientsForm = () => {
             )}
           </MyDialog>
         </MyModal>
-      </MyModalOverlay>
+      </MyMotionModalOverlay>
     </div>
   );
 };

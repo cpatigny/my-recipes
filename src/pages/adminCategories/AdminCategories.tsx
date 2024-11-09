@@ -9,7 +9,7 @@ import { Block } from '../../components/Block';
 import { MyDialog } from '../../components/Modal/MyDialog';
 import { MyModal } from '../../components/Modal/MyModal';
 import { MyModalHeading } from '../../components/Modal/MyModalHeading';
-import { MyModalOverlay } from '../../components/Modal/MyModalOverlay';
+import { MyMotionModalOverlay } from '../../components/Modal/MyModalOverlay';
 import { AdminCategoryList } from './AdminCategoryList';
 import { CategoryForm } from './CategoryForm';
 
@@ -39,7 +39,7 @@ export const AdminCategories = () => {
         />
       </Block>
 
-      <MyModalOverlay
+      <MyMotionModalOverlay
         isOpen={!!categoryToEdit}
         onOpenChange={isOpen => {
           if (!isOpen) closeModal();
@@ -63,7 +63,7 @@ export const AdminCategories = () => {
             )}
           </MyDialog>
         </MyModal>
-      </MyModalOverlay>
+      </MyMotionModalOverlay>
     </AdminContainer>
   );
 };

@@ -12,9 +12,9 @@ import { Block } from '../../components/Block';
 import { MyDialog } from '../../components/Modal/MyDialog';
 import { MyModal } from '../../components/Modal/MyModal';
 import { MyModalHeading } from '../../components/Modal/MyModalHeading';
-import { MyModalOverlay } from '../../components/Modal/MyModalOverlay';
 import { UnitForm } from './UnitForm';
 import { Units } from './Units';
+import { MyMotionModalOverlay } from '../../components/Modal/MyModalOverlay';
 
 export const AdminUnits = () => {
   const [unitToEdit, setUnitToEdit] = useState<UnitWithId | null>(null);
@@ -54,7 +54,7 @@ export const AdminUnits = () => {
         )}
       </Block>
 
-      <MyModalOverlay
+      <MyMotionModalOverlay
         isOpen={unitToEdit !== null}
         onOpenChange={isOpen => {
           if (!isOpen) closeEditForm();
@@ -76,7 +76,7 @@ export const AdminUnits = () => {
             )}
           </MyDialog>
         </MyModal>
-      </MyModalOverlay>
+      </MyMotionModalOverlay>
 
       {/* <Modal
         isShow={unitToEdit !== null}

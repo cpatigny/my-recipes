@@ -1,14 +1,14 @@
+import { AnimatePresence, motion } from 'framer-motion';
+import { forwardRef } from 'react';
 import { ModalOverlay, ModalOverlayProps } from 'react-aria-components';
 import { css } from '../../../styled-system/css';
 
-interface MyModalOverlayProps extends ModalOverlayProps {
-  children: React.ReactNode;
-}
-
-export const MyModalOverlay = ({ children, ...props }: MyModalOverlayProps) => {
-  return (
+const MyModalOverlay = forwardRef<HTMLDivElement, ModalOverlayProps>(
+  (props, ref) => (
     <ModalOverlay
       {...props}
+      ref={ref}
+      isOpen
       isDismissable
       className={css({
         bg: 'rgba(0, 0, 0, 0.4)',
@@ -24,8 +24,34 @@ export const MyModalOverlay = ({ children, ...props }: MyModalOverlayProps) => {
         display: 'grid',
         placeItems: 'center',
       })}
-    >
-      {children}
-    </ModalOverlay>
+    />
+  ),
+);
+
+export const MotionModalOverlay = motion.create(MyModalOverlay);
+
+interface MyModalOverlayProps extends Omit<ModalOverlayProps, 'style'> {
+  children: React.ReactNode;
+}
+
+export const MyMotionModalOverlay = ({
+  isOpen,
+  children,
+  ...props
+}: MyModalOverlayProps) => {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <MotionModalOverlay
+          {...props}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {children}
+        </MotionModalOverlay>
+      )}
+    </AnimatePresence>
   );
 };
