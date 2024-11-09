@@ -1,9 +1,9 @@
-import { useTransition, animated } from '@react-spring/web';
+import { css } from '../../../styled-system/css';
+import { flex, hstack } from '../../../styled-system/patterns';
 import { logOut } from '../../helpers/auth.helpers';
 import { Link } from './Menu';
-import { flex, hstack } from '../../../styled-system/patterns';
-import { css } from '../../../styled-system/css';
 
+import { AnimatePresence, motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import { Icon } from '../Icon';
 
@@ -17,18 +17,14 @@ interface MobileMenuProps {
 }
 
 export const MobileMenu = ({ isShow, close, links }: MobileMenuProps) => {
-  const menuTransitions = useTransition(isShow, {
-    from: { transform: 'translateX(100%)' },
-    enter: { transform: 'translateX(0%)' },
-    leave: { transform: 'translateX(100%)' },
-    config: { tension: 360, friction: 42 },
-  });
-
-  return menuTransitions(
-    (style, item) =>
-      item && (
-        <animated.aside
-          style={style}
+  return (
+    <AnimatePresence>
+      {isShow && (
+        <motion.aside
+          initial={{ transform: 'translateX(100%)' }}
+          animate={{ transform: 'translateX(0%)' }}
+          exit={{ transform: 'translateX(100%)' }}
+          transition={{ duration: 0.2 }}
           className={flex({
             direction: 'column',
             pos: 'fixed',
@@ -110,7 +106,8 @@ export const MobileMenu = ({ isShow, close, links }: MobileMenuProps) => {
             <Icon name='logout' />
             Déconnexion
           </button>
-        </animated.aside>
-      ),
+        </motion.aside>
+      )}
+    </AnimatePresence>
   );
 };
