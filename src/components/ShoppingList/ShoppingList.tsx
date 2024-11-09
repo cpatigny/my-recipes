@@ -1,10 +1,10 @@
-import { useTransition, animated } from '@react-spring/web';
-import { token } from '../../../styled-system/tokens';
 import { flex } from '../../../styled-system/patterns';
+import { token } from '../../../styled-system/tokens';
 
-import { ShoppingListHeader } from './ShoppingListHeader';
-import { ShoppingListContent } from './ShoppingListContent';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
+import { ShoppingListContent } from './ShoppingListContent';
+import { ShoppingListHeader } from './ShoppingListHeader';
 
 interface ShoppingListProps {
   closeShoppingList: () => void;
@@ -29,17 +29,14 @@ export const ShoppingList = ({
     };
   }, [closeShoppingList, isShow]);
 
-  const shoppingListTransitions = useTransition(isShow, {
-    from: { transform: 'scale(0)', opacity: 0 },
-    enter: { transform: 'scale(1)', opacity: 1 },
-    leave: { transform: 'scale(0)', opacity: 0 },
-    config: { tension: 500, friction: 40 },
-  });
-
-  return shoppingListTransitions(
-    (style, item) =>
-      item && (
-        <animated.div
+  return (
+    <AnimatePresence>
+      {isShow && (
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0, opacity: 0 }}
+          transition={{ duration: 0.2 }}
           className={flex({
             direction: 'column',
             pos: 'fixed',
@@ -63,17 +60,17 @@ export const ShoppingList = ({
               maxW: 'var(--max-size)',
             },
           })}
-          style={{
-            ...({
+          style={
+            {
               // 100% - bottom value * 2 to also have a space at the top the same size of the bottom one
               '--max-size': `calc(100% - ${token('spacing.shoppingListPositionValue')} * 2)`,
-            } as React.CSSProperties),
-            ...style,
-          }}
+            } as React.CSSProperties
+          }
         >
           <ShoppingListHeader closeShoppingList={closeShoppingList} />
           <ShoppingListContent />
-        </animated.div>
-      ),
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
