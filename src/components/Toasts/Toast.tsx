@@ -1,9 +1,9 @@
-import { animated, useTransition } from '@react-spring/web';
-import { useState } from 'react';
-import { Toast as ToastType } from '../../contexts/ToastContext';
-import { center, flex } from '../../../styled-system/patterns';
+import { useEffect, useState } from 'react';
 import { css } from '../../../styled-system/css';
+import { center, flex } from '../../../styled-system/patterns';
+import { Toast as ToastType } from '../../contexts/ToastContext';
 
+import { AnimatePresence, motion } from 'framer-motion';
 import { Icon } from '../Icon';
 
 export const Toast = ({ message, status, close }: ToastType) => {
@@ -22,20 +22,29 @@ export const Toast = ({ message, status, close }: ToastType) => {
       throw new Error('Invalid status prop value');
   }
 
-  const popUpTransitions = useTransition(isShow, {
-    from: { opacity: 0, transform: 'scaleY(0)' },
-    enter: { opacity: 1, transform: 'scaleY(1)' },
-    leave: { opacity: 0, transform: 'scaleY(0)' },
-    onRest: () => setTimeout(() => setIsShow(false), 3000),
-    onDestroyed: close,
-    config: { tension: 360, friction: 50 },
-  });
+  useEffect(() => {
+    if (!isShow) {
+      return;
+    }
 
-  return popUpTransitions(
-    (style, item) =>
-      item && (
-        <animated.div
-          style={style}
+    const timeoutId = setTimeout(() => {
+      setIsShow(false);
+      setTimeout(close, 3000); // delete toast from toasts list AFTER animation ends
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [isShow, close]);
+
+  return (
+    <AnimatePresence>
+      {isShow && (
+        <motion.div
+          initial={{ scaleY: 0, opacity: 0 }}
+          animate={{ scaleY: 1, opacity: 1 }}
+          exit={{ scaleY: 0, opacity: 0 }}
+          transition={{ duration: 0.2 }}
           className={flex({
             align: 'center',
             pos: 'relative',
@@ -85,7 +94,8 @@ export const Toast = ({ message, status, close }: ToastType) => {
               })}
             />
           </button>
-        </animated.div>
-      ),
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
