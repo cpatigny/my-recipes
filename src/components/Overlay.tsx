@@ -1,5 +1,5 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { useTransition, animated } from '@react-spring/web';
 import { css, cx } from '../../styled-system/css';
 
 interface OverlayProps {
@@ -38,20 +38,23 @@ export const Overlay = ({
     }
   };
 
-  const overlayTransitions = useTransition(isShow, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    config: { tension: 360, friction: 42 },
-  });
+  // const overlayTransitions = useTransition(isShow, {
+  //   from: { opacity: 0 },
+  //   enter: { opacity: 1 },
+  //   leave: { opacity: 0 },
+  //   config: { tension: 360, friction: 42 },
+  // });
 
-  return overlayTransitions(
-    (style, item) =>
-      item && (
-        <animated.div
+  return (
+    <AnimatePresence>
+      {isShow && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
           onMouseUp={handleMouseUp}
           onMouseDown={handleMouseDown}
-          style={style}
           className={cx(
             className,
             css({
@@ -69,7 +72,8 @@ export const Overlay = ({
           )}
         >
           {children}
-        </animated.div>
-      ),
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };

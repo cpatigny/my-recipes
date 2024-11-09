@@ -147,11 +147,7 @@ export const Menu = () => {
         </Container>
       </header>
       <Overlay isShow={showMenu} close={() => setShowMenu(false)}>
-        <MobileMenu
-          isShow={showMenu}
-          close={() => setShowMenu(false)}
-          links={links}
-        />
+        <MobileMenu close={() => setShowMenu(false)} links={links} />
       </Overlay>
     </>
   );
