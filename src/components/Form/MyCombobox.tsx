@@ -39,7 +39,7 @@ const MyCombobox = forwardRef<RefType, MyComboboxProps<object>>(
             ref={inputRef}
           />
         </div>
-        <Popover>{children}</Popover>
+        <Popover className={css({ zIndex: '999999999!' })}>{children}</Popover>
       </ComboBox>
     );
   },
