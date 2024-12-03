@@ -55,7 +55,15 @@ export const IngredientDetailsCombobox = ({
           ),
         );
       }}
-      onInputChange={setIngredientSearch}
+      onInputChange={value => {
+        if (value === '') {
+          setIngredientData({
+            ...ingredientData,
+            detailsId: '',
+          });
+        }
+        setIngredientSearch(value);
+      }}
       selectedKey={ingredientData.detailsId}
       inputValue={ingredientSearch}
       placeholder='Ingrédient'

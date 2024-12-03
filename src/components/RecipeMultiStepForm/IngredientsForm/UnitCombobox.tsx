@@ -54,7 +54,12 @@ export const UnitCombobox = ({
           return unit.singular;
         });
       }}
-      onInputChange={setUnitSearch}
+      onInputChange={value => {
+        if (value === '') {
+          setIngredientData({ ...ingredientData, unitId: '' });
+        }
+        setUnitSearch(value);
+      }}
       selectedKey={ingredientData.unitId}
       inputValue={unitSearch}
       placeholder='Unité'
