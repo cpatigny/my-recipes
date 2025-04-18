@@ -1,6 +1,7 @@
 import eslint from '@eslint/js';
 import vitest from '@vitest/eslint-plugin';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
+import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config({
@@ -9,6 +10,7 @@ export default tseslint.config({
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
     jsxA11y.flatConfigs.recommended,
+    reactHooks.configs['recommended-latest'],
   ],
   plugins: {
     vitest,
