@@ -48,7 +48,7 @@ export const Recipe = () => {
         wakeLock = await navigator.wakeLock.request('screen');
       } catch (error) {
         // the wake lock request fails - usually system related, such being low on battery
-        console.log(`Wake lock request failed`);
+        console.log(`Wake lock request failed: ${error}`);
       }
     };
 

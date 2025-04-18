@@ -5,7 +5,7 @@ import { generateRecipeKey } from '../helpers/recipe.helpers';
 import {
   Step,
   useMultiStepForm,
-  useMultiStepFormReturn,
+  UseMultiStepFormReturn,
 } from '../hooks/useMultiStepForm';
 import { RecipeFormData, RecipeWithId } from '../types/recipe';
 
@@ -14,7 +14,7 @@ export type FormElements =
   | HTMLTextAreaElement
   | HTMLSelectElement;
 
-interface RecipeMultiStepFormContextValues extends useMultiStepFormReturn {
+interface RecipeMultiStepFormContextValues extends UseMultiStepFormReturn {
   recipeFormData: RecipeFormData;
   setRecipeFormData: Updater<RecipeFormData>;
   previewImageSrc: string | null;

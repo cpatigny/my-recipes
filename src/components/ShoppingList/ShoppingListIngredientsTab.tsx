@@ -1,11 +1,8 @@
-// import { useState } from 'react';
 import { css } from '../../../styled-system/css';
-// import { useIngredientsDetails } from '../../contexts/IngredientsDetailsContext';
-// import { useUnits } from '../../contexts/UnitsContext';
+
 import { getIngredientList } from '../../helpers/recipe.helpers';
 import { ShoppingListRecipeWithId } from '../../types/shoppingList';
 
-// import { Ingredient } from '../../pages/Recipe/Ingredient';
 import { IngredientList } from '../../pages/Recipe/IngredientList';
 import { SecondaryText } from '../SecondaryText';
 

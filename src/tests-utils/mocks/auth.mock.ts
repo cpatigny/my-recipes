@@ -1,8 +1,9 @@
-import '../../firebase';
+/* eslint-disable sonarjs/no-hardcoded-passwords */
 import { FirebaseError } from 'firebase/app';
-import { signIn } from '../../helpers/auth.helpers';
 import { getAuth } from 'firebase/auth';
 import { get, getDatabase, ref } from 'firebase/database';
+import '../../firebase';
+import { signIn } from '../../helpers/auth.helpers';
 
 export const mockedAdminCredentials = {
   email: 'admin@example.com',

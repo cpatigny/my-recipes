@@ -38,13 +38,6 @@ export const Overlay = ({
     }
   };
 
-  // const overlayTransitions = useTransition(isShow, {
-  //   from: { opacity: 0 },
-  //   enter: { opacity: 1 },
-  //   leave: { opacity: 0 },
-  //   config: { tension: 360, friction: 42 },
-  // });
-
   return (
     <AnimatePresence>
       {isShow && (

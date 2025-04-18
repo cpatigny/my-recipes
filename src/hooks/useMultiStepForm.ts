@@ -5,7 +5,7 @@ export interface Step {
   formId: string;
 }
 
-export interface useMultiStepFormReturn {
+export interface UseMultiStepFormReturn {
   steps: Step[];
   step: Step;
   currentStepIndex: number;
@@ -21,7 +21,7 @@ export interface useMultiStepFormReturn {
 export const useMultiStepForm = (
   steps: Step[],
   isEditMode: boolean,
-): useMultiStepFormReturn => {
+): UseMultiStepFormReturn => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [stepIndexes] = useState(steps.map((step, i) => i));
   const [completedStepIndexes, setCompletedStepIndexes] = useState<number[]>(

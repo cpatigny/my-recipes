@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 import { Toasts } from '../components/Toasts/Toasts';
 
@@ -42,6 +42,7 @@ export const useToast = () => {
   };
 
   const createToast = (message: string, status: Status) => {
+    // eslint-disable-next-line sonarjs/pseudo-random
     const key = Math.random().toString(36).substring(2, 11);
 
     const newToast: Toast = {

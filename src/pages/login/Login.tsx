@@ -47,6 +47,7 @@ export const Login = () => {
       navigate(ROUTES.HOME, { replace: true });
     } catch (error) {
       toast.error('Email ou mot de passe incorrect');
+      console.error(error);
     }
   };
 
