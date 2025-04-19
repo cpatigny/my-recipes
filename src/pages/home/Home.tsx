@@ -52,6 +52,7 @@ const nothingToShowStyles = flex({
 
 const DEFAULT_LIMIT = 10;
 export const SAVED_LIMIT_STORAGE_KEY = 'saved-recipe-nb-limit';
+const RANDOM_ORDER_KEY = 'random-order';
 
 export const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
@@ -64,7 +65,10 @@ export const Home = () => {
     const savedLimit = sessionStorage.getItem(SAVED_LIMIT_STORAGE_KEY);
     return savedLimit ? Number(savedLimit) : DEFAULT_LIMIT;
   });
-  const [randomOrder, setRandomOrder] = useState(false);
+  const [randomOrder, setRandomOrder] = useState(() => {
+    const localRandomOrder = localStorage.getItem(RANDOM_ORDER_KEY);
+    return localRandomOrder === '1' ? true : false;
+  });
   const [zoomOut, setZoomOut] = useState(false);
 
   const recipesContainerRef = useRef<HTMLDivElement | null>(null);
@@ -181,6 +185,11 @@ export const Home = () => {
     return `${nbRecipes} ${nbRecipes > 1 ? 'recettes' : 'recette'}`;
   };
 
+  const toggleRandomOrder = () => {
+    setRandomOrder(!randomOrder);
+    localStorage.setItem(RANDOM_ORDER_KEY, !randomOrder ? '1' : '0');
+  };
+
   return (
     <>
       {user && <Menu />}
@@ -273,7 +282,7 @@ export const Home = () => {
             })}
           >
             <RecipeOptionButton
-              onClick={() => setRandomOrder(!randomOrder)}
+              onClick={() => toggleRandomOrder()}
               active={randomOrder}
             >
               <Icon name='shuffle' fontSize='1.3rem' />
