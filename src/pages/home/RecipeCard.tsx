@@ -1,9 +1,9 @@
 import { css, cx } from '../../../styled-system/css';
 import { grid } from '../../../styled-system/patterns';
+import { useShoppingList } from '../../contexts/ShoppingListContext';
 import { getRecipeImgUrl } from '../../helpers/firebase.helpers';
 import { getRecipePath } from '../../routes';
 import { Recipe } from '../../types/recipe';
-import { useShoppingList } from '../../contexts/ShoppingListContext';
 import { ShoppingListItem } from '../../types/shoppingList';
 
 import { Link } from 'react-router-dom';
@@ -25,6 +25,7 @@ const shoppingListBtnStyles = cx(
 
 interface RecipeCardProps extends Recipe {
   id: string;
+  zoomOut: boolean;
 }
 
 export const RecipeCard = ({
@@ -33,6 +34,7 @@ export const RecipeCard = ({
   imageName,
   slug,
   nbServings,
+  zoomOut,
 }: RecipeCardProps) => {
   const {
     addToShoppingListAndNotify,
@@ -52,7 +54,7 @@ export const RecipeCard = ({
 
   return (
     <div className={css({ pos: 'relative' })}>
-      {isRecipeInShoppingList ? (
+      {isRecipeInShoppingList && !zoomOut && (
         <button
           onClick={() => deleteFromShoppingListAndNotify(id)}
           className={shoppingListBtnStyles}
@@ -60,7 +62,8 @@ export const RecipeCard = ({
         >
           <Icon name='delete_outline' />
         </button>
-      ) : (
+      )}
+      {!isRecipeInShoppingList && !zoomOut && (
         <button
           onClick={() => addToShoppingListAndNotify(item)}
           className={shoppingListBtnStyles}
@@ -84,6 +87,10 @@ export const RecipeCard = ({
             bg: '#f5f5f5',
             overflow: 'hidden',
             isolation: 'isolate', // to fix ios bug where border-radius stops working during image scale animation
+
+            '[data-zoom-out=true] &': {
+              h: { base: '7.5rem', xsm: '10.5rem' },
+            },
           }),
         )}
       >
@@ -112,6 +119,7 @@ export const RecipeCard = ({
             })}
           />
         )}
+        {/* {!zoomOut && ( */}
         <p
           className={css({
             p: '0 1rem',
@@ -122,10 +130,17 @@ export const RecipeCard = ({
             color: 'white',
             fontWeight: '600',
             fontSize: { base: '1.5rem', xsm: '1.95rem' },
+
+            '[data-zoom-out=true] &': {
+              fontSize: { base: '0.9rem', xsm: '1rem' },
+              m: '0.5rem auto',
+              p: '0 0.5rem',
+            },
           })}
         >
           {title}
         </p>
+        {/* )} */}
       </Link>
     </div>
   );

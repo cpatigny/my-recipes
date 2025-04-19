@@ -50,7 +50,7 @@ const nothingToShowStyles = flex({
   },
 });
 
-const DEFAULT_LIMIT = 10;
+const DEFAULT_LIMIT = 20;
 export const SAVED_LIMIT_STORAGE_KEY = 'saved-recipe-nb-limit';
 const RANDOM_ORDER_KEY = 'random-order';
 
@@ -316,9 +316,20 @@ export const Home = () => {
         )}
 
         <div
+          data-zoom-out={zoomOut}
           className={grid({
-            minChildWidth: { base: '12rem', xsm: '17.5rem' },
+            gridTemplateColumns: {
+              base: 'repeat(auto-fit, minmax(12rem, 1fr))',
+              xsm: 'repeat(auto-fit, minmax(17.5rem, 1fr))',
+            },
             gap: '2.19rem',
+            '&[data-zoom-out=true]': {
+              gridTemplateColumns: {
+                base: 'repeat(auto-fit, minmax(7.5rem, 1fr))',
+                xsm: 'repeat(auto-fit, minmax(10.75rem, 1fr))',
+              },
+              gap: '1rem',
+            },
           })}
           ref={recipesContainerRef}
         >
@@ -329,7 +340,14 @@ export const Home = () => {
                 const recipe = recipesToShow[key];
                 if (!recipe) return null;
 
-                return <RecipeCard key={key} id={key} {...recipe} />;
+                return (
+                  <RecipeCard
+                    key={key}
+                    id={key}
+                    zoomOut={zoomOut}
+                    {...recipe}
+                  />
+                );
               })}
         </div>
 
