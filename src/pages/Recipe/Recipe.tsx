@@ -5,7 +5,6 @@ import { css, cx } from '../../../styled-system/css';
 import { flex, vstack } from '../../../styled-system/patterns';
 import { useCategories } from '../../contexts/CategoriesContext';
 import { useShoppingList } from '../../contexts/ShoppingListContext';
-import { useUser } from '../../contexts/UserContext';
 import { getCookTimeText } from '../../helpers/recipe.helpers';
 import { useRecipeBySlug } from '../../hooks/useRecipeBySlug';
 import { useScrollRestoration } from '../../hooks/useScrollRestoration';
@@ -28,7 +27,6 @@ import { RecipeImage } from './RecipeImage';
 export const Recipe = () => {
   const [numberOfServings, setNumberOfServings] = useState(0);
 
-  const { user } = useUser();
   const { categories } = useCategories();
   const { restoreScroll } = useScrollRestoration();
   const { recipe, noMatch } = useRecipeBySlug();
@@ -152,7 +150,7 @@ export const Recipe = () => {
           </span>
         </div>
 
-        {user && <RecipeActions recipe={recipe} />}
+        <RecipeActions recipe={recipe} />
       </div>
 
       <RecipeImage recipe={recipe} />
