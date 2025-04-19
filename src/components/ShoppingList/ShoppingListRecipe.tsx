@@ -5,8 +5,8 @@ import { getRecipeImgUrl } from '../../helpers/firebase.helpers';
 import { getRecipePath } from '../../routes';
 import { ShoppingListRecipeWithId } from '../../types/shoppingList';
 
-import { Servings } from '../../pages/Recipe/Servings';
 import { Link } from 'react-router-dom';
+import { Servings } from '../../pages/Recipe/Servings';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 
@@ -49,7 +49,7 @@ export const ShoppingListRecipe = ({
         shadow: 'xs',
       })}
     >
-      {imageName && (
+      {imageName ? (
         <img
           src={getRecipeImgUrl(imageName)}
           alt={recipe.title}
@@ -63,6 +63,25 @@ export const ShoppingListRecipe = ({
             rounded: 'xl',
           })}
         />
+      ) : (
+        <div
+          className={flex({
+            justify: 'center',
+            align: 'center',
+            bg: 'bg',
+            w: { base: imgSize, xsm: biggerImgSize },
+            h: { base: imgSize, xsm: biggerImgSize },
+            rounded: 'xl',
+          })}
+        >
+          <Icon
+            name='image'
+            fontSize='2rem'
+            className={css({
+              color: 'rgb(223, 223, 223)',
+            })}
+          />
+        </div>
       )}
       <div className={flex({ direction: 'column', gap: '0.8rem' })}>
         <Link

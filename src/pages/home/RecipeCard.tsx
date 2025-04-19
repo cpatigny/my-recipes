@@ -119,7 +119,6 @@ export const RecipeCard = ({
             })}
           />
         )}
-        {/* {!zoomOut && ( */}
         <p
           className={css({
             p: '0 1rem',
@@ -140,7 +139,6 @@ export const RecipeCard = ({
         >
           {title}
         </p>
-        {/* )} */}
       </Link>
     </div>
   );
