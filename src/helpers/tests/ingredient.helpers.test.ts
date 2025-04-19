@@ -222,7 +222,7 @@ describe('getQuantityText', () => {
 
 describe('getPrepositionText', () => {
   test('should return an emtpy string if preposition is false', () => {
-    expect(getPrepositionText(false)).toBe(' ');
+    expect(getPrepositionText(false)).toBe('');
   });
 
   test('should return the string without spaces at the end if no apostrophe', () => {

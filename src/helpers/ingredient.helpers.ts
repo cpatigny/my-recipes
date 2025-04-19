@@ -5,9 +5,11 @@ import {
   RecipeIngredientWithId,
   RecipeIngredients,
 } from '../types/recipe';
+import { Units } from '../types/unit';
 import { lastCharIs } from '../utils/utils';
 import { generateKey } from './firebase.helpers';
 import { sortItemsByPosition } from './helpers';
+import { getUnitDetails, getUnitName } from './units.helpers';
 
 export const addGroupIdToIngredients = (
   groupId: string,
@@ -113,6 +115,52 @@ export const getIngredientName = (
   return details.name;
 };
 
+export const getIngredientText = (
+  ingredient: RecipeIngredientWithId | RecipeIngredient,
+  ingredientsDetails: IngredientsDetails | null,
+  units: Units | null,
+  servingRatio?: number,
+) => {
+  let quantity = Number(ingredient.quantity); // 0 if false
+  if (servingRatio) {
+    quantity *= servingRatio;
+  }
+
+  const ingredientName = getIngredientName(
+    ingredient,
+    quantity,
+    ingredientsDetails,
+  );
+  const unit = getUnitDetails(units, ingredient.unitId);
+  const unitName = getUnitName(unit, quantity);
+  const quantityText = getQuantityText(quantity);
+  const prepositionText = getPrepositionText(ingredient.preposition);
+  const additionalInfo = ingredient.additionalInfo
+    ? ingredient.additionalInfo
+    : '';
+
+  let ingredientAmount = quantityText;
+
+  if (ingredientAmount.length > 0) {
+    ingredientAmount += unitName ? ` ${unitName}` : '';
+  }
+
+  let ingredientText = '';
+  if (ingredientAmount.length === 0) {
+    ingredientText = `${ingredientName} ${additionalInfo}`;
+  } else {
+    ingredientText = `${ingredientAmount} ${prepositionText}${ingredientName} ${additionalInfo}`;
+  }
+
+  return {
+    ingredientText,
+    ingredientName,
+    additionalInfo,
+    ingredientAmount,
+    prepositionText,
+  };
+};
+
 export const getIngredientsWithoutGroup = (ingredients: RecipeIngredients) => {
   const ingredientsWithoutGroup: RecipeIngredientWithId[] = [];
 
@@ -179,6 +227,10 @@ export const getQuantityText = (quantity: number) => {
 };
 
 export const getPrepositionText = (preposition: string | false) => {
+  if (!preposition) {
+    return '';
+  }
+
   let prepositionText = '';
 
   if (preposition) {

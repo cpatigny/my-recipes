@@ -1,13 +1,8 @@
-import {
-  getIngredientName,
-  getPrepositionText,
-  getQuantityText,
-} from '../helpers/ingredient.helpers';
-import { getUnitDetails, getUnitName } from '../helpers/units.helpers';
-import { IngredientsDetails } from '../types/ingredientDetails';
-import { RecipeIngredientWithId, RecipeIngredient } from '../types/recipe';
-import { Units } from '../types/unit';
 import { css } from '../../styled-system/css';
+import { getIngredientText } from '../helpers/ingredient.helpers';
+import { IngredientsDetails } from '../types/ingredientDetails';
+import { RecipeIngredient, RecipeIngredientWithId } from '../types/recipe';
+import { Units } from '../types/unit';
 
 interface IngredientTextProps
   extends React.InputHTMLAttributes<HTMLSpanElement> {
@@ -32,26 +27,8 @@ export const IngredientText = ({
     return null;
   }
 
-  let quantity = Number(ingredient.quantity); // 0 if false
-  if (servingRatio) {
-    quantity *= servingRatio;
-  }
-
-  const ingredientName = getIngredientName(
-    ingredient,
-    quantity,
-    ingredientsDetails,
-  );
-  const unit = getUnitDetails(units, ingredient.unitId);
-  const unitName = getUnitName(unit, quantity);
-  const quantityText = getQuantityText(quantity);
-  const prepositionText = getPrepositionText(ingredient.preposition);
-  const additionalInfo = ingredient.additionalInfo
-    ? ingredient.additionalInfo
-    : '';
-
-  let ingredientAmount = quantityText;
-  ingredientAmount += ingredientAmount.length > 0 ? ` ${unitName}` : '';
+  const { ingredientName, additionalInfo, ingredientAmount, prepositionText } =
+    getIngredientText(ingredient, ingredientsDetails, units, servingRatio);
 
   if (ingredientAmount.length === 0) {
     return (
