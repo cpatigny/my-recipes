@@ -71,7 +71,7 @@ export const Categories = ({
   return (
     <div
       className={css({
-        mb: '1.875rem',
+        mb: '1rem',
         pos: 'relative',
       })}
     >

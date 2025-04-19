@@ -34,7 +34,9 @@ import { SearchBar } from './SearchBar';
 import logo from '../../assets/img/logo.svg';
 import emptyIllustration from '../../assets/img/undraw-empty.svg';
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
+import { Icon } from '../../components/Icon';
 import { Overlay } from '../../components/Overlay';
+import { RecipeOptionButton } from './RecipeOptionButton';
 
 const nothingToShowStyles = flex({
   direction: 'column',
@@ -247,6 +249,35 @@ export const Home = () => {
           selectedCategory={selectedCategory}
           recipes={recipes}
         />
+
+        <div
+          className={flex({
+            justify: 'center',
+            m: '1.6rem 0 1rem',
+          })}
+        >
+          <div
+            className={flex({
+              align: 'center',
+              gap: { base: '0 0.6rem', sm: '0 0.8rem' },
+              bg: 'white',
+              rounded: 'full',
+              p: { base: '0.2rem 0.6rem', sm: '0.4rem 0.8rem' },
+            })}
+          >
+            <RecipeOptionButton
+              onClick={() => console.log('random recipe order')}
+            >
+              <Icon name='shuffle' fontSize='1.3rem' />
+            </RecipeOptionButton>
+
+            <RecipeOptionButton
+              onClick={() => console.log('zoom out recipe list')}
+            >
+              <Icon name='zoom_out' fontSize='1.3rem' />
+            </RecipeOptionButton>
+          </div>
+        </div>
 
         {noSearchResult && (
           <NothingToShow
