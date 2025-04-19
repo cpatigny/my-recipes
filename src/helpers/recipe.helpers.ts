@@ -1,5 +1,6 @@
-import { getDatabase, ref, remove, update, push } from 'firebase/database';
-import { ref as storageRef, getStorage, deleteObject } from 'firebase/storage';
+/* eslint-disable sonarjs/pseudo-random */
+import { getDatabase, push, ref, remove, update } from 'firebase/database';
+import { deleteObject, getStorage, ref as storageRef } from 'firebase/storage';
 import {
   Recipe,
   RecipeFormData,
@@ -8,13 +9,13 @@ import {
   Recipes,
   RecipeWithId,
 } from '../types/recipe';
+import { ShoppingListRecipeWithId } from '../types/shoppingList';
 import { strContains } from '../utils/utils';
 import { generateKey } from './firebase.helpers';
 import {
   mergeDuplicateIngredients,
   orderIngredientsByDetailsId,
 } from './ingredient.helpers';
-import { ShoppingListRecipeWithId } from '../types/shoppingList';
 
 export const getRecipeBySlug = (
   slug: string,
@@ -111,6 +112,25 @@ export const reverseRecipes = (recipes: Recipes): Recipes => {
     });
 
   return reversedObject;
+};
+
+// randomize the order of recipes
+export const shuffleRecipes = (recipes: Recipes): Recipes => {
+  const shuffledRecipes: Recipes = {};
+
+  Object.keys(recipes)
+    .map(recipeKey => ({ recipeKey, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ recipeKey }) => recipeKey)
+    .forEach(recipeKey => {
+      const recipe = recipes[recipeKey];
+
+      if (recipe) {
+        shuffledRecipes[recipeKey] = recipe;
+      }
+    });
+
+  return shuffledRecipes;
 };
 
 export const searchMatchingRecipes = (

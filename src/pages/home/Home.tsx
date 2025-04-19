@@ -12,6 +12,7 @@ import {
   getRecipesByCategory,
   reverseRecipes,
   searchMatchingRecipes,
+  shuffleRecipes,
 } from '../../helpers/recipe.helpers';
 import { useScrollRestoration } from '../../hooks/useScrollRestoration';
 import { button } from '../../recipes/button';
@@ -63,6 +64,8 @@ export const Home = () => {
     const savedLimit = sessionStorage.getItem(SAVED_LIMIT_STORAGE_KEY);
     return savedLimit ? Number(savedLimit) : DEFAULT_LIMIT;
   });
+  const [randomOrder, setRandomOrder] = useState(false);
+  const [zoomOut, setZoomOut] = useState(false);
 
   const recipesContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -104,8 +107,12 @@ export const Home = () => {
       noResult = matchingRecipes === null;
     }
 
-    if (matchingRecipes) {
+    if (matchingRecipes && !randomOrder) {
       matchingRecipes = reverseRecipes(matchingRecipes);
+    }
+
+    if (matchingRecipes && randomOrder) {
+      matchingRecipes = shuffleRecipes(matchingRecipes);
     }
 
     const defaultCategoryIsSelected = selectedCategory === null;
@@ -119,7 +126,7 @@ export const Home = () => {
 
     setNoSearchResult(noResult);
     setRecipesToShow(matchingRecipes);
-  }, [recipes, search, selectedCategory]);
+  }, [recipes, search, selectedCategory, randomOrder]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -266,13 +273,15 @@ export const Home = () => {
             })}
           >
             <RecipeOptionButton
-              onClick={() => console.log('random recipe order')}
+              onClick={() => setRandomOrder(!randomOrder)}
+              active={randomOrder}
             >
               <Icon name='shuffle' fontSize='1.3rem' />
             </RecipeOptionButton>
 
             <RecipeOptionButton
-              onClick={() => console.log('zoom out recipe list')}
+              onClick={() => setZoomOut(!zoomOut)}
+              active={zoomOut}
             >
               <Icon name='zoom_out' fontSize='1.3rem' />
             </RecipeOptionButton>
