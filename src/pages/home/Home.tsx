@@ -53,6 +53,7 @@ const nothingToShowStyles = flex({
 const DEFAULT_LIMIT = 20;
 export const SAVED_LIMIT_STORAGE_KEY = 'saved-recipe-nb-limit';
 const RANDOM_ORDER_KEY = 'random-order';
+const ZOOM_OUT_KEY = 'zoom-out';
 
 export const Home = () => {
   const [recipesToShow, setRecipesToShow] = useState<Recipes | null>(null);
@@ -69,7 +70,10 @@ export const Home = () => {
     const localRandomOrder = localStorage.getItem(RANDOM_ORDER_KEY);
     return localRandomOrder === '1' ? true : false;
   });
-  const [zoomOut, setZoomOut] = useState(false);
+  const [zoomOut, setZoomOut] = useState(() => {
+    const localZoomOut = localStorage.getItem(ZOOM_OUT_KEY);
+    return localZoomOut === '1' ? true : false;
+  });
 
   const recipesContainerRef = useRef<HTMLDivElement | null>(null);
 
@@ -190,6 +194,11 @@ export const Home = () => {
     localStorage.setItem(RANDOM_ORDER_KEY, !randomOrder ? '1' : '0');
   };
 
+  const toggleZoomOut = () => {
+    setZoomOut(!zoomOut);
+    localStorage.setItem(ZOOM_OUT_KEY, zoomOut ? '0' : '1');
+  };
+
   return (
     <>
       {user && <Menu />}
@@ -282,16 +291,13 @@ export const Home = () => {
             })}
           >
             <RecipeOptionButton
-              onClick={() => toggleRandomOrder()}
+              onClick={toggleRandomOrder}
               active={randomOrder}
             >
               <Icon name='shuffle' fontSize='1.3rem' />
             </RecipeOptionButton>
 
-            <RecipeOptionButton
-              onClick={() => setZoomOut(!zoomOut)}
-              active={zoomOut}
-            >
+            <RecipeOptionButton onClick={toggleZoomOut} active={zoomOut}>
               <Icon name='zoom_out' fontSize='1.3rem' />
             </RecipeOptionButton>
           </div>
