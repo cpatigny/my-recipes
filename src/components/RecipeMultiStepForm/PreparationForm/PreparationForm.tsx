@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { css } from '../../../../styled-system/css';
-import { flex } from '../../../../styled-system/patterns';
+import { center, flex } from '../../../../styled-system/patterns';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 import { useToast } from '../../../contexts/ToastContext';
 import { getNewItemPosition } from '../../../helpers/helpers';
 import { generateStepKey } from '../../../helpers/step.helpers';
 import { Block } from '../../Block';
 import { Button } from '../../Button';
+import { Icon } from '../../Icon';
 
 export const PreparationForm = () => {
   const [stepContent, setStepContent] = useState('');
@@ -40,6 +41,12 @@ export const PreparationForm = () => {
 
       setStepContent('');
     }
+  };
+
+  const deleteStep = (id: string) => {
+    setRecipeFormData(draft => {
+      delete draft.steps[id];
+    });
   };
 
   return (
@@ -95,7 +102,7 @@ export const PreparationForm = () => {
                 justify: 'space-between',
                 listStyle: 'none',
                 bg: 'white',
-                p: '0.55rem 0 0.55rem 1.1rem',
+                p: '0.55rem 1.1rem 0.55rem 1.1rem',
                 rounded: '0.8rem',
                 shadow:
                   '0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(34, 33, 81, 0.15)',
@@ -106,6 +113,21 @@ export const PreparationForm = () => {
               })}
             >
               {recipeFormData.steps[key]?.content}
+
+              <div className={center({ gap: '0 0.4rem' })}>
+                <Button circle={true} visual='grey' color='edit' type='button'>
+                  <Icon name='edit' fontSize='1.2rem' />
+                </Button>
+                <Button
+                  circle={true}
+                  visual='grey'
+                  color='danger'
+                  type='button'
+                  onClick={() => deleteStep(key)}
+                >
+                  <Icon name='clear' fontSize='1.2rem' />
+                </Button>
+              </div>
             </li>
           ))}
         </ul>
