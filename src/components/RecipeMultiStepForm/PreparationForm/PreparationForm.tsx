@@ -1,26 +1,82 @@
+import {
+  closestCorners,
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  UniqueIdentifier,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 import { useState } from 'react';
 import { css } from '../../../../styled-system/css';
-import { center, flex } from '../../../../styled-system/patterns';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 import { useToast } from '../../../contexts/ToastContext';
-import { getNewItemPosition } from '../../../helpers/helpers';
-import { generateStepKey } from '../../../helpers/step.helpers';
-import { PreparationStepWithId } from '../../../types/recipe';
+import {
+  getNewItemPosition,
+  sortItemsByPosition,
+} from '../../../helpers/helpers';
+import {
+  convertStepsObjectToArray,
+  generateStepKey,
+} from '../../../helpers/step.helpers';
+import {
+  PreparationStep,
+  PreparationSteps,
+  PreparationStepWithId,
+} from '../../../types/recipe';
 import { Block } from '../../Block';
 import { Button } from '../../Button';
-import { Icon } from '../../Icon';
 import { MyDialog } from '../../Modal/MyDialog';
 import { MyModal } from '../../Modal/MyModal';
 import { MyModalHeading } from '../../Modal/MyModalHeading';
 import { MyMotionModalOverlay } from '../../Modal/MyMotionModalOverlay';
 import { SecondaryText } from '../../SecondaryText';
 import { RecipeStepForm } from './RecipeStepForm';
+import { RecipeStepItem, RecipeStepItemProps } from './RecipeStepItem';
+
+interface RecipeStepItemOverlay
+  extends Omit<RecipeStepItemProps, 'recipeStep'> {
+  recipeStep?: PreparationStep;
+}
+
+const RecipeStepItemOverlay = ({
+  recipeStep,
+  id,
+  setStepToEdit,
+  deleteStep,
+}: RecipeStepItemOverlay) => {
+  if (!recipeStep) return null;
+
+  return (
+    <RecipeStepItem
+      id={id}
+      deleteStep={deleteStep}
+      recipeStep={recipeStep}
+      setStepToEdit={setStepToEdit}
+      style={{
+        transform: 'scale(1.05)',
+        boxShadow: '0 19px 38px rgba(0,0,0,0.20), 0 15px 12px rgba(0,0,0,0.15)',
+      }}
+      isOverlayDragging
+    />
+  );
+};
 
 export const PreparationForm = () => {
   const [stepContent, setStepContent] = useState('');
   const [stepToEdit, setStepToEdit] = useState<PreparationStepWithId | null>(
     null,
   );
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const { step, recipeFormData, setRecipeFormData, next, recipeId } =
     useRecipeMultiStepForm();
@@ -66,6 +122,45 @@ export const PreparationForm = () => {
       stepToUpdate.content = newContent;
     });
   };
+
+  const handleDragEnd = ({ active, over }: DragEndEvent) => {
+    if (!over || active.id === over.id) {
+      return;
+    }
+
+    const stepIds: UniqueIdentifier[] = recipeSteps.map(step => step.id);
+
+    const oldIndex = stepIds.indexOf(active.id);
+    const newIndex = stepIds.indexOf(over.id);
+    const updatedStepOrder = arrayMove(stepIds, oldIndex, newIndex);
+
+    const updatedSteps: PreparationSteps = {};
+    updatedStepOrder.forEach((id, index) => {
+      const recipeStep = recipeFormData.steps[id];
+      if (!recipeStep) {
+        return;
+      }
+      updatedSteps[id] = { ...recipeStep, position: index };
+    });
+
+    setRecipeFormData(draft => {
+      draft.steps = updatedSteps;
+    });
+
+    setActiveId(null);
+  };
+
+  const recipeSteps = sortItemsByPosition(
+    convertStepsObjectToArray(recipeFormData.steps),
+  );
+
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
 
   return (
     <>
@@ -116,56 +211,40 @@ export const PreparationForm = () => {
         <h3 className={css({ fontWeight: 'bold', fontSize: '1.1rem' })}>
           liste des étapes
         </h3>
-        {Object.keys(recipeFormData.steps).length > 0 ? (
-          <ul className={css({ mt: '1rem' })}>
-            {Object.keys(recipeFormData.steps).map(key => {
-              const recipeStep = recipeFormData.steps[key];
-              if (!recipeStep) return;
-
-              return (
-                <li
-                  key={key}
-                  className={flex({
-                    align: 'center',
-                    justify: 'space-between',
-                    listStyle: 'none',
-                    bg: 'white',
-                    p: '0.55rem 1.1rem 0.55rem 1.1rem',
-                    rounded: '0.8rem',
-                    shadow:
-                      '0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(34, 33, 81, 0.15)',
-                    w: '100%',
-                    '&:not(:last-child)': {
-                      mb: '1rem',
-                    },
-                  })}
-                >
-                  {recipeStep.content}
-
-                  <div className={center({ gap: '0 0.4rem' })}>
-                    <Button
-                      circle={true}
-                      visual='grey'
-                      color='edit'
-                      type='button'
-                      onClick={() => setStepToEdit({ ...recipeStep, id: key })}
-                    >
-                      <Icon name='edit' fontSize='1.2rem' />
-                    </Button>
-                    <Button
-                      circle={true}
-                      visual='grey'
-                      color='danger'
-                      type='button'
-                      onClick={() => deleteStep(key)}
-                    >
-                      <Icon name='clear' fontSize='1.2rem' />
-                    </Button>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+        {recipeSteps.length > 0 ? (
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCorners}
+            onDragEnd={handleDragEnd}
+            onDragStart={e => setActiveId(e.active.id)}
+          >
+            <SortableContext
+              items={recipeSteps}
+              strategy={verticalListSortingStrategy}
+            >
+              <ul className={css({ mt: '1rem' })}>
+                {recipeSteps.map(recipeStep => (
+                  <RecipeStepItem
+                    key={recipeStep.id}
+                    recipeStep={recipeStep}
+                    id={recipeStep.id}
+                    deleteStep={deleteStep}
+                    setStepToEdit={setStepToEdit}
+                  />
+                ))}
+              </ul>
+            </SortableContext>
+            <DragOverlay>
+              {activeId && (
+                <RecipeStepItemOverlay
+                  id={activeId as string}
+                  recipeStep={recipeFormData.steps[activeId]}
+                  deleteStep={deleteStep}
+                  setStepToEdit={setStepToEdit}
+                />
+              )}
+            </DragOverlay>
+          </DndContext>
         ) : (
           <SecondaryText>Aucune étape n'a été ajoutée</SecondaryText>
         )}
