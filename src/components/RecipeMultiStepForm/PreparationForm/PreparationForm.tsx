@@ -5,12 +5,21 @@ import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormCon
 import { useToast } from '../../../contexts/ToastContext';
 import { getNewItemPosition } from '../../../helpers/helpers';
 import { generateStepKey } from '../../../helpers/step.helpers';
+import { PreparationStepWithId } from '../../../types/recipe';
 import { Block } from '../../Block';
 import { Button } from '../../Button';
 import { Icon } from '../../Icon';
+import { MyDialog } from '../../Modal/MyDialog';
+import { MyModal } from '../../Modal/MyModal';
+import { MyModalHeading } from '../../Modal/MyModalHeading';
+import { MyMotionModalOverlay } from '../../Modal/MyMotionModalOverlay';
+import { RecipeStepForm } from './RecipeStepForm';
 
 export const PreparationForm = () => {
   const [stepContent, setStepContent] = useState('');
+  const [stepToEdit, setStepToEdit] = useState<PreparationStepWithId | null>(
+    null,
+  );
 
   const { step, recipeFormData, setRecipeFormData, next, recipeId } =
     useRecipeMultiStepForm();
@@ -46,6 +55,14 @@ export const PreparationForm = () => {
   const deleteStep = (id: string) => {
     setRecipeFormData(draft => {
       delete draft.steps[id];
+    });
+  };
+
+  const editStep = (id: string, newContent: string) => {
+    setRecipeFormData(draft => {
+      const stepToUpdate = draft.steps[id];
+      if (!stepToUpdate) return;
+      stepToUpdate.content = newContent;
     });
   };
 
@@ -94,44 +111,81 @@ export const PreparationForm = () => {
           liste des étapes
         </h3>
         <ul className={css({ mt: '1rem' })}>
-          {Object.keys(recipeFormData.steps).map(key => (
-            <li
-              key={key}
-              className={flex({
-                align: 'center',
-                justify: 'space-between',
-                listStyle: 'none',
-                bg: 'white',
-                p: '0.55rem 1.1rem 0.55rem 1.1rem',
-                rounded: '0.8rem',
-                shadow:
-                  '0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(34, 33, 81, 0.15)',
-                w: '100%',
-                '&:not(:last-child)': {
-                  mb: '1rem',
-                },
-              })}
-            >
-              {recipeFormData.steps[key]?.content}
+          {Object.keys(recipeFormData.steps).map(key => {
+            const recipeStep = recipeFormData.steps[key];
+            if (!recipeStep) return;
 
-              <div className={center({ gap: '0 0.4rem' })}>
-                <Button circle={true} visual='grey' color='edit' type='button'>
-                  <Icon name='edit' fontSize='1.2rem' />
-                </Button>
-                <Button
-                  circle={true}
-                  visual='grey'
-                  color='danger'
-                  type='button'
-                  onClick={() => deleteStep(key)}
-                >
-                  <Icon name='clear' fontSize='1.2rem' />
-                </Button>
-              </div>
-            </li>
-          ))}
+            return (
+              <li
+                key={key}
+                className={flex({
+                  align: 'center',
+                  justify: 'space-between',
+                  listStyle: 'none',
+                  bg: 'white',
+                  p: '0.55rem 1.1rem 0.55rem 1.1rem',
+                  rounded: '0.8rem',
+                  shadow:
+                    '0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(34, 33, 81, 0.15)',
+                  w: '100%',
+                  '&:not(:last-child)': {
+                    mb: '1rem',
+                  },
+                })}
+              >
+                {recipeStep.content}
+
+                <div className={center({ gap: '0 0.4rem' })}>
+                  <Button
+                    circle={true}
+                    visual='grey'
+                    color='edit'
+                    type='button'
+                    onClick={() => setStepToEdit({ ...recipeStep, id: key })}
+                  >
+                    <Icon name='edit' fontSize='1.2rem' />
+                  </Button>
+                  <Button
+                    circle={true}
+                    visual='grey'
+                    color='danger'
+                    type='button'
+                    onClick={() => deleteStep(key)}
+                  >
+                    <Icon name='clear' fontSize='1.2rem' />
+                  </Button>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </Block>
+      <MyMotionModalOverlay
+        isOpen={!!stepToEdit}
+        onOpenChange={isOpen => {
+          if (!isOpen) setStepToEdit(null);
+        }}
+      >
+        <MyModal>
+          <MyDialog>
+            {({ close }) => (
+              <>
+                <MyModalHeading>Modifier l'étape</MyModalHeading>
+                {stepToEdit && (
+                  <RecipeStepForm
+                    step={stepToEdit}
+                    editStep={editStep}
+                    closeModal={() => {
+                      setStepToEdit(null);
+                      close();
+                    }}
+                  />
+                )}
+              </>
+            )}
+          </MyDialog>
+        </MyModal>
+      </MyMotionModalOverlay>
     </>
   );
 };
