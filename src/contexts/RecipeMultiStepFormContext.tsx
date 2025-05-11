@@ -51,6 +51,7 @@ export const RecipeMultiStepFormProvider = ({
     groups: null,
     ingredients: {},
     content: '',
+    steps: {},
     createdAt: false,
   };
 

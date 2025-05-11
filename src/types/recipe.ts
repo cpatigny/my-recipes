@@ -44,6 +44,19 @@ export interface GroupWithIngredients {
   ingredients: RecipeIngredientWithId[];
 }
 
+export interface PreparationStep {
+  position: number;
+  content: string;
+}
+
+export interface PreparationSteps {
+  [key: string]: PreparationStep;
+}
+
+export interface PreparationStepWithId extends PreparationStep {
+  id: string;
+}
+
 export interface Recipe {
   title: string;
   slug: string;
@@ -55,6 +68,7 @@ export interface Recipe {
   ingredients: RecipeIngredients;
   groups?: Groups;
   content: string;
+  steps: PreparationSteps;
   createdAt: number;
 }
 

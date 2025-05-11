@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import remarkGfm from 'remark-gfm';
 import { css, cx } from '../../../styled-system/css';
 import { flex, vstack } from '../../../styled-system/patterns';
 import { useCategories } from '../../contexts/CategoriesContext';
@@ -13,12 +12,12 @@ import { ROUTES } from '../../routes';
 import { ShoppingListItem } from '../../types/shoppingList';
 import { formatDate } from '../../utils/utils';
 
-import ReactMarkdown from 'react-markdown';
 import { Button } from '../../components/Button';
 import { Container } from '../../components/Container';
 import { GoBack } from '../../components/GoBack';
 import { Icon } from '../../components/Icon';
 import { Loading } from '../../components/Loading';
+import { RecipeSteps } from '../../components/RecipeSteps';
 import { Category } from '../home/Category';
 import { IngredientsSection } from './IngredientsSection';
 import { RecipeActions } from './RecipeActions';
@@ -187,7 +186,7 @@ export const Recipe = () => {
         setNumberOfServings={setNumberOfServings}
       />
 
-      <section>
+      <section className={css({ pb: '3rem' })}>
         <h2
           className={css({
             fontSize: 'clamp(2rem, 1.6295rem + 1.8526vw, 2.44rem)',
@@ -195,25 +194,7 @@ export const Recipe = () => {
         >
           Préparation
         </h2>
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          components={{ h1: 'h3', h2: 'h4', h3: 'h5' }}
-          className={css({
-            pb: '2rem',
-            '& h3': {
-              fontSize: 'clamp(1.36rem, 1.1916rem + 0.8421vw, 1.56rem)',
-              fontWeight: '700',
-              m: '2.2rem 0 0.625rem',
-            },
-            '& p': {
-              fontSize: '1.2rem',
-              lineHeight: '150%',
-              mt: '0.625rem',
-            },
-          })}
-        >
-          {recipe.content}
-        </ReactMarkdown>
+        <RecipeSteps steps={recipe.steps} />
       </section>
     </Container>
   );

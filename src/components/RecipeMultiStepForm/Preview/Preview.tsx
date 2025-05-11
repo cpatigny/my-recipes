@@ -1,17 +1,16 @@
-import { GroupWithIngredients } from '../../../types/recipe';
-import remarkGfm from 'remark-gfm';
 import { useCategories } from '../../../contexts/CategoriesContext';
 import { useRecipeMultiStepForm } from '../../../contexts/RecipeMultiStepFormContext';
 import { getCategoryName } from '../../../helpers/category.helpers';
 import { getGroupsWithTheirIngredients } from '../../../helpers/group.helpers';
 import { getIngredientsWithoutGroup } from '../../../helpers/ingredient.helpers';
 import { getCookTimeText } from '../../../helpers/recipe.helpers';
+import { GroupWithIngredients } from '../../../types/recipe';
 
-import ReactMarkdown from 'react-markdown';
-import { PreviewIngredientList } from './PreviewIngredientList';
-import { Block } from '../../Block';
-import { SecondaryText } from '../../SecondaryText';
 import { css } from '../../../../styled-system/css';
+import { Block } from '../../Block';
+import { RecipeSteps } from '../../RecipeSteps';
+import { SecondaryText } from '../../SecondaryText';
+import { PreviewIngredientList } from './PreviewIngredientList';
 
 const h3Size = 'clamp(1.6rem, 0.97rem + 2.24vw, 1.95rem)';
 
@@ -19,7 +18,8 @@ export const Preview = () => {
   const { recipeFormData, previewImageSrc } = useRecipeMultiStepForm();
   const { categories } = useCategories();
 
-  const { ingredients, groups, categoryId, cookTimeInMins } = recipeFormData;
+  const { ingredients, groups, categoryId, cookTimeInMins, steps } =
+    recipeFormData;
   const noIngredients = Object.keys(ingredients).length === 0;
 
   const ingredientsWithoutGroup = getIngredientsWithoutGroup(ingredients);
@@ -75,24 +75,8 @@ export const Preview = () => {
           ))}
 
         <h3 className={css({ fontSize: h3Size, my: '1.9rem' })}>Préparation</h3>
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          components={{ h1: 'h3', h2: 'h3' }}
-          className={css({
-            '& h3': {
-              fontSize: 'clamp(1.36rem, 1.1916rem + 0.8421vw, 1.56rem)',
-              fontWeight: '700',
-              m: '2.2rem 0 0.625rem',
-            },
-            '& p': {
-              fontSize: '1.2rem',
-              lineHeight: '150%',
-              mt: '0.625rem',
-            },
-          })}
-        >
-          {recipeFormData.content}
-        </ReactMarkdown>
+
+        <RecipeSteps steps={steps} />
       </Block>
     </div>
   );

@@ -3,6 +3,7 @@ import {
   Group,
   GroupWithId,
   Groups,
+  PreparationSteps,
   Recipe,
   RecipeIngredient,
   RecipeIngredientWithId,
@@ -124,6 +125,14 @@ export const getOneMockRecipe = (
     });
   }
 
+  const steps: PreparationSteps = {};
+  for (let i = 0; i < faker.number.int({ min: 4, max: 10 }); i++) {
+    steps[`step${i}`] = {
+      position: i,
+      content: faker.lorem.paragraphs({ min: 3, max: 8 }),
+    };
+  }
+
   return {
     title: faker.word.words(4),
     slug: faker.lorem.slug(),
@@ -134,6 +143,7 @@ export const getOneMockRecipe = (
     categoryId: faker.helpers.arrayElement(ids.categoriesIds),
     nbServings: faker.number.int({ min: 1, max: 12 }).toString(),
     servingsUnit: faker.word.noun(),
+    steps,
     groups,
     ingredients,
   };
