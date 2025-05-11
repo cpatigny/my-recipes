@@ -86,6 +86,11 @@ export const PreparationForm = () => {
               name='step'
               value={stepContent}
               onChange={e => setStepContent(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  addStep(e);
+                }
+              }}
               className={css({
                 bg: 'white',
                 w: '100%',
