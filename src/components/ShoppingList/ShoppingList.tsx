@@ -47,8 +47,8 @@ export const ShoppingList = ({
         md: {
           top: 'auto',
           left: 'auto',
-          bottom: 'shoppingListPositionValue',
-          right: 'shoppingListPositionValue',
+          bottom: 'fixedButton',
+          right: 'fixedButton',
           shadow: '2xl',
           rounded: 'xl',
           overflow: 'hidden',
@@ -61,7 +61,7 @@ export const ShoppingList = ({
       style={
         {
           // 100% - bottom value * 2 to also have a space at the top the same size of the bottom one
-          '--max-size': `calc(100% - ${token('spacing.shoppingListPositionValue')} * 2)`,
+          '--max-size': `calc(100% - ${token('spacing.fixedButton')} * 2)`,
         } as React.CSSProperties
       }
     >

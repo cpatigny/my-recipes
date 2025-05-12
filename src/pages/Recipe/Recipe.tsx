@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { css, cx } from '../../../styled-system/css';
-import { flex, vstack } from '../../../styled-system/patterns';
+import { center, flex, vstack } from '../../../styled-system/patterns';
 import { useCategories } from '../../contexts/CategoriesContext';
 import { useShoppingList } from '../../contexts/ShoppingListContext';
 import { getCookTimeText } from '../../helpers/recipe.helpers';
@@ -12,11 +12,14 @@ import { ROUTES } from '../../routes';
 import { ShoppingListItem } from '../../types/shoppingList';
 import { formatDate } from '../../utils/utils';
 
+import { motion } from 'framer-motion';
+import { token } from '../../../styled-system/tokens';
 import { Button } from '../../components/Button';
 import { Container } from '../../components/Container';
 import { GoBack } from '../../components/GoBack';
 import { Icon } from '../../components/Icon';
 import { Loading } from '../../components/Loading';
+import { Overlay } from '../../components/Overlay';
 import { RecipeSteps } from '../../components/RecipeSteps';
 import { Category } from '../home/Category';
 import { IngredientsSection } from './IngredientsSection';
@@ -25,6 +28,7 @@ import { RecipeImage } from './RecipeImage';
 
 export const Recipe = () => {
   const [numberOfServings, setNumberOfServings] = useState(0);
+  const [showIngredients, setShowIngredients] = useState(false);
 
   const { categories } = useCategories();
   const { restoreScroll } = useScrollRestoration();
@@ -184,6 +188,7 @@ export const Recipe = () => {
         recipe={recipe}
         numberOfServings={numberOfServings}
         setNumberOfServings={setNumberOfServings}
+        className={css({ mt: '2.2rem' })}
       />
 
       <section className={css({ pb: '3rem' })}>
@@ -196,6 +201,113 @@ export const Recipe = () => {
         </h2>
         <RecipeSteps steps={recipe.steps} />
       </section>
+      <Overlay
+        isShow={showIngredients}
+        close={() => setShowIngredients(false)}
+        className={css({ bg: 'rgba(0, 0, 0, 0.2)' })}
+      >
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0, opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className={css({
+            pos: 'fixed',
+            top: '1rem',
+            bottom: '1rem',
+            left: '1rem',
+            right: '1rem',
+            zIndex: '9999',
+            rounded: 'xl',
+            transformOrigin: 'bottom right',
+            md: {
+              top: 'auto',
+              left: 'auto',
+              bottom: 'fixedButton',
+              right: 'fixedButton',
+              shadow: '2xl',
+              overflow: 'hidden',
+              h: '45rem',
+              w: '35rem',
+              maxH: 'var(--max-size)',
+              maxW: 'var(--max-size)',
+            },
+          })}
+          style={
+            {
+              // 100% - bottom value * 2 to also have a space at the top the same size of the bottom one
+              '--max-size': `calc(100% - ${token('spacing.fixedButton')} * 2)`,
+            } as React.CSSProperties
+          }
+        >
+          <div
+            className={css({
+              pos: 'relative',
+              bg: 'primary',
+              p: '0.3rem 1rem',
+              roundedTopLeft: 'xl',
+              roundedTopRight: 'xl',
+            })}
+          >
+            <h2
+              className={css({
+                fontSize: '1.2rem',
+                fontWeight: '600',
+                color: 'white',
+                textAlign: 'center',
+              })}
+            >
+              Liste des ingrédients
+            </h2>
+            <button
+              onClick={() => setShowIngredients(false)}
+              className={center({
+                pos: 'absolute',
+                top: '50%',
+                right: '0.4rem',
+                transform: 'translateY(-50%)',
+                padding: '0.3rem',
+                color: 'white',
+                transitionDuration: '200ms',
+                _hover: { color: 'rgba(255, 255, 255, 0.6)' },
+              })}
+            >
+              <Icon name='close' fontSize='1.4rem' />
+            </button>
+          </div>
+          <div
+            className={css({
+              bg: 'bg',
+              h: '100%',
+              overflow: 'auto',
+              roundedBottomLeft: 'xl',
+              roundedBottomRight: 'xl',
+            })}
+          >
+            <IngredientsSection
+              recipe={recipe}
+              numberOfServings={numberOfServings}
+              setNumberOfServings={setNumberOfServings}
+              className={css({
+                p: '1rem 1.56rem 2rem',
+              })}
+              isOverlay
+            />
+          </div>
+        </motion.div>
+      </Overlay>
+      <Button
+        className={css({
+          pos: 'fixed',
+          bottom: 'fixedButton',
+          right: 'fixedButton',
+          p: '0.8rem',
+          zIndex: '999',
+        })}
+        onClick={() => setShowIngredients(true)}
+      >
+        <Icon name='format_list_bulleted' />
+      </Button>
     </Container>
   );
 };

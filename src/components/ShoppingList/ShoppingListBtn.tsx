@@ -16,8 +16,8 @@ export const ShoppingListBtn = ({
       circle={true}
       className={css({
         pos: 'fixed',
-        bottom: 'shoppingListPositionValue',
-        right: 'shoppingListPositionValue',
+        bottom: 'fixedButton',
+        right: 'fixedButton',
         p: '0.8rem',
         zIndex: '999',
       })}

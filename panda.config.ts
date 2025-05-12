@@ -34,7 +34,7 @@ export default defineConfig({
           },
         },
         fonts: {
-          default: { value: ['Nunito', 'sans-serif'] }
+          default: { value: ['Nunito', 'sans-serif'] },
         },
         radii: {
           '2xl': { value: '1.125rem' },
@@ -75,7 +75,7 @@ export default defineConfig({
         pageTitle: { value: 'clamp(1.9rem, 1.4453rem + 2.2737vw, 2.44rem)' },
       },
       spacing: {
-        shoppingListPositionValue: { value: { base: '1rem', md: '1.5rem' } },
+        fixedButton: { value: { base: '1rem', md: '1.5rem' } },
       },
     },
   },
@@ -111,7 +111,7 @@ export default defineConfig({
     label: {
       display: 'block',
       fontSize: 'text',
-    }
+    },
   },
 
   // The output directory for your css system
