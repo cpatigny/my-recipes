@@ -18,7 +18,7 @@ import { useScrollRestoration } from '../../hooks/useScrollRestoration';
 import { button } from '../../recipes/button';
 import { ROUTES } from '../../routes';
 import { CategoryWithId } from '../../types/category';
-import { PreparationSteps, Recipes } from '../../types/recipe';
+import { Recipes } from '../../types/recipe';
 
 import { Link, useParams } from 'react-router-dom';
 import { Wrap } from '../../../styled-system/jsx';
@@ -32,14 +32,11 @@ import { Categories } from './Categories';
 import { RecipeCard } from './RecipeCard';
 import { SearchBar } from './SearchBar';
 
-import { getDatabase, ref, update } from 'firebase/database';
 import logo from '../../assets/img/logo.svg';
 import emptyIllustration from '../../assets/img/undraw-empty.svg';
 import noResultFoundImg from '../../assets/img/undraw-lost-online.svg';
-import { Button } from '../../components/Button';
 import { Icon } from '../../components/Icon';
 import { Overlay } from '../../components/Overlay';
-import { generateStepKey } from '../../helpers/step.helpers';
 import { RecipeOptionButton } from './RecipeOptionButton';
 
 const nothingToShowStyles = flex({
@@ -202,41 +199,6 @@ export const Home = () => {
     localStorage.setItem(ZOOM_OUT_KEY, zoomOut ? '0' : '1');
   };
 
-  const handleMigration = () => {
-    if (!recipes) return;
-
-    const newRecipes: Recipes = {};
-
-    Object.keys(recipes).forEach(key => {
-      const recipe = recipes[key];
-      if (!recipe) return;
-
-      const stepsOldFormat = recipe.content;
-      const stepsNewFormat: PreparationSteps = {};
-
-      stepsOldFormat
-        .split(/# ÉTAPE \d*/)
-        .map(stepContent => stepContent.replace(/\n*/g, ''))
-        .filter(stepContent => stepContent.length !== 0)
-        .forEach((stepContent, index) => {
-          const newStepKey = generateStepKey(key);
-          stepsNewFormat[newStepKey] = {
-            content: stepContent,
-            position: index,
-          };
-        });
-
-      newRecipes[key] = {
-        ...recipe,
-        steps: stepsNewFormat,
-      };
-    });
-
-    const db = getDatabase();
-    const recipesRef = ref(db, `recipes/`);
-    return update(recipesRef, newRecipes);
-  };
-
   return (
     <>
       {user && <Menu />}
@@ -293,22 +255,17 @@ export const Home = () => {
             {getTitle()}
           </h2>
           {user && (
-            <>
-              <Button ml='auto' onClick={handleMigration}>
-                Migration
-              </Button>
-              <Link
-                className={button({
-                  visual: 'outline',
-                  color: 'primary',
-                  size: 'sm',
-                })}
-                to={ROUTES.ADD_RECIPE}
-                state={{ hasClickedLink: true }}
-              >
-                + Ajouter
-              </Link>
-            </>
+            <Link
+              className={button({
+                visual: 'outline',
+                color: 'primary',
+                size: 'sm',
+              })}
+              to={ROUTES.ADD_RECIPE}
+              state={{ hasClickedLink: true }}
+            >
+              + Ajouter
+            </Link>
           )}
         </Wrap>
 

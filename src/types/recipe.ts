@@ -67,7 +67,6 @@ export interface Recipe {
   servingsUnit: string;
   ingredients: RecipeIngredients;
   groups?: Groups;
-  content: string;
   steps: PreparationSteps;
   createdAt: number;
 }

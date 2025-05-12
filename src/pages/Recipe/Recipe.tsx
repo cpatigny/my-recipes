@@ -194,7 +194,7 @@ export const Recipe = () => {
         >
           Préparation
         </h2>
-        {recipe.steps && <RecipeSteps steps={recipe.steps} />}
+        <RecipeSteps steps={recipe.steps} />
       </section>
     </Container>
   );

@@ -136,7 +136,6 @@ export const getOneMockRecipe = (
   return {
     title: faker.word.words(4),
     slug: faker.lorem.slug(),
-    content: faker.lorem.paragraphs({ min: 3, max: 8 }),
     cookTimeInMins: faker.number.int(280),
     imageName: false,
     createdAt: new Date(faker.date.past()).getTime(),
